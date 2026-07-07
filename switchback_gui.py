@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Permit Availability Finder — CustomTkinter (modern, dark) edition
+Switchback - CustomTkinter (modern, dark) edition
 =================================================================
 A modern windowed app for pulling recreation.gov backcountry/wilderness
-permit availability. Double-click "Run Permit Finder GUI.bat" to launch.
+permit availability. Double-click "Switchback.bat" to launch.
 
 Needs Python 3.8+ with tkinter (in the python.org Windows installer by
 default). Auto-installs `customtkinter` and `openpyxl` on first run; if that
@@ -58,7 +58,7 @@ def _ensure(pkg, import_name=None):
 
 
 # CustomTkinter must exist before the classes below are defined (they subclass
-# its widgets), so resolve it now — first run may pause briefly to install it.
+# its widgets), so resolve it now - first run may pause briefly to install it.
 ctk = _ensure("customtkinter")
 if ctk is None:
     _r = tk.Tk(); _r.withdraw()
@@ -367,7 +367,7 @@ PCT_DISPLAY_INDEX = 7  # 0-based position of pct in a row tuple (see headers)
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Recreation.gov Permit Availability Finder")
+        self.title("Switchback")
         self.geometry("940x720")
         self.minsize(860, 640)
 
@@ -514,7 +514,7 @@ class App(ctk.CTk):
                                          text_color="#E06A6A")
             self.permit_combo.configure(values=["(no results)"]); return
         self.search_results = results
-        labels = [f"{r['name']}  —  {r['park']}" if r["park"] else r["name"]
+        labels = [f"{r['name']}  -  {r['park']}" if r["park"] else r["name"]
                   for r in results]
         self.permit_combo.configure(values=labels)
         self.permit_combo.set(labels[0])
@@ -526,7 +526,7 @@ class App(ctk.CTk):
 
     def on_permit_selected(self, choice):
         for i, r in enumerate(self.search_results):
-            label = f"{r['name']}  —  {r['park']}" if r["park"] else r["name"]
+            label = f"{r['name']}  -  {r['park']}" if r["park"] else r["name"]
             if label == choice:
                 self.load_permit(r["permit_id"]); return
 

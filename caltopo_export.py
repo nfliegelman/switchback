@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""
+caltopo_export.py: Switchback's CalTopo feed, v0 of the map layer.
+
+Pulls a recreation.gov permit's camps/zones and trailhead entrances and writes
+a GeoJSON file you can import straight into CalTopo (Import > pick the file).
+Colors: green trailside camps, orange cross-country zones, red alpine,
+gray winter, blue trailheads. Descriptions carry type, district, and parking.
+
+Usage:
+    python caltopo_export.py            (defaults to Mount Rainier, 4675317)
+    python caltopo_export.py 4675321    (any other permit id)
+"""
+import json
+import sys
+import urllib.request
+
+UA = {"User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                     "AppleWebKit/537.36 (KHTML, like Gecko) "
+                     "Chrome/124.0.0.0 Safari/537.36"),
+      "Accept": "application/json"}
+
+TYPE_COLORS = {
+    "Trailside Camps": "#2E8B57",
+    "Cross-Country Zones": "#E67E22",
+    "Alpine Camps and Zones": "#C0392B",
+    "Winter Camps and Zones": "#7F8C8D",
+}
+TRAILHEAD_COLOR = "#1F6AA5"
+
+
+def _f(val):
+    try:
+        v = float(val)
+        return v if v != 0 else None
+    except (TypeError, ValueError):
+        return None
+
+
+def main():
+    permit_id = sys.argv[1] if len(sys.argv) > 1 else "4675317"
+    url = f"https://www.recreation.gov/api/permitcontent/{permit_id}"
+    req = urllib.request.Request(url, headers=UA)
+    payload = json.load(urllib.request.urlopen(req, timeout=30)).get("payload", {}) or {}
+
+    features = []
+    skipped = 0
+
+    for d in (payload.get("divisions") or {}).values():
+        lat, lon = _f(d.get("latitude")), _f(d.get("longitude"))
+        if lat is None or lon is None:
+            skipped += 1
+            continue
+        dtype = d.get("type") or "Camp"
+        name = d.get("name") or "(unnamed)"
+        desc = f"{dtype} | {d.get('district') or 'no district'}"
+        if d.get("is_active") is False:
+            desc += " | INACTIVE"
+        features.append({
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [lon, lat]},
+            "properties": {
+                "title": name,
+                "description": desc,
+                "marker-color": TYPE_COLORS.get(dtype, "#2E8B57"),
+                "marker-symbol": "point",
+            },
+        })
+
+    for e in (payload.get("entrances") or {}).values() if isinstance(payload.get("entrances"), dict) \
+            else (payload.get("entrances") or []):
+        lat, lon = _f(e.get("latitude")), _f(e.get("longitude"))
+        if lat is None or lon is None:
+            skipped += 1
+            continue
+        parking = "parking: yes" if e.get("has_parking") else "parking: unknown/none"
+        features.append({
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [lon, lat]},
+            "properties": {
+                "title": e.get("name") or "(trailhead)",
+                "description": f"Trailhead | {parking}",
+                "marker-color": TRAILHEAD_COLOR,
+                "marker-symbol": "point",
+            },
+        })
+
+    safe = "".join(c if c.isalnum() else "_" for c in (payload.get("name") or permit_id))[:40]
+    out = f"caltopo_{safe}.geojson"
+    with open(out, "w") as fh:
+        json.dump({"type": "FeatureCollection", "features": features}, fh)
+    print(f"{out}: {len(features)} features written, {skipped} skipped (no coords)")
+
+
+if __name__ == "__main__":
+    main()

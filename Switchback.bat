@@ -1,7 +1,7 @@
 @echo off
 REM ====================================================================
-REM  Double-click THIS to open the Permit Availability Finder window.
-REM  It launches permit_finder_gui.py from the same folder.
+REM  Double-click THIS to open Switchback.
+REM  It launches switchback_gui.py from the same folder.
 REM ====================================================================
 
 python --version >nul 2>&1
@@ -16,4 +16,4 @@ if errorlevel 1 (
 )
 
 REM pythonw runs the GUI without a black console window behind it.
-start "" pythonw "%~dp0permit_finder_gui.py"
+start "" pythonw "%~dp0switchback_gui.py"

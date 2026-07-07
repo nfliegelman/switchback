@@ -1,0 +1,31 @@
+{
+  "comment": "Belly River area, Glacier NP. Edge miles from cited sources; gain/loss per direction, values marked est are topo estimates pending DEM pass. gain_ab/loss_ab apply traveling a to b; swap for b to a.",
+  "trailheads": ["CHIEF_TH", "SWIFT_TH", "POIA_TH"],
+  "camps": {
+    "GAB": {"name": "Gable Creek", "lake": false, "draft_prior": 3.2},
+    "ELF": {"name": "Elizabeth Lake Foot", "lake": true, "draft_prior": 4.6},
+    "ELH": {"name": "Elizabeth Lake Head", "lake": true, "draft_prior": 4.4},
+    "HEL": {"name": "Helen Lake", "lake": true, "draft_prior": 4.3},
+    "COS": {"name": "Cosley Lake", "lake": true, "draft_prior": 4.2},
+    "GLF": {"name": "Glenns Lake Foot", "lake": true, "draft_prior": 3.8},
+    "GLH": {"name": "Glenns Lake Head", "lake": true, "draft_prior": 4.0},
+    "MOJ": {"name": "Mokowanis Junction", "lake": false, "draft_prior": 3.6},
+    "MOL": {"name": "Mokowanis Lake", "lake": true, "draft_prior": 4.2},
+    "POI": {"name": "Poia Lake", "lake": true, "draft_prior": 3.4}
+  },
+  "edges": [
+    {"a": "CHIEF_TH", "b": "JCT", "miles": 6.1, "gain_ab": 150, "loss_ab": 900, "src": "PNTA planner (WBO 6.1); descent est from Glacier Guides day-1 description"},
+    {"a": "JCT", "b": "GAB", "miles": 0.1, "gain_ab": 0, "loss_ab": 0, "src": "PNTA planner (GAB at 6.0)"},
+    {"a": "JCT", "b": "ELF", "miles": 3.4, "gain_ab": 250, "loss_ab": 100, "src": "PNTA planner off-trail column; gain est"},
+    {"a": "JCT", "b": "COS", "miles": 2.6, "gain_ab": 150, "loss_ab": 150, "src": "PNTA planner (COS WBO 8.7 minus 6.1); gain est"},
+    {"a": "COS", "b": "GLF", "miles": 1.5, "gain_ab": 100, "loss_ab": 50, "src": "PNTA planner; gain est"},
+    {"a": "GLF", "b": "GLH", "miles": 2.5, "gain_ab": 150, "loss_ab": 50, "src": "PNTA planner; gain est"},
+    {"a": "GLH", "b": "MOJ", "miles": 0.7, "gain_ab": 50, "loss_ab": 0, "src": "PNTA planner; gain est"},
+    {"a": "MOJ", "b": "MOL", "miles": 1.1, "gain_ab": 150, "loss_ab": 0, "src": "PNTA planner (0.3 corridor + 0.8 spur); gain est"},
+    {"a": "ELF", "b": "ELH", "miles": 1.6, "gain_ab": 100, "loss_ab": 0, "src": "est, lake-length; verify against park table"},
+    {"a": "ELH", "b": "HEL", "miles": 1.5, "gain_ab": 250, "loss_ab": 0, "src": "est; verify against park table"},
+    {"a": "ELF", "b": "SWIFT_TH", "miles": 9.8, "gain_ab": 2500, "loss_ab": 2400, "src": "enjoyyourparks Red Gap page (9.8 mi, +2500/-2400 via Ptarmigan Tunnel); Glacier Guides (TH to tunnel 5.3, +2300)"},
+    {"a": "ELF", "b": "POI", "miles": 10.3, "gain_ab": 2500, "loss_ab": 1754, "src": "enjoyyourparks (Redgap to ELF 4.6 mi, 2500 ft) + roamingbearmedia (pass to Poia 5.7 mi, 1754 ft)"},
+    {"a": "POI", "b": "POIA_TH", "miles": 6.4, "gain_ab": 700, "loss_ab": 1000, "src": "repicjourney (6.4 mi); Swiftcurrent Ridge bump est"}
+  ]
+}
