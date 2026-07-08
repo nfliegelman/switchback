@@ -2,6 +2,14 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v1.5.0 (2026-07-08)
+
+M4: solver core. New switchback/solver.py: availability-gated DP over nights and camps with pass-through day legs, party and stay-limit handling, basecamp self-loops, endings counts, and the trip-type classifier (loop, out_and_back, lollipop, mixed) via mirrored-hop stem stripping. New trips CLI with profile defaults and a codes filter. Parity proven synthetically (tests/test_solver.py) and live against real inventory.
+
+## v1.4.0 (2026-07-08)
+
+M3: route graphs. New switchback/graph.py resolving parks/edges/<slug>_edges.json with fuzzy name resolution (compass abbreviations, fallback nodes instead of silent edge drops), direction-aware gains, and endpoint-delta est gains where unsourced. Rainier: 33 edges across the Wonderland corridor, Spray Park, and Northern Loop, cross-checked to the tenth against three sources. Glacier: Belly River corridor folded in with sourced climbs. Recorded limitation: est gains understate passes about 40 percent until the DEM pass.
+
 ## v1.3.0 (2026-07-08)
 
 M2: coordinates and feature tags. New switchback/features.py and a features CLI command: OSM name-join coordinate fill with foot/head-aware normalization, subset matching, and a manual queue; USGS NHD hydrography joins (lake within 400 m with name and acreage, creek within 200 m) replacing the OSM water plan after Overpass congestion, which also lands the roadmap-specified USGS source; batched GLO-90 elevation per node; straight-line trailhead distance placeholder. Extraction filters extended (chalets, shelters, ranger stations, cabins, lookouts, winter lots, CDT duplicates, undesignated zones), bringing Glacier to its true 66 designated camps. Results: Rainier 186/186 located with 50 lake camps; Glacier 62/66 with 41 lake camps and a 4-camp manual queue. Engine gained an OSM disk cache with time-boxed prefetch for sandbox wall-clock limits.

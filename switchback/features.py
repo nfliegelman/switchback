@@ -32,7 +32,7 @@ LAKE_M, CREEK_M = 400, 200
 MANUAL_PATH = os.path.join("parks", "manual_coords.json")
 
 _STOP = {"campground", "camp", "camps", "backcountry", "trailhead", "trail",
-         "site", "sites", "the", "area", "no", "campfires"}
+         "site", "sites", "the", "area", "campfires"}
 # foot, head, lower, upper stay: they disambiguate paired camps
 
 
@@ -316,7 +316,9 @@ def norm(name):
     s = s.replace("trail head", "trailhead")
     s = re.sub(r"\bsaint\b", "st", s)
     s = re.sub(r"[^a-z0-9 ]", " ", s)
-    toks = [t for t in s.split() if t not in _STOP]
+    _DIR = {"s": "south", "n": "north", "e": "east", "w": "west",
+            "so": "south", "no": "north", "mt": "mount"}
+    toks = [_DIR.get(t, t) for t in s.split() if t not in _STOP]
     return " ".join(toks)
 
 

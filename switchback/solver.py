@@ -1,0 +1,163 @@
+"""
+switchback.solver: M4 itinerary engine.
+
+Given a park graph, live (or injected) availability, and effort limits,
+enumerates every bookable camp sequence: start at an entrance, sleep
+NIGHTS nights at open camps with each day's shortest trail leg within
+max miles and gain (pass-throughs allowed), return to the same entrance.
+
+Trip type is classified on the closed walk per ROADMAP M4: strip mirrored
+hop pairs from the ends (the stem); an empty remainder is out_and_back,
+a unique-edge remainder is a loop (no stem) or lollipop (stem), anything
+else is mixed. Backward feasibility guarantees every frontier option has
+at least one valid ending; endings() counts completions for M6 cards.
+"""
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import date, timedelta
+from functools import lru_cache
+
+from .api import fetch_division_month
+
+
+# ------------------------- availability -----------------------------------
+def fetch_availability(permit_id, division_ids, start, end, workers=6,
+                       progress=None):
+    """{division_id: {iso_date: remaining}} with hidden dates as 0."""
+    yms = sorted({(d.year, d.month)
+                  for d in (start + timedelta(days=i)
+                            for i in range((end - start).days + 1))})
+    jobs = [(div, y, m) for div in division_ids for (y, m) in yms]
+    out = {div: {} for div in division_ids}
+    done = 0
+
+    def work(j):
+        div, y, m = j
+        per, err = fetch_division_month(permit_id, div, y, m)
+        return div, per or {}
+
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for fut in as_completed([ex.submit(work, j) for j in jobs]):
+            div, per = fut.result()
+            done += 1
+            for ds, cell in per.items():
+                rem = cell.get("remaining") or 0
+                out[div][ds[:10]] = 0 if cell.get("hidden") else max(rem, 0)
+            if progress:
+                progress(done / len(jobs))
+    return out
+
+
+# ------------------------------ solver -------------------------------------
+class Solver:
+    def __init__(self, graph, availability, party=2, nights=3,
+                 max_mi=13.0, max_gain=4000, basecamp_ok=True,
+                 max_stay=None):
+        self.g = graph
+        self.av = availability
+        self.party, self.nights = party, nights
+        self.max_mi, self.max_gain = max_mi, max_gain
+        self.basecamp_ok, self.max_stay = basecamp_ok, max_stay
+        self.camps = [c for c in graph.camps() if c in availability]
+        self._leg = lru_cache(maxsize=None)(self._leg_raw)
+
+    def _leg_raw(self, a, b):
+        got = self.g.leg(a, b)
+        return got if got else (None, None, None)
+
+    def day_ok(self, a, b):
+        if a == b:
+            return True
+        mi, gain, _ = self._leg(a, b)
+        return mi is not None and mi <= self.max_mi and gain <= self.max_gain
+
+    def open_night(self, camp, d):
+        return self.av.get(camp, {}).get(d.isoformat(), 0) >= self.party
+
+    # -------------------------------------------------------------------
+    def itineraries(self, entrance, start):
+        """All feasible camp sequences of length nights from/to entrance."""
+        out = []
+
+        def rec(pos, night, seq, streak):
+            if night == self.nights:
+                if self.day_ok(pos, entrance):
+                    out.append(tuple(seq))
+                return
+            d = start + timedelta(days=night)
+            for c in self.camps:
+                if c == pos:
+                    if not self.basecamp_ok:
+                        continue
+                    if self.max_stay and streak + 1 > self.max_stay:
+                        continue
+                elif not self.day_ok(pos, c):
+                    continue
+                if not self.open_night(c, d):
+                    continue
+                rec(c, night + 1, seq + [c],
+                    streak + 1 if c == pos else 1)
+
+        rec(entrance, 0, [], 0)
+        return out
+
+    def endings(self, entrance, start, night, pos, streak=1):
+        """Feasible completions from sleeping at pos on night index night-1."""
+        if night == self.nights:
+            return 1 if self.day_ok(pos, entrance) else 0
+        d = start + timedelta(days=night)
+        total = 0
+        for c in self.camps:
+            if c == pos:
+                if not self.basecamp_ok or (self.max_stay and streak + 1 > self.max_stay):
+                    continue
+            elif not self.day_ok(pos, c):
+                continue
+            if self.open_night(c, d):
+                total += self.endings(entrance, start, night + 1, c,
+                                      streak + 1 if c == pos else 1)
+        return total
+
+    # -------------------------------------------------------------------
+    def classify(self, entrance, seq):
+        stops = [entrance] + [c for c in seq] + [entrance]
+        hops = []
+        for a, b in zip(stops, stops[1:]):
+            if a == b:
+                continue
+            _, _, path = self._leg(a, b)
+            hops.extend(self.g.leg_edges(path))
+        if not hops:
+            return "basecamp"
+        stem = 0
+        h = list(hops)
+        while len(h) >= 2 and h[0] == h[-1]:
+            h = h[1:-1]
+            stem += 1
+        if not h:
+            return "out_and_back"
+        if len(set(h)) == len(h):
+            return "loop" if stem == 0 else "lollipop"
+        return "mixed"
+
+    def day_stats(self, entrance, seq):
+        stops = [entrance] + list(seq) + [entrance]
+        days = []
+        for a, b in zip(stops, stops[1:]):
+            mi, gain, _ = (0.0, 0, None) if a == b else self._leg(a, b)
+            days.append((mi, gain))
+        return days
+
+    def batch(self, entrances, start, end, trip_type="any"):
+        rows = []
+        d = start
+        while d <= end:
+            for ent in entrances:
+                for seq in self.itineraries(ent, d):
+                    t = self.classify(ent, seq)
+                    if trip_type != "any" and t != trip_type:
+                        continue
+                    rows.append({"start": d, "entrance": ent, "seq": seq,
+                                 "type": t,
+                                 "days": self.day_stats(ent, seq)})
+            d += timedelta(days=1)
+        return rows

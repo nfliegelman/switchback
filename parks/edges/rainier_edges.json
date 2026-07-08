@@ -1,0 +1,206 @@
+{
+ "slug": "rainier",
+ "schema": 1,
+ "notes": "Wonderland corridor, Spray Park alternate, Northern Loop. Distances transcribed 2026-07-08 from Where The Road Forks camp guide (WTRF), cross-checked against Wonderland Guides day legs (WG: SP>GL 11.5, SM>Ipsut 9.7 both match) and Visit Rainier cumulative miles (VR). Gains are endpoint-delta estimates computed by graph.py until the DEM pass; distance variances between sources are flagged in src.",
+ "nodes": [],
+ "edges": [
+  {
+   "a": "ENT:Longmire",
+   "b": "Pyramid Creek",
+   "miles": 3.7,
+   "src": "derived: WG Longmire>South Puyallup 12.8 minus WTRF legs 7.0 and 2.1"
+  },
+  {
+   "a": "Pyramid Creek",
+   "b": "Devil's Dream",
+   "miles": 2.1,
+   "src": "WTRF"
+  },
+  {
+   "a": "Devil's Dream",
+   "b": "South Puyallup",
+   "miles": 7.0,
+   "src": "WTRF"
+  },
+  {
+   "a": "South Puyallup",
+   "b": "Klapatche Park",
+   "miles": 3.9,
+   "src": "WTRF"
+  },
+  {
+   "a": "Klapatche Park",
+   "b": "North Puyallup",
+   "miles": 2.8,
+   "src": "WTRF"
+  },
+  {
+   "a": "North Puyallup",
+   "b": "Golden Lakes",
+   "miles": 4.8,
+   "src": "WTRF; SP>GL sum 11.5 matches WG"
+  },
+  {
+   "a": "Golden Lakes",
+   "b": "South Mowich River",
+   "miles": 6.0,
+   "src": "WTRF, matches WG"
+  },
+  {
+   "a": "South Mowich River",
+   "b": "Mowich Lake",
+   "miles": 4.3,
+   "src": "WTRF; SM>Ipsut sum 9.7 matches WG"
+  },
+  {
+   "a": "Mowich Lake",
+   "b": "Ipsut Creek",
+   "miles": 5.4,
+   "src": "WTRF"
+  },
+  {
+   "a": "Ipsut Creek",
+   "b": "Carbon River",
+   "miles": 3.3,
+   "src": "WTRF"
+  },
+  {
+   "a": "Carbon River",
+   "b": "Dick Creek",
+   "miles": 1.2,
+   "src": "WTRF"
+  },
+  {
+   "a": "Dick Creek",
+   "b": "Mystic",
+   "miles": 3.6,
+   "src": "WTRF"
+  },
+  {
+   "a": "Mystic",
+   "b": "Granite Creek",
+   "miles": 4.5,
+   "src": "WTRF"
+  },
+  {
+   "a": "Granite Creek",
+   "b": "Sunrise Camp",
+   "miles": 4.1,
+   "src": "WTRF"
+  },
+  {
+   "a": "Sunrise Camp",
+   "b": "ENT:White River",
+   "miles": 4.3,
+   "src": "WTRF"
+  },
+  {
+   "a": "ENT:White River",
+   "b": "Summerland",
+   "miles": 5.5,
+   "src": "WTRF"
+  },
+  {
+   "a": "Summerland",
+   "b": "Indian Bar",
+   "miles": 4.5,
+   "src": "WTRF; thruhiker.co says 4.7, variance noted"
+  },
+  {
+   "a": "Indian Bar",
+   "b": "Nickel Creek",
+   "miles": 6.8,
+   "src": "WTRF, matches thruhiker.co"
+  },
+  {
+   "a": "Nickel Creek",
+   "b": "Maple Creek",
+   "miles": 3.1,
+   "src": "WTRF; thruhiker.co 3.6, variance noted"
+  },
+  {
+   "a": "Maple Creek",
+   "b": "Paradise River",
+   "miles": 6.8,
+   "src": "WTRF; VR cumulative implies 6.3, thruhiker 7.3, variance noted"
+  },
+  {
+   "a": "Paradise River",
+   "b": "ENT:Longmire",
+   "miles": 3.6,
+   "src": "thruhiker.co; consistent with WTRF PR>Pyramid 7.1"
+  },
+  {
+   "a": "ENT:Sunrise",
+   "b": "Sunrise Camp",
+   "miles": 1.2,
+   "src": "WTRF prose: just over a mile"
+  },
+  {
+   "a": "ENT:Box Canyon",
+   "b": "Maple Creek",
+   "miles": 2.3,
+   "src": "Visit Rainier"
+  },
+  {
+   "a": "ENT:Box Canyon",
+   "b": "Nickel Creek",
+   "miles": 0.8,
+   "src": "derived: WTRF 3.1 minus VR 2.3"
+  },
+  {
+   "a": "Mowich Lake",
+   "b": "Eagles Roost",
+   "miles": 1.9,
+   "src": "WTRF Spray Park"
+  },
+  {
+   "a": "Eagles Roost",
+   "b": "Cataract Valley",
+   "miles": 4.8,
+   "src": "WTRF Spray Park"
+  },
+  {
+   "a": "Cataract Valley",
+   "b": "Carbon River",
+   "miles": 1.6,
+   "src": "WTRF Spray Park"
+  },
+  {
+   "a": "Sunrise Camp",
+   "b": "Berkeley Park",
+   "miles": 3.9,
+   "src": "WTRF Northern Loop; endpoint ambiguity (Sunrise camp vs trailhead) noted"
+  },
+  {
+   "a": "Berkeley Park",
+   "b": "Fire Creek",
+   "miles": 3.8,
+   "src": "WTRF Northern Loop"
+  },
+  {
+   "a": "Fire Creek",
+   "b": "James",
+   "miles": 3.8,
+   "src": "WTRF Northern Loop"
+  },
+  {
+   "a": "James",
+   "b": "Yellowstone Cliffs",
+   "miles": 3.3,
+   "src": "WTRF Northern Loop"
+  },
+  {
+   "a": "Yellowstone Cliffs",
+   "b": "Carbon River",
+   "miles": 4.2,
+   "src": "WTRF Northern Loop"
+  },
+  {
+   "a": "Yellowstone Cliffs",
+   "b": "Ipsut Creek",
+   "miles": 5.5,
+   "src": "WTRF Northern Loop"
+  }
+ ]
+}

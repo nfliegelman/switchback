@@ -36,18 +36,18 @@ Locked decisions (2026-07-07):
 - [x] Elevation per camp and entrance (Copernicus GLO-90 batched; 3DEP along-edge sampling arrives with the M3/DEM gain pass); straight-line trailhead distance as an explicit placeholder M3 replaces with trail distance
 - Done when: every active camp in both parks has coords and a lake flag; spot-check ELF is lake=true. Landed 2026-07-08: Rainier 186/186 coords, 50 lake camps; Glacier 62/66 coords (4 in parks/manual_coords.json queue), 41 lake camps, ELF lake=true at 192 acres. Exclusion filters grew to 16 reasons; Glacier's included set now matches its real ~65 designated backcountry camps.
 
-### M3. Route graphs (7-11 h)
-- [ ] Rainier edges from official NPS Wonderland mileage tables (3-5 h)
-- [ ] Glacier full-park edges from park tables plus PNTA planner; fold in belly_river_graph.json (4-6 h)
-- [ ] Every edge carries miles, gain_ab, loss_ab, src; est flag where gains are topo estimates
-- Done when: 5 edges per park spot-checked against a map; est count reported.
+### M3. Route graphs (7-11 h) [DONE, v1.4.0]
+- [x] Rainier: Wonderland corridor plus Spray Park alternate plus Northern Loop, 33 edges transcribed from Where The Road Forks camp guide, cross-checked against Wonderland Guides day sums (11.5 and 9.7 match exactly) and Visit Rainier cumulatives; variances flagged in src per edge
+- [x] Glacier: Belly River corridor folded from belly_river_graph.json, 13 edges, 2 sourced gains; remaining Glacier corridors (Gunsight, Highline, Dawson-Pitamakan, North Circle west) queued
+- [x] Every edge carries miles and src; gains sourced where known, else endpoint-delta est from M2 elevations
+- Done: 5-plus spot checks per park passed 2026-07-08: Longmire>Devils Dream 5.8, Longmire>Golden Lakes 24.3, Longmire>Klapatche 16.7 vs 16.8 GPS-logged, Sunrise>Summerland 11.0, Mowich>Carbon 8.3 via Spray Park beating 8.7 via Ipsut, ELF>IPE 9.8 exact, BRE>MOJ 13.4 matching PNTA. CAUTION: endpoint-delta gains understate passes about 40 percent (est 3658 vs GPS 6450 on Longmire>Klapatche); gain limits are soft on Rainier until the DEM pass. Glacier's big climbs are sourced and real.
 
-### M4. Solver core (6-10 h)
-- [ ] Dijkstra day-legs between sleeps (pass-throughs allowed), direction-aware gain
-- [ ] DP over (night, camp) with party-size availability, per-camp stay limits, basecamp self-loop
-- [ ] Backward feasibility from the exit; endings_remaining per option
-- [ ] trip_type classifier on the closed walk: no repeated edges = loop; full retrace = out_and_back; repeats forming one contiguous stem = lollipop; filter results by requested type
-- Done when: reproduces the belly_river_adventure.py live results, including the single Sept chain found 2026-07-07.
+### M4. Solver core (6-10 h) [DONE, v1.5.0]
+- [x] Dijkstra day-legs between sleeps with pass-throughs and direction-aware gain (graph.leg)
+- [x] DP over (night, camp) with party availability, stay-limit hook, basecamp self-loop (switchback/solver.py)
+- [x] endings() completion counts for M6 frontier cards
+- [x] trip_type classifier via mirrored-hop stem stripping: empty remainder out_and_back, unique remainder loop or lollipop by stem, else mixed
+- Done: parity proven twice on 2026-07-08. Synthetic oracle in tests/test_solver.py passes deterministically, and the LIVE run reproduces the single bookable Belly River chain on real inventory: Sept 22, BRE, GAB > GLF > GAB, out_and_back, days 6.2 / 4.2 / 4.2 / 6.2. CLI: python -m switchback trips <slug>.
 
 ### M5. Scoring (4-6 h)
 - [ ] day_fit vs pref miles/gain; camp percentile within park; lake term; crowd term stubbed until data exists

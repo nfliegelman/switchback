@@ -7,12 +7,14 @@ Examples:
 """
 import argparse
 import sys
-from datetime import date
+from datetime import date, timedelta
 
 from .api import search_permits, get_divisions, fetch_availability_rows, HEADERS
 from .config import load_profile, PROFILE_PATH
 from .extract import extract_park, save_park, summary
 from .features import annotate, feature_summary
+from .graph import Graph
+from .solver import Solver, fetch_availability
 
 
 def cmd_search(args):
@@ -78,6 +80,63 @@ def cmd_features(args):
     print(feature_summary(park))
 
 
+def cmd_graph(args):
+    g = Graph(args.slug)
+    print(g.report())
+    if args.leg:
+        from .features import norm
+        def find(ref):
+            for nid, n in g.nodes.items():
+                if norm(n["name"]) == norm(ref) or nid == ref:
+                    return nid
+            sys.exit(f"node not found: {ref}")
+        a, b = find(args.leg[0]), find(args.leg[1])
+        got = g.leg(a, b)
+        if not got:
+            sys.exit("no route")
+        mi, gain, path = got
+        print(f"{g.name(a)} to {g.name(b)}: {mi} mi, +{gain} ft")
+        print("  via " + " > ".join(g.name(p) for p in path))
+
+
+def cmd_trips(args):
+    prof = load_profile()
+    g = Graph(args.slug)
+    camps = g.camps()
+    if args.codes:
+        want = {c.strip().upper() for c in args.codes.split(",")}
+        camps = [c for c in camps
+                 if g.name(c).split(" - ")[0].strip().upper() in want]
+    if not camps:
+        sys.exit("no camps selected")
+    div_ids = [g.nodes[c]["division_id"] for c in camps]
+    permit_id = g.park["permit_id"]
+    start, end = date.fromisoformat(args.start), date.fromisoformat(args.end)
+    print(f"fetching availability for {len(camps)} camps...", file=sys.stderr)
+    nights = args.nights or 3
+    av_raw = fetch_availability(permit_id, div_ids, start,
+                                end + timedelta(days=nights),
+                                progress=lambda f: None)
+    av = {c: av_raw[g.nodes[c]["division_id"]] for c in camps}
+    s = Solver(g, av,
+               party=args.party or prof["party_size"],
+               nights=nights,
+               max_mi=args.max_mi or prof["daily_max"]["miles"],
+               max_gain=args.max_gain or prof["daily_max"]["gain_ft"],
+               basecamp_ok=not args.no_basecamp)
+    rows = s.batch(g.entrances(), start, end,
+                   trip_type=args.trip_type or prof.get("trip_type", "any"))
+    print(f"{len(rows)} bookable {s.nights}-night itineraries, "
+          f"party {s.party}, max {s.max_mi} mi / {s.max_gain} ft:")
+    for r in rows[:20]:
+        days = " ".join(f"{m:.1f}mi" for m, _ in r["days"])
+        print(f"  {r['start']}  {g.name(r['entrance'])[:26]:<26} "
+              f"{' > '.join(g.name(c).split(' - ')[0] for c in r['seq'])}"
+              f"  [{r['type']}]  days: {days}")
+    if len(rows) > 20:
+        print(f"  ... and {len(rows) - 20} more")
+
+
 def cmd_profile(args):
     prof = load_profile()
     print(f"profile file: {PROFILE_PATH}")
@@ -118,6 +177,27 @@ def main():
                     help="only fill the OSM cache, time-boxed")
     fe.add_argument("--budget", type=int, default=300)
     fe.set_defaults(fn=cmd_features)
+
+    gr = sub.add_parser("graph", help="build and validate a park route graph")
+    gr.add_argument("slug")
+    gr.add_argument("--leg", nargs=2, metavar=("A", "B"),
+                    help="spot-check shortest route between two node names")
+    gr.set_defaults(fn=cmd_graph)
+
+    tr = sub.add_parser("trips", help="find bookable itineraries")
+    tr.add_argument("slug")
+    tr.add_argument("--start", required=True)
+    tr.add_argument("--end", required=True)
+    tr.add_argument("--nights", type=int, default=None)
+    tr.add_argument("--party", type=int, default=None)
+    tr.add_argument("--max-mi", type=float, default=None)
+    tr.add_argument("--max-gain", type=int, default=None)
+    tr.add_argument("--trip-type", default=None,
+                    choices=["any", "loop", "out_and_back", "lollipop"])
+    tr.add_argument("--codes", default=None,
+                    help="restrict to camp codes, comma separated")
+    tr.add_argument("--no-basecamp", action="store_true")
+    tr.set_defaults(fn=cmd_trips)
 
     args = p.parse_args()
     args.fn(args)

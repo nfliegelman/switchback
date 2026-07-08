@@ -22,6 +22,9 @@ Switchback: a permit-aware backpacking trip finder built on recreation.gov data.
 - switchback/: the engine package. api.py (stdlib-only data layer, fetch_availability_rows, get_permit_content), config.py (profile loader), extract.py (M1 park extractor), __main__.py (CLI: search, availability, profile, extract). Landed v1.1.0-v1.2.0.
 - parks/: extracted park datasets (rainier.json, glacier.json, schema 2 with features). parks/manual_coords.json holds the coordinate queue (4 Glacier camps). parks/.osm_cache/ is gitignored fetch cache.
 - switchback/features.py: M2 pipeline (coordinate fill, NHD hydro joins, elevation, trailhead distance) with prefetch mode.
+- switchback/graph.py and parks/edges/: M3 route graphs with per-edge sources.
+- switchback/solver.py and tests/test_solver.py: M4 itinerary engine and its synthetic parity oracle.
+- CLI now: search, availability, extract, features, graph, trips, profile.
 - profile.json: the saved effort profile. Config, not state; edit freely.
 - requirements.txt: GUI extras (customtkinter, openpyxl); the engine is stdlib-only.
 - switchback_gui.py (was permit_finder_gui.py): original working GUI. Search permits, load divisions, fetch monthly availability (6 threads), classify (Reservable, Walk-up only, Full, Not released, Hidden), styled xlsx export. Renamed, window title updated, em dashes purged 2026-07-07; logic untouched.
@@ -50,6 +53,7 @@ Switchback: a permit-aware backpacking trip finder built on recreation.gov data.
 - Overpass congestion playbook: mirrors saturate together; use pacing, per-query mirror rotation, fine tiles, and the parks/.osm_cache disk cache. For heavy geometry layers prefer NHD. (2026-07-08)
 - Sandbox lesson: background processes do NOT survive between tool calls. Long fetches must run as time-boxed foreground bites against a disk cache. (2026-07-08)
 - Glacier ground truth: after 16 exclusion reasons the included set is 66 designated backcountry camps, matching the park's real inventory. Name-matching lessons: foot/head/lower/upper are disambiguators and must survive normalization; saint normalizes to st; Zone N divisions are undesignated areas, not points. (2026-07-08)
+- Wonderland transcription source: Where The Road Forks camp guide, cross-checked against Wonderland Guides day sums and Visit Rainier cumulatives; variances flagged per edge in parks/edges/rainier_edges.json. Rec.gov abbreviates South/North as So./No., handled in norm(). Endpoint-delta est gains understate passes about 40 percent (Longmire>Klapatche est 3658 vs GPS 6450); the DEM pass replaces them. (2026-07-08)
 - Mileage sources used for Belly River: PNTA Glacier permit planner PDF (corridor mileages; ELF is 3.4 off the corridor at mile 6.1), enjoyyourparks Red Gap page (Many Glacier to ELF 9.8 mi, Redgap to ELF 4.6 mi and about 2,500 ft), roamingbearmedia (pass to Poia 5.7 mi, 1,754 ft), repicjourney (Poia TH to Poia 6.4 mi), Glacier Guides (TH to tunnel 10.6 mi round trip, 2,300 ft).
 - OSM has the Wonderland Trail as a route relation and 75 camp_site features in the Rainier bbox. AllTrails has NO public API and enforces against scrapers (community scraper shut down Jan 2026); official AllTrails MCP exists in the owner's Claude for read-only lookups; content is link-only, never stored.
 - Live scarcity snapshot 2026-07-07, party of 2, Jul 10 to Sep 22: exactly one advance-bookable 3-night Belly River chain (start Sept 22, Chief Mountain, GAB > GLF > GAB). STALE IMMEDIATELY; re-fetch, never quote this as current.
@@ -79,5 +83,5 @@ Switchback: a permit-aware backpacking trip finder built on recreation.gov data.
 ## Next actions
 
 1. Ask the owner for a real date window, party size, and trip type; rerun belly_river_adventure.py live if a trip is imminent.
-2. Otherwise continue ROADMAP.md at M3, route graphs. M0-M2 landed (v1.1.0-v1.3.0). M3 needs the official NPS mileage tables fetched and transcribed; belly_river_graph.json folds in. Exception rule: pull M9 (watch mode plus Telegram) forward if the owner wants Glacier cancellation alerts now; ELF, COS, ELH are the camps to watch.
+2. Otherwise continue ROADMAP.md at M5, scoring. M0-M4 landed (v1.1.0-v1.5.0). Ratings data starts empty by design; scorer must work on computed priors alone. Exception rule: pull M9 (watch mode plus Telegram) forward if the owner wants Glacier cancellation alerts now; ELF, COS, ELH are the camps to watch.
 3. On every handback: dash grep, full repo zip, keep this file updated (decisions log and validated facts grow; snapshots get re-dated).
