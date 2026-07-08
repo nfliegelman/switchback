@@ -1,0 +1,12 @@
+{
+ "weights": {"day_fit": 0.4, "camp": 0.6, "lakes": 0.15, "solitude": 0.0},
+ "prior": {
+  "base": 2.8,
+  "lake_within_400m": 0.9,
+  "creek_within_200m": 0.15,
+  "elevation_bands_ft": [[0, 4000, 0.0], [4000, 5500, 0.3], [5500, 99999, 0.55]],
+  "per_3_trail_miles_from_trailhead": 0.12,
+  "trail_depth_cap": 0.5
+ },
+ "note": "Hand-set guesses per SPEC section 4. Edit freely; no code changes needed. Recalibrate after 20+ personal ratings exist in parks/ratings.json. Set weights.solitude above 0 and the crowd term engages automatically once M8 creates parks/demand.json."
+}

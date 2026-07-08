@@ -49,10 +49,10 @@ Locked decisions (2026-07-07):
 - [x] trip_type classifier via mirrored-hop stem stripping: empty remainder out_and_back, unique remainder loop or lollipop by stem, else mixed
 - Done: parity proven twice on 2026-07-08. Synthetic oracle in tests/test_solver.py passes deterministically, and the LIVE run reproduces the single bookable Belly River chain on real inventory: Sept 22, BRE, GAB > GLF > GAB, out_and_back, days 6.2 / 4.2 / 4.2 / 6.2. CLI: python -m switchback trips <slug>.
 
-### M5. Scoring (4-6 h)
-- [ ] day_fit vs pref miles/gain; camp percentile within park; lake term; crowd term stubbed until data exists
-- [ ] computed_prior coefficients in a config file, hand-set
-- Done when: batch output is ranked and the weights are editable without code changes.
+### M5. Scoring (4-6 h) [DONE, v1.6.0]
+- [x] day_fit vs pref miles/gain; camp percentile within park; lake term; crowd term stubbed (engages automatically when parks/demand.json exists and weights.solitude is above 0)
+- [x] computed_prior coefficients hand-set in scoring.json; personal overrides in parks/ratings.json; trail-depth term uses real graph distance to the nearest entrance, replacing the M2 straight-line placeholder
+- Done when: batch output is ranked and weights are editable without code changes. Landed 2026-07-08: live Rainier run ranked 35,777 bookable itineraries across 641 distinct routes with route-level date dedup; the leaderboard correctly surfaces the Northern Loop lakeside triangle (Mystic, James, Dick Creek) that stays open all season. Priors sanity-checked: feature prior lands ELF 4.53 vs the 4.6 hand rating and GAB 3.5 vs 3.2. Invariant tests in tests/test_scoring.py.
 
 ### M6. Adventure mode CLI + thin GUI trigger (3-5 h)
 - [ ] Find Trips button in switchback_gui calling the engine with the saved profile

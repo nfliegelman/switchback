@@ -15,6 +15,7 @@ from .extract import extract_park, save_park, summary
 from .features import annotate, feature_summary
 from .graph import Graph
 from .solver import Solver, fetch_availability
+from .scoring import Scorer
 
 
 def cmd_search(args):
@@ -126,15 +127,34 @@ def cmd_trips(args):
                basecamp_ok=not args.no_basecamp)
     rows = s.batch(g.entrances(), start, end,
                    trip_type=args.trip_type or prof.get("trip_type", "any"))
-    print(f"{len(rows)} bookable {s.nights}-night itineraries, "
-          f"party {s.party}, max {s.max_mi} mi / {s.max_gain} ft:")
-    for r in rows[:20]:
+    scorer = Scorer(g)
+    ranked = scorer.rank(rows, prof["daily_pref"]["miles"],
+                         prof["daily_pref"]["gain_ft"])
+    if args.sort == "date":
+        ranked.sort(key=lambda r: (r["start"], -r["score"]))
+    routes = {}
+    for r in ranked:
+        key = (r["entrance"], r["seq"])
+        if key not in routes:
+            routes[key] = {"best": r, "dates": []}
+        routes[key]["dates"].append(r["start"])
+    shown = sorted(routes.values(), key=lambda v: v["best"]["score"],
+                   reverse=True) if args.sort == "score" else list(routes.values())
+    print(f"{len(ranked)} bookable {s.nights}-night itineraries across "
+          f"{len(routes)} distinct routes, party {s.party}, "
+          f"max {s.max_mi} mi / {s.max_gain} ft, ranked:")
+    for v in shown[:15]:
+        r = v["best"]
         days = " ".join(f"{m:.1f}mi" for m, _ in r["days"])
-        print(f"  {r['start']}  {g.name(r['entrance'])[:26]:<26} "
-              f"{' > '.join(g.name(c).split(' - ')[0] for c in r['seq'])}"
-              f"  [{r['type']}]  days: {days}")
-    if len(rows) > 20:
-        print(f"  ... and {len(rows) - 20} more")
+        names = " > ".join(g.name(c).split(" - ")[0] for c in r["seq"])
+        lk = f" lakes:{r['lake_nights']}/{len(r['seq'])}" if r["lake_nights"] else ""
+        ds = sorted(v["dates"])
+        when = ds[0].isoformat() if len(ds) == 1 else             f"{ds[0].isoformat()} (+{len(ds) - 1} more dates thru {ds[-1].isoformat()})"
+        print(f"  {r['score']:.3f}  {g.name(r['entrance'])[:24]:<24} {names}"
+              f"  [{r['type']}]  days: {days}{lk}\n"
+              f"          available: {when}")
+    if len(routes) > 15:
+        print(f"  ... and {len(routes) - 15} more routes")
 
 
 def cmd_profile(args):
@@ -197,6 +217,7 @@ def main():
     tr.add_argument("--codes", default=None,
                     help="restrict to camp codes, comma separated")
     tr.add_argument("--no-basecamp", action="store_true")
+    tr.add_argument("--sort", default="score", choices=["score", "date"])
     tr.set_defaults(fn=cmd_trips)
 
     args = p.parse_args()

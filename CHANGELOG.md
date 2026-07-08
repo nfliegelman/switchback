@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v1.6.0 (2026-07-08)
+
+M5: scoring. New switchback/scoring.py and scoring.json: config-driven feature priors (lake, creek, elevation band, trail depth from the graph), per-park percentile normalization, personal overrides via parks/ratings.json, day-fit against the saved profile, lake term, and a crowd stub that engages when demand history exists. Trips output is now ranked with route-level deduplication and availability date spans. Validated live on Rainier: 35,777 itineraries across 641 routes ranked in seconds; priors converge on hand ratings. Invariant tests added.
+
 ## v1.5.0 (2026-07-08)
 
 M4: solver core. New switchback/solver.py: availability-gated DP over nights and camps with pass-through day legs, party and stay-limit handling, basecamp self-loops, endings counts, and the trip-type classifier (loop, out_and_back, lollipop, mixed) via mirrored-hop stem stripping. New trips CLI with profile defaults and a codes filter. Parity proven synthetically (tests/test_solver.py) and live against real inventory.
