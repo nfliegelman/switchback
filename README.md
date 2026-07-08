@@ -2,17 +2,19 @@
 
 Backcountry permit availability, trip planning, and effort math, automated. A switchback is the trail's answer to terrain too steep to climb in one go; this project does the same thing to backcountry itineraries.
 
-## What it does today (v1.0.0)
+## What it does today (v1.1.0)
 
 **Permit availability finder (GUI).** Search any recreation.gov wilderness or backcountry permit, load every camp and zone in it, and pull availability across your date range on six threads. Each camp-night is classified (Reservable, Walk-up only, Full, Not released) and exported to a styled Excel workbook with filters, conditional formatting, and percent-remaining color scales. Windows: double-click `Switchback.bat`. Anywhere: `python switchback_gui.py`.
 
 **CalTopo layer exporter.** `python caltopo_export.py <permit_id>` dumps every camp and trailhead in a permit as a GeoJSON file you can import straight into CalTopo: trailside camps, cross-country zones, alpine and winter sites color-coded, trailheads with parking flags. Validated on Mount Rainier (245 features) and built for any permit on the platform.
 
+**Engine CLI (new at v1.1.0).** The data layer lives in a stdlib-only `switchback/` package with a CLI: `python -m switchback search "glacier wilderness"`, `python -m switchback availability 4675321 --start 2026-09-01 --end 2026-09-07 --filter "ELF -"`, `python -m switchback profile` to view the saved effort profile in `profile.json`, `python -m switchback extract 4675321 --slug glacier` to build the park datasets in `parks/`, and `python -m switchback features glacier` to fill coordinates and tag lakes, creeks, and elevations from USGS and OSM sources. The GUI and the coming trip solver share this engine.
+
 **Adventure mode demo (Glacier, Belly River).** `python belly_river_adventure.py` runs a live 3-night itinerary search for the Belly River drainage: a route graph with cited mileages and per-direction elevation, live availability for ten camps, a choose-your-own-adventure frontier walkthrough where every option shown is guaranteed to have at least one valid ending, and a batch mode that enumerates every bookable chain in the window. When advance inventory is sold out, planning mode relaxes availability so you can design a route for the walk-up line or cancellation watching.
 
 ## Requirements
 
-Python 3.8+ with tkinter (included in the python.org Windows installer). The GUI auto-installs `customtkinter` and `openpyxl` on first run; the exporter and demo use only the standard library.
+Python 3.8+ with tkinter (included in the python.org Windows installer). The GUI auto-installs `customtkinter` and `openpyxl` on first run; the engine package, exporter, and demo use only the standard library.
 
 ## Where it's going
 

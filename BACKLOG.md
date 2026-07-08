@@ -10,7 +10,7 @@ Future features, categorized, with the owner's direction recorded. Status tags: 
 
 ## 2. Map and UI
 
-- Map v0: Leaflet on GitHub Pages, ranked routes as selectable layers, availability and rating colored markers, per-day stat cards, amber and red limit alerts. DIRECTED. 12-18 h. Same repo pattern as Nimbus and Drizzle.
+- Web UI (v2.1 per the 2026-07-07 engine-first decision): local FastAPI backend plus a Leaflet frontend in one HTML file (browsers cannot call recreation.gov directly, CORS), ranked routes as selectable layers, availability and rating colored markers, per-day stat cards, amber and red limit alerts. DIRECTED. 12-18 h.
 - Adventure mode on the map (absorbs the route editor: swap, insert, remove, reverse, build by clicking camps). DIRECTED. 6-10 h on top of map v0.
 - Stay versus pass-through toggle per clicked camp; alerts evaluate per day, not per leg. DIRECTED.
 - GPX with real trail geometry instead of node-to-node lines. DISCUSSED. Needs edge geometries from OSM. 3-5 h after the OSM pipeline.
