@@ -56,3 +56,18 @@ GATED behind FUTURE.md gates G1-G3 (5+ personal trips across two seasons; 3 stra
 ## 7. Non-goals (settled, do not reopen without cause)
 
 AllTrails route-builder integration, automation, or scraping. Storing or mirroring AllTrails or WTA content (link-only, always). Auto-booking permits. CalTopo-clone drag interaction. Programmatic Garmin push (manual GPX import is two taps). External per-camp crowding data. National no-permit legality database. Structured water-source status. Sub-minute polling.
+
+
+## Park and forest expansion plan (recorded 2026-07-12, doc audit)
+
+This plan existed only in conversation until the owner caught the drift. Recording it properly:
+
+The trigger rule: a park or forest gets added when a real trip demands it, not on a schedule. Park additions are data sessions (extract, features, transcribe edges), fully independent of the v2.1 web UI code track; the two can interleave freely.
+
+Archetype A (camp-night divisions, works with today's engine unchanged): most NPS wilderness permits (Yellowstone, Grand Teton, Olympic, Grand Canyon use areas) AND national forests on recreation.gov, because the platform is operator-agnostic; the extractor already runs on any permit id. High-value forest targets: Enchantments / Alpine Lakes zones (about 1 h, five zones), Desolation Wilderness, Mt. Whitney, and the Olympic NF Lena Lakes permit that motivated the basecamp feature.
+
+Archetype B (trailhead-quota model: Yosemite JMT and wilderness, SEKI): needs the trailhead-quota solver variant where divisions are entry trailheads rather than camps. Scoped, not started.
+
+Holdouts running their own booking systems (Zion, Great Smokies, Denali): out until a trip demands one badly enough to justify a custom integration.
+
+First wave after the owner's v2.0.0 test drive: Olympic (NP plus the NF Lena permit), then Grand Teton. Cost per Archetype A park: 3-6 h today, dominated by mileage-table transcription; drops toward 1-2 h once the OSM plus DEM edge pipeline (above) replaces hand transcription.

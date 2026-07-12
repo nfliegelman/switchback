@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.0.1 (2026-07-12)
+
+Doc audit, prompted by the owner catching real drift between conversation and docs. SPEC now records the grade deferral next to the schema that still showed grade_pct. BACKLOG gains the park and forest expansion plan as a plan (archetypes, forest targets on the same platform, holdouts, first wave Olympic then Teton, cost trajectory). HANDOFF gains the owner's browser publish workflow with the ghost-file caution, the five-step test-drive gate before v2.1, and a new standing convention: conversational decisions get written into docs in the same turn. No code changes.
+
 ## v2.0.0 (2026-07-12)
 
 M10: docs and invariants; the engine ladder is complete. README rewritten around a measured quickstart (fresh copy to first ranked result in about a minute; the command itself ran in one second on a one-month window). New tests/test_shapes.py pins the classifier on known shapes, day bounds across a 178-itinerary synthetic run, and endings monotonicity. Recorded insight: Sunrise's Northern Loop is correctly a lollipop (the trailhead connector is walked twice); White River around the full Wonderland is the pure loop.

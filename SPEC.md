@@ -27,6 +27,8 @@ Turn "is camp X open" into "given my constraints and taste, what are the best tr
 }
 ```
 
+Decision delta (2026-07-07, written down 2026-07-12 during the doc audit): grade_pct stays in the schema for forward compatibility but is IGNORED until the DEM pass lands. v1 enforces miles and gain only, and unsourced gains are endpoint-delta estimates that understate passes (see ROADMAP M3 caution), so gain limits are soft at Rainier.
+
 Hard fields filter. Values under `prefs` are weights in the scorer; 0 disables a term.
 
 ## 3. Data model (extends the route graph)
