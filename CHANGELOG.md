@@ -2,6 +2,14 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v1.6.2 (2026-07-12)
+
+Basecamp day hikes. The solver always allowed consecutive nights at one camp; layover days now come alive. New in switchback/scoring.py: day-hike options from any basecamp over the route graph (out-and-back miles and gain summed both directions), ranked 60/40 by destination quality and effort fit, with unwalkable distances filtered; availability is deliberately ignored for destinations, since day hikes need no permit, which makes basecamping an availability-arbitrage move (sleep where quota exists, visit where it does not). Scoring change: a layover day is now credited with its best achievable day-hike fit instead of being skipped, so layovers at camps with nothing nearby rank lower. The trips CLI prints day-hike suggestions under each route with a layover. Package version aligned to 1.6.2. New test assertions cover round-trip math, layover credit, and note formatting.
+
+## v1.6.1 (2026-07-08)
+
+Convenience addition, not a roadmap milestone. New TripFinder.bat: a prompt-driven double-click wrapper around python -m switchback trips, so the engine can be test-driven without a terminal. Added in response to a real point of confusion: Switchback.bat only ever launched the original GUI, and every engine feature since M0 has been command-line only with no visible entry point.
+
 ## v1.6.0 (2026-07-08)
 
 M5: scoring. New switchback/scoring.py and scoring.json: config-driven feature priors (lake, creek, elevation band, trail depth from the graph), per-park percentile normalization, personal overrides via parks/ratings.json, day-fit against the saved profile, lake term, and a crowd stub that engages when demand history exists. Trips output is now ranked with route-level deduplication and availability date spans. Validated live on Rainier: 35,777 itineraries across 641 routes ranked in seconds; priors converge on hand ratings. Invariant tests added.

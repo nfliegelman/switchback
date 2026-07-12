@@ -137,3 +137,16 @@ Data-quality findings from Glacier (permit 4675321, 213 divisions):
 - Official camp and trailhead mileage tables exist in the park's backcountry guide, so Glacier edges are transcription, like Rainier.
 
 Cost. Backward pruning plus endings counts: 2-3 h in the solver. Interactive UI: 6-10 h on map v0, or 2-3 h as a numbered-list CLI available immediately after P1. Net effect on SCOPE.md totals: +2-4 h, since this absorbs the 8-12 h structured editing line.
+
+
+## Addendum, v1.6.2 (2026-07-12): basecamp day hikes
+
+Layover days (consecutive nights at one camp) are enriched, not just
+permitted. Scorer._dh_options computes out-and-back routes from the
+basecamp to every other graph camp; day_hikes ranks them 60/40 by
+destination percentile and effort fit and filters unwalkable distances;
+layover_notes renders CLI lines. Destination availability is ignored by
+design: day hikes need no permit, so basecamping converts a sold-out
+destination into a reachable one. Scoring counts each layover as its
+best achievable day-hike fit rather than skipping the day. v1 limits
+destinations to graph camps; POI nodes are in BACKLOG.

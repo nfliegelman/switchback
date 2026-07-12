@@ -32,6 +32,19 @@ def main():
     a = s2.score(row_lake, 9, 2200)["score"]
     b = s2.score(row_dry, 9, 2200)["score"]
     assert abs(a - b) < 1e-9, "with camp weight zeroed, identical days must tie"
+    dh = s.day_hikes(elf, 9, 2200, limit=10)
+    assert any(o["rt_mi"] == 3.2 and o["rt_gain"] == 100 for o in dh), \
+        "ELH out-and-back from ELF must be 3.2 mi RT, +100 ft"
+    hel = [o for o in dh if o["name"].startswith("HEL")]
+    assert hel and hel[0]["rt_mi"] == 6.2, "Helen Lake RT from ELF must be 6.2 mi"
+    ent = next(nid for nid, n in g.nodes.items()
+               if n["kind"] == "entrance" and "Belly River" in n["name"])
+    row_base = {"entrance": ent, "seq": [elf, elf],
+                "days": [(9.5, 400), (0.0, 0), (9.5, 1000)]}
+    sc = s.score(row_base, 9, 2200)
+    assert sc["day_fit"] > 0, "layover day must be credited via best day hike"
+    notes = s.layover_notes(row_base, 9, 2200)
+    assert len(notes) == 1 and "day 2 layover" in notes[0] and "RT" in notes[0]
     print("SCORING OK: ELF prior", s._rating[elf], "pct", round(s._pct[elf], 2),
           "| GAB prior", s._rating[gab], "pct", round(s._pct[gab], 2))
 

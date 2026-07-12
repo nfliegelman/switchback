@@ -17,6 +17,7 @@ Locked decisions (2026-07-07):
 - A route is an ordered camp list; geometry and GPX are always derived.
 - Web UI ships as v2.1, immediately after the engine (2026-07-07 round-two decision). A thin Find Trips trigger in the tkinter GUI is in scope at M6; deep tkinter trip UI is rejected as throwaway.
 - Effort limits: one saved default profile (profile.json), overridable per run. Miles and gain only; grade returns after the DEM pass.
+- Basecamp day hikes landed v1.6.2 (2026-07-12): layover days get ranked day-hike suggestions; scoring credits layovers with their best achievable day.
 
 ## Milestones
 

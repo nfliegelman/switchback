@@ -153,6 +153,9 @@ def cmd_trips(args):
         print(f"  {r['score']:.3f}  {g.name(r['entrance'])[:24]:<24} {names}"
               f"  [{r['type']}]  days: {days}{lk}\n"
               f"          available: {when}")
+        for note in scorer.layover_notes(r, prof["daily_pref"]["miles"],
+                                         prof["daily_pref"]["gain_ft"]):
+            print(f"          {note}")
     if len(routes) > 15:
         print(f"  ... and {len(routes) - 15} more routes")
 

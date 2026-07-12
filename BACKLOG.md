@@ -34,6 +34,8 @@ Future features, categorized, with the owner's direction recorded. Status tags: 
 - Per-park percentile normalization ("a 4.5 at Glacier competes only against Glacier"). DIRECTED.
 - Demand and crowding signal from own scan history (fill velocity percentile; sign flips with the solitude preference). DIRECTED. Needs a season of M8 logs before scoring uses it.
 - Prior coefficient calibration after 20 or more personal ratings exist. DISCUSSED.
+- Day-hike POI nodes: passes, lookouts, and non-camp lakes as graph destinations so basecamp suggestions go beyond camps (e.g. Ptarmigan Tunnel itself as a target). DIRECTED. 2-4 h once a park's POIs are listed.
+- Olympic as next park: the owner's real Lena pattern (Lower Lena base, Upper Lena day hike) lives there and the Lena permit is on rec.gov. Extractor should work day one; edges need the Hamma Hamma corridor. DIRECTED.
 - Weather per camp via NWS point forecasts. DISCUSSED. 2-3 h.
 - Permit Difficulty Index (PDI): a 0 to 100 gettability score per camp and per park. DIRECTED 2026-07-07: rank how hard every permit is to get, because some routes have an easy permit you can wait for an opening on. Components: percent of season currently open (works from any single scan; Belly River 2026-07-07: Poia 9 open party-of-2 dates, Helen 0), sellout velocity from release day, observed cancellation rate, walk-up share. The last three need M8 history. Feeds an optional gettability term in scoring when dates are flexible.
 

@@ -87,6 +87,7 @@ class Scorer:
             self._rating[cid] = (float(personal) if personal is not None
                                  else self.computed_prior(feats))
         self._pct = self._percentiles(self._rating)
+        self._dh_raw = {}
 
     # ------------------------------------------------------------------
     def _trail_depths(self):
@@ -143,10 +144,81 @@ class Scorer:
         d = self.demand.get(cid)
         return d.get("demand_pct") if isinstance(d, dict) else None
 
+    # ---------------------- basecamp day hikes -----------------------
+    def _dh_options(self, camp):
+        """Out-and-back day-hike candidates from a basecamp: every other
+        graph camp with a route. Availability is deliberately ignored;
+        you can day-hike to a sold-out camp. That is the whole point of
+        basing at the camp that has quota."""
+        if camp not in self._dh_raw:
+            opts = []
+            for dest in self.g.camps():
+                if dest == camp:
+                    continue
+                out = self.g.leg(camp, dest)
+                back = self.g.leg(dest, camp)
+                if not out or not back or not out[0]:
+                    continue
+                opts.append({"dest": dest, "name": self.g.name(dest),
+                             "rt_mi": round(out[0] + back[0], 1),
+                             "rt_gain": out[1] + back[1],
+                             "pct": self._pct.get(dest, 0.5),
+                             "lake": bool(self._camp_feats.get(dest, {})
+                                          .get("lake_within_400m"))})
+            self._dh_raw[camp] = opts
+        return self._dh_raw[camp]
+
+    def best_layover_fit(self, camp, pref_mi, pref_gain):
+        return max((self.day_fit(o["rt_mi"], o["rt_gain"], pref_mi, pref_gain)
+                    for o in self._dh_options(camp)), default=0.0)
+
+    def day_hikes(self, camp, pref_mi, pref_gain, limit=5):
+        """Ranked day-hike options: 60 percent destination quality,
+        40 percent effort fit against the preferred day."""
+        opts = []
+        for o in self._dh_options(camp):
+            o = dict(o)
+            o["fit"] = self.day_fit(o["rt_mi"], o["rt_gain"],
+                                    pref_mi, pref_gain)
+            o["appeal"] = round(0.6 * o["pct"] + 0.4 * o["fit"], 3)
+            opts.append(o)
+        walkable = [o for o in opts if o["rt_mi"] <= 2 * pref_mi
+                    and o["rt_gain"] <= 2 * pref_gain]
+        opts = walkable or opts
+        opts.sort(key=lambda o: o["appeal"], reverse=True)
+        return opts[:limit]
+
+    def layover_notes(self, row, pref_mi, pref_gain, limit=2):
+        ent = row.get("entrance")
+        if ent is None:
+            return []
+        stops = [ent] + list(row["seq"]) + [ent]
+        notes = []
+        for i, (mi, _g) in enumerate(row["days"]):
+            if mi:
+                continue
+            camp = stops[i]
+            short = self.g.name(camp).split(" - ")[0]
+            top = self.day_hikes(camp, pref_mi, pref_gain, limit=limit)
+            if top:
+                alts = "; or ".join(
+                    f"{o['name'].split(' - ')[0]} {o['rt_mi']} mi RT, +{o['rt_gain']} ft"
+                    + (" (lake)" if o["lake"] else "") for o in top)
+                notes.append(f"day {i + 1} layover at {short}, day hike: {alts}")
+            else:
+                notes.append(f"day {i + 1} layover at {short}, no day-hike routes in graph")
+        return notes
+
     def score(self, row, pref_mi, pref_gain):
         w = self.cfg["weights"]
-        fits = [self.day_fit(mi, gain, pref_mi, pref_gain)
-                for mi, gain in row["days"] if mi and mi > 0]
+        ent = row.get("entrance")
+        stops = ([ent] + list(row["seq"]) + [ent]) if ent is not None else None
+        fits = []
+        for i, (mi, gain) in enumerate(row["days"]):
+            if mi and mi > 0:
+                fits.append(self.day_fit(mi, gain, pref_mi, pref_gain))
+            elif stops is not None:
+                fits.append(self.best_layover_fit(stops[i], pref_mi, pref_gain))
         day_term = sum(fits) / len(fits) if fits else 0.0
         pcts = [self._pct.get(c, 0.5) for c in row["seq"]]
         camp_term = sum(pcts) / len(pcts)
