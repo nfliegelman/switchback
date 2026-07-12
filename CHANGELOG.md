@@ -2,6 +2,14 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v1.8.0 (2026-07-12)
+
+M7: GPX and CalTopo export. New switchback/gpx.py: itinerary to GPX 1.1 with waypoints per stop (elevations in meters), one track per moving day following graph node paths, layovers noted, straight node-to-node lines by design. trips --gpx N exports any listed route; a standalone export command needs no availability fetch; TripFinder.bat prompts for GPX export. caltopo_export.py now attaches rating and percentile properties, plus optional --window open-night counts, when a park dataset exists (verified live on Rainier). Sample file glacier_2026-09-22_BRE_GAB-GLF.gpx ships for import smoke testing. Invariant tests in tests/test_gpx.py.
+
+## v1.7.0 (2026-07-12)
+
+M6, reshuffled and landed: trips in the GUI plus route steering. Adventure mode interaction moved to the v2.1 web UI (the engine functions shipped with M4/M5 and wait fully tested). New Find Trips button in switchback_gui runs the engine with the saved profile through the existing worker/queue pattern and opens the ranked report in a results window; switchback/report.py is the shared renderer so GUI and CLI cannot drift. New --via flag filters to routes that sleep at or pass through a named camp, with pass-throughs counting; Graph.find resolves codes, names, and unique substrings; verified live with a pass-through-only filter. TripFinder.bat gains a via prompt.
+
 ## v1.6.2 (2026-07-12)
 
 Basecamp day hikes. The solver always allowed consecutive nights at one camp; layover days now come alive. New in switchback/scoring.py: day-hike options from any basecamp over the route graph (out-and-back miles and gain summed both directions), ranked 60/40 by destination quality and effort fit, with unwalkable distances filtered; availability is deliberately ignored for destinations, since day hikes need no permit, which makes basecamping an availability-arbitrage move (sleep where quota exists, visit where it does not). Scoring change: a layover day is now credited with its best achievable day-hike fit instead of being skipped, so layovers at camps with nothing nearby rank lower. The trips CLI prints day-hike suggestions under each route with a layover. Package version aligned to 1.6.2. New test assertions cover round-trip math, layover credit, and note formatting.

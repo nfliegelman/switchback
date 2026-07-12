@@ -38,6 +38,12 @@ def main():
     assert [g.name(c)[:3] for c in r["seq"]] == ["GAB", "GLF", "GAB"]
     assert r["type"] == "out_and_back", r["type"]
     assert s.endings(r["entrance"], r["start"], 1, r["seq"][0]) == 1
+    cos = node_by_code(g, "COS")
+    rn = s.route_nodes(r["entrance"], (gab,))
+    assert gab in rn and "BELLY_JCT" in rn and cos not in rn
+    rn2 = s.route_nodes(r["entrance"], (glf,))
+    assert cos in rn2, "pass-through camps must count for --via"
+    assert g.find("GAB") == gab and g.find("Glenns Lake Foot") == glf
     print("PARITY OK:", r["start"], ">".join(g.name(c)[:3] for c in r["seq"]),
           r["type"], "days:", [(round(m,1), gn) for m, gn in r["days"]])
 

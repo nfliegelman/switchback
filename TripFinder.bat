@@ -31,13 +31,22 @@ echo  Leave blank to search EVERY camp in the park (can be slow).
 echo  Or list camp codes to narrow it, comma separated, e.g. ELF,COS,GLF
 set /p CODES="Camp codes (blank = all): "
 echo.
+echo  Only show routes passing through one specific camp?
+set /p VIA="Via camp code or name (blank = anywhere): "
+echo.
 echo Searching, this can take a minute or two...
 echo.
 
-if "%CODES%"=="" (
-    python -m switchback trips %PARK% --start %STARTD% --end %ENDD% --nights %NIGHTS%
-) else (
-    python -m switchback trips %PARK% --start %STARTD% --end %ENDD% --nights %NIGHTS% --codes %CODES%
+set ARGS=--start %STARTD% --end %ENDD% --nights %NIGHTS%
+if not "%CODES%"=="" set ARGS=%ARGS% --codes %CODES%
+if not "%VIA%"=="" set ARGS=%ARGS% --via "%VIA%"
+python -m switchback trips %PARK% %ARGS%
+echo.
+set /p GPXN="Export a listed route to GPX? Enter its number (blank = skip): "
+if not "%GPXN%"=="" (
+    echo Re-running to export route %GPXN% (refetches availability, about a minute^)...
+    python -m switchback trips %PARK% %ARGS% --gpx %GPXN% > nul 2>&1 || python -m switchback trips %PARK% %ARGS% --gpx %GPXN%
+    echo GPX saved in the permit_exports folder.
 )
 
 echo.

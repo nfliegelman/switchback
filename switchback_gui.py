@@ -317,6 +317,9 @@ class App(ctk.CTk):
                         variable=self.skip_group).pack(side="left", padx=18)
         self.run_btn = ctk.CTkButton(r3o, text="Find availability", command=self.run)
         self.run_btn.pack(side="right")
+        self.trips_btn = ctk.CTkButton(r3o, text="Find Trips", width=110,
+                                       command=self.find_trips)
+        self.trips_btn.pack(side="right", padx=(0, 8))
 
         # progress
         self.prog = ctk.CTkProgressBar(wrap)
@@ -529,6 +532,117 @@ class App(ctk.CTk):
             self.msg_q.put(("error", str(ex))); return
         self.msg_q.put(("done", (rows, saved, errors, len(jobs), styled)))
 
+    # ---- Find Trips (M6): thin trigger over the switchback engine --------
+    def _slug_for_permit(self):
+        import glob
+        import json as _json
+        for p in glob.glob(os.path.join(SCRIPT_DIR, "parks", "*.json")):
+            base = os.path.basename(p)
+            if base in ("manual_coords.json", "ratings.json", "demand.json"):
+                continue
+            try:
+                with open(p) as fh:
+                    d = _json.load(fh)
+            except Exception:
+                continue
+            if str(d.get("permit_id")) == str(getattr(self, "permit_id", "")):
+                return d.get("slug")
+        return None
+
+    def find_trips(self):
+        if not getattr(self, "permit_id", None):
+            messagebox.showinfo("Find Trips", "Load a permit first (Search, then Load).")
+            return
+        slug = self._slug_for_permit()
+        if not slug:
+            messagebox.showinfo(
+                "Find Trips",
+                "This park isn't set up for trip planning yet.\n\n"
+                "Trips need parks/<slug>.json plus a route graph in "
+                "parks/edges/. Currently ready: glacier, rainier.\n\n"
+                "The availability finder above still works for any park.")
+            return
+        try:
+            start = date.fromisoformat(self.start_var.get().strip())
+            end_raw = self.end_var.get().strip()
+            end = date.fromisoformat(end_raw) if end_raw else start
+        except ValueError:
+            messagebox.showerror("Find Trips", "Dates must look like 2026-09-14.")
+            return
+        dlg = ctk.CTkInputDialog(text="How many nights? (1-8, blank = 3)",
+                                 title="Find Trips")
+        raw = dlg.get_input()
+        if raw is None:
+            return
+        try:
+            nights = max(1, min(8, int(raw.strip() or "3")))
+        except ValueError:
+            nights = 3
+        self.run_btn.configure(state="disabled")
+        self.trips_btn.configure(state="disabled")
+        self.prog.set(0)
+        self.prog_lbl.configure(text=f"Finding {nights}-night trips in {slug}...")
+        threading.Thread(target=self._trips_worker,
+                         args=(slug, start, end, nights), daemon=True).start()
+        self.after(100, self._drain)
+
+    def _trips_worker(self, slug, start, end, nights):
+        try:
+            os.chdir(SCRIPT_DIR)
+            from datetime import timedelta
+            from switchback.graph import Graph
+            from switchback.solver import Solver, fetch_availability
+            from switchback.scoring import Scorer
+            from switchback.report import format_trips
+            from switchback.config import load_profile
+            prof = load_profile()
+            self.msg_q.put(("status", f"Building the {slug} route graph..."))
+            g = Graph(slug)
+            camps = g.camps()
+            self.msg_q.put(("status",
+                            f"Fetching availability for {len(camps)} camps..."))
+            div_ids = [g.nodes[c]["division_id"] for c in camps]
+            av_raw = fetch_availability(
+                g.park["permit_id"], div_ids, start,
+                end + timedelta(days=nights),
+                progress=lambda f: self.msg_q.put(("progress", f)))
+            av = {c: av_raw[g.nodes[c]["division_id"]] for c in camps}
+            sol = Solver(g, av, party=prof["party_size"], nights=nights,
+                         max_mi=prof["daily_max"]["miles"],
+                         max_gain=prof["daily_max"]["gain_ft"])
+            rows = sol.batch(g.entrances(), start, end, trip_type="any")
+            scorer = Scorer(g)
+            ranked = scorer.rank(rows, prof["daily_pref"]["miles"],
+                                 prof["daily_pref"]["gain_ft"])
+            text, _shown = format_trips(
+                g, scorer, ranked, prof["daily_pref"]["miles"],
+                prof["daily_pref"]["gain_ft"], nights, sol.party,
+                sol.max_mi, sol.max_gain)
+            text += ("\n\nTo export a listed route as GPX, run:\n"
+                     f"  python -m switchback trips {slug} --start {start} "
+                     f"--end {end} --nights {nights} --gpx N")
+            self.msg_q.put(("trips_done", text))
+        except Exception as ex:
+            self.msg_q.put(("error", f"Find Trips failed: {ex}"))
+
+    def _show_trips(self, text):
+        win = ctk.CTkToplevel(self)
+        win.title("Switchback: ranked trips")
+        win.geometry("1020x640")
+        box = tk.Text(win, wrap="none", font=("Courier New", 10),
+                      bg="#1E1E1E", fg="#DCE4EE", insertbackground="#DCE4EE")
+        vsb = ttk.Scrollbar(win, orient="vertical", command=box.yview)
+        hsb = ttk.Scrollbar(win, orient="horizontal", command=box.xview)
+        box.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        box.insert("1.0", text)
+        box.configure(state="disabled")
+        box.grid(row=0, column=0, sticky="nsew", padx=(10, 0), pady=10)
+        vsb.grid(row=0, column=1, sticky="ns", pady=10)
+        hsb.grid(row=1, column=0, sticky="ew", padx=10)
+        win.rowconfigure(0, weight=1)
+        win.columnconfigure(0, weight=1)
+        win.lift()
+
     def _drain(self):
         try:
             while True:
@@ -540,7 +654,14 @@ class App(ctk.CTk):
                     self.prog_lbl.configure(text=payload)
                 elif kind == "error":
                     self.run_btn.configure(state="normal")
+                    self.trips_btn.configure(state="normal")
                     messagebox.showerror("Error", payload); return
+                elif kind == "trips_done":
+                    self.run_btn.configure(state="normal")
+                    self.trips_btn.configure(state="normal")
+                    self.prog.set(1)
+                    self.prog_lbl.configure(text="Trips ready.")
+                    self._show_trips(payload); return
                 elif kind == "done":
                     rows, out, errors, njobs, styled = payload
                     self._show_results(rows, out, errors, njobs, styled); return

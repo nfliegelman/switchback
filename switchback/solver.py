@@ -117,6 +117,19 @@ class Solver:
                                       streak + 1 if c == pos else 1)
         return total
 
+    def route_nodes(self, entrance, seq):
+        """Every node the trip touches: sleeps, the entrance, and all
+        pass-throughs on each day's shortest leg. Powers --via."""
+        stops = [entrance] + list(seq) + [entrance]
+        nodes = set()
+        for a, b in zip(stops, stops[1:]):
+            if a == b:
+                nodes.add(a)
+                continue
+            _, _, path = self._leg(a, b)
+            nodes.update(path or (a, b))
+        return nodes
+
     # -------------------------------------------------------------------
     def classify(self, entrance, seq):
         stops = [entrance] + [c for c in seq] + [entrance]

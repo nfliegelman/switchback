@@ -112,6 +112,8 @@ Onboarding checklist per park: confirm booking system and archetype (systems mig
 
 ## 10. Adventure mode (interactive frontier search)
 
+(Targets the v2.1 web UI per the 2026-07-12 reshuffle. The engine functions this section needs, endings and camp_card and the availability re-verify clamp, shipped with M4/M5; only the interaction layer is deferred.)
+
 Batch mode and adventure mode are the same solver. The DP lattice over (night, camp) states is the book: batch mode enumerates every ending and ranks them, adventure mode turns one page at a time. Editing an existing route is re-opening the book at chapter k, so this section absorbs the structured route editing line item in SCOPE.md.
 
 Start resolution. Trailheads are ordinary nodes. A virtual origin connects to every entry trailhead at zero cost, so the night-1 frontier is every camp reachable from any trailhead within daily bounds. A camp reachable from multiple trailheads appears once, with one via entry per approach carrying that approach's distance, gain, and grade. The trailhead choice is deferred until logistics force it. Validated against live Glacier data: Elizabeth Lake Foot is reachable from both the BRE Belly River Trail and IPE Iceberg/Ptarmigan Trail entrances, exactly the case this design defers rather than forces.

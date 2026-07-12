@@ -16,6 +16,7 @@ from .features import annotate, feature_summary
 from .graph import Graph
 from .solver import Solver, fetch_availability
 from .scoring import Scorer
+from .report import format_trips
 
 
 def cmd_search(args):
@@ -85,13 +86,9 @@ def cmd_graph(args):
     g = Graph(args.slug)
     print(g.report())
     if args.leg:
-        from .features import norm
-        def find(ref):
-            for nid, n in g.nodes.items():
-                if norm(n["name"]) == norm(ref) or nid == ref:
-                    return nid
-            sys.exit(f"node not found: {ref}")
-        a, b = find(args.leg[0]), find(args.leg[1])
+        a, b = g.find(args.leg[0]), g.find(args.leg[1])
+        if not a or not b:
+            sys.exit("node not found")
         got = g.leg(a, b)
         if not got:
             sys.exit("no route")
@@ -127,37 +124,57 @@ def cmd_trips(args):
                basecamp_ok=not args.no_basecamp)
     rows = s.batch(g.entrances(), start, end,
                    trip_type=args.trip_type or prof.get("trip_type", "any"))
+    if args.via:
+        via_id = g.find(args.via)
+        if not via_id:
+            sys.exit(f"--via camp not found: {args.via}")
+        rows = [r for r in rows
+                if via_id in s.route_nodes(r["entrance"], r["seq"])]
+        print(f"via {g.name(via_id)}: {len(rows)} itineraries", file=sys.stderr)
     scorer = Scorer(g)
     ranked = scorer.rank(rows, prof["daily_pref"]["miles"],
                          prof["daily_pref"]["gain_ft"])
     if args.sort == "date":
         ranked.sort(key=lambda r: (r["start"], -r["score"]))
-    routes = {}
-    for r in ranked:
-        key = (r["entrance"], r["seq"])
-        if key not in routes:
-            routes[key] = {"best": r, "dates": []}
-        routes[key]["dates"].append(r["start"])
-    shown = sorted(routes.values(), key=lambda v: v["best"]["score"],
-                   reverse=True) if args.sort == "score" else list(routes.values())
-    print(f"{len(ranked)} bookable {s.nights}-night itineraries across "
-          f"{len(routes)} distinct routes, party {s.party}, "
-          f"max {s.max_mi} mi / {s.max_gain} ft, ranked:")
-    for v in shown[:15]:
-        r = v["best"]
-        days = " ".join(f"{m:.1f}mi" for m, _ in r["days"])
-        names = " > ".join(g.name(c).split(" - ")[0] for c in r["seq"])
-        lk = f" lakes:{r['lake_nights']}/{len(r['seq'])}" if r["lake_nights"] else ""
-        ds = sorted(v["dates"])
-        when = ds[0].isoformat() if len(ds) == 1 else             f"{ds[0].isoformat()} (+{len(ds) - 1} more dates thru {ds[-1].isoformat()})"
-        print(f"  {r['score']:.3f}  {g.name(r['entrance'])[:24]:<24} {names}"
-              f"  [{r['type']}]  days: {days}{lk}\n"
-              f"          available: {when}")
-        for note in scorer.layover_notes(r, prof["daily_pref"]["miles"],
-                                         prof["daily_pref"]["gain_ft"]):
-            print(f"          {note}")
-    if len(routes) > 15:
-        print(f"  ... and {len(routes) - 15} more routes")
+    text, shown = format_trips(
+        g, scorer, ranked, prof["daily_pref"]["miles"],
+        prof["daily_pref"]["gain_ft"], nights, s.party, s.max_mi, s.max_gain,
+        sort=args.sort)
+    print(text)
+    if args.gpx:
+        if not 1 <= args.gpx <= min(len(shown), 15):
+            sys.exit(f"--gpx must be 1..{min(len(shown), 15)}")
+        from .gpx import write_itinerary_gpx
+        path, skipped = write_itinerary_gpx(g, shown[args.gpx - 1]["best"])
+        print(f"GPX written: {path}")
+        if skipped:
+            print(f"  skipped (no coordinates): {', '.join(skipped)}")
+        print("  Note: straight lines between graph nodes, not trail "
+              "geometry. Snap to trails in CalTopo or AllTrails.")
+
+
+def cmd_export(args):
+    from .gpx import write_itinerary_gpx, DISCLAIMER
+    g = Graph(args.slug)
+    ent = g.find(args.entrance)
+    if not ent:
+        sys.exit(f"entrance not found: {args.entrance}")
+    if g.nodes[ent]["kind"] != "entrance":
+        print(f"note: {g.name(ent)} is a {g.nodes[ent]['kind']}, not an entrance",
+              file=sys.stderr)
+    seq = []
+    for ref in args.camps.split(","):
+        nid = g.find(ref.strip())
+        if not nid:
+            sys.exit(f"camp not found: {ref.strip()}")
+        seq.append(nid)
+    row = {"entrance": ent, "seq": tuple(seq),
+           "start": date.fromisoformat(args.start)}
+    path, skipped = write_itinerary_gpx(g, row, title=args.name)
+    print(f"GPX written: {path}")
+    if skipped:
+        print(f"  skipped (no coordinates): {', '.join(skipped)}")
+    print(f"  Note: {DISCLAIMER}")
 
 
 def cmd_profile(args):
@@ -183,6 +200,14 @@ def main():
     a.add_argument("--only-available", action="store_true")
     a.add_argument("--skip-group", action="store_true")
     a.set_defaults(fn=cmd_availability)
+
+    xp = sub.add_parser("export", help="write an itinerary GPX, no availability fetch")
+    xp.add_argument("slug")
+    xp.add_argument("entrance", help="entrance code or name, e.g. BRE or Longmire")
+    xp.add_argument("camps", help="camp sequence, comma separated, e.g. GAB,GLF,GAB")
+    xp.add_argument("--start", required=True, help="trip start date YYYY-MM-DD")
+    xp.add_argument("--name", default=None)
+    xp.set_defaults(fn=cmd_export)
 
     pr = sub.add_parser("profile", help="show the saved effort profile")
     pr.set_defaults(fn=cmd_profile)
@@ -221,6 +246,10 @@ def main():
                     help="restrict to camp codes, comma separated")
     tr.add_argument("--no-basecamp", action="store_true")
     tr.add_argument("--sort", default="score", choices=["score", "date"])
+    tr.add_argument("--via", default=None,
+                    help="only routes that sleep at or pass through this camp")
+    tr.add_argument("--gpx", type=int, default=None, metavar="N",
+                    help="export the Nth listed route to permit_exports/")
     tr.set_defaults(fn=cmd_trips)
 
     args = p.parse_args()

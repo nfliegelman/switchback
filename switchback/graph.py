@@ -165,6 +165,23 @@ class Graph:
     def name(self, nid):
         return self.nodes[nid]["name"]
 
+    def find(self, ref):
+        """Resolve a user reference: node id, camp code, normalized name,
+        or unique case-insensitive substring. None if unresolvable."""
+        if ref in self.nodes:
+            return ref
+        up = ref.strip().upper()
+        for nid, n in self.nodes.items():
+            if n["name"].split(" - ")[0].strip().upper() == up:
+                return nid
+        target = norm(ref)
+        for nid, n in self.nodes.items():
+            if norm(n["name"]) == target:
+                return nid
+        subs = [nid for nid, n in self.nodes.items()
+                if ref.lower() in n["name"].lower()]
+        return subs[0] if len(subs) == 1 else None
+
     def report(self):
         kinds = {}
         for n in self.nodes.values():

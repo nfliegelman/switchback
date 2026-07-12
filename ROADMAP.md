@@ -55,16 +55,18 @@ Locked decisions (2026-07-07):
 - [x] computed_prior coefficients hand-set in scoring.json; personal overrides in parks/ratings.json; trail-depth term uses real graph distance to the nearest entrance, replacing the M2 straight-line placeholder
 - Done when: batch output is ranked and weights are editable without code changes. Landed 2026-07-08: live Rainier run ranked 35,777 bookable itineraries across 641 distinct routes with route-level date dedup; the leaderboard correctly surfaces the Northern Loop lakeside triangle (Mystic, James, Dick Creek) that stays open all season. Priors sanity-checked: feature prior lands ELF 4.53 vs the 4.6 hand rating and GAB 3.5 vs 3.2. Invariant tests in tests/test_scoring.py.
 
-### M6. Adventure mode CLI + thin GUI trigger (3-5 h)
-- [ ] Find Trips button in switchback_gui calling the engine with the saved profile
-- [ ] Numbered frontier cards, pick-by-number, layover card, endings counts
-- [ ] Live availability re-verify on pick; clamp negative remaining to 0 (known rec.gov quirk)
-- Done when: the Elizabeth Lake walkthrough runs interactively.
+### M6. Trips in the GUI plus route steering (1-2 h) [DONE, v1.7.0]
+- [x] Find Trips button in switchback_gui: runs the engine with the saved profile over the GUI's date range, streams progress through the existing queue, opens the ranked report in a results window
+- [x] Shared renderer (switchback/report.py) so GUI and CLI output can never drift apart
+- [x] --via flag on trips: only itineraries that sleep at or pass through a named camp; Graph.find resolves codes, names, and unique substrings; pass-throughs count
+- Done: --via verified live 2026-07-12 (COS as a pass-through filter returns exactly the Sept 22 chain that never sleeps there) and in tests. The GUI button compiles and follows the file's existing worker/queue pattern but this sandbox has no display, so the click itself is an owner smoke test.
+- RESHUFFLE (2026-07-12): adventure mode (frontier cards, pick-by-number, live re-verify, the Elizabeth Lake walkthrough) moved to the v2.1 web UI. A terminal is the wrong medium for a spatial interaction. The engine side (endings, camp_card, negative-remaining clamp) shipped with M4/M5 and waits fully tested; only the interaction layer is deferred.
 
-### M7. GPX and CalTopo export (2-3 h)
-- [ ] Itinerary to GPX: waypoints per camp, track as node-to-node lines in the first cut (real geometry is backlog)
-- [ ] caltopo_export.py gains rating and availability properties
-- Done when: a generated GPX imports into an AllTrails custom map and CalTopo without edits.
+### M7. GPX and CalTopo export (2-3 h) [DONE, v1.8.0]
+- [x] Itinerary to GPX (switchback/gpx.py): waypoints per stop with elevations in meters, one track per moving day following graph node paths, layovers noted in metadata; straight node-to-node lines by design (real geometry is backlog)
+- [x] trips --gpx N exports the Nth listed route; standalone export command works with no availability fetch; TripFinder.bat prompts for both via and GPX
+- [x] caltopo_export.py gains rating properties (prior plus percentile) and optional --window START END open-night counts whenever a park dataset exists; verified live on Rainier
+- Done when: a generated GPX imports into AllTrails and CalTopo without edits. Sandbox verification: GPX 1.1 parses with correct waypoint and per-day track counts, layover handling, and zero coordinate-less points (tests/test_gpx.py); the sample file glacier_2026-09-22_BRE_GAB-GLF.gpx ships with this release for the owner's import smoke test.
 
 ### M8. Scan history logger (2-3 h)
 - [ ] Every availability fetch appends (camp, date, remaining, total, scanned_at) to SQLite
@@ -86,4 +88,4 @@ Locked decisions (2026-07-07):
 
 ## Out of scope before v2.0.0
 
-Web/map UI (scheduled as v2.1, immediately after the engine), freehand routing, Archetype B parks, shuttle logistics, automated ratings research, GH Actions poller, real trail geometry in GPX. All tracked in BACKLOG.md.
+Web/map UI (scheduled as v2.1, immediately after the engine, now including adventure mode interaction), freehand routing, Archetype B parks, shuttle logistics, automated ratings research, GH Actions poller, real trail geometry in GPX. All tracked in BACKLOG.md.
