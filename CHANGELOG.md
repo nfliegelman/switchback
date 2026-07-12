@@ -2,6 +2,18 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.0.0 (2026-07-12)
+
+M10: docs and invariants; the engine ladder is complete. README rewritten around a measured quickstart (fresh copy to first ranked result in about a minute; the command itself ran in one second on a one-month window). New tests/test_shapes.py pins the classifier on known shapes, day bounds across a 178-itinerary synthetic run, and endings monotonicity. Recorded insight: Sunrise's Northern Loop is correctly a lollipop (the trailhead connector is walked twice); White River around the full Wonderland is the pure loop.
+
+## v1.10.0 (2026-07-12)
+
+M9: watch mode and Telegram alerts. New switchback/watch.py: a pure alert state machine (Full-to-Reservable transitions only, one re-check flicker filter, exactly one alert per opening, restart-safe persisted state) inside a jittered polling loop that also feeds the history log. Telegram config via env vars or gitignored telegram.json (example committed); alerts carry camp, date, remaining, and a booking link. The watch CLI supports --codes, --party, --interval, --once, --no-send, and --inject; the manufactured-transition done-criterion produced exactly one message through the real fetch path. State machine pinned by tests/test_watch.py.
+
+## v1.9.0 (2026-07-12)
+
+M8: scan history logger. New switchback/history.py hooked into api.fetch_division_month, the choke point every caller passes through, so every availability fetch from any entry point appends raw cells to gitignored SQLite, fail-silent, with SWITCHBACK_NO_HISTORY as the off switch. New history stats and history demand commands; demand.json (fullness-rate proxy, 30-sample minimum) feeds the existing scorer solitude term. Proven live: one ordinary fetch appended 30 cells.
+
 ## v1.8.0 (2026-07-12)
 
 M7: GPX and CalTopo export. New switchback/gpx.py: itinerary to GPX 1.1 with waypoints per stop (elevations in meters), one track per moving day following graph node paths, layovers noted, straight node-to-node lines by design. trips --gpx N exports any listed route; a standalone export command needs no availability fetch; TripFinder.bat prompts for GPX export. caltopo_export.py now attaches rating and percentile properties, plus optional --window open-night counts, when a park dataset exists (verified live on Rainier). Sample file glacier_2026-09-22_BRE_GAB-GLF.gpx ships for import smoke testing. Invariant tests in tests/test_gpx.py.

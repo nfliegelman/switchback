@@ -2,32 +2,43 @@
 
 Backcountry permit availability, trip planning, and effort math, automated. A switchback is the trail's answer to terrain too steep to climb in one go; this project does the same thing to backcountry itineraries.
 
-## What it does today (v1.1.0)
+## Quickstart
 
-**Permit availability finder (GUI).** Search any recreation.gov wilderness or backcountry permit, load every camp and zone in it, and pull availability across your date range on six threads. Each camp-night is classified (Reservable, Walk-up only, Full, Not released) and exported to a styled Excel workbook with filters, conditional formatting, and percent-remaining color scales. Windows: double-click `Switchback.bat`. Anywhere: `python switchback_gui.py`.
+Measured 2026-07-12: a fresh copy reaches its first ranked result in about a minute, most of it human typing. The command itself ran in one second on a one-month window.
 
-**CalTopo layer exporter.** `python caltopo_export.py <permit_id>` dumps every camp and trailhead in a permit as a GeoJSON file you can import straight into CalTopo: trailside camps, cross-country zones, alpine and winter sites color-coded, trailheads with parking flags. Validated on Mount Rainier (245 features) and built for any permit on the platform.
+1. Install Python 3.8 or newer (the python.org Windows installer includes tkinter). The engine needs no pip installs; it is standard library only.
+2. Download or clone this repository and open a terminal in its folder.
+3. Run: `python -m switchback trips glacier --start 2026-09-18 --end 2026-09-24 --nights 3 --codes GAB,COS,GLF,ELF`
+   You get every bookable itinerary in that window, ranked by fit against your saved effort profile, camp quality, and lake nights, deduplicated by route with availability date spans, trip shape classified (loop, out_and_back, lollipop), and day-hike suggestions on any layover day.
+4. Append `--gpx 1` to export the top route to `permit_exports/` as a GPX for CalTopo, AllTrails, or a Garmin. Lines are straight segments between graph nodes; snap to trails after import.
+5. Windows, no terminal: double-click `TripFinder.bat` for the same thing with prompts, or `Switchback.bat` for the availability GUI, which now has a Find Trips button running the same engine.
 
-**Trip Finder launcher (new at v1.6.1).** Double-click `TripFinder.bat` for a prompt-driven wrapper around the trips command below, no typing python commands required. This is a stopgap: the real interactive experience is still ahead (M6 adventure mode, then the v2.1 web UI). `Switchback.bat` still only opens the original availability-finder GUI; the two are separate entry points until M6 wires them together.
+## What's inside (v2.0.0)
 
-**Engine CLI (new at v1.1.0).** The data layer lives in a stdlib-only `switchback/` package with a CLI: `python -m switchback search "glacier wilderness"`, `python -m switchback availability 4675321 --start 2026-09-01 --end 2026-09-07 --filter "ELF -"`, `python -m switchback profile` to view the saved effort profile in `profile.json`, `python -m switchback extract 4675321 --slug glacier` to build the park datasets in `parks/`, `python -m switchback features glacier` to fill coordinates and tag lakes and elevations, `python -m switchback graph rainier --leg Longmire "Golden Lakes Camp"` to query the route graph, and `python -m switchback trips glacier --start 2026-09-01 --end 2026-09-22 --codes GAB,COS,GLF,ELF` to get bookable itineraries ranked by fit, camp quality, and lake nights, with weights you can edit in scoring.json. Routes with layover days include ranked day-hike suggestions, since a basecamp night needs a permit but the day hike does not. Add `--via COS` to only see routes that sleep at or pass through a camp, and `--gpx 3` to export the third listed route as a GPX for CalTopo, AllTrails, or a Garmin (straight lines between graph nodes; snap to trails after import). The GUI now has a Find Trips button that runs the same engine with your saved profile. The GUI and the coming trip solver share this engine.
+**Availability finder (GUI).** Search any recreation.gov wilderness permit, pull classified availability (Reservable, Walk-up only, Full, Not released) across a date range on six threads, export a styled Excel workbook. The Find Trips button runs the trip engine with your saved profile and opens the ranked report in a window.
 
-**Adventure mode demo (Glacier, Belly River).** `python belly_river_adventure.py` runs a live 3-night itinerary search for the Belly River drainage: a route graph with cited mileages and per-direction elevation, live availability for ten camps, a choose-your-own-adventure frontier walkthrough where every option shown is guaranteed to have at least one valid ending, and a batch mode that enumerates every bookable chain in the window. When advance inventory is sold out, planning mode relaxes availability so you can design a route for the walk-up line or cancellation watching.
+**Trip engine (CLI).** `trips` enumerates bookable itineraries within your daily limits (`profile.json`: party, preferred and max miles and gain), scores them with editable weights (`scoring.json`), and understands basecamps: a layover day gets ranked day-hike options, because the night needs a permit but the day hike does not, which turns basecamping into availability arbitrage. `--via COS` keeps only routes that sleep at or pass through a camp. `--trip-type loop` filters by shape.
+
+**Watch mode and Telegram alerts.** `python -m switchback watch glacier --start 2026-09-18 --end 2026-09-25 --codes ELF,COS` polls on a jittered interval and messages you when a full camp-night opens. Alerts fire exactly once per opening, only after the opening survives one re-check (flicker filter), and carry camp, date, spots left, and a booking link. Setup: copy `telegram.json.example` to `telegram.json` and paste your bot token and chat id, or set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID. Test the pipeline without sending: add `--once --no-send --inject DIV:2026-09-23`.
+
+**Scan history.** Every availability fetch, from any entry point, silently appends to `parks/history.sqlite`. `python -m switchback history stats` shows growth; `history demand` derives a fullness-rate demand file that the scorer's solitude term reads automatically once camps have 30 or more observations. The longer Switchback runs, the smarter it gets.
+
+**Exports.** `export glacier BRE GAB,GLF,GAB --start 2026-09-22` writes an itinerary GPX with no availability fetch. `python caltopo_export.py <permit_id>` writes a CalTopo GeoJSON layer of every camp and trailhead, with rating and percentile properties attached when a park dataset exists, plus optional `--window START END` open-night counts.
+
+**Park data pipeline.** `search` finds permits, `extract <permit_id> --slug <name>` builds `parks/<slug>.json`, `features <slug>` fills coordinates (OSM name-join with a manual queue) and tags lakes, creeks, and elevations from USGS sources, `graph <slug>` validates the route network, `availability` is the classic classified table. Adding a camp-night park is extract, features, then transcribing its mileage table into `parks/edges/`.
 
 ## Requirements
 
-Python 3.8+ with tkinter (included in the python.org Windows installer). The GUI auto-installs `customtkinter` and `openpyxl` on first run; the engine package, exporter, and demo use only the standard library.
+Python 3.8+ with tkinter for the GUI (included in the python.org Windows installer). The GUI auto-installs `customtkinter` and `openpyxl` on first run; everything else is standard library.
+
+## Honest cautions
+
+Unsourced elevation gains are endpoint-delta estimates that understate passes by roughly 40 percent (benchmarked against a GPS log), so treat gain limits as soft at Rainier until the DEM pass lands; Glacier's big climbs are sourced numbers. GPX tracks are straight lines between graph nodes by design. Demand percentages are a fullness-rate proxy until the history log has weeks of depth.
 
 ## Where it's going
 
-ROADMAP.md tracks the build toward v2.0.0, the full Switchback engine: enter a park, dates, party size, and your daily distance, elevation, and grade limits, and get ranked itineraries that are actually bookable right now, with loop, out-and-back, and lollipop trip shapes, an interactive frontier explorer, camp ratings, and GPX export for AllTrails, Garmin, Gaia, or CalTopo. BACKLOG.md holds everything beyond that. SPEC.md and SCOPE.md hold the design rationale. HANDOFF.md exists so any AI assistant can pick the project up cold.
+v2.0.0 completes the engine ladder (M0 through M10, see ROADMAP.md). Next is v2.1: the local web UI with the map, ranked routes as layers, and the choose-your-own-adventure frontier explorer, whose engine functions already exist. BACKLOG.md holds everything else. SPEC.md and SCOPE.md hold design rationale. HANDOFF.md exists so any AI assistant can pick the project up cold.
 
 ## Versioning
 
-v1.0.0 is this initial release. Each completed roadmap milestone bumps the minor version; completing all ten is v2.0.0. Patches are fixes.
-
-## Data and respect
-
-Unofficial and unaffiliated with recreation.gov, the National Park Service, CalTopo, or AllTrails. The tools read recreation.gov's public endpoints with modest, threaded, backoff-respecting requests, and they never book, hold, or reserve anything. Availability output is a snapshot: always confirm on recreation.gov before committing plans. No AllTrails or WTA content is stored, ever; those stay links.
-
-Mileage sources for the Belly River graph are cited edge-by-edge inside `belly_river_graph.json`. Values flagged `est` are topographic estimates pending a proper elevation pass; trust the sourced numbers, verify the flagged ones.
+v1.0.0 was the original GUI upload. Each engine milestone bumped the minor version; v2.0.0 marks the complete engine, reached 2026-07-12. The web UI ships as v2.1.

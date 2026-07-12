@@ -68,23 +68,28 @@ Locked decisions (2026-07-07):
 - [x] caltopo_export.py gains rating properties (prior plus percentile) and optional --window START END open-night counts whenever a park dataset exists; verified live on Rainier
 - Done when: a generated GPX imports into AllTrails and CalTopo without edits. Sandbox verification: GPX 1.1 parses with correct waypoint and per-day track counts, layover handling, and zero coordinate-less points (tests/test_gpx.py); the sample file glacier_2026-09-22_BRE_GAB-GLF.gpx ships with this release for the owner's import smoke test.
 
-### M8. Scan history logger (2-3 h)
-- [ ] Every availability fetch appends (camp, date, remaining, total, scanned_at) to SQLite
-- Done when: the demand dataset grows on every run. Start this early; it only pays with time.
+### M8. Scan history logger (2-3 h) [DONE, v1.9.0]
+- [x] Every availability fetch appends raw cells (permit, camp, date, remaining, total, walkup, hidden, scanned_at UTC) to SQLite; the hook lives in api.fetch_division_month, the choke point every caller passes through, so GUI, CLI, solver, and watch all feed it without knowing
+- [x] Fail-silent by design (logging can never break a fetch); SWITCHBACK_NO_HISTORY=1 disables; parks/history.sqlite is gitignored state
+- [x] history stats and history demand commands; demand is a fullness-rate proxy (30-sample minimum) written to parks/demand.json, which the M5 solitude term already reads; the Permit Difficulty Index feeds on the same table
+- Done: the dataset grows on every run, proven live 2026-07-12 (one ordinary ELF fetch appended 30 cells) and by tests/test_history.py.
 
-### M9. Watch mode and Telegram alerts (4-6 h)
-- [ ] Diff last scan vs current, alert only on Full-to-Reservable transitions, jittered polling
-- [ ] Telegram via the existing digest bot token; message carries camp, date, remaining, booking URL
-- [ ] Flicker filter: require the opening to persist across one re-check before alerting
-- Done when: a manufactured transition produces exactly one Telegram message.
+### M9. Watch mode and Telegram alerts (4-6 h) [DONE, v1.10.0]
+- [x] WatchState pure state machine (closed, candidate, alerted): alerts only on Full-to-Reservable transitions at party size, one re-check flicker filter, exactly one alert per opening until the cell closes again, restart-safe via parks/.watch_state.json
+- [x] Jittered polling loop; every poll feeds the M8 log for free
+- [x] Telegram via env vars or telegram.json (example file committed, real file gitignored); message carries camp, date, remaining, booking URL
+- [x] --inject manufactures a transition, --once bounds the loop, --no-send prints instead
+- Done: the manufactured transition produced exactly one message, on the persistence cycle, through the real fetch path (2026-07-12); the state machine's blip, re-alert, restart, and party-threshold behavior is pinned by tests/test_watch.py.
 
-### M10. Docs and invariants (2-3 h)
-- [ ] README with quickstart; tests: endings monotonicity, bounds respected, classifier correctness on known shapes
-- Done when: fresh clone to first result in under 10 minutes.
+### M10. Docs and invariants (2-3 h) [DONE, v2.0.0]
+- [x] README rewritten around a measured quickstart: fresh copy to first ranked result in about a minute (the command itself: one second on a one-month window), far under the 10-minute bar
+- [x] Invariant tests: endings monotonicity (superset availability grew endings 1 to 2), day bounds held across all 178 itineraries of a loose synthetic run, classifier correctness on known shapes
+- [x] Classifier insight worth recording: the Northern Loop from Sunrise is a LOLLIPOP (the 1.2 mi trailhead connector is walked twice); the pure loop test is White River around the full Wonderland, every edge exactly once. The initial test expectation was wrong and the classifier was right.
+- Done: v2.0.0. The engine ladder is complete.
 
 ## Totals and order
 
-38-55 h. Order is M0 through M10, with one exception allowed: pull M9 forward immediately after M0/M1 if there is a live trip that needs cancellation alerts now.
+38-55 h estimated; ladder completed 2026-07-12 at v2.0.0. Order was M0 through M10, with one exception allowed: pull M9 forward immediately after M0/M1 if there is a live trip that needs cancellation alerts now.
 
 ## Out of scope before v2.0.0
 

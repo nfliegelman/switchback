@@ -177,6 +177,38 @@ def cmd_export(args):
     print(f"  Note: {DISCLAIMER}")
 
 
+def cmd_watch(args):
+    from .watch import run_watch
+    prof = load_profile()
+    g = Graph(args.slug)
+    camps = g.camps()
+    if args.codes:
+        want = {c.strip().upper() for c in args.codes.split(",")}
+        camps = [c for c in camps
+                 if g.name(c).split(" - ")[0].strip().upper() in want]
+    if not camps:
+        sys.exit("no camps selected")
+    div_ids = [g.nodes[c]["division_id"] for c in camps]
+    sent = run_watch(g, div_ids,
+                     date.fromisoformat(args.start),
+                     date.fromisoformat(args.end),
+                     party=args.party or prof["party_size"],
+                     interval=args.interval, once=args.once,
+                     no_send=args.no_send, inject=args.inject)
+    print(f"watch ended, {sent} alert(s) sent")
+
+
+def cmd_history(args):
+    from . import history
+    if args.action == "stats":
+        print(history.stats())
+    else:
+        path, n = history.derive_demand()
+        print(f"wrote {path}: {n} camps with enough samples")
+        if n == 0:
+            print("  (needs 30+ future-dated observations per camp; keep scanning)")
+
+
 def cmd_profile(args):
     prof = load_profile()
     print(f"profile file: {PROFILE_PATH}")
@@ -208,6 +240,23 @@ def main():
     xp.add_argument("--start", required=True, help="trip start date YYYY-MM-DD")
     xp.add_argument("--name", default=None)
     xp.set_defaults(fn=cmd_export)
+
+    wa = sub.add_parser("watch", help="poll for openings, alert on Telegram")
+    wa.add_argument("slug")
+    wa.add_argument("--start", required=True)
+    wa.add_argument("--end", required=True)
+    wa.add_argument("--codes", default=None, help="camp codes, comma separated (default: all graph camps)")
+    wa.add_argument("--party", type=int, default=None)
+    wa.add_argument("--interval", type=int, default=300, help="seconds between polls, jittered")
+    wa.add_argument("--once", action="store_true", help="run one cycle (two with --inject) and exit")
+    wa.add_argument("--no-send", action="store_true", help="print alerts instead of sending")
+    wa.add_argument("--inject", default=None, metavar="DIV:DATE",
+                    help="manufacture an opening to test the pipeline end to end")
+    wa.set_defaults(fn=cmd_watch)
+
+    hi = sub.add_parser("history", help="scan-history stats or demand derivation")
+    hi.add_argument("action", choices=["stats", "demand"])
+    hi.set_defaults(fn=cmd_history)
 
     pr = sub.add_parser("profile", help="show the saved effort profile")
     pr.set_defaults(fn=cmd_profile)

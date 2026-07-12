@@ -128,6 +128,11 @@ def fetch_division_month(permit_id, division_id, year, month):
         for d, avail in (payload.get("bools") or {}).items():
             per_date[d] = {"remaining": 1 if avail else 0, "total": None,
                            "hidden": not avail, "walkup": False}
+    try:
+        from . import history
+        history.record_month(permit_id, division_id, per_date)
+    except Exception:
+        pass
     return per_date, None
 
 

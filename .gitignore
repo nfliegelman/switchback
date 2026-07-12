@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 .DS_Store
 parks/.osm_cache/
+parks/history.sqlite*
+parks/.watch_state.json
+telegram.json
