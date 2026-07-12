@@ -25,6 +25,8 @@ Measured 2026-07-12: a fresh copy reaches its first ranked result in about a min
 
 **Exports.** `export glacier BRE GAB,GLF,GAB --start 2026-09-22` writes an itinerary GPX with no availability fetch. `python caltopo_export.py <permit_id>` writes a CalTopo GeoJSON layer of every camp and trailhead, with rating and percentile properties attached when a park dataset exists, plus optional `--window START END` open-night counts.
 
+**Coverage.** `python -m switchback coverage --write` regenerates PARKS.md, the living list of which parks sit at which tier. The availability finder itself needs no setup for any recreation.gov permit, park or forest alike.
+
 **Park data pipeline.** `search` finds permits, `extract <permit_id> --slug <name>` builds `parks/<slug>.json`, `features <slug>` fills coordinates (OSM name-join with a manual queue) and tags lakes, creeks, and elevations from USGS sources, `graph <slug>` validates the route network, `availability` is the classic classified table. Adding a camp-night park is extract, features, then transcribing its mileage table into `parks/edges/`.
 
 ## Requirements

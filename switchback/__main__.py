@@ -198,6 +198,17 @@ def cmd_watch(args):
     print(f"watch ended, {sent} alert(s) sent")
 
 
+def cmd_coverage(args):
+    from .coverage import survey, render, PARKS_MD
+    rows, queue = survey()
+    text = render(rows, queue)
+    print(text)
+    if args.write:
+        with open(PARKS_MD, "w") as fh:
+            fh.write(text)
+        print(f"wrote {PARKS_MD}")
+
+
 def cmd_history(args):
     from . import history
     if args.action == "stats":
@@ -253,6 +264,10 @@ def main():
     wa.add_argument("--inject", default=None, metavar="DIV:DATE",
                     help="manufacture an opening to test the pipeline end to end")
     wa.set_defaults(fn=cmd_watch)
+
+    co = sub.add_parser("coverage", help="which parks are at which tier")
+    co.add_argument("--write", action="store_true", help="regenerate PARKS.md")
+    co.set_defaults(fn=cmd_coverage)
 
     hi = sub.add_parser("history", help="scan-history stats or demand derivation")
     hi.add_argument("action", choices=["stats", "demand"])

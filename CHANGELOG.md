@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.0.2 (2026-07-12)
+
+Regions recorded, coverage generated. BACKLOG gains the cross-boundary regions design (multi-permit plus permitless stitching, FCFS honesty rule, Lena corridor pilot) at the owner's direction. New coverage command and generated PARKS.md replace any hand-maintained park list; Tier 0 universality documented. No engine behavior changes. The generator's first run caught a real staleness bug (extract-time counts never refreshed by features), so coverage now counts coordinates from the camps array directly.
+
 ## v2.0.1 (2026-07-12)
 
 Doc audit, prompted by the owner catching real drift between conversation and docs. SPEC now records the grade deferral next to the schema that still showed grade_pct. BACKLOG gains the park and forest expansion plan as a plan (archetypes, forest targets on the same platform, holdouts, first wave Olympic then Teton, cost trajectory). HANDOFF gains the owner's browser publish workflow with the ghost-file caution, the five-step test-drive gate before v2.1, and a new standing convention: conversational decisions get written into docs in the same turn. No code changes.

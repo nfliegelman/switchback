@@ -58,6 +58,14 @@ GATED behind FUTURE.md gates G1-G3 (5+ personal trips across two seasons; 3 stra
 AllTrails route-builder integration, automation, or scraping. Storing or mirroring AllTrails or WTA content (link-only, always). Auto-booking permits. CalTopo-clone drag interaction. Programmatic Garmin push (manual GPX import is two taps). External per-camp crowding data. National no-permit legality database. Structured water-source status. Sub-minute polling.
 
 
+## Cross-boundary regions (DIRECTED 2026-07-12, owner request)
+
+The Lena problem: Lower Lena Lake is a no-permit FCFS site in Olympic National Forest; Upper Lena is inside Olympic National Park on a wilderness permit; they sit 2 to 3 trail miles apart on the same trail and should chain in one itinerary. Today's engine cannot do this: one park dataset carries one permit_id, the graph loads one park, and the solver fetches one permit's availability.
+
+The design: a REGION stitches multiple permits plus permitless overlays into one graph. Camps gain optional permit_id and a policy field (reservation, fcfs, none); availability fetches group by permit; permitless camps get an always-open entry but their nights are labeled honestly (first-come, no reservation exists to check, capacity not guaranteed) and never shown as Reservable. Scoring, GPX, watch, and day hikes already operate on nodes and need no changes. The v2.1 adventure frontier on a region delivers the owner's exact UX: click Lower Lena for night 1 and Upper Lena appears for night 2 whenever ONP inventory has it.
+
+Pilot region: the Lena corridor itself (two camps, one trailhead, two edges), which also makes the owner's real trip solvable. Estimate: 4-8 h engine work plus trivial pilot data. Sequencing: after the v2.0.0 test drive, alongside or just before Olympic proper, since Lena IS the Olympic gateway.
+
 ## Park and forest expansion plan (recorded 2026-07-12, doc audit)
 
 This plan existed only in conversation until the owner caught the drift. Recording it properly:
