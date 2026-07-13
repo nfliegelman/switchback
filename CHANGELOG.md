@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.14.0 (2026-07-13)
+
+The Washington map wave. Twenty-one wilderness areas built through the unchanged pipeline in one session, about 9,000 new trail miles, headlined by Glacier Peak (1,475 mi), Pasayten (1,080), Wenaha-Tucannon (900), William O. Douglas (861), and Mount Baker (737). The way-count floor became advisory after two nearly trailless pockets starved the mirror walk; sparse areas now keep the best response with a printed note. Wonder Mountain and Glacier View stay planned honestly: their fetches hang a full mirror timeout on tiny bboxes, recorded in BACKLOG for a retry rather than fought today. Washington stands at 3 live, 22 on the map, 6 planned; the system totals 43 built landscapes across two states.
+
 ## v2.13.0 (2026-07-13)
 
 The catch-up capture: every area on the owner's two-state census is now tracked in the system. The atlas went national: parks/atlas.json is the single source with a state field, and the generator renders COLORADO.md and WASHINGTON.md per state. Washington enters with 31 rows (3 live, 28 planned) spanning the NPS units, 26 wilderness areas with official USFS names wired for the area pipeline, Juniper Dunes, the St. Helens monument, and the PCT corridor, joining Colorado's 49 for 80 tracked landscapes. Goat Rocks proof-built through the unchanged pipeline on the first pull, 596 trail miles and 430 OSM ways plus 16 government additions, flipping to trails-on-map and confirming the boundary service, the junction graphs, and the rubber band all work identically outside Colorado. The remaining Washington map wave is a recorded checklist in BACKLOG, one command per area.

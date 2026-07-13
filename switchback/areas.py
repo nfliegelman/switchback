@@ -84,20 +84,29 @@ def _fetch_area_osm(bbox, slug):
         with open(cache) as fh:
             return json.load(fh)
     from .geometry import MIRRORS
-    last = None
+    last, best = None, None
     for attempt, url in enumerate(MIRRORS * 2):
         try:
             data = _overpass_once(url, bbox)
-            if len(data.get("elements", [])) < MIRRORS_FLOOR:
-                last = f"only {len(data.get('elements', []))} ways"
-                time.sleep(6)
+            n = len(data.get("elements", []))
+            if best is None or n > len(best.get("elements", [])):
+                best = data
+            if n < MIRRORS_FLOOR:
+                last = f"only {n} ways"
+                time.sleep(4)
                 continue
             with open(cache, "w") as fh:
                 json.dump(data, fh)
             return data
         except Exception as ex:
             last = ex
-            time.sleep(8 + attempt * 6)
+            time.sleep(5 + attempt * 3)
+    if best is not None and best.get("elements"):
+        print(f"  floor not met ({last}); keeping best response, "
+              f"sparse area accepted")
+        with open(cache, "w") as fh:
+            json.dump(best, fh)
+        return best
     raise RuntimeError(f"OSM mirrors failed for {slug}: {last}")
 
 

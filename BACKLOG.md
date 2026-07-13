@@ -143,3 +143,6 @@ GPX export of a drawn route. South San Juan connectivity audit (main network onl
 
 ## Washington map wave (v2.13 capture complete, builds queued)
 One command each, statuses flip to map on success: glacierpeak, pasayten, mountadams, indianheaven, lakechelansawtooth, mountbaker, noisydiobsud, williamodouglas, henrymjackson, wildsky, norsepeak, boulderriver, salmopriest, wenahatucannon, buckhorn, thebrothers, mountskokomish, colonelbob, wondermountain, tatoosh, glacierview, trappercreek, clearwater. North Cascades, St. Helens, Juniper Dunes, and the PCT corridor need non-USFS-wilderness boundary sources first.
+
+
+## WA wave status (2026-07-13): 21 of 23 built. wondermountain and glacierview hang a full Overpass mirror timeout on tiny bboxes; retry another day or shrink the boundary pad before fetching.
