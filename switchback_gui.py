@@ -617,7 +617,7 @@ class App(ctk.CTk):
             text, _shown = format_trips(
                 g, scorer, ranked, prof["daily_pref"]["miles"],
                 prof["daily_pref"]["gain_ft"], nights, sol.party,
-                sol.max_mi, sol.max_gain)
+                sol.max_mi, sol.max_gain, trip_type="any")
             text += ("\n\nTo export a listed route as GPX, run:\n"
                      f"  python -m switchback trips {slug} --start {start} "
                      f"--end {end} --nights {nights} --gpx N")

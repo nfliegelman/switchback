@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.0.6 (2026-07-13)
+
+Silent-filter bug, caught by the owner's first live test drive (run from a phone, in chat). profile.json ships trip_type "loop", and the trips report disclosed party and daily limits but never the shape filter, so a Rainier run showed 4 weak routes (top score 0.145) while silently discarding 635 others. The same window with the filter off returns 639 routes and a top score of 1.040. The report header now states the active trip type always, and prints an explicit FILTER ACTIVE warning naming what was discarded and how to see it. Threaded through the CLI and the GUI. No solver changes; the solver was right, the report was quiet.
+
 ## v2.0.5 (2026-07-13)
 
 AllTrails integration matrix decided and recorded in BACKLOG: edge seeding and land-unit labels now, traffic-label crowd proxy and corridor deep links soon, weather and review content live-only via the artifact path, the rest skipped. Discovery: trail_traffic and popularity sorts on the search tools deliver the crowd signal without the still-blocked details call.

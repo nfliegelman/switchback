@@ -139,7 +139,8 @@ def cmd_trips(args):
     text, shown = format_trips(
         g, scorer, ranked, prof["daily_pref"]["miles"],
         prof["daily_pref"]["gain_ft"], nights, s.party, s.max_mi, s.max_gain,
-        sort=args.sort)
+        sort=args.sort,
+        trip_type=args.trip_type or prof.get("trip_type", "any"))
     print(text)
     if args.gpx:
         if not 1 <= args.gpx <= min(len(shown), 15):

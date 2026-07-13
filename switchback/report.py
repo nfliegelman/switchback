@@ -22,13 +22,19 @@ def dedupe_routes(ranked, sort="score"):
 
 
 def format_trips(g, scorer, ranked, pref_mi, pref_gain, nights, party,
-                 max_mi, max_gain, sort="score", limit=15):
+                 max_mi, max_gain, sort="score", limit=15, trip_type="any"):
     """Returns (text, shown) where shown is the deduped route list, so a
     caller can act on the Nth displayed route (e.g. GPX export)."""
     shown = dedupe_routes(ranked, sort)
     lines = [f"{len(ranked)} bookable {nights}-night itineraries across "
              f"{len(shown)} distinct routes, party {party}, "
-             f"max {max_mi} mi / {max_gain} ft, ranked:"]
+             f"max {max_mi} mi / {max_gain} ft, "
+             f"trip type {trip_type}, ranked:"]
+    if trip_type and trip_type != "any":
+        lines.append(f"  FILTER ACTIVE: only {trip_type} trips are shown. "
+                     "Routes of every other shape were discarded before "
+                     "ranking. Use --trip-type any to see them all, or edit "
+                     "trip_type in profile.json.")
     for i, v in enumerate(shown[:limit], 1):
         r = v["best"]
         days = " ".join(f"{m:.1f}mi" for m, _ in r["days"])
