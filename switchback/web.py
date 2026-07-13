@@ -127,6 +127,12 @@ def create_app(fetch_fn=None):
         rows, _q = survey()
         return [r for r in rows if r.get("edges")]
 
+    @app.post("/api/quit")
+    def quit_server():
+        import threading
+        threading.Timer(0.4, lambda: os._exit(0)).start()
+        return {"bye": True}
+
     @app.get("/api/areas")
     def areas():
         p = os.path.join("docs", "areas", "index.json")

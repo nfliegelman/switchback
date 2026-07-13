@@ -4,14 +4,18 @@ Backcountry permit availability, trip planning, and effort math, automated. A sw
 
 ## Quickstart
 
+Two ways in. No terminal, no black boxes; if a console window ever appears, that is a bug, not a step.
+
+**Phone (the everyday app).** Open https://nfliegelman.github.io/switchback/board/ in Safari or Chrome, tap Share, then Add to Home Screen. That is the app: today's ranked trips on a map, refreshed every morning, plus every built Colorado wilderness under explore areas. Anything you have opened once keeps working with no signal (the base map tiles still want a connection).
+
+**Computer (the full engine).** One-time setup: install Python from https://www.python.org/downloads/ and CHECK the box "Add python.exe to PATH". After that, double-click `Switchback.bat`. The same app opens in your browser with the full engine behind it: any dates, any window, Find Trips, Adventure mode, and GPX export that follows the real trail line wherever one is mapped. The very first run installs two small pieces for the local map, about thirty seconds, then never again. Use the quit link at the bottom of the page when you are done. `Switchback Classic.bat` opens the availability grid and styled Excel export in its own window.
+
+### Advanced: the terminal (optional, for the curious)
+
 Measured 2026-07-12: a fresh copy reaches its first ranked result in about a minute, most of it human typing. The command itself ran in one second on a one-month window.
 
-1. Install Python 3.8 or newer (the python.org Windows installer includes tkinter). The engine needs no pip installs; it is standard library only.
-2. Download or clone this repository and open a terminal in its folder.
-3. Run: `python -m switchback trips glacier --start 2026-09-18 --end 2026-09-24 --nights 3 --codes GAB,COS,GLF,ELF`
-   You get every bookable itinerary in that window, ranked by fit against your saved effort profile, camp quality, and lake nights, deduplicated by route with availability date spans, trip shape classified (loop, out_and_back, lollipop), and day-hike suggestions on any layover day.
-4. Append `--gpx 1` to export the top route to `permit_exports/` as a GPX for CalTopo, AllTrails, or a Garmin. Lines are straight segments between graph nodes; snap to trails after import.
-5. Windows, no terminal: double-click `TripFinder.bat` for the same thing with prompts, or `Switchback.bat` for the availability GUI, which now has a Find Trips button running the same engine.
+Open a terminal in this folder and run: `python -m switchback trips glacier --start 2026-09-18 --end 2026-09-24 --nights 3 --codes GAB,COS,GLF,ELF`
+You get every bookable itinerary in that window, ranked by fit against your saved effort profile, camp quality, and lake nights, deduplicated by route with availability date spans, trip shape classified (loop, out_and_back, lollipop), and day-hike suggestions on any layover day. Append `--gpx 1` to export the top route to `permit_exports/` as a GPX for CalTopo, AllTrails, or a Garmin; since v2.8 the lines follow real trail geometry (OSM plus USGS and USFS centerlines) and go straight only where no dataset has a mapped trail. The engine itself needs no pip installs; fastapi and uvicorn are used only by the local map and install themselves on first double-click.
 
 ## What's inside (v2.0.0)
 
