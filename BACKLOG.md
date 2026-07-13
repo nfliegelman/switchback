@@ -139,3 +139,7 @@ Tap a node, drag toward another; the real trail polyline animates outward along 
 
 ## Rubber band residuals (v2.11 SHIPPED 2026-07-13)
 GPX export of a drawn route. South San Juan connectivity audit (main network only 15% of nodes; likely heavy bbox-pad capture plus CDT corridor fragmentation, verify against the boundary). Undo last leg. Park-side phase 1 is schema-adaptive against /api/park; if the button never appears on parks, the payload shape drifted, check the adapter first.
+
+
+## Washington map wave (v2.13 capture complete, builds queued)
+One command each, statuses flip to map on success: glacierpeak, pasayten, mountadams, indianheaven, lakechelansawtooth, mountbaker, noisydiobsud, williamodouglas, henrymjackson, wildsky, norsepeak, boulderriver, salmopriest, wenahatucannon, buckhorn, thebrothers, mountskokomish, colonelbob, wondermountain, tatoosh, glacierview, trappercreek, clearwater. North Cascades, St. Helens, Juniper Dunes, and the PCT corridor need non-USFS-wilderness boundary sources first.

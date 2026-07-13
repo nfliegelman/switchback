@@ -1,0 +1,771 @@
+{
+ "generated_note": "national atlas; source of truth for the per-state MD files",
+ "rows": [
+  {
+   "name": "Rocky Mountain NP",
+   "cat": "NPS",
+   "permit": "rec.gov quota",
+   "status": "live",
+   "slug": "rmnp",
+   "notes": "Wild Basin corridor trips-ready; 240+ sites queued",
+   "state": "CO"
+  },
+  {
+   "name": "Great Sand Dunes NP",
+   "cat": "NPS",
+   "permit": "rec.gov quota",
+   "status": "live",
+   "slug": "sanddunes",
+   "notes": "Sand Ramp chain plus dunefield",
+   "state": "CO"
+  },
+  {
+   "name": "Black Canyon of the Gunnison NP",
+   "cat": "NPS",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "inner canyon routes; no rec.gov inventory",
+   "state": "CO"
+  },
+  {
+   "name": "Mesa Verde NP",
+   "cat": "NPS",
+   "permit": "n/a",
+   "status": "not-suitable",
+   "notes": "backcountry camping prohibited",
+   "state": "CO"
+  },
+  {
+   "name": "Weminuche",
+   "cat": "USFS wilderness",
+   "official": "Weminuche Wilderness",
+   "permit": "none",
+   "status": "map",
+   "slug": "weminuche",
+   "notes": "Chicago Basin (Needle Creek) is inside this area; train access via the D&SNG",
+   "state": "CO"
+  },
+  {
+   "name": "South San Juan",
+   "cat": "USFS wilderness",
+   "official": "South San Juan Wilderness",
+   "permit": "none",
+   "status": "map",
+   "slug": "southsanjuan",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Lizard Head",
+   "cat": "USFS wilderness",
+   "official": "Lizard Head Wilderness",
+   "permit": "none",
+   "status": "map",
+   "slug": "lizardhead",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Mount Sneffels",
+   "cat": "USFS wilderness",
+   "official": "Mount Sneffels Wilderness",
+   "permit": "none",
+   "status": "map",
+   "slug": "mountsneffels",
+   "notes": "Blue Lakes",
+   "state": "CO"
+  },
+  {
+   "name": "Uncompahgre",
+   "cat": "USFS wilderness",
+   "official": "Uncompahgre Wilderness",
+   "permit": "none",
+   "status": "map",
+   "slug": "uncompahgre",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Powderhorn",
+   "cat": "USFS wilderness",
+   "official": "Powderhorn Wilderness",
+   "permit": "none",
+   "status": "map",
+   "slug": "powderhorn",
+   "notes": "USFS and BLM jointly",
+   "state": "CO"
+  },
+  {
+   "name": "La Garita",
+   "cat": "USFS wilderness",
+   "official": "La Garita Wilderness",
+   "permit": "none",
+   "status": "map",
+   "slug": "lagarita",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Maroon Bells-Snowmass",
+   "cat": "USFS wilderness",
+   "official": "Maroon Bells-Snowmass Wilderness",
+   "permit": "rec.gov quota",
+   "status": "live",
+   "slug": "maroonbells",
+   "notes": "Four Pass, Conundrum, Capitol, Geneva",
+   "state": "CO"
+  },
+  {
+   "name": "Indian Peaks",
+   "cat": "USFS wilderness",
+   "official": "Indian Peaks Wilderness",
+   "permit": "rec.gov quota",
+   "status": "live",
+   "slug": "indianpeaks",
+   "notes": "dual-permit merge queued",
+   "state": "CO"
+  },
+  {
+   "name": "Lost Creek",
+   "cat": "USFS wilderness",
+   "official": "Lost Creek Wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "slug": "lostcreek",
+   "notes": "Goose Creek, Brookside-McCurdy",
+   "state": "CO"
+  },
+  {
+   "name": "Holy Cross",
+   "cat": "USFS wilderness",
+   "official": "Holy Cross Wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "slug": "holycross",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Eagles Nest",
+   "cat": "USFS wilderness",
+   "official": "Eagles Nest Wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "slug": "eaglesnest",
+   "notes": "Gore Range",
+   "state": "CO"
+  },
+  {
+   "name": "Flat Tops",
+   "cat": "USFS wilderness",
+   "official": "Flat Tops Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "flattops",
+   "notes": "Devils Causeway",
+   "state": "CO"
+  },
+  {
+   "name": "Mount Zirkel",
+   "cat": "USFS wilderness",
+   "official": "Mount Zirkel Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "mountzirkel",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Rawah",
+   "cat": "USFS wilderness",
+   "official": "Rawah Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "rawah",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Collegiate Peaks",
+   "cat": "USFS wilderness",
+   "official": "Collegiate Peaks Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "collegiatepeaks",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Mount Massive",
+   "cat": "USFS wilderness",
+   "official": "Mount Massive Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "mountmassive",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Hunter-Fryingpan",
+   "cat": "USFS wilderness",
+   "official": "Hunter-Fryingpan Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "hunterfryingpan",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Ptarmigan Peak",
+   "cat": "USFS wilderness",
+   "official": "Ptarmigan Peak Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "ptarmiganpeak",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Byers Peak",
+   "cat": "USFS wilderness",
+   "official": "Byers Peak Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "byerspeak",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Vasquez Peak",
+   "cat": "USFS wilderness",
+   "official": "Vasquez Peak Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "vasquezpeak",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "James Peak",
+   "cat": "USFS wilderness",
+   "official": "James Peak Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "jamespeak",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Never Summer",
+   "cat": "USFS wilderness",
+   "official": "Never Summer Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "neversummer",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Neota",
+   "cat": "USFS wilderness",
+   "official": "Neota Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "neota",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Comanche Peak",
+   "cat": "USFS wilderness",
+   "official": "Comanche Peak Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "comanchepeak",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Cache la Poudre",
+   "cat": "USFS wilderness",
+   "official": "Cache la Poudre Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "cachelapoudre",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Sarvis Creek",
+   "cat": "USFS wilderness",
+   "official": "Sarvis Creek Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "sarviscreek",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "West Elk",
+   "cat": "USFS wilderness",
+   "official": "West Elk Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "westelk",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Raggeds",
+   "cat": "USFS wilderness",
+   "official": "Raggeds Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "raggeds",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Fossil Ridge",
+   "cat": "USFS wilderness",
+   "official": "Fossil Ridge Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "fossilridge",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Buffalo Peaks",
+   "cat": "USFS wilderness",
+   "official": "Buffalo Peaks Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "buffalopeaks",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Mount Evans",
+   "cat": "USFS wilderness",
+   "official": "Mount Evans Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "mountevans",
+   "notes": "peak renamed Mount Blue Sky",
+   "state": "CO"
+  },
+  {
+   "name": "Platte River",
+   "cat": "USFS wilderness",
+   "official": "Platte River Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "platteriver",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Sangre de Cristo",
+   "cat": "USFS wilderness",
+   "official": "Sangre de Cristo Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "sangredecristo",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Greenhorn Mountain",
+   "cat": "USFS wilderness",
+   "official": "Greenhorn Mountain Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "greenhornmountain",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Spanish Peaks",
+   "cat": "USFS wilderness",
+   "official": "Spanish Peaks Wilderness",
+   "permit": "none",
+   "status": "planned",
+   "slug": "spanishpeaks",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Dominguez Canyon",
+   "cat": "BLM",
+   "permit": "none",
+   "status": "planned",
+   "notes": "Dominguez-Escalante NCA",
+   "state": "CO"
+  },
+  {
+   "name": "Gunnison Gorge",
+   "cat": "BLM",
+   "permit": "self-issue fee",
+   "status": "planned",
+   "notes": "NCA wilderness",
+   "state": "CO"
+  },
+  {
+   "name": "Black Ridge Canyons",
+   "cat": "BLM",
+   "permit": "none",
+   "status": "planned",
+   "notes": "McInnis Canyons NCA",
+   "state": "CO"
+  },
+  {
+   "name": "BLM wilderness study areas",
+   "cat": "BLM",
+   "permit": "none",
+   "status": "planned",
+   "notes": "Handies Peak and others, cataloged collectively",
+   "state": "CO"
+  },
+  {
+   "name": "Hermosa Creek",
+   "cat": "other",
+   "permit": "none",
+   "status": "planned",
+   "notes": "special management area, San Juan NF",
+   "state": "CO"
+  },
+  {
+   "name": "Browns Canyon NM",
+   "cat": "other",
+   "permit": "none",
+   "status": "planned",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Colorado State Forest SP",
+   "cat": "other",
+   "permit": "state pass",
+   "status": "planned",
+   "notes": "",
+   "state": "CO"
+  },
+  {
+   "name": "Colorado Trail",
+   "cat": "long trail",
+   "permit": "none statewide",
+   "status": "planned",
+   "notes": "485 mi corridor; crosses six wildernesses",
+   "state": "CO"
+  },
+  {
+   "name": "Continental Divide Trail (CO)",
+   "cat": "long trail",
+   "permit": "none statewide",
+   "status": "planned",
+   "notes": "corridor treatment later",
+   "state": "CO"
+  },
+  {
+   "name": "Mount Rainier NP",
+   "cat": "NPS",
+   "permit": "rec.gov quota",
+   "status": "live",
+   "slug": "rainier",
+   "notes": "Wonderland, Summerland",
+   "state": "WA"
+  },
+  {
+   "name": "Olympic NP",
+   "cat": "NPS",
+   "permit": "rec.gov quota",
+   "status": "live",
+   "slug": "olympic",
+   "notes": "Lena region live; Grand Valley",
+   "state": "WA"
+  },
+  {
+   "name": "North Cascades NP",
+   "cat": "NPS",
+   "permit": "NPS advance/walk-up",
+   "status": "planned",
+   "notes": "Stephen Mather Wilderness; Copper Ridge, Sahale",
+   "state": "WA"
+  },
+  {
+   "name": "Alpine Lakes",
+   "cat": "USFS wilderness",
+   "official": "Alpine Lakes Wilderness",
+   "permit": "rec.gov lottery (Enchantment zones)",
+   "status": "live",
+   "slug": "enchantments",
+   "notes": "Enchantments live; rest of wilderness self-issue",
+   "state": "WA"
+  },
+  {
+   "name": "Glacier Peak",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "Spider Gap, Image Lake",
+   "state": "WA",
+   "official": "Glacier Peak Wilderness",
+   "slug": "glacierpeak"
+  },
+  {
+   "name": "Goat Rocks",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "map",
+   "notes": "Knifes Edge, Goat Lake",
+   "state": "WA",
+   "official": "Goat Rocks Wilderness",
+   "slug": "goatrocks"
+  },
+  {
+   "name": "Pasayten",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "Cathedral Lakes, solitude",
+   "state": "WA",
+   "official": "Pasayten Wilderness",
+   "slug": "pasayten"
+  },
+  {
+   "name": "Mount Adams",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "Round the Mountain",
+   "state": "WA",
+   "official": "Mount Adams Wilderness",
+   "slug": "mountadams"
+  },
+  {
+   "name": "Indian Heaven",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "lake basins",
+   "state": "WA",
+   "official": "Indian Heaven Wilderness",
+   "slug": "indianheaven"
+  },
+  {
+   "name": "Lake Chelan-Sawtooth",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "larches",
+   "state": "WA",
+   "official": "Lake Chelan-Sawtooth Wilderness",
+   "slug": "lakechelansawtooth"
+  },
+  {
+   "name": "Mount Baker",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "Baker views",
+   "state": "WA",
+   "official": "Mount Baker Wilderness",
+   "slug": "mountbaker"
+  },
+  {
+   "name": "Noisy-Diobsud",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "quiet, brushy",
+   "state": "WA",
+   "official": "Noisy-Diobsud Wilderness",
+   "slug": "noisydiobsud"
+  },
+  {
+   "name": "William O. Douglas",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "lake plateau",
+   "state": "WA",
+   "official": "William O. Douglas Wilderness",
+   "slug": "williamodouglas"
+  },
+  {
+   "name": "Henry M. Jackson",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "PCT country",
+   "state": "WA",
+   "official": "Henry M. Jackson Wilderness",
+   "slug": "henrymjackson"
+  },
+  {
+   "name": "Wild Sky",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "newest, thin trails",
+   "state": "WA",
+   "official": "Wild Sky Wilderness",
+   "slug": "wildsky"
+  },
+  {
+   "name": "Norse Peak",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "fire recovery",
+   "state": "WA",
+   "official": "Norse Peak Wilderness",
+   "slug": "norsepeak"
+  },
+  {
+   "name": "Boulder River",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "rainforest",
+   "state": "WA",
+   "official": "Boulder River Wilderness",
+   "slug": "boulderriver"
+  },
+  {
+   "name": "Salmo-Priest",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "inland rainforest",
+   "state": "WA",
+   "official": "Salmo-Priest Wilderness",
+   "slug": "salmopriest"
+  },
+  {
+   "name": "Wenaha-Tucannon",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "Blue Mountains canyons",
+   "state": "WA",
+   "official": "Wenaha-Tucannon Wilderness",
+   "slug": "wenahatucannon"
+  },
+  {
+   "name": "Buckhorn",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "Olympic NF satellite",
+   "state": "WA",
+   "official": "Buckhorn Wilderness",
+   "slug": "buckhorn"
+  },
+  {
+   "name": "The Brothers",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "Olympic NF satellite",
+   "state": "WA",
+   "official": "The Brothers Wilderness",
+   "slug": "thebrothers"
+  },
+  {
+   "name": "Mount Skokomish",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "Olympic NF satellite",
+   "state": "WA",
+   "official": "Mount Skokomish Wilderness",
+   "slug": "mountskokomish"
+  },
+  {
+   "name": "Colonel Bob",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "Olympic NF satellite",
+   "state": "WA",
+   "official": "Colonel Bob Wilderness",
+   "slug": "colonelbob"
+  },
+  {
+   "name": "Wonder Mountain",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "trailless",
+   "state": "WA",
+   "official": "Wonder Mountain Wilderness",
+   "slug": "wondermountain"
+  },
+  {
+   "name": "Tatoosh",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "one great ridge",
+   "state": "WA",
+   "official": "Tatoosh Wilderness",
+   "slug": "tatoosh"
+  },
+  {
+   "name": "Glacier View",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "pocket wilderness",
+   "state": "WA",
+   "official": "Glacier View Wilderness",
+   "slug": "glacierview"
+  },
+  {
+   "name": "Trapper Creek",
+   "cat": "USFS wilderness",
+   "permit": "free self-issue",
+   "status": "planned",
+   "notes": "waterfalls",
+   "state": "WA",
+   "official": "Trapper Creek Wilderness",
+   "slug": "trappercreek"
+  },
+  {
+   "name": "Clearwater",
+   "cat": "USFS wilderness",
+   "permit": "none",
+   "status": "planned",
+   "notes": "Rainier neighbor",
+   "state": "WA",
+   "official": "Clearwater Wilderness",
+   "slug": "clearwater"
+  },
+  {
+   "name": "Juniper Dunes",
+   "cat": "BLM",
+   "permit": "none",
+   "status": "planned",
+   "notes": "trailless dunes, no water",
+   "state": "WA"
+  },
+  {
+   "name": "Mount St. Helens NVM (Loowit)",
+   "cat": "other",
+   "permit": "none for backpack sections",
+   "status": "planned",
+   "notes": "blast zone circumnavigation",
+   "state": "WA"
+  },
+  {
+   "name": "Pacific Crest Trail (WA)",
+   "cat": "long trail",
+   "permit": "none statewide",
+   "status": "planned",
+   "notes": "corridor treatment later",
+   "state": "WA"
+  }
+ ]
+}

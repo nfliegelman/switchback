@@ -111,4 +111,5 @@ Sequenced for the current reality: the owner is phone-only until at least July 1
 - v2.9 [SHIPPED same day]: Colorado statewide. The 49-entry atlas and COLORADO.md, trail areas as a first-class entity, the San Juan wave live with about 2810 mapped miles, explore-areas pickers in both frontends.
 - v2.10 [SHIPPED same day]: installable PWA. Manifest, icons, service worker with offline shell and cached areas; add to home screen on iOS.
 - v2.11 [SHIPPED same day]: San Juans complete (7 areas, ~3670 mi), routable junction graphs in area files, rubber band phases 1 and 2 live (drag-routing with the green and amber boundary split on the phone board).
+- v2.13 [SHIPPED same day]: national atlas, 80 tracked landscapes across CO and WA, WASHINGTON.md, Goat Rocks proof build.
 - Beyond: dispersed itineraries experiment (auto camp nodes from named lakes and basins, synthetic availability, pilot one Weminuche drainage); GPX patch channel (owner traces win over everything); dem_trail_v1 (elevation along real polylines); Archetype B trailhead-quota parks (Yosemite, SEKI); RMNP corridor buildout; scoring calibration when the owner can react.

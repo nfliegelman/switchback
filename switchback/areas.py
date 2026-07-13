@@ -30,7 +30,7 @@ MIN_WAY_MI = 0.15
 
 
 def _atlas_row(slug):
-    data = json.load(open("parks/colorado_atlas.json"))
+    data = json.load(open("parks/atlas.json"))
     for r in data["rows"]:
         if r.get("slug") == slug and r.get("official"):
             return r

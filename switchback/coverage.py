@@ -101,17 +101,29 @@ def render(rows, queue):
 
 def render_atlas():
     import json as _json
-    data = _json.load(open("parks/colorado_atlas.json"))
-    rows = data["rows"]
+    data = _json.load(open("parks/atlas.json"))
+    total = 0
+    for state, fname, title in (("CO", "COLORADO.md", "Colorado"),
+                                ("WA", "WASHINGTON.md", "Washington")):
+        rows = [r for r in data["rows"] if r.get("state") == state]
+        total += len(rows)
+        _render_state(rows, fname, title)
+    return total
+
+
+def _render_state(rows, fname, title):
+
+    import json as _json
+    import json as _json
     legend = {"live": "live (bookable itineraries)", "map": "trails on the map",
               "planned": "planned", "not-suitable": "not suitable"}
     counts = {}
     for r in rows:
         counts[r["status"]] = counts.get(r["status"], 0) + 1
-    out = ["# Colorado coverage atlas", "",
-           "Every Colorado backpacking landscape Switchback tracks, from rec.gov",
+    out = [f"# {title} coverage atlas", "",
+           f"Every {title} backpacking landscape Switchback tracks, from rec.gov",
            "quota systems to fully dispersed wilderness. Generated from",
-           "parks/colorado_atlas.json; edit the JSON, not this file.", "",
+           "parks/atlas.json; edit the JSON, not this file.", "",
            "Status counts: " + ", ".join(f"{counts.get(k,0)} {v}"
                                           for k, v in legend.items()), ""]
     for cat, title in (("NPS", "National parks"),
@@ -130,6 +142,5 @@ def render_atlas():
         out.append("")
     text = "\n".join(out) + "\n"
     text = text.replace("\u2013", "-").replace("\u2014", "-")
-    with open("COLORADO.md", "w") as fh:
+    with open(fname, "w") as fh:
         fh.write(text)
-    return len(rows)

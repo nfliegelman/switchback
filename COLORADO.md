@@ -2,7 +2,7 @@
 
 Every Colorado backpacking landscape Switchback tracks, from rec.gov
 quota systems to fully dispersed wilderness. Generated from
-parks/colorado_atlas.json; edit the JSON, not this file.
+parks/atlas.json; edit the JSON, not this file.
 
 Status counts: 4 live (bookable itineraries), 7 trails on the map, 37 planned, 1 not suitable
 

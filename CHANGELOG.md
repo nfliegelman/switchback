@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.13.0 (2026-07-13)
+
+The catch-up capture: every area on the owner's two-state census is now tracked in the system. The atlas went national: parks/atlas.json is the single source with a state field, and the generator renders COLORADO.md and WASHINGTON.md per state. Washington enters with 31 rows (3 live, 28 planned) spanning the NPS units, 26 wilderness areas with official USFS names wired for the area pipeline, Juniper Dunes, the St. Helens monument, and the PCT corridor, joining Colorado's 49 for 80 tracked landscapes. Goat Rocks proof-built through the unchanged pipeline on the first pull, 596 trail miles and 430 OSM ways plus 16 government additions, flipping to trails-on-map and confirming the boundary service, the junction graphs, and the rubber band all work identically outside Colorado. The remaining Washington map wave is a recorded checklist in BACKLOG, one command per area.
+
 ## v2.12.0 (2026-07-13)
 
 The dispersed itineraries experiment ran its phase A pilot on the Needle Creek drainage and passed. switchback/dispersed.py generates camp candidates for permit-free areas from named waters and 3-way junctions over the shipped area graph, gated at 400 m snap distance, and the graded pairs landed inside published bands: Twin Lakes 7.7 mi auto vs 7.2 to 8.0 published, Columbine Lake 9.1 vs about 9 to 9.5, the Chicago Basin junction at 6.6 vs 6 to 6.5. Findings and the phase B plan live in EXPERIMENTS.md; synthetic availability and solver integration proceed next, with AllTrails as the QA layer before anything reaches the app.
