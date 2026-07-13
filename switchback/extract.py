@@ -136,6 +136,61 @@ def save_park(park, out_dir="parks"):
 
 
 def load_park(slug, out_dir="parks"):
+    park = _load_park_raw(slug, out_dir)
+    if park.get("region"):
+        return _merge_region(park, out_dir)
+    return park
+
+
+def _norm_lite(s):
+    return " ".join("".join(ch if ch.isalnum() else " " for ch in s.lower()).split())
+
+
+def _merge_region(d, out_dir):
+    """A region stitches member-park camps and permitless overlay camps
+    into one synthetic park. Overlay camps default to policy none; member
+    camps get policy reservation and carry their member permit_id. Include
+    entries are dicts whose extra keys OVERRIDE the member record (the
+    region file is curated truth; rec.gov coords are sometimes miles off)."""
+    camps = []
+    for c in d.get("camps", []):
+        c = dict(c)
+        c.setdefault("policy", "none")
+        c.setdefault("permit_id", None)
+        c.setdefault("included", True)
+        camps.append(c)
+    for mspec in d.get("members", []):
+        mp = load_park(mspec["slug"], out_dir)
+        pid = mp.get("permit_id")
+        pool = {_norm_lite(c["name"]): c for c in mp["camps"] if c.get("included")}
+        for inc in mspec.get("include", []):
+            want = _norm_lite(inc["name"])
+            hit = pool.get(want)
+            if hit is None:
+                cands = [c for k, c in pool.items()
+                         if want in k or k in want]
+                hit = cands[0] if len(cands) == 1 else None
+            if hit is None:
+                continue
+            c = dict(hit)
+            c["permit_id"] = pid
+            c["policy"] = "reservation"
+            for k, v in inc.items():
+                if k != "name":
+                    c[k] = v
+            camps.append(c)
+    ents = []
+    for i, en in enumerate(d.get("entrances", [])):
+        en = dict(en)
+        en.setdefault("id", f"R{i}")
+        en.setdefault("included", True)
+        ents.append(en)
+    return {"slug": d["slug"], "name": d["name"], "permit_id": None,
+            "region": True, "camps": camps, "entrances": ents,
+            "counts": {"camps_included": len(camps)}}
+
+
+def _load_park_raw(slug, out_dir="parks"):
     with open(os.path.join(out_dir, f"{slug}.json")) as fh:
         return json.load(fh)
 

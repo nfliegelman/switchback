@@ -14,7 +14,7 @@ from .config import load_profile, PROFILE_PATH
 from .extract import extract_park, save_park, summary
 from .features import annotate, feature_summary
 from .graph import Graph
-from .solver import Solver, fetch_availability
+from .solver import Solver, fetch_availability, fetch_for_graph
 from .scoring import Scorer
 from .report import format_trips
 
@@ -112,10 +112,7 @@ def cmd_trips(args):
     start, end = date.fromisoformat(args.start), date.fromisoformat(args.end)
     print(f"fetching availability for {len(camps)} camps...", file=sys.stderr)
     nights = args.nights or 3
-    av_raw = fetch_availability(permit_id, div_ids, start,
-                                end + timedelta(days=nights),
-                                progress=lambda f: None)
-    av = {c: av_raw[g.nodes[c]["division_id"]] for c in camps}
+    av = fetch_for_graph(g, camps, start, end + timedelta(days=nights))
     s = Solver(g, av,
                party=args.party or prof["party_size"],
                nights=nights,
@@ -211,6 +208,19 @@ def cmd_watch(args):
     print(f"watch ended, {sent} alert(s) sent")
 
 
+def cmd_board(args):
+    from .board import write_board
+    out, board = write_board(args.config, args.out)
+    print(f"wrote {out}")
+    for w in board["windows"]:
+        if w.get("error"):
+            print(f"  {w['title']}: ERROR {w['error']}")
+        else:
+            print(f"  {w['title']}: {w['itineraries']} itineraries, "
+                  f"{w['routes_total']} routes, top "
+                  f"{w['routes'][0]['score'] if w['routes'] else 'n/a'}")
+
+
 def cmd_coverage(args):
     from .coverage import survey, render, PARKS_MD
     rows, queue = survey()
@@ -280,6 +290,11 @@ def main():
     wa.add_argument("--inject", default=None, metavar="DIV:DATE",
                     help="manufacture an opening to test the pipeline end to end")
     wa.set_defaults(fn=cmd_watch)
+
+    bo = sub.add_parser("board", help="compute the static trip board (Pages)")
+    bo.add_argument("--config", default="board_config.json")
+    bo.add_argument("--out", default="docs/board")
+    bo.set_defaults(fn=cmd_board)
 
     co = sub.add_parser("coverage", help="which parks are at which tier")
     co.add_argument("--write", action="store_true", help="regenerate PARKS.md")

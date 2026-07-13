@@ -48,6 +48,38 @@ def fetch_availability(permit_id, division_ids, start, end, workers=6,
 
 
 # ------------------------------ solver -------------------------------------
+def fetch_for_graph(g, camps, start, end, fetch_fn=None, workers=6):
+    """Region-aware availability: reservation camps fetch from their own
+    permit, grouped so each permit is hit once; permitless and first-come
+    camps (policy none or fcfs) get a synthetic always-open series, since
+    no reservation system exists to ask. Callers label those nights
+    honestly; the solver just sees open."""
+    fetch = fetch_fn or fetch_availability
+    groups, synth = {}, []
+    for c in camps:
+        n = g.nodes[c]
+        if n.get("policy", "reservation") != "reservation" or not n.get("division_id"):
+            synth.append(c)
+            continue
+        pid = n.get("permit_id") or g.park.get("permit_id")
+        groups.setdefault(pid, {})[n["division_id"]] = c
+    out = {}
+    for pid, divmap in groups.items():
+        raw = fetch(pid, list(divmap), start, end)
+        for d, days in raw.items():
+            if d in divmap:
+                out[divmap[d]] = days
+    if synth:
+        dates = []
+        d = start
+        while d <= end:
+            dates.append(d.isoformat())
+            d += timedelta(days=1)
+        for c in synth:
+            out[c] = {ds: 99 for ds in dates}
+    return out
+
+
 class Solver:
     def __init__(self, graph, availability, party=2, nights=3,
                  max_mi=13.0, max_gain=4000, basecamp_ok=True,

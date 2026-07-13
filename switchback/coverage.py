@@ -31,8 +31,12 @@ def survey():
             d = json.load(open(p))
         except (OSError, ValueError):
             continue
+        if d.get("region"):
+            from .extract import load_park
+            d = load_park(d["slug"])
         c = d.get("counts", {})
         row = {"slug": d.get("slug"), "name": d.get("name"),
+               "region": bool(d.get("region")),
                "permit_id": d.get("permit_id"),
                "camps": c.get("camps_included"),
                "coords": sum(1 for x in d.get("camps", [])
@@ -74,6 +78,8 @@ def render(rows, queue):
            "|---|---|---|---|---|---|"]
     for r in rows:
         tier = "2: trips-ready" if r["edges"] else "1: dataset"
+        if r.get("region"):
+            tier += " (region)"
         edges = (f"{r['edges']} ({r['sourced']})" if r["edges"] else "none")
         gc = r["graph_camps"] if r["graph_camps"] else ""
         out.append(f"| {r['name']} | {r['permit_id']} | "

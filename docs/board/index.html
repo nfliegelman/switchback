@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Switchback board</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root { --ink:#1e2a23; --pine:#2f6f4f; --sand:#f4f1ea; --line:#d8d2c4; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:14px/1.45 system-ui, sans-serif; color:var(--ink); background:var(--sand); }
+  header { display:flex; gap:10px; align-items:center; padding:10px 14px; background:#fff; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  header b { font-size:16px; }
+  header .stamp { color:#7a746a; font-size:12px; margin-left:auto; }
+  select { font:inherit; padding:6px 8px; border:1px solid var(--line); border-radius:8px; background:#fff; max-width:60vw; }
+  #map { height:44vh; }
+  #list { padding:12px; max-width:760px; margin:0 auto; }
+  .route { background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:10px; }
+  .route.active { border-color:var(--pine); box-shadow:0 0 0 2px #2f6f4f33; }
+  .route .score { float:right; font-weight:700; color:var(--pine); }
+  .route .shape { display:inline-block; font-size:11px; background:var(--sand); border-radius:6px; padding:1px 6px; margin-left:4px; }
+  .route .days, .route .dates, .route .note { color:#5c564c; font-size:12px; margin-top:3px; }
+  .warn { background:#fff6e5; border:1px solid #eedaa8; border-radius:8px; padding:8px 10px; font-size:12px; margin:10px 0; }
+  .muted { color:#7a746a; font-size:12px; }
+</style>
+</head>
+<body>
+<header>
+  <b>Switchback board</b>
+  <select id="win"></select>
+  <span class="stamp" id="stamp"></span>
+</header>
+<div id="map"></div>
+<div id="list"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const map = L.map('map').setView([47.5,-113.7],6);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+let BOARD = null, layer = null, routeLayer = null;
+
+fetch('./board.json').then(r=>r.json()).then(b=>{
+  BOARD = b;
+  $('stamp').textContent = 'computed ' + b.generated_at.slice(0,16).replace('T',' ') + ' UTC';
+  $('win').innerHTML = b.windows.map((w,i)=>`<option value="${i}">${w.title} (${w.start||''} to ${w.end||''})</option>`).join('');
+  $('win').onchange = e => show(+e.target.value);
+  show(0);
+}).catch(()=> $('list').innerHTML = '<div class="warn">board.json not found. The daily Action has not run yet, or Pages is not enabled.</div>');
+
+function show(i){
+  const w = BOARD.windows[i];
+  if (layer) map.removeLayer(layer);
+  if (routeLayer) map.removeLayer(routeLayer);
+  if (w.error){ $('list').innerHTML = `<div class="warn">${w.title}: ${w.error}</div>`; return; }
+  const pts = [];
+  layer = L.layerGroup((w.camps||[]).map(c=>{
+    if (c.lat == null) return null;
+    pts.push([c.lat, c.lon]);
+    const fc = c.policy !== 'reservation';
+    const days = (new Date(w.end) - new Date(w.start))/86400000 + 1;
+    const col = fc ? '#4a6fa5' : c.open_nights === 0 ? '#b8433a' : (c.open_nights/days > .6 ? '#2f6f4f' : '#e0a13d');
+    return L.circleMarker([c.lat,c.lon],{radius:6,color:'#555',weight:1,fillColor:col,fillOpacity:.9})
+      .bindTooltip(`${c.name}: ${fc ? 'first-come, no reservation system' : c.open_nights + ' open night(s)'}`);
+  }).filter(Boolean)).addTo(map);
+  if (pts.length) map.fitBounds(pts,{padding:[30,30]});
+  let html = `<div class="muted">${w.itineraries} bookable itineraries, ${w.routes_total} distinct routes, ${w.nights} nights, party ${w.party}.</div>`;
+  if (w.trip_type !== 'any') html += `<div class="warn">FILTER ACTIVE: only ${w.trip_type} trips shown.</div>`;
+  (w.routes||[]).forEach((r,j)=>{
+    const fc = r.stops.some(s=>s.policy !== 'reservation');
+    html += `<div class="route" data-j="${j}"><span class="score">${r.score.toFixed(3)}</span>
+      <b>${r.entrance.split(' - ')[0]}</b> <span class="shape">${r.type}</span>
+      <div>${r.stops.map(s=>s.name.split(' - ')[0] + (s.policy!=='reservation'?'*':'')).join(' > ')}</div>
+      <div class="days">${r.days.map(d=>d[0].toFixed(1)+'mi').join(' ')}</div>
+      <div class="dates">${r.dates.length} start date(s): ${r.dates[0]}${r.dates.length>1?' to '+r.dates[r.dates.length-1]:''}</div>
+      ${(r.notes||[]).map(n=>`<div class="note">${n}</div>`).join('')}
+      ${fc ? '<div class="note">* first-come site: no reservation system, arrive early</div>' : ''}</div>`;
+  });
+  $('list').innerHTML = html || '<div class="muted">No routes.</div>';
+  document.querySelectorAll('.route').forEach(el => el.onclick = () => draw(w, +el.dataset.j, el));
+  if ((w.routes||[]).length) draw(w, 0, document.querySelector('.route'));
+}
+
+function draw(w, j, el){
+  document.querySelectorAll('.route').forEach(x=>x.classList.remove('active'));
+  if (el) el.classList.add('active');
+  if (routeLayer) map.removeLayer(routeLayer);
+  const lines = w.routes[j].day_paths.filter(p=>p.length>1 && p[0][0]!=null);
+  routeLayer = L.layerGroup(lines.map(p=>L.polyline(p,{color:'#2f6f4f',weight:4,opacity:.9}))).addTo(map);
+  const all = lines.flat(); if (all.length) map.fitBounds(all,{padding:[40,40]});
+}
+</script>
+</body>
+</html>

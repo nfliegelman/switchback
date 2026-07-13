@@ -1,0 +1,11 @@
+{
+ "windows": [
+  {"title": "Lena Lakes, next three weeks", "slug": "lena",
+   "start_in_days": 3, "span_days": 21, "nights": 2, "party": 2},
+  {"title": "Glacier Belly River, two to five weeks out", "slug": "glacier",
+   "start_in_days": 14, "span_days": 21, "nights": 3, "party": 2},
+  {"title": "Rainier, two to five weeks out", "slug": "rainier",
+   "start_in_days": 14, "span_days": 21, "nights": 3, "party": 2,
+   "trip_type": "any"}
+ ]
+}

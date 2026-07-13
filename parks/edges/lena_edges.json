@@ -1,0 +1,13 @@
+{
+ "slug": "lena", "schema": 1,
+ "notes": "Pilot region edges. Distances and gains derived from AllTrails official MCP pulls on 2026-07-13 (Lower Lena Lake Trail 6.4 mi RT +1548 ft; Lena Lake to Upper Lena Lake 13.4 mi RT +4655 ft); one-way splits are estimates, est_gain flagged.",
+ "nodes": [],
+ "edges": [
+  {"a": "ENT:Lena Lake Trailhead", "b": "LLL", "miles": 3.2,
+   "gain_ab": 1400, "loss_ab": 120, "est_gain": true,
+   "src": "AllTrails official MCP 2026-07-13: 6.4 RT +1548, split est"},
+  {"a": "LLL", "b": "Upper Lena Lake", "miles": 3.5,
+   "gain_ab": 2500, "loss_ab": 150, "est_gain": true,
+   "src": "AllTrails official MCP 2026-07-13: 13.4 RT +4655 minus lower leg; steep section"}
+ ]
+}

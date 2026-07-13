@@ -102,7 +102,7 @@ Sequenced for the current reality: the owner is phone-only until at least July 1
 
 - v2.1.0 [SHIPPED same day]: the map. Local FastAPI server plus a single-file Leaflet frontend: park picker, camps colored by live open nights, route graph drawn, Find Trips with ranked routes and day-path highlighting, the FILTER ACTIVE warning carried over, and adventure mode in its natural medium at last: tap a trailhead, pick each night from the live frontier ranked by how many ways the trip can still finish. SwitchbackMap.bat launches it.
 - v2.1.x: calibration and polish. The owner's desktop test drive reactions tune scoring.json; GPX download button on routes; day-hike cards; region overlay groundwork.
-- v2.2: regions plus Olympic. The Lena cross-boundary pilot (multi-permit stitching, FCFS honesty labels) and the Olympic NP dataset with first corridors; AllTrails seed figures already in BACKLOG.
-- v2.3: phone-native board. A scheduled Actions job computes trips for configured windows and commits trips.json; the same map frontend serves statically on GitHub Pages, read-only but fully usable from a phone. Plus the nightly durable-history snapshot.
+- v2.2 [SHIPPED same day]: regions plus Olympic. The Lena cross-boundary pilot proved live (first-come Lower Lena chaining to real open Upper Lena inventory); Olympic dataset extracted, features pass and proper corridors queued.
+- v2.3 [SHIPPED same day]: phone-native board. Daily Actions job computes board.json for relative windows and commits it with the durable history snapshot; static Leaflet board on GitHub Pages at /docs/board.
 - v2.4: the DEM gain pass (kills the 40 percent est-gain caution, unlocks hard gain limits and grade) and Grand Teton.
 - Beyond: the Permit Difficulty Index once history has depth, Enchantments as the one-hour forest add, Archetype B trailhead-quota parks.

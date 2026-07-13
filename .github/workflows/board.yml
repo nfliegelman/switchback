@@ -1,0 +1,50 @@
+name: Switchback board
+
+on:
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: switchback-board
+  cancel-in-progress: false
+
+jobs:
+  board:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore scan history from the watch cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            parks/.watch_state.json
+            parks/history.sqlite
+          key: switchback-watch-board-${{ github.run_id }}
+          restore-keys: |
+            switchback-watch-
+
+      - name: Compute the board
+        run: python -m switchback board --config board_config.json --out docs/board
+
+      - name: Durable history snapshot and demand derivation
+        run: |
+          mkdir -p data
+          cp parks/history.sqlite data/history.sqlite 2>/dev/null || true
+          python -m switchback history demand || true
+
+      - name: Commit refreshed board and history
+        run: |
+          git config user.name "switchback-board"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/board data parks/demand.json 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "board: daily refresh [skip ci]" && git push)

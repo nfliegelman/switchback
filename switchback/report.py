@@ -49,6 +49,12 @@ def format_trips(g, scorer, ranked, pref_mi, pref_gain, nights, party,
         lines.append(f"          available: {when}")
         for note in scorer.layover_notes(r, pref_mi, pref_gain):
             lines.append(f"          {note}")
+        fc = [g.name(c).split(" - ")[0] for c in dict.fromkeys(r["seq"])
+              if g.nodes[c].get("policy", "reservation") != "reservation"]
+        if fc:
+            lines.append(f"          first-come night(s) at "
+                         f"{', '.join(fc)}: no reservation system exists, "
+                         "availability assumed, arrive early")
     if len(shown) > limit:
         lines.append(f"  ... and {len(shown) - limit} more routes")
     return "\n".join(lines), shown

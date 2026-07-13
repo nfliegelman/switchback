@@ -109,7 +109,12 @@ class Graph:
             self.nodes[nid] = {"kind": "camp", "name": camp["name"],
                                "lat": camp["lat"], "lon": camp["lon"],
                                "elevation_ft": camp.get("elevation_ft"),
-                               "division_id": camp["id"]}
+                               "division_id": camp["id"] if camp.get(
+                                   "policy", "reservation") == "reservation"
+                                   else None,
+                               "permit_id": camp.get(
+                                   "permit_id", self.park.get("permit_id")),
+                               "policy": camp.get("policy", "reservation")}
         return nid
 
     def _add(self, a, b, e):

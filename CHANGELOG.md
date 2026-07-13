@@ -2,6 +2,14 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.3.0 (2026-07-13)
+
+The phone-native trip board. New switchback/board.py computes ranked trips for the relative windows in board_config.json (start_in_days plus span_days, so a standing config never goes stale) and writes docs/board/board.json; the static docs/board/index.html renders it with the map, availability-colored camps, first-come labels, and tappable routes. New .github/workflows/board.yml runs it daily, snapshots history.sqlite into data/ for durability, derives demand.json, and commits only when something changed. Enable GitHub Pages on main /docs and the board lives at a URL your phone can open. Live build: Lena 66 itineraries, Rainier 9,766 across 641 routes, Glacier Belly honestly zero because mid-August Belly River is genuinely full.
+
+## v2.2.0 (2026-07-13)
+
+Cross-boundary regions, the Lena pilot, and Olympic. load_park now merges region files: member-park camps carry their own permit_id and policy reservation, permitless overlay camps default to policy none, and curated region coords override rec.gov's (whose Upper Lena point sits 18 miles off). New solver.fetch_for_graph groups availability fetches by permit and gives permitless camps a synthetic always-open series; the report, map, frontier, and board all label those nights first-come, never Reservable. parks/lena.json plus lena_edges.json (AllTrails-derived figures, est flags) make the owner's actual trip solvable, proven live: Lower Lena night one first-come, Upper Lena night two on real open ONP inventory. Olympic (permit 4098362) extracted: 297 included camps, 146 payload coords, features pass queued.
+
 ## v2.1.0 (2026-07-13)
 
 The map. New switchback/web.py FastAPI server and switchback/web_index.html single-file Leaflet frontend: park picker from live coverage, camps colored by open nights for the chosen window and party, the trail graph drawn, Find Trips rendering ranked deduped routes with day paths highlighted on the map and the FILTER ACTIVE warning preserved, and adventure mode as designed in SPEC section 10: tap a trailhead, choose each night from the live frontier, options ranked by remaining finishes, with an honest walk-out check at the end. New SwitchbackMap.bat launcher; fastapi and uvicorn are optional extras, the engine remains standard library. Offline test suite via injected fetcher (which immediately caught the feature-flag mapper assuming a nested schema that does not exist); live boot proof served the map and solved a real Glacier window.

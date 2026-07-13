@@ -7,6 +7,8 @@ Tier 0 is universal: the availability finder (GUI and CLI) works on every recrea
 | Park | Permit | Camps (with coords) | Graph camps | Edges (sourced gains) | Tier |
 |---|---|---|---|---|---|
 | Glacier National Park Wilderness Permits | 4675321 | 66 (62) | 10 | 13 (2) | 2: trips-ready |
+| Lena Lakes (Olympic NF + NP) | None | 2 (2) | 2 | 2 (0) | 2: trips-ready (region) |
+| Olympic National Park Wilderness Permit | 4098362 | 297 (146) |  | none | 1: dataset |
 | Mount Rainier National Park Wilderness and Climbing Permits | 4675317 | 186 (186) | 25 | 33 (0) | 2: trips-ready |
 
 Expansion sequencing lives in BACKLOG.md under the park and forest expansion plan; the cross-boundary region concept (linking parks and forests that share trails, Lena corridor pilot) is tracked there too.

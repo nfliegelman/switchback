@@ -108,7 +108,7 @@ async function loadPark(slug){
     const m = ent
       ? L.marker([n.lat,n.lon], {icon: L.divIcon({html:'&#9650;', className:'', iconSize:[16,16]})})
       : L.circleMarker([n.lat,n.lon], {radius:6, color:'#555', weight:1, fillColor:'#9aa', fillOpacity:.9});
-    m.bindTooltip(n.name + (n.lake ? ' (lake)' : ''));
+    m.bindTooltip(n.name + (n.lake ? ' (lake)' : '') + (n.policy && n.policy !== 'reservation' ? ' [first-come, no permit system]' : ''));
     m.on('click', () => nodeClick(n));
     m.addTo(map); markers[n.id] = m;
   });
@@ -126,7 +126,7 @@ async function refreshAvailability(){
       const m = markers[c.id]; if (!m || !m.setStyle) return;
       const share = c.open_nights / days;
       m.setStyle({fillColor: c.open_nights === 0 ? '#b8433a' : share > .6 ? '#2f6f4f' : '#e0a13d'});
-      m.bindTooltip(`${NODES[c.id].name}${NODES[c.id].lake?' (lake)':''}: ${c.open_nights} open night(s)`);
+      m.bindTooltip(`${NODES[c.id].name}${NODES[c.id].lake?' (lake)':''}: ${NODES[c.id].policy!=='reservation' ? 'first-come, always shown open' : c.open_nights + ' open night(s)'}`);
     });
   } catch(e){ console.log('availability', e); }
 }
@@ -146,12 +146,12 @@ $('find').onclick = async () => {
     html += `<div class="muted">${res.itineraries} bookable itineraries, ${res.routes_total} distinct routes, party ${res.party}.</div>`;
     res.routes.forEach((r,i) => {
       const days = r.days.map(d=>d[0].toFixed(1)+'mi').join(' ');
-      const stops = r.stops.map(s=>s.name.split(' - ')[0]).join(' > ');
+      const stops = r.stops.map(s=>s.name.split(' - ')[0] + (s.policy && s.policy !== 'reservation' ? '*' : '')).join(' > ');
       html += `<div class="route" data-i="${i}"><span class="score">${r.score.toFixed(3)}</span>
         <b>${r.entrance.name.split(' - ')[0]}</b> <span class="shape">${r.type}</span>
         <div>${stops}</div><div class="days">${days}</div>
         <div class="dates">${r.dates.length} start date(s): ${r.dates[0]}${r.dates.length>1 ? ' to '+r.dates[r.dates.length-1] : ''}</div>
-        ${(r.notes||[]).map(n=>`<div class="note">${n}</div>`).join('')}</div>`;
+        ${(r.notes||[]).map(n=>`<div class="note">${n}</div>`).join('')}${r.stops.some(s=>s.policy && s.policy!=='reservation') ? '<div class="note">* first-come site: no reservation system, arrive early</div>' : ''}</div>`;
     });
     $('results').innerHTML = html || '<div class="muted">No bookable routes in that window.</div>';
     window._routes = res.routes;
@@ -205,7 +205,7 @@ async function stepFrontier(){
       if (!f.options.length) html += '<div class="warn">No reachable open camps that night. Step back.</div>';
       f.options.forEach(o => {
         html += `<div class="opt" data-id="${o.id}"><div><b>${o.name.split(' - ')[0]}</b>${o.lake?' &#128166;':''}
-          <div class="meta">${o.mi} mi, +${o.gain} ft, ${o.remaining ?? '?'} site(s) left ${f.date}</div></div>
+          <div class="meta">${o.mi} mi, +${o.gain} ft, ${o.policy && o.policy !== 'reservation' ? 'first-come, no reservation system' : (o.remaining ?? '?') + ' site(s) left'} ${f.date}</div></div>
           <div class="endings">${o.endings} finishes</div></div>`;
       });
     }

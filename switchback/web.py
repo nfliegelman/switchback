@@ -31,11 +31,12 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
 from .config import load_profile
+from .extract import load_park
 from .coverage import survey
 from .graph import Graph
 from .report import dedupe_routes
 from .scoring import Scorer
-from .solver import Solver, fetch_availability
+from .solver import Solver, fetch_availability, fetch_for_graph
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _AV_CACHE = {}
@@ -71,11 +72,11 @@ def _graph(slug):
 
 
 def _feats(slug):
-    """division id -> {lake: bool} from the park dataset's flat flags."""
+    """camp id -> {lake: bool}; goes through load_park so regions get
+    their merged member camps, not just the overlay file."""
     try:
-        with open(os.path.join("parks", f"{slug}.json")) as fh:
-            d = json.load(fh)
-    except (OSError, ValueError):
+        d = load_park(slug)
+    except Exception:
         return {}
     return {str(c.get("id")): {"lake": c.get("water_lake_flag") in ("Y", True)}
             for c in d.get("camps", [])}
@@ -95,11 +96,7 @@ def _availability_by_node(g, camps, start, end, fetch_fn):
     hit = _AV_CACHE.get(key)
     if hit and time.time() - hit[0] < _AV_TTL:
         return hit[1]
-    div = {g.nodes[c]["division_id"]: c for c in camps
-           if g.nodes[c].get("division_id")}
-    raw = (fetch_fn or fetch_availability)(
-        g.park["permit_id"], list(div), start, end)
-    by_node = {div[d]: days for d, days in raw.items() if d in div}
+    by_node = fetch_for_graph(g, camps, start, end, fetch_fn=fetch_fn)
     _AV_CACHE[key] = (time.time(), by_node)
     return by_node
 
@@ -140,6 +137,7 @@ def create_app(fetch_fn=None):
                           "name": n.get("name"),
                           "lat": n.get("lat"), "lon": n.get("lon"),
                           "elevation_ft": n.get("elevation_ft"),
+                          "policy": n.get("policy", "reservation"),
                           "lake": bool(f.get("lake"))})
         seen, edges = set(), []
         for a, lst in g.adj.items():
@@ -207,7 +205,9 @@ def create_app(fetch_fn=None):
                 "type": r["type"],
                 "entrance": {"id": r["entrance"],
                              "name": g.name(r["entrance"])},
-                "stops": [{"id": c, "name": g.name(c)} for c in r["seq"]],
+                "stops": [{"id": c, "name": g.name(c),
+                           "policy": g.nodes[c].get("policy", "reservation")}
+                          for c in r["seq"]],
                 "days": r["days"],
                 "dates": sorted(d.isoformat() for d in v["dates"]),
                 "notes": scorer.layover_notes(r, pref_mi, pref_gain),
@@ -260,6 +260,7 @@ def create_app(fetch_fn=None):
             remaining = (av.get(c) or {}).get(d.isoformat())
             resp["options"].append({
                 "id": c, "name": g.name(c),
+                "policy": g.nodes[c].get("policy", "reservation"),
                 "mi": leg[0] if leg else 0.0,
                 "gain": leg[1] if leg else 0,
                 "remaining": remaining,

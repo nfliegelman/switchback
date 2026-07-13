@@ -15,6 +15,10 @@ Measured 2026-07-12: a fresh copy reaches its first ranked result in about a min
 
 ## What's inside (v2.0.0)
 
+**The trip board (v2.3, phone-native).** A daily GitHub Action computes ranked trips for the windows in `board_config.json` (relative dates, so the config never goes stale) and commits `docs/board/board.json`; the static page at `docs/board/` renders them on a map. Enable it once: repo Settings, Pages, deploy from branch, main, /docs. Then the board lives at your Pages URL under /board/, readable from any phone, refreshed every morning, with first-come sites labeled honestly. The same job snapshots the scan history into `data/` daily so the demand dataset survives anything.
+
+**Regions (v2.2).** A region stitches permits and permitless sites that share trails into one plannable graph. `parks/lena.json` is the pilot: Lower Lena Lake (Olympic NF, first-come, no permit system) chains to Upper Lena Lake (Olympic NP, permit 4098362) in one itinerary, with first-come nights labeled everywhere they appear. `python -m switchback trips lena` works today.
+
 **The map (v2.1).** `SwitchbackMap.bat` (or `python -m uvicorn switchback.web:app --port 8756` after `pip install fastapi uvicorn`) opens the local web UI: pick a park, camps color by open nights in your window, Find Trips draws ranked routes on the trail graph, and Adventure mode builds a trip one night at a time from the live frontier, each option showing distance, climb, sites left, and how many ways the trip can still finish. The engine stays standard library; fastapi and uvicorn are needed only for the map.
 
 **Availability finder (GUI).** Search any recreation.gov wilderness permit, pull classified availability (Reservable, Walk-up only, Full, Not released) across a date range on six threads, export a styled Excel workbook. The Find Trips button runs the trip engine with your saved profile and opens the ranked report in a window.
