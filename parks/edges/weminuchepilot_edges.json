@@ -1,0 +1,23 @@
+{
+ "slug": "weminuchepilot",
+ "schema": 1,
+ "notes": "Phase B auto-generated; miles from the area graph Dijkstra, gains absent by design.",
+ "nodes": [],
+ "edges": [
+  {
+   "a": "ENT:Needleton Bridge (train stop)",
+   "b": "P01",
+   "miles": 6.6
+  },
+  {
+   "a": "ENT:Needleton Bridge (train stop)",
+   "b": "P02",
+   "miles": 7.7
+  },
+  {
+   "a": "P01",
+   "b": "P02",
+   "miles": 1.1
+  }
+ ]
+}

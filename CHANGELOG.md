@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.16.0 (2026-07-13)
+
+Dispersed itineraries phase B passes. dispersed.py now builds a real park from an area graph: auto camps with policy none, Dijkstra edges in the standard schema, and the existing solver produced 14 ranked bookable itineraries on the Needle Creek pilot, including the classic Chicago Basin trip reproduced exactly. The AllTrails oracle verified the flagship leg inside a tenth of a mile (Windom via Needle Creek, 18.1 mi RT). Limitations recorded in EXPERIMENTS.md before any app exposure: widen the candidate dedupe, gains await dem_trail, junction naming needs a pass.
+
 ## v2.15.0 (2026-07-13)
 
 The Colorado map wave: all 27 remaining USFS wildernesses built in one session, roughly 12,000 new trail miles. Headliners: Sangre de Cristo at 1687 trail miles with 221 government additions (the new system champion), Collegiate Peaks 1049, Eagles Nest 1045 with the densest network in the state at 2229 OSM ways, Flat Tops 939 with the second biggest government rescue yet at 256 additions, West Elk 762, Lost Creek 593. One boundary-name fix recorded: the USFS service registers Cache La Poudre with a capital La. Colorado now stands at 4 live, 34 on the map, 11 planned (the non-wilderness boundary set: BLM units, Black Canyon, Hermosa, Browns Canyon, State Forest, and the two long-trail corridors). Systemwide: 70 built landscapes across two states, every one drag-routable.

@@ -1,0 +1,40 @@
+{
+ "slug": "weminuchepilot",
+ "name": "Weminuche Pilot (Needle Creek, dispersed)",
+ "region": "colorado",
+ "notes": "Phase B experiment; every camp policy none (no permit).",
+ "members": [],
+ "entrances": [
+  {
+   "id": "WEMP-NEED",
+   "code": "NEED",
+   "name": "NEED - Needleton Bridge (train stop)",
+   "lat": 37.63351,
+   "lon": -107.69286
+  }
+ ],
+ "camps": [
+  {
+   "id": "WEMP-P01",
+   "code": "P01",
+   "name": "P01 - Needle Creek Junction 1 (dispersed)",
+   "lat": 37.61108,
+   "lon": -107.61168,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate, phase B pilot"
+  },
+  {
+   "id": "WEMP-P02",
+   "code": "P02",
+   "name": "P02 - Needle Creek Junction 2 (dispersed)",
+   "lat": 37.62158,
+   "lon": -107.60827,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate, phase B pilot"
+  }
+ ]
+}
