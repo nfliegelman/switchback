@@ -66,6 +66,18 @@ Refined policy, replacing the old blanket rule: factual data points (distances, 
 
 Three uses, in value order: (1) edge validation and seeding, especially GAINS, the engine's weakest number: an interim patch for the est-gain understatement until the DEM pass; (2) crowd proxy: trail popularity signals (ratings volume, traffic labels) approximate demand today instead of waiting weeks for M8 history, with the caveat that trail traffic is not camp fullness; (3) day-hike POI enrichment for basecamp layovers, live via the Claude-artifact path or link-only in the local app.
 
+Integration matrix (decided 2026-07-13 after a full tool inventory; the connector exposes five tools, three proven live in-chat, two known by schema):
+
+INTEGRATE NOW, critical tier: (1) length and elevation gain per named trail as edge seeds and validators with src attribution, the interim patch for the est-gain understatement until the DEM pass; (2) location_label, the land-unit tag on every trail card, as the regions QA signal confirming which permit system a trail belongs to, free in every result and exactly the Forest-vs-Park split the Lena pull demonstrated.
+
+INTEGRATE SOON, moderate tier: (3) trail_traffic (light, moderate, heavy, from AllTrails activity data) plus most_popular and per-month popularity sorts on the near and bounds searches: a crowd and seasonality proxy available today without any details call, feeding the scoring solitude term as a prior until M8 history matures, with the standing caveat that trail traffic is not camp fullness; (4) alltrails_web_url stored per corridor for deep links on trips output and CalTopo properties, URLs being plainly storable; (5) features and attractions tags (waterfall, views, wildflowers, wildlife) as scoring terms beyond lake and as day-hike POI card content, deferred to the v2.1 scoring pass; (6) difficulty and route_type as QA cross-checks against day-fit and the classifier, never as scoring inputs.
+
+LIVE-ONLY, never stored: (7) get_trail_weather_overview, the 7-day trailhead forecast, pairing naturally with watch alerts and trip cards via the Claude-artifact path, and folding into the existing Weather backlog item; (8) descriptions, review_summary, and photos, display-only through the artifact path.
+
+SKIP: duration_minutes (our pace model derives this), suitability and dog rules (not permit-relevant), profile photos (content), trail_head_distance (null in practice).
+
+Open blocker: get_trail_details (exact review counts, the sharpest crowd input) requires a permission tap that has not registered across three attempts; the dialog must be accepted while the call is pending. Until then the traffic labels carry the crowd proxy alone.
+
 Harvested Lena seed data (src: AllTrails official MCP, 2026-07-13): Lower Lena Lake Trail, Olympic NATIONAL FOREST label, 6.4 mi RT, +1,548 ft, 4.7 stars, moderate, out and back. Lena Lake Trail to Upper Lena Lake Trail, Olympic NATIONAL PARK label, 13.4 mi RT, +4,655 ft, 4.5 stars, hard. Derived pilot edges (est flags apply, RT gains cannot be split exactly one-way): trailhead to Lower Lena 3.2 mi, roughly +1,400 ft; Lower Lena to Upper Lena 3.5 mi, roughly +2,500 ft, the famously steep section. Day-hike POI example from a Lower Lena basecamp: The Brothers via Lower Lena, 15.8 mi, +6,870 ft, 4.3 stars. AllTrails itself labels the two lakes to different land units, confirming the exact cross-boundary case the regions item below exists for.
 
 ## Cross-boundary regions (DIRECTED 2026-07-12, owner request)

@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.0.5 (2026-07-13)
+
+AllTrails integration matrix decided and recorded in BACKLOG: edge seeding and land-unit labels now, traffic-label crowd proxy and corridor deep links soon, weather and review content live-only via the artifact path, the rest skipped. Discovery: trail_traffic and popularity sorts on the search tools deliver the crowd signal without the still-blocked details call.
+
 ## v2.0.4 (2026-07-13)
 
 AllTrails synthesis unlocked at the owner's push. The blanket link-only stance is replaced by a nuanced policy (facts with attribution sparingly via the official MCP, content never, bulk never, the app never calls AllTrails). Proven live: the Lena corridor was pulled through the connector in-chat, its cross-boundary Forest and Park labels confirming the regions case, and its mileage and gain figures now seed the pilot in BACKLOG. Three synthesis uses recorded: gain validation, crowd proxy, day-hike POI enrichment.
