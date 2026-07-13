@@ -757,8 +757,8 @@
    "name": "Maroon Zone Large Group",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.0625,
-   "lon": -107.0095,
+   "lat": 39.06788,
+   "lon": -106.98906,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -768,7 +768,7 @@
    "water_lake_flag": "",
    "on_trail": "",
    "elevation_ft": 11000,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "snapped to the West Maroon valley trail northeast of the pass 2026-07-13; the prior point sat close enough to the divide to snap to the Schofield side"
   },
   {
    "id": "4675333025",
@@ -776,8 +776,8 @@
    "name": "Maroon Zone Small Group Dispersed",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.063,
-   "lon": -107.009,
+   "lat": 39.06748,
+   "lon": -106.98906,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -787,7 +787,7 @@
    "water_lake_flag": "",
    "on_trail": "",
    "elevation_ft": 11000,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "snapped to the West Maroon valley trail northeast of the pass 2026-07-13; the prior point sat close enough to the divide to snap to the Schofield side"
   },
   {
    "id": "4675333028",

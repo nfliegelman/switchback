@@ -67,7 +67,7 @@
 const $ = id => document.getElementById(id);
 const map = L.map('map', { zoomSnap: 0.5 }).setView([47.5, -113.7], 6);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors; trail geometry ODbL' }).addTo(map);
+  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors; trails: OSM (ODbL) + USGS/USFS' }).addTo(map);
 
 let PARK = null, NODES = {}, markers = {}, edgeLayer = null, routeLayer = null;
 let mode = 'trips', advSeq = [], advEntrance = null;

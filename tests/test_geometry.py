@@ -39,6 +39,17 @@ def main():
         def leg(self, a, b): return (1.0, 0, [a, b])
     line = day_path("nope", FakeG(), ["x", "y"])
     assert line == [[47.0, -113.0], [47.1, -112.8]], "clean straight fallback"
+    from switchback.geometry import _geojson_to_elements
+    els = _geojson_to_elements({"features": [
+        {"geometry": {"type": "LineString",
+                      "coordinates": [[-121.7, 46.9], [-121.69, 46.91]]}},
+        {"geometry": {"type": "MultiLineString",
+                      "coordinates": [[[-121.6, 46.8], [-121.61, 46.81]],
+                                      [[-121.5, 46.7]]]}},
+        {"geometry": {"type": "Point", "coordinates": [-121.0, 46.0]}},
+    ]})
+    assert len(els) == 2 and els[0]["geometry"][0] == {"lat": 46.9, "lon": -121.7}
+
     print("GEOMETRY OK: routes the L not the crow, snap bounded, "
           "simplify anchored, fallback unbroken")
 

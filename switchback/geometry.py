@@ -38,7 +38,15 @@ MIRRORS = [
 CACHE_DIR = os.path.join("parks", ".osm_cache")
 GEOM_DIR = os.path.join("parks", "geometry")
 ATTRIBUTION = ("Trail geometry derived from OpenStreetMap via the "
-               "Overpass API, (c) OpenStreetMap contributors, ODbL 1.0")
+               "Overpass API, (c) OpenStreetMap contributors, ODbL 1.0, "
+               "and from US Government sources (USGS The National Map "
+               "and USFS EDW trails, public domain)")
+GOV_SERVICES = [
+    ("tnm", "https://carto.nationalmap.gov/arcgis/rest/services/"
+            "transportation/MapServer/37/query"),
+    ("usfs", "https://apps.fs.usda.gov/arcx/rest/services/EDW/"
+             "EDW_TrailNFSPublish_01/MapServer/0/query"),
+]
 FOOT_WAYS = "path|footway|steps|track|bridleway"
 SNAP_M = 300
 MIN_ROUTED_MI = 0.3
@@ -62,6 +70,74 @@ def _overpass_once(url, bbox):
         headers={"User-Agent": "switchback-geometry"})
     with urllib.request.urlopen(req, timeout=200) as r:
         return json.load(r)
+
+
+def _geojson_to_elements(data):
+    """GeoJSON lines to the overpass-like element shape TrailNet eats."""
+    out = []
+    for f in data.get("features", []):
+        geo = f.get("geometry") or {}
+        if geo.get("type") == "LineString":
+            groups = [geo.get("coordinates") or []]
+        elif geo.get("type") == "MultiLineString":
+            groups = geo.get("coordinates") or []
+        else:
+            continue
+        for line in groups:
+            if len(line) >= 2:
+                out.append({"geometry": [{"lat": c[1], "lon": c[0]}
+                                         for c in line]})
+    return out
+
+
+def _arcgis_query(url, bbox, depth=0):
+    s, w, n, e = bbox
+    env = json.dumps({"xmin": w, "ymin": s, "xmax": e, "ymax": n,
+                      "spatialReference": {"wkid": 4326}})
+    params = {"f": "geojson", "geometry": env,
+              "geometryType": "esriGeometryEnvelope", "inSR": "4326",
+              "outSR": "4326", "spatialRel": "esriSpatialRelIntersects",
+              "where": "1=1", "outFields": "OBJECTID",
+              "returnGeometry": "true", "resultRecordCount": "2000"}
+    req = urllib.request.Request(url + "?" + urllib.parse.urlencode(params),
+                                 headers={"User-Agent": "switchback-geometry"})
+    with urllib.request.urlopen(req, timeout=90) as r:
+        data = json.load(r)
+    feats = data.get("features", [])
+    if len(feats) >= 1900 and depth < 2:
+        mlat, mlon = (s + n) / 2, (w + e) / 2
+        feats = []
+        for sub in ((s, w, mlat, mlon), (s, mlon, mlat, e),
+                    (mlat, w, n, mlon), (mlat, mlon, n, e)):
+            feats.extend(_arcgis_query(url, sub, depth + 1).get("features", []))
+        return {"features": feats}
+    return data
+
+
+def fetch_gov(bbox, cache_tag):
+    """Merged government trail lines (TNM aggregate plus USFS) for a
+    bbox, disk-cached. Public domain. Returns element list plus
+    per-source counts; empty list if nothing reachable."""
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    key = hashlib.sha1(json.dumps(bbox).encode()).hexdigest()[:16]
+    cache = os.path.join(CACHE_DIR, f"gov_{cache_tag}_{key}.json")
+    if os.path.exists(cache):
+        with open(cache) as fh:
+            d = json.load(fh)
+        return d["elements"], d["sources"]
+    elements, sources = [], {}
+    for name, url in GOV_SERVICES:
+        try:
+            data = _arcgis_query(url, bbox)
+            els = _geojson_to_elements(data)
+            sources[name] = len(els)
+            elements.extend(els)
+        except Exception as ex:
+            sources[name] = f"failed: {str(ex)[:50]}"
+        time.sleep(2)
+    with open(cache, "w") as fh:
+        json.dump({"elements": elements, "sources": sources}, fh)
+    return elements, sources
 
 
 def fetch_validated(bbox, cache_tag, probe_pts, min_coverage=0.7):
@@ -286,6 +362,7 @@ def harvest(slug, net=None, dry=False):
     else:
         lines_cov = None
     seen, paths = set(), {}
+    edge_nodes, edge_mi = {}, {}
     routed, fallbacks, lines = 0, [], ([lines_cov] if lines_cov else [])
     for a, lst in g.adj.items():
         for b, mi, gain, est, _k in lst:
@@ -296,6 +373,8 @@ def harvest(slug, net=None, dry=False):
             na, nb = g.nodes[a], g.nodes[b]
             if mi is not None and mi <= MIN_ROUTED_MI:
                 continue
+            edge_nodes[key] = (a, b)
+            edge_mi[key] = mi
             if not (na.get("lat") and nb.get("lat")):
                 fallbacks.append((key, "missing coords"))
                 continue
@@ -332,6 +411,58 @@ def harvest(slug, net=None, dry=False):
             lines.append(f"  routed {g.name(a).split(' (')[0]} <> "
                          f"{g.name(b).split(' (')[0]}: {geom_mi:.1f} mi along "
                          f"trail (curated {mi}), {len(spts)} pts")
+    # government rescue pass: OSM failures and coarse shapes get one
+    # more chance on the official USGS and USFS centerlines
+    retry = [(k, r) for k, r in fallbacks if "missing coords" not in str(r)]
+    retry += [(k, "coarse osm shape") for k, rec in paths.items()
+              if rec.get("coarse")]
+    if retry:
+        gov_els, gov_src = fetch_gov(bbox, slug)
+        lines.append(f"  gov layer: {gov_src}")
+        if gov_els:
+            gnet = TrailNet({"elements": gov_els})
+            rescued = []
+            for k, why in retry:
+                a, b = edge_nodes.get(k, (None, None))
+                if a is None:
+                    continue
+                na, nb = g.nodes[a], g.nodes[b]
+                pts, res = gnet.route((na["lat"], na["lon"]),
+                                      (nb["lat"], nb["lon"]))
+                if pts is None:
+                    pts, res = gnet.route((na["lat"], na["lon"]),
+                                          (nb["lat"], nb["lon"]), max_m=800)
+                if pts is None:
+                    lines.append(f"  gov also failed {g.name(a)[:18]} <> "
+                                 f"{g.name(b)[:18]}: {res}")
+                    continue
+                gmi = res / 1609.34
+                mi = edge_mi.get(k)
+                if mi and gmi / mi > RATIO_HI:
+                    lines.append(f"  gov detour rejected {g.name(a)[:18]} <> "
+                                 f"{g.name(b)[:18]}: {gmi:.1f} vs {mi}")
+                    continue
+                coarse = bool(mi and gmi / mi < RATIO_LO)
+                was_coarse_osm = paths.get(k, {}).get("coarse")
+                if was_coarse_osm and coarse:
+                    continue
+                spts = simplify(pts)
+                if str(a) > str(b):
+                    spts = list(reversed(spts))
+                rec = {"pts": [[round(p[0], 5), round(p[1], 5)]
+                               for p in spts],
+                       "geom_mi": round(gmi, 2), "src": "gov"}
+                if coarse:
+                    rec["coarse"] = True
+                paths[k] = rec
+                rescued.append(k)
+                routed += 1
+                lines.append(f"  GOV RESCUE {g.name(a).split(' (')[0]} <> "
+                             f"{g.name(b).split(' (')[0]}: {gmi:.1f} mi "
+                             f"along official centerlines (was: {why})")
+            fallbacks = [(k, r) for k, r in fallbacks if k not in rescued]
+    for rec in paths.values():
+        rec.setdefault("src", "osm")
     if not dry:
         os.makedirs(GEOM_DIR, exist_ok=True)
         out = {"slug": slug, "attribution": ATTRIBUTION,
