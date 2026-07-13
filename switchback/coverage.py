@@ -97,3 +97,39 @@ def render(rows, queue):
     out.append("")
     text = "\n".join(out)
     return text.replace("\u2013", "-").replace("\u2014", "-")
+
+
+def render_atlas():
+    import json as _json
+    data = _json.load(open("parks/colorado_atlas.json"))
+    rows = data["rows"]
+    legend = {"live": "live (bookable itineraries)", "map": "trails on the map",
+              "planned": "planned", "not-suitable": "not suitable"}
+    counts = {}
+    for r in rows:
+        counts[r["status"]] = counts.get(r["status"], 0) + 1
+    out = ["# Colorado coverage atlas", "",
+           "Every Colorado backpacking landscape Switchback tracks, from rec.gov",
+           "quota systems to fully dispersed wilderness. Generated from",
+           "parks/colorado_atlas.json; edit the JSON, not this file.", "",
+           "Status counts: " + ", ".join(f"{counts.get(k,0)} {v}"
+                                          for k, v in legend.items()), ""]
+    for cat, title in (("NPS", "National parks"),
+                       ("USFS wilderness", "Wilderness areas (USFS)"),
+                       ("BLM", "BLM lands"), ("other", "Other public lands"),
+                       ("long trail", "Long trails")):
+        sub = [r for r in rows if r["cat"] == cat]
+        if not sub:
+            continue
+        out += [f"## {title}", "", "| Area | Permit | Status | Notes |",
+                "|---|---|---|---|"]
+        order = {"live": 0, "map": 1, "planned": 2, "not-suitable": 3}
+        for r in sorted(sub, key=lambda x: (order[x["status"]], x["name"])):
+            out.append(f"| {r['name']} | {r['permit']} | {legend[r['status']]} "
+                       f"| {r.get('notes','')} |")
+        out.append("")
+    text = "\n".join(out) + "\n"
+    text = text.replace("\u2013", "-").replace("\u2014", "-")
+    with open("COLORADO.md", "w") as fh:
+        fh.write(text)
+    return len(rows)

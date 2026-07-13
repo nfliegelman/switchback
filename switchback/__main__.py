@@ -208,6 +208,16 @@ def cmd_watch(args):
     print(f"watch ended, {sent} alert(s) sent")
 
 
+def cmd_atlas(args):
+    from .coverage import render_atlas
+    print(f"COLORADO.md regenerated, {render_atlas()} entries")
+
+
+def cmd_area(args):
+    from .areas import build_area
+    build_area(args.slug)
+
+
 def cmd_geometry(args):
     from .geometry import harvest
     routed, fallbacks, lines = harvest(args.slug, dry=args.dry)
@@ -315,6 +325,13 @@ def main():
     wa.add_argument("--inject", default=None, metavar="DIV:DATE",
                     help="manufacture an opening to test the pipeline end to end")
     wa.set_defaults(fn=cmd_watch)
+
+    at = sub.add_parser("atlas", help="regenerate COLORADO.md from the atlas json")
+    at.set_defaults(fn=cmd_atlas)
+
+    ar = sub.add_parser("area", help="build a dispersed trail area: boundary plus full trail layer")
+    ar.add_argument("slug")
+    ar.set_defaults(fn=cmd_area)
 
     ge = sub.add_parser("geometry", help="harvest real trail polylines from OSM")
     ge.add_argument("slug")

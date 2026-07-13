@@ -28,6 +28,7 @@
 <header>
   <b>Switchback board</b>
   <select id="win"></select>
+  <select id="area"></select>
   <span class="stamp" id="stamp"></span>
 </header>
 <div id="map"></div>
@@ -89,6 +90,29 @@ function draw(w, j, el){
   routeLayer = L.layerGroup(lines.map(p=>L.polyline(p,{color:'#2f6f4f',weight:4,opacity:.9}))).addTo(map);
   const all = lines.flat(); if (all.length) map.fitBounds(all,{padding:[40,40]});
 }
+</script>
+<script>
+const AREA_INDEX='../areas/index.json';const AREA_ONE='../areas/';const AREA_SUFFIX='.json';const AREA_INFO=(s)=>{document.getElementById('stamp').textContent=s;};
+</script>
+<script>
+const areaSel = document.getElementById('area');
+let areaLayer = null;
+fetch(AREA_INDEX).then(r => r.ok ? r.json() : {areas: []}).then(m => {
+  if (!m.areas || !m.areas.length) { areaSel.style.display = 'none'; return; }
+  areaSel.innerHTML = '<option value="">explore areas</option>' +
+    m.areas.map(a => `<option value="${a.slug}">${a.name} (${Math.round(a.trail_miles)} mi)</option>`).join('');
+});
+areaSel.onchange = async () => {
+  if (areaLayer) { map.removeLayer(areaLayer); areaLayer = null; }
+  const slug = areaSel.value;
+  if (!slug) return;
+  const d = await fetch(AREA_ONE + slug + AREA_SUFFIX).then(r => r.json());
+  const b = d.boundary.map(r => L.polyline(r, {color:'#8a5a2b', weight:2, dashArray:'6 5', opacity:.9}));
+  const t = d.trails.map(p => L.polyline(p, {color:'#2f6f4f', weight:1.5, opacity:.65}));
+  areaLayer = L.layerGroup([...b, ...t]).addTo(map);
+  map.fitBounds(L.latLngBounds(d.boundary.flat()));
+  AREA_INFO(`${d.name}: ${d.stats.trail_miles} trail mi, ${d.stats.osm_ways + d.stats.gov_added} segments, permit: ${d.permit}`);
+};
 </script>
 </body>
 </html>

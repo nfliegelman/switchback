@@ -127,3 +127,7 @@ Archetype B (trailhead-quota model: Yosemite JMT and wilderness, SEKI): needs th
 Holdouts running their own booking systems (Zion, Great Smokies, Denali): out until a trip demands one badly enough to justify a custom integration.
 
 First wave after the owner's v2.0.0 test drive: Olympic (NP plus the NF Lena permit), then Grand Teton. Cost per Archetype A park: 3-6 h today, dominated by mileage-table transcription; drops toward 1-2 h once the OSM plus DEM edge pipeline (above) replaces hand transcription.
+
+
+## Dispersed itineraries experiment (owner approved 2026-07-13)
+Goal: full trip generation in permit-free areas. Plan: derive candidate camp nodes from OSM named lakes and basins plus trail junctions inside the boundary, build edges by routing on the area TrailNet, availability is synthetic always-open through the existing region overlay machinery (policy none). Pilot on one Weminuche drainage (Needle Creek or Vallecito) and compare output against published route knowledge before trusting it anywhere. Auto may work, auto may need a curation pass; that is the test. Next area waves per COLORADO.md: La Garita and Powderhorn complete the San Juans, then the central classics.

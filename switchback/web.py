@@ -127,6 +127,22 @@ def create_app(fetch_fn=None):
         rows, _q = survey()
         return [r for r in rows if r.get("edges")]
 
+    @app.get("/api/areas")
+    def areas():
+        p = os.path.join("docs", "areas", "index.json")
+        if not os.path.exists(p):
+            return {"areas": []}
+        with open(p) as fh:
+            return json.load(fh)
+
+    @app.get("/api/area/{slug}")
+    def area(slug: str):
+        p = os.path.join("docs", "areas", f"{slug}.json")
+        if not os.path.exists(p):
+            raise HTTPException(404, f"no trail area named {slug!r}")
+        with open(p) as fh:
+            return json.load(fh)
+
     @app.get("/api/park/{slug}")
     def park(slug: str):
         g = _graph(slug)
