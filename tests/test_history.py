@@ -24,9 +24,18 @@ def main():
         "FROM scans WHERE total > 0 AND date >= '2098-01-01'").fetchone()
     assert total >= 30 and abs(full / total - 0.5) < 1e-9, \
         "fullness proxy must be exactly half on this synthetic mix"
+    import tempfile as _tf
+    pdi_out = os.path.join(_tf.mkdtemp(), "pdi.json")
+    path, n = history.derive_pdi(min_samples=30, out_path=pdi_out)
+    import json as _json
+    pdi = _json.load(open(path))
+    entry = list(pdi["glacier"].values())[0]
+    assert n == 1 and entry["pdi"] == 50 and entry["samples"] >= 30
+    assert entry["weekend_premium"] is None, "premium needs 10+ weekend samples"
+
     history.set_db_path(os.environ.get("SWITCHBACK_HISTORY_PATH",
                                        history.DB_PATH))
-    print(f"HISTORY OK: {n} rows after two scans, fullness proxy 0.5 exact")
+    print(f"HISTORY OK: {n} rows after two scans, fullness 0.5 exact, PDI 50 with honest null components")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,63 @@
+{
+ "slug": "enchantments",
+ "schema": 1,
+ "notes": "The classic thru-line plus the Stuart spur. Mileages published trail figures (est); gains DEM v2.4; zone coords curated.",
+ "nodes": [],
+ "edges": [
+  {
+   "a": "ENT:Stuart Lake Trailhead",
+   "b": "Colchuck Zone",
+   "miles": 4.4,
+   "est_gain": true,
+   "src": "published: TH to Colchuck Lake; gains from zone and pass elevations (TH 3,400 to Colchuck Lake 5,580); DEM line crosses Dragontail, invalid",
+   "gain_ab": 2230,
+   "loss_ab": 50,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "ENT:Stuart Lake Trailhead",
+   "b": "Stuart Zone",
+   "miles": 4.7,
+   "est_gain": true,
+   "src": "published: TH to Stuart Lake; gains from zone and pass elevations (TH 3,400 to Stuart Lake 5,064); DEM line crosses Dragontail, invalid",
+   "gain_ab": 1700,
+   "loss_ab": 40,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Colchuck Zone",
+   "b": "Core Enchantment Zone",
+   "miles": 2.2,
+   "est_gain": true,
+   "src": "published: Aasgard Pass; gains from zone and pass elevations (Aasgard Pass 7,800); DEM line crosses Dragontail, invalid",
+   "gain_ab": 2250,
+   "loss_ab": 700,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Core Enchantment Zone",
+   "b": "Snow Zone",
+   "miles": 4.7,
+   "est_gain": true,
+   "src": "published: Core down past Lake Viviane; gains from zone and pass elevations (Core 7,100 down to Upper Snow 5,415); DEM line crosses Dragontail, invalid",
+   "gain_ab": 200,
+   "loss_ab": 1885,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Snow Zone",
+   "b": "ENT:Snow Lake Trailhead",
+   "miles": 6.5,
+   "est_gain": true,
+   "src": "published: Snow Lakes trail out; gains from zone and pass elevations (Snow 5,415 down to TH 1,300); DEM line crosses Dragontail, invalid",
+   "gain_ab": 100,
+   "loss_ab": 4215,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  }
+ ]
+}

@@ -1,22 +1,143 @@
 {
- "slug": "glacier", "schema": 1,
+ "slug": "glacier",
+ "schema": 1,
  "notes": "Belly River corridor folded in from belly_river_graph.json (v1.0.0), sources unchanged: PNTA permit planner corridor mileages, enjoyyourparks Red Gap page, roamingbearmedia, repicjourney, Glacier Guides. Sourced gains carried; est gains flagged. Remaining Glacier corridors (Gunsight, Highline, Dawson-Pitamakan, North Circle west) queued for transcription from the park backcountry guide.",
  "nodes": [
-  {"key": "BELLY_JCT", "kind": "junction", "name": "Belly River junction"}
+  {
+   "key": "BELLY_JCT",
+   "kind": "junction",
+   "name": "Belly River junction",
+   "lat": 48.9339,
+   "lon": -113.7146,
+   "elevation_ft": 4650,
+   "coords_note": "0.1 mi from Gable Creek camp; approximated from it for the DEM pass"
+  }
  ],
  "edges": [
-  {"a": "ENT:Belly River Trail", "b": "BELLY_JCT", "miles": 6.1, "gain_ab": 150, "loss_ab": 900, "est_gain": true, "src": "PNTA planner WBO 6.1; descent est from Glacier Guides day 1"},
-  {"a": "BELLY_JCT", "b": "GAB", "miles": 0.1, "gain_ab": 0, "loss_ab": 0, "est_gain": true, "src": "PNTA planner, GAB at 6.0"},
-  {"a": "BELLY_JCT", "b": "ELF", "miles": 3.4, "gain_ab": 250, "loss_ab": 100, "est_gain": true, "src": "PNTA planner off-trail column"},
-  {"a": "BELLY_JCT", "b": "COS", "miles": 2.6, "gain_ab": 150, "loss_ab": 150, "est_gain": true, "src": "PNTA planner, 8.7 minus 6.1"},
-  {"a": "COS", "b": "GLF", "miles": 1.5, "gain_ab": 100, "loss_ab": 50, "est_gain": true, "src": "PNTA planner"},
-  {"a": "GLF", "b": "GLH", "miles": 2.5, "gain_ab": 150, "loss_ab": 50, "est_gain": true, "src": "PNTA planner"},
-  {"a": "GLH", "b": "MOJ", "miles": 0.7, "gain_ab": 50, "loss_ab": 0, "est_gain": true, "src": "PNTA planner"},
-  {"a": "MOJ", "b": "MOL", "miles": 1.1, "gain_ab": 150, "loss_ab": 0, "est_gain": true, "src": "PNTA planner, 0.3 corridor plus 0.8 spur"},
-  {"a": "ELF", "b": "ELH", "miles": 1.6, "gain_ab": 100, "loss_ab": 0, "est_gain": true, "src": "est, lake length; verify against park table"},
-  {"a": "ELH", "b": "HEL", "miles": 1.5, "gain_ab": 250, "loss_ab": 0, "est_gain": true, "src": "est; verify against park table"},
-  {"a": "ELF", "b": "ENT:Iceberg/Ptarmigan Trail", "miles": 9.8, "gain_ab": 2500, "loss_ab": 2400, "src": "enjoyyourparks Red Gap page; Glacier Guides tunnel 5.3 mi 2300 ft"},
-  {"a": "ELF", "b": "POI", "miles": 10.3, "gain_ab": 2500, "loss_ab": 1754, "src": "enjoyyourparks 4.6 mi 2500 ft; roamingbearmedia 5.7 mi 1754 ft"},
-  {"a": "POI", "b": "ENT:Appekuny Falls", "miles": 6.4, "gain_ab": 700, "loss_ab": 1000, "est_gain": true, "src": "repicjourney 6.4 mi; Poia trailhead shares the Apikuni Falls pullout, Swiftcurrent Ridge bump est"}
+  {
+   "a": "ENT:Belly River Trail",
+   "b": "BELLY_JCT",
+   "miles": 6.1,
+   "gain_ab": 220,
+   "loss_ab": 873,
+   "est_gain": true,
+   "src": "PNTA planner WBO 6.1; descent est from Glacier Guides day 1",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "BELLY_JCT",
+   "b": "GAB",
+   "miles": 0.1,
+   "gain_ab": 0,
+   "loss_ab": 16,
+   "est_gain": true,
+   "src": "PNTA planner, GAB at 6.0",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "BELLY_JCT",
+   "b": "ELF",
+   "miles": 3.4,
+   "gain_ab": 505,
+   "loss_ab": 233,
+   "est_gain": true,
+   "src": "PNTA planner off-trail column",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "BELLY_JCT",
+   "b": "COS",
+   "miles": 2.6,
+   "gain_ab": 568,
+   "loss_ab": 348,
+   "est_gain": true,
+   "src": "PNTA planner, 8.7 minus 6.1",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "COS",
+   "b": "GLF",
+   "miles": 1.5,
+   "gain_ab": 52,
+   "loss_ab": 75,
+   "est_gain": true,
+   "src": "PNTA planner",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "GLF",
+   "b": "GLH",
+   "miles": 2.5,
+   "gain_ab": 108,
+   "loss_ab": 125,
+   "est_gain": true,
+   "src": "PNTA planner",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "GLH",
+   "b": "MOJ",
+   "miles": 0.7,
+   "gain_ab": 108,
+   "loss_ab": 0,
+   "est_gain": true,
+   "src": "PNTA planner",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "MOJ",
+   "b": "MOL",
+   "miles": 1.1,
+   "gain_ab": 144,
+   "loss_ab": 125,
+   "est_gain": true,
+   "src": "PNTA planner, 0.3 corridor plus 0.8 spur",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "ELF",
+   "b": "ELH",
+   "miles": 1.6,
+   "gain_ab": 52,
+   "loss_ab": 43,
+   "est_gain": true,
+   "src": "est, lake length; verify against park table",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "ELH",
+   "b": "HEL",
+   "miles": 1.5,
+   "gain_ab": 220,
+   "loss_ab": 59,
+   "est_gain": true,
+   "src": "est; verify against park table",
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "ELF",
+   "b": "ENT:Iceberg/Ptarmigan Trail",
+   "miles": 9.8,
+   "gain_ab": 2500,
+   "loss_ab": 2400,
+   "src": "enjoyyourparks Red Gap page; Glacier Guides tunnel 5.3 mi 2300 ft"
+  },
+  {
+   "a": "ELF",
+   "b": "POI",
+   "miles": 10.3,
+   "gain_ab": 2500,
+   "loss_ab": 1754,
+   "src": "enjoyyourparks 4.6 mi 2500 ft; roamingbearmedia 5.7 mi 1754 ft"
+  },
+  {
+   "a": "POI",
+   "b": "ENT:Appekuny Falls",
+   "miles": 6.4,
+   "gain_ab": 700,
+   "loss_ab": 1000,
+   "est_gain": true,
+   "src": "repicjourney 6.4 mi; Poia trailhead shares the Apikuni Falls pullout, Swiftcurrent Ridge bump est"
+  }
  ]
 }

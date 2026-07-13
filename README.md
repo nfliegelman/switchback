@@ -43,7 +43,7 @@ Python 3.8+ with tkinter for the GUI (included in the python.org Windows install
 
 ## Honest cautions
 
-Unsourced elevation gains are endpoint-delta estimates that understate passes by roughly 40 percent (benchmarked against a GPS log), so treat gain limits as soft at Rainier until the DEM pass lands; Glacier's big climbs are sourced numbers. GPX tracks are straight lines between graph nodes by design. Demand percentages are a fullness-rate proxy until the history log has weeks of depth.
+Elevation gains carry a method tier: sourced numbers, then AllTrails-derived and pass-arithmetic figures, then DEM line-sampled estimates (benchmarked within 7 percent, erring high, on a Rainier GPS log; the dem command self-flags results where the line crosses ridges the trail contours around, which is why the Tetons and Enchantments use pass arithmetic instead), then raw endpoint deltas. Run python -m switchback dem <slug> after adding edges. GPX tracks are straight lines between graph nodes by design. Demand percentages are a fullness-rate proxy until the history log has weeks of depth.
 
 ## Where it's going
 

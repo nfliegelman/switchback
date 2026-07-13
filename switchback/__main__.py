@@ -208,6 +208,16 @@ def cmd_watch(args):
     print(f"watch ended, {sent} alert(s) sent")
 
 
+def cmd_dem(args):
+    from .dem import dem_edges
+    updated, skipped, lines = dem_edges(args.slug, dry=args.dry)
+    print("\n".join(lines) if lines else "  nothing to update")
+    print(f"{updated} edge(s) {'previewed' if args.dry else 'updated'}, "
+          f"{len(skipped)} skipped")
+    for s in skipped:
+        print(f"  skipped: {s}")
+
+
 def cmd_board(args):
     from .board import write_board
     out, board = write_board(args.config, args.out)
@@ -236,6 +246,13 @@ def cmd_history(args):
     from . import history
     if args.action == "stats":
         print(history.stats())
+    elif args.action == "pdi":
+        path, n = history.derive_pdi()
+        print(f"wrote {path}: {n} camps qualified")
+        if n == 0:
+            print("  (needs 30+ future-dated observations per camp; the "
+                  "watcher and board accrue these daily; the index matures "
+                  "with the log)")
     else:
         path, n = history.derive_demand()
         print(f"wrote {path}: {n} camps with enough samples")
@@ -291,6 +308,11 @@ def main():
                     help="manufacture an opening to test the pipeline end to end")
     wa.set_defaults(fn=cmd_watch)
 
+    de = sub.add_parser("dem", help="fill DEM route-sampled gains for estimated edges")
+    de.add_argument("slug")
+    de.add_argument("--dry", action="store_true")
+    de.set_defaults(fn=cmd_dem)
+
     bo = sub.add_parser("board", help="compute the static trip board (Pages)")
     bo.add_argument("--config", default="board_config.json")
     bo.add_argument("--out", default="docs/board")
@@ -301,7 +323,7 @@ def main():
     co.set_defaults(fn=cmd_coverage)
 
     hi = sub.add_parser("history", help="scan-history stats or demand derivation")
-    hi.add_argument("action", choices=["stats", "demand"])
+    hi.add_argument("action", choices=["stats", "demand", "pdi"])
     hi.set_defaults(fn=cmd_history)
 
     pr = sub.add_parser("profile", help="show the saved effort profile")

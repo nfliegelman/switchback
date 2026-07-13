@@ -72,10 +72,12 @@ def main():
     d2 = (D0 + timedelta(days=1)).isoformat()
     av_a = {granite: {d2: 2}}
     av_b = {granite: {d2: 2}, berkeley: {d2: 2}}
+    # gain cap at 6000 so both candidate camps stay feasible under
+    # DEM-corrected gains; the invariant under test is monotonicity
     e_a = Solver(g, av_a, party=2, nights=2, max_mi=13.0,
-                 max_gain=4000).endings(ent, D0, 1, mystic)
+                 max_gain=6000).endings(ent, D0, 1, mystic)
     e_b = Solver(g, av_b, party=2, nights=2, max_mi=13.0,
-                 max_gain=4000).endings(ent, D0, 1, mystic)
+                 max_gain=6000).endings(ent, D0, 1, mystic)
     assert e_b >= e_a and (e_a, e_b) == (1, 2), (e_a, e_b)
 
     print("SHAPES OK: Wonderland loop, Northern Loop lollipop, spur out_and_back; "

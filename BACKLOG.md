@@ -88,6 +88,10 @@ Open blocker: get_trail_details (exact review counts, the sharpest crowd input) 
 
 Harvested Lena seed data (src: AllTrails official MCP, 2026-07-13): Lower Lena Lake Trail, Olympic NATIONAL FOREST label, 6.4 mi RT, +1,548 ft, 4.7 stars, moderate, out and back. Lena Lake Trail to Upper Lena Lake Trail, Olympic NATIONAL PARK label, 13.4 mi RT, +4,655 ft, 4.5 stars, hard. Derived pilot edges (est flags apply, RT gains cannot be split exactly one-way): trailhead to Lower Lena 3.2 mi, roughly +1,400 ft; Lower Lena to Upper Lena 3.5 mi, roughly +2,500 ft, the famously steep section. Day-hike POI example from a Lower Lena basecamp: The Brothers via Lower Lena, 15.8 mi, +6,870 ft, 4.3 stars. AllTrails itself labels the two lakes to different land units, confirming the exact cross-boundary case the regions item below exists for.
 
+## DEM and data QA residuals (v2.4/v2.5 SHIPPED 2026-07-13)
+
+Trail-geometry DEM v2 (OSM way polylines instead of straight lines) would extend DEM coverage into canyon terrain; until then pass arithmetic covers it. Per-edge QA: Rainier Maple Creek to Paradise River and White River to Summerland (DEM overshoot flags). Coordinate QA: Teton Crest zones, Alaska Basin, Enchantments zones, Lena (all curated approximations). Enchantments daily-lottery permit 445863 as a dual-permit region with 233273. PDI components: sellout velocity and weekend premium activate as the daily scans deepen.
+
 ## Regions residuals (v2.2 SHIPPED 2026-07-13; design below kept for history)
 
 Remaining from the pilot: Olympic features pass (~300 camps, OSM join session with the usual manual queue); Lena overlay coords QA against a GPS track; Olympic proper corridors (Grand Valley / Moose Lake first, it was the owner's top pick); The Brothers as a day-hike POI node; unify the web and board trip-building duplication into one tripsvc module.

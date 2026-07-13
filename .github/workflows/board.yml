@@ -41,10 +41,11 @@ jobs:
           mkdir -p data
           cp parks/history.sqlite data/history.sqlite 2>/dev/null || true
           python -m switchback history demand || true
+          python -m switchback history pdi || true
 
       - name: Commit refreshed board and history
         run: |
           git config user.name "switchback-board"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/board data parks/demand.json 2>/dev/null || true
+          git add docs/board data parks/demand.json parks/pdi.json 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "board: daily refresh [skip ci]" && git push)

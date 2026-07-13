@@ -1,0 +1,85 @@
+{
+ "slug": "tetoncrest",
+ "schema": 1,
+ "notes": "Teton Crest thru-line. Mileages are standard published Crest guide figures (est); gains DEM v2.4; zone coords approximate. DEM line method proved invalid in this terrain (lines cross 11,000 ft peaks between canyons); gains use pass_arithmetic_v1 and edges are dem_exempt.",
+ "nodes": [],
+ "edges": [
+  {
+   "a": "ENT:Death Canyon Trailhead",
+   "b": "Marion Lake",
+   "miles": 8.9,
+   "est_gain": true,
+   "src": "Crest guides: Death Canyon TH to Marion below Fox Creek Pass; gains from zone and pass elevations (canyon climb, zone elevation arithmetic); DEM line-sampling invalid here, straight lines cross Teton peaks",
+   "gain_ab": 2600,
+   "loss_ab": 140,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Marion Lake",
+   "b": "Death Canyon Shelf",
+   "miles": 2.9,
+   "est_gain": true,
+   "src": "Crest guides: over Fox Creek Pass onto the Shelf; gains from zone and pass elevations (Fox Creek Pass 9,560); DEM line-sampling invalid here, straight lines cross Teton peaks",
+   "gain_ab": 400,
+   "loss_ab": 160,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Death Canyon Shelf",
+   "b": "AB",
+   "miles": 3.4,
+   "est_gain": true,
+   "src": "Crest guides: Mount Meek Pass and the Sheep Steps; gains from zone and pass elevations (Mount Meek Pass 9,726 and the Sheep Steps); DEM line-sampling invalid here, straight lines cross Teton peaks",
+   "gain_ab": 350,
+   "loss_ab": 250,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "AB",
+   "b": "Cascade South Fork",
+   "miles": 5.6,
+   "est_gain": true,
+   "src": "Crest guides: Sunset Lake and Hurricane Pass; gains from zone and pass elevations (Hurricane Pass 10,372); DEM line-sampling invalid here, straight lines cross Teton peaks",
+   "gain_ab": 850,
+   "loss_ab": 1350,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Cascade South Fork",
+   "b": "Cascade North Fork",
+   "miles": 2.7,
+   "est_gain": true,
+   "src": "Crest guides: the Cascade forks; gains from zone and pass elevations (gentle forks section); DEM line-sampling invalid here, straight lines cross Teton peaks",
+   "gain_ab": 150,
+   "loss_ab": 250,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Cascade North Fork",
+   "b": "Holly Lake",
+   "miles": 5.6,
+   "est_gain": true,
+   "src": "Crest guides: Paintbrush Divide; gains from zone and pass elevations (Paintbrush Divide 10,720); DEM line-sampling invalid here, straight lines cross Teton peaks",
+   "gain_ab": 1800,
+   "loss_ab": 1400,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Holly Lake",
+   "b": "ENT:String Lake Trailhead",
+   "miles": 6.2,
+   "est_gain": true,
+   "src": "Crest guides: Paintbrush Canyon out; gains from zone and pass elevations (Paintbrush Canyon descent); DEM line-sampling invalid here, straight lines cross Teton peaks",
+   "gain_ab": 150,
+   "loss_ab": 2690,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  }
+ ]
+}

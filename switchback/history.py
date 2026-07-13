@@ -98,6 +98,43 @@ def _slug_map():
     return m
 
 
+def derive_pdi(min_samples=30, out_path=None):
+    """v1 Permit Difficulty Index, 0 to 100 per camp: how hard is this
+    permit to get. Fullness-driven today, with a weekend premium
+    component once a camp has 10+ weekend observations; sellout velocity
+    joins when the log spans weeks (it needs the same cell watched
+    across days). Honest by design: camps below the sample floor are
+    excluded rather than guessed."""
+    out_path = out_path or os.path.join(_ROOT, "parks", "pdi.json")
+    today = datetime.now(timezone.utc).date().isoformat()
+    slugs = _slug_map()
+    db = _db()
+    pdi = {}
+    q = ("SELECT permit_id, division_id, "
+         "SUM(CASE WHEN remaining <= 0 THEN 1 ELSE 0 END), COUNT(*), "
+         "SUM(CASE WHEN strftime('%w', date) IN ('0','6') "
+         "AND remaining <= 0 THEN 1 ELSE 0 END), "
+         "SUM(CASE WHEN strftime('%w', date) IN ('0','6') THEN 1 ELSE 0 END) "
+         "FROM scans WHERE total > 0 AND hidden = 0 AND date >= ? "
+         "GROUP BY permit_id, division_id")
+    for pid, div, full, n, wfull, wn in db.execute(q, (today,)):
+        if n < min_samples:
+            continue
+        slug = slugs.get(str(pid))
+        if not slug:
+            continue
+        fullness = full / n
+        entry = {"pdi": round(100 * fullness), "samples": n,
+                 "fullness": round(fullness, 3),
+                 "weekend_premium": (round(100 * (wfull / wn - fullness))
+                                     if wn and wn >= 10 else None),
+                 "sellout_velocity": None}
+        pdi.setdefault(slug, {})[div] = entry
+    with open(out_path, "w") as fh:
+        json.dump(pdi, fh, indent=1)
+    return out_path, sum(len(v) for v in pdi.values())
+
+
 def derive_demand(out_path=None, min_samples=30):
     """Fullness-rate demand proxy per camp; only future-dated cells with
     real quota count. Returns (path, camps_written)."""
