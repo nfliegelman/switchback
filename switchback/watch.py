@@ -103,6 +103,17 @@ def alert_text(g, div_id, ds, remaining):
             f"({remaining} left). Book: {url}")
 
 
+def load_config(path):
+    """Standing watch definition for the cloud runner. Returns the dict,
+    or None when the file is missing, unreadable, or enabled is false."""
+    try:
+        with open(path) as fh:
+            cfg = json.load(fh)
+    except (OSError, ValueError):
+        return None
+    return cfg if cfg.get("enabled") else None
+
+
 # ------------------------------ the loop -----------------------------------
 def _load_state(party):
     try:

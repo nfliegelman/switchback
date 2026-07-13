@@ -1,0 +1,8 @@
+{
+ "enabled": false,
+ "slug": "glacier",
+ "start": "2026-09-18",
+ "end": "2026-09-26",
+ "codes": "ELF,COS,GAB",
+ "party": 2
+}

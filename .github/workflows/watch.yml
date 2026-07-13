@@ -1,0 +1,70 @@
+name: Switchback watch
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "park slug (blank = use watch_config.json)"
+        required: false
+      start:
+        description: "window start YYYY-MM-DD"
+        required: false
+      end:
+        description: "window end YYYY-MM-DD"
+        required: false
+      codes:
+        description: "camp codes, comma separated (blank = all)"
+        required: false
+      party:
+        description: "party size (blank = profile)"
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: switchback-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore watch state and scan history
+        uses: actions/cache@v4
+        with:
+          path: |
+            parks/.watch_state.json
+            parks/history.sqlite
+          key: switchback-watch-${{ github.run_id }}
+          restore-keys: |
+            switchback-watch-
+
+      - name: Run one watch cycle
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          IN_SLUG: ${{ github.event.inputs.slug }}
+          IN_START: ${{ github.event.inputs.start }}
+          IN_END: ${{ github.event.inputs.end }}
+          IN_CODES: ${{ github.event.inputs.codes }}
+          IN_PARTY: ${{ github.event.inputs.party }}
+        run: |
+          set -e
+          if [ -n "$IN_SLUG" ]; then
+            ARGS="$IN_SLUG --start $IN_START --end $IN_END"
+            [ -n "$IN_CODES" ] && ARGS="$ARGS --codes $IN_CODES"
+            [ -n "$IN_PARTY" ] && ARGS="$ARGS --party $IN_PARTY"
+            python -m switchback watch $ARGS --once
+          else
+            python -m switchback watch --config watch_config.json --once
+          fi

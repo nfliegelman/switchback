@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.0.7 (2026-07-13)
+
+Cloud watcher. New .github/workflows/watch.yml runs one watch cycle every 30 minutes on GitHub Actions and accepts ad-hoc watches from the GitHub mobile app via workflow_dispatch inputs. New watch_config.json defines the standing watch with an enabled flag; new --config mode on the watch CLI loads it and exits cleanly when disabled (proven: no-op in under a second, enabled cycle watched 27 live cells). Watch state and scan history persist across runs via the Actions cache with rolling keys; exactly-once alerting is soft in the cloud, duplicate-not-miss on rare cache eviction. Telegram credentials come from repo secrets, never the repo.
+
 ## v2.0.6 (2026-07-13)
 
 Silent-filter bug, caught by the owner's first live test drive (run from a phone, in chat). profile.json ships trip_type "loop", and the trips report disclosed party and daily limits but never the shape filter, so a Rainier run showed 4 weak routes (top score 0.145) while silently discarding 635 others. The same window with the filter off returns 639 routes and a top score of 1.040. The report header now states the active trip type always, and prints an explicit FILTER ACTIVE warning naming what was discarded and how to see it. Threaded through the CLI and the GUI. No solver changes; the solver was right, the report was quiet.

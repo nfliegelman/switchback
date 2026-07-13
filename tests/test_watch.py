@@ -2,7 +2,8 @@
 opening, re-alert only after a close, restarts do not duplicate."""
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from switchback.watch import WatchState
+from switchback.watch import WatchState, load_config
+import json, tempfile
 
 K = ("DIV1", "2026-09-22")
 
@@ -30,6 +31,15 @@ def main():
     assert revived.observe({K: 2}) == [], "and not double-fire after it"
 
     assert WatchState(party=4).observe({K: 3}) == [] , "3 spots is closed for a party of 4"
+
+    d = tempfile.mkdtemp()
+    p = os.path.join(d, "cfg.json")
+    json.dump({"enabled": False, "slug": "glacier"}, open(p, "w"))
+    assert load_config(p) is None, "disabled config must return None"
+    json.dump({"enabled": True, "slug": "glacier", "start": "2026-09-18",
+               "end": "2026-09-26"}, open(p, "w"))
+    assert load_config(p)["slug"] == "glacier"
+    assert load_config(os.path.join(d, "missing.json")) is None
     print("WATCH OK: flicker filtered, exactly-once per opening, restart-safe")
 
 

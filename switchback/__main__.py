@@ -179,8 +179,20 @@ def cmd_export(args):
 
 
 def cmd_watch(args):
-    from .watch import run_watch
+    from .watch import run_watch, load_config
     prof = load_profile()
+    if args.config:
+        cfg = load_config(args.config)
+        if cfg is None:
+            print(f"{args.config}: missing or enabled is false; nothing to watch")
+            return
+        args.slug = args.slug or cfg.get("slug")
+        args.start = args.start or cfg.get("start")
+        args.end = args.end or cfg.get("end")
+        args.codes = args.codes or cfg.get("codes")
+        args.party = args.party or cfg.get("party")
+    if not (args.slug and args.start and args.end):
+        sys.exit("watch needs a slug, --start, and --end (or --config)")
     g = Graph(args.slug)
     camps = g.camps()
     if args.codes:
@@ -254,9 +266,12 @@ def main():
     xp.set_defaults(fn=cmd_export)
 
     wa = sub.add_parser("watch", help="poll for openings, alert on Telegram")
-    wa.add_argument("slug")
-    wa.add_argument("--start", required=True)
-    wa.add_argument("--end", required=True)
+    wa.add_argument("slug", nargs="?", default=None)
+    wa.add_argument("--start", default=None)
+    wa.add_argument("--end", default=None)
+    wa.add_argument("--config", default=None, metavar="PATH",
+                    help="load slug/window/codes/party from a JSON file; "
+                         "exits cleanly when it says enabled: false")
     wa.add_argument("--codes", default=None, help="camp codes, comma separated (default: all graph camps)")
     wa.add_argument("--party", type=int, default=None)
     wa.add_argument("--interval", type=int, default=300, help="seconds between polls, jittered")
