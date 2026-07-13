@@ -58,6 +58,10 @@ GATED behind FUTURE.md gates G1-G3 (5+ personal trips across two seasons; 3 stra
 AllTrails route-builder integration, automation, or scraping. Storing or mirroring AllTrails or WTA content (link-only, always). Auto-booking permits. CalTopo-clone drag interaction. Programmatic Garmin push (manual GPX import is two taps). External per-camp crowding data. National no-permit legality database. Structured water-source status. Sub-minute polling.
 
 
+## Web UI polish (v2.1.x, after the owner's desktop test drive)
+
+Foundation shipped as v2.1.0. Remaining: GPX download button per route; day-hike cards on layovers (structured, not just note strings); scoring.json editor drawer so calibration is a slider not a file edit; region overlay once v2.2 lands; mobile-width layout pass; availability heat legend by date.
+
 ## Durable cloud history (small, follows the cloud watcher)
 
 The Actions watcher accrues history.sqlite in the runner cache, which is best-effort storage. A nightly job should snapshot it back into the repo (or Pages artifact) so the demand dataset survives cache eviction and becomes plottable. One commit a day, not one per cycle.

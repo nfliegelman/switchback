@@ -15,6 +15,8 @@ Measured 2026-07-12: a fresh copy reaches its first ranked result in about a min
 
 ## What's inside (v2.0.0)
 
+**The map (v2.1).** `SwitchbackMap.bat` (or `python -m uvicorn switchback.web:app --port 8756` after `pip install fastapi uvicorn`) opens the local web UI: pick a park, camps color by open nights in your window, Find Trips draws ranked routes on the trail graph, and Adventure mode builds a trip one night at a time from the live frontier, each option showing distance, climb, sites left, and how many ways the trip can still finish. The engine stays standard library; fastapi and uvicorn are needed only for the map.
+
 **Availability finder (GUI).** Search any recreation.gov wilderness permit, pull classified availability (Reservable, Walk-up only, Full, Not released) across a date range on six threads, export a styled Excel workbook. The Find Trips button runs the trip engine with your saved profile and opens the ranked report in a window.
 
 **Trip engine (CLI).** `trips` enumerates bookable itineraries within your daily limits (`profile.json`: party, preferred and max miles and gain), scores them with editable weights (`scoring.json`), and understands basecamps: a layover day gets ranked day-hike options, because the night needs a permit but the day hike does not, which turns basecamping into availability arbitrage. `--via COS` keeps only routes that sleep at or pass through a camp. `--trip-type loop` filters by shape.

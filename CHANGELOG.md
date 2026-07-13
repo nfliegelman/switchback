@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.1.0 (2026-07-13)
+
+The map. New switchback/web.py FastAPI server and switchback/web_index.html single-file Leaflet frontend: park picker from live coverage, camps colored by open nights for the chosen window and party, the trail graph drawn, Find Trips rendering ranked deduped routes with day paths highlighted on the map and the FILTER ACTIVE warning preserved, and adventure mode as designed in SPEC section 10: tap a trailhead, choose each night from the live frontier, options ranked by remaining finishes, with an honest walk-out check at the end. New SwitchbackMap.bat launcher; fastapi and uvicorn are optional extras, the engine remains standard library. Offline test suite via injected fetcher (which immediately caught the feature-flag mapper assuming a nested schema that does not exist); live boot proof served the map and solved a real Glacier window.
+
 ## v2.0.7 (2026-07-13)
 
 Cloud watcher. New .github/workflows/watch.yml runs one watch cycle every 30 minutes on GitHub Actions and accepts ad-hoc watches from the GitHub mobile app via workflow_dispatch inputs. New watch_config.json defines the standing watch with an enabled flag; new --config mode on the watch CLI loads it and exits cleanly when disabled (proven: no-op in under a second, enabled cycle watched 27 live cells). Watch state and scan history persist across runs via the Actions cache with rolling keys; exactly-once alerting is soft in the cloud, duplicate-not-miss on rare cache eviction. Telegram credentials come from repo secrets, never the repo.

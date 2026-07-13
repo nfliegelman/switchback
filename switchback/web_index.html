@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Switchback</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root { --ink:#1e2a23; --pine:#2f6f4f; --sand:#f4f1ea; --line:#d8d2c4; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:14px/1.45 system-ui, sans-serif; color:var(--ink); background:var(--sand); }
+  header { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:10px 14px; background:#fff; border-bottom:1px solid var(--line); }
+  header b { font-size:16px; margin-right:6px; }
+  header .tag { color:#7a746a; font-size:12px; margin-right:auto; }
+  select, input, button { font:inherit; padding:6px 8px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  input[type=date] { width:138px; } input.small { width:64px; } input.codes { width:150px; }
+  button { cursor:pointer; }
+  button.primary { background:var(--pine); color:#fff; border-color:var(--pine); }
+  button.ghost { background:#fff; color:var(--pine); border-color:var(--pine); }
+  #wrap { display:flex; height:calc(100vh - 58px); }
+  #side { width:400px; max-width:46vw; overflow-y:auto; padding:12px; background:#fff; border-right:1px solid var(--line); }
+  #map { flex:1; }
+  .route { border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:10px; cursor:pointer; }
+  .route:hover { border-color:var(--pine); }
+  .route.active { border-color:var(--pine); box-shadow:0 0 0 2px #2f6f4f33; }
+  .route .score { float:right; font-weight:700; color:var(--pine); }
+  .route .shape { display:inline-block; font-size:11px; background:var(--sand); border-radius:6px; padding:1px 6px; margin-left:4px; }
+  .route .days, .route .dates, .route .note { color:#5c564c; font-size:12px; margin-top:3px; }
+  .warn { background:#fff6e5; border:1px solid #eedaa8; border-radius:8px; padding:8px 10px; font-size:12px; margin-bottom:10px; }
+  .muted { color:#7a746a; font-size:12px; }
+  .opt { display:flex; justify-content:space-between; gap:8px; border:1px solid var(--line); border-radius:10px; padding:8px 10px; margin-bottom:8px; cursor:pointer; }
+  .opt:hover { border-color:var(--pine); }
+  .opt .meta { color:#5c564c; font-size:12px; }
+  .opt .endings { font-weight:700; color:var(--pine); white-space:nowrap; }
+  .chips { margin:8px 0; } .chip { display:inline-block; background:var(--sand); border:1px solid var(--line); border-radius:14px; padding:2px 10px; margin:2px; font-size:12px; }
+  h3 { margin:6px 0 10px; font-size:15px; }
+  .legend { font-size:11px; color:#5c564c; margin-top:6px; }
+  .dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin:0 3px 0 8px; vertical-align:middle; }
+</style>
+</head>
+<body>
+<header>
+  <b>Switchback</b><span class="tag">the map</span>
+  <select id="park"></select>
+  <input type="date" id="start"><input type="date" id="end">
+  <input class="small" id="nights" type="number" min="1" max="8" value="3" title="nights">
+  <input class="small" id="party" type="number" min="1" max="12" value="2" title="party">
+  <select id="ttype"><option value="any">any shape</option><option value="loop">loop</option><option value="out_and_back">out and back</option><option value="lollipop">lollipop</option><option value="shuttle">shuttle</option></select>
+  <input class="codes" id="codes" placeholder="codes (optional)">
+  <input class="codes" id="via" placeholder="via camp (optional)">
+  <button class="primary" id="find">Find trips</button>
+  <button class="ghost" id="adv">Adventure</button>
+</header>
+<div id="wrap">
+  <div id="side">
+    <div class="muted">Pick a park. Camps color by open nights in your window
+      <span class="dot" style="background:#2f6f4f"></span>open
+      <span class="dot" style="background:#e0a13d"></span>some
+      <span class="dot" style="background:#b8433a"></span>full
+      <span class="dot" style="background:#9aa"></span>unknown</div>
+    <div id="results" style="margin-top:12px"></div>
+  </div>
+  <div id="map"></div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const map = L.map('map', { zoomSnap: 0.5 }).setView([47.5, -113.7], 6);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+
+let PARK = null, NODES = {}, markers = {}, edgeLayer = null, routeLayer = null;
+let mode = 'trips', advSeq = [], advEntrance = null;
+
+function iso(d){ return d.toISOString().slice(0,10); }
+(function initDates(){
+  const s = new Date(); s.setDate(s.getDate()+14);
+  const e = new Date(); e.setDate(e.getDate()+28);
+  $('start').value = iso(s); $('end').value = iso(e);
+})();
+
+async function jget(u){ const r = await fetch(u); if(!r.ok) throw new Error(await r.text()); return r.json(); }
+async function jpost(u,b){ const r = await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});
+  if(!r.ok){ const t = await r.text(); throw new Error(t); } return r.json(); }
+
+async function loadParks(){
+  const parks = await jget('/api/parks');
+  $('park').innerHTML = parks.map(p=>`<option value="${p.slug}">${p.name}</option>`).join('');
+  await loadPark($('park').value);
+}
+$('park').onchange = e => loadPark(e.target.value);
+
+async function loadPark(slug){
+  PARK = await jget('/api/park/'+slug);
+  NODES = {}; PARK.nodes.forEach(n => NODES[n.id] = n);
+  Object.values(markers).forEach(m => map.removeLayer(m)); markers = {};
+  if (edgeLayer) map.removeLayer(edgeLayer);
+  if (routeLayer) map.removeLayer(routeLayer);
+  const segs = PARK.edges
+    .filter(e => NODES[e.a].lat && NODES[e.b].lat)
+    .map(e => [[NODES[e.a].lat, NODES[e.a].lon],[NODES[e.b].lat, NODES[e.b].lon]]);
+  edgeLayer = L.polyline(segs, {color:'#8a8375', weight:1.5, opacity:.6, dashArray:'4 5'}).addTo(map);
+  const pts = [];
+  PARK.nodes.forEach(n => {
+    if (n.lat == null) return;
+    pts.push([n.lat, n.lon]);
+    const ent = n.kind === 'entrance';
+    const m = ent
+      ? L.marker([n.lat,n.lon], {icon: L.divIcon({html:'&#9650;', className:'', iconSize:[16,16]})})
+      : L.circleMarker([n.lat,n.lon], {radius:6, color:'#555', weight:1, fillColor:'#9aa', fillOpacity:.9});
+    m.bindTooltip(n.name + (n.lake ? ' (lake)' : ''));
+    m.on('click', () => nodeClick(n));
+    m.addTo(map); markers[n.id] = m;
+  });
+  if (pts.length) map.fitBounds(pts, {padding:[30,30]});
+  refreshAvailability();
+  resetAdventure(false);
+}
+
+async function refreshAvailability(){
+  try {
+    const q = `start=${$('start').value}&end=${$('end').value}&party=${$('party').value}`;
+    const av = await jget(`/api/availability/${PARK.slug}?`+q);
+    const days = Math.max(1, (new Date($('end').value) - new Date($('start').value))/86400000 + 1);
+    av.camps.forEach(c => {
+      const m = markers[c.id]; if (!m || !m.setStyle) return;
+      const share = c.open_nights / days;
+      m.setStyle({fillColor: c.open_nights === 0 ? '#b8433a' : share > .6 ? '#2f6f4f' : '#e0a13d'});
+      m.bindTooltip(`${NODES[c.id].name}${NODES[c.id].lake?' (lake)':''}: ${c.open_nights} open night(s)`);
+    });
+  } catch(e){ console.log('availability', e); }
+}
+['start','end','party'].forEach(id => $(id).onchange = () => PARK && refreshAvailability());
+
+$('find').onclick = async () => {
+  mode = 'trips'; resetAdventure(false);
+  $('results').innerHTML = '<div class="muted">Fetching availability and solving...</div>';
+  try {
+    const body = { slug: PARK.slug, start: $('start').value, end: $('end').value,
+      nights: +$('nights').value, party: +$('party').value,
+      trip_type: $('ttype').value, codes: $('codes').value || null, via: $('via').value || null };
+    const res = await jpost('/api/trips', body);
+    let html = '';
+    if (res.trip_type !== 'any')
+      html += `<div class="warn">FILTER ACTIVE: only ${res.trip_type} trips shown. Other shapes were discarded before ranking.</div>`;
+    html += `<div class="muted">${res.itineraries} bookable itineraries, ${res.routes_total} distinct routes, party ${res.party}.</div>`;
+    res.routes.forEach((r,i) => {
+      const days = r.days.map(d=>d[0].toFixed(1)+'mi').join(' ');
+      const stops = r.stops.map(s=>s.name.split(' - ')[0]).join(' > ');
+      html += `<div class="route" data-i="${i}"><span class="score">${r.score.toFixed(3)}</span>
+        <b>${r.entrance.name.split(' - ')[0]}</b> <span class="shape">${r.type}</span>
+        <div>${stops}</div><div class="days">${days}</div>
+        <div class="dates">${r.dates.length} start date(s): ${r.dates[0]}${r.dates.length>1 ? ' to '+r.dates[r.dates.length-1] : ''}</div>
+        ${(r.notes||[]).map(n=>`<div class="note">${n}</div>`).join('')}</div>`;
+    });
+    $('results').innerHTML = html || '<div class="muted">No bookable routes in that window.</div>';
+    window._routes = res.routes;
+    document.querySelectorAll('.route').forEach(el => el.onclick = () => drawRoute(+el.dataset.i, el));
+    if (res.routes.length) drawRoute(0, document.querySelector('.route'));
+  } catch(e){ $('results').innerHTML = `<div class="warn">${e.message}</div>`; }
+};
+
+function drawRoute(i, el){
+  document.querySelectorAll('.route').forEach(x=>x.classList.remove('active'));
+  if (el) el.classList.add('active');
+  const r = window._routes[i];
+  if (routeLayer) map.removeLayer(routeLayer);
+  const lines = r.day_paths.filter(p=>p.length>1 && p[0][0]!=null);
+  routeLayer = L.layerGroup(lines.map(p => L.polyline(p, {color:'#2f6f4f', weight:4, opacity:.9}))).addTo(map);
+  const all = lines.flat(); if (all.length) map.fitBounds(all, {padding:[40,40]});
+}
+
+$('adv').onclick = () => {
+  mode = 'adventure'; advSeq = []; advEntrance = null;
+  if (routeLayer) map.removeLayer(routeLayer);
+  $('results').innerHTML = `<h3>Adventure mode</h3>
+    <div class="muted">Tap a triangle (a trailhead) on the map to start. Then choose each night from the live frontier: camps you can reach that day with an open site, ranked by how many ways the trip can still finish.</div>`;
+};
+
+function resetAdventure(msg){ if (mode==='adventure' && msg) $('adv').click(); }
+
+async function nodeClick(n){
+  if (mode !== 'adventure') return;
+  if (!advEntrance){
+    if (n.kind !== 'entrance'){ $('results').innerHTML += '<div class="warn">Start at a trailhead (triangle).</div>'; return; }
+    advEntrance = n.id;
+  }
+  await stepFrontier();
+}
+
+async function stepFrontier(){
+  $('results').innerHTML = '<div class="muted">Checking the frontier...</div>';
+  try {
+    const body = { slug: PARK.slug, entrance: advEntrance, start: $('start').value,
+      seq: advSeq, nights: +$('nights').value, party: +$('party').value };
+    const f = await jpost('/api/frontier', body);
+    let html = `<h3>Adventure: night ${f.night+1} of ${f.nights}</h3>
+      <div class="chips"><span class="chip">${NODES[advEntrance].name.split(' - ')[0]} (start)</span>` +
+      advSeq.map(s=>`<span class="chip">${NODES[s].name.split(' - ')[0]}</span>`).join('') + `</div>`;
+    if (f.finish){
+      html += f.finish.ok
+        ? `<div class="route"><b>Walk out to ${f.finish.entrance.split(' - ')[0]}</b><div class="days">${f.finish.mi} mi, +${f.finish.gain} ft. Trip complete.</div></div>`
+        : `<div class="warn">The walk out exceeds your daily limits from here.</div>`;
+    } else {
+      if (!f.options.length) html += '<div class="warn">No reachable open camps that night. Step back.</div>';
+      f.options.forEach(o => {
+        html += `<div class="opt" data-id="${o.id}"><div><b>${o.name.split(' - ')[0]}</b>${o.lake?' &#128166;':''}
+          <div class="meta">${o.mi} mi, +${o.gain} ft, ${o.remaining ?? '?'} site(s) left ${f.date}</div></div>
+          <div class="endings">${o.endings} finishes</div></div>`;
+      });
+    }
+    html += `<button class="ghost" id="back">Step back</button>`;
+    $('results').innerHTML = html;
+    document.querySelectorAll('.opt').forEach(el => el.onclick = async () => { advSeq.push(el.dataset.id); await stepFrontier(); drawAdv(); });
+    $('back').onclick = async () => { if (advSeq.length) advSeq.pop(); else advEntrance = null; if (advEntrance) { await stepFrontier(); drawAdv(); } else $('adv').click(); };
+    drawAdv();
+  } catch(e){ $('results').innerHTML = `<div class="warn">${e.message}</div>`; }
+}
+
+function drawAdv(){
+  if (routeLayer) map.removeLayer(routeLayer);
+  const stops = [advEntrance, ...advSeq].filter(Boolean).map(id => NODES[id]).filter(n => n && n.lat != null);
+  if (stops.length < 2) { routeLayer = null; return; }
+  routeLayer = L.polyline(stops.map(n=>[n.lat,n.lon]), {color:'#2f6f4f', weight:4, dashArray:'6 6'}).addTo(map);
+}
+
+loadParks();
+</script>
+</body>
+</html>
