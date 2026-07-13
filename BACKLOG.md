@@ -135,3 +135,7 @@ Goal: full trip generation in permit-free areas. Plan: derive candidate camp nod
 
 ## Rubber band route builder (owner spec 2026-07-13)
 Tap a node, drag toward another; the real trail polyline animates outward along the actual path, green while inside the area boundary, amber the moment it crosses out, release to commit the leg and advance the frontier. Phase 1, permit parks: no routing needed, animate the stored edge polylines with stroke dashoffset toward the neighbor nearest the drag bearing, merge with Adventure mode's frontier stepper. Phase 2, dispersed areas: ship trail adjacency in the area files, client side Dijkstra with a binary heap targeting under 100 ms at Weminuche scale, ray cast point in polygon against the boundary rings for the color split. Pairs with the dispersed itineraries experiment; adjacency shipped for one enables the other.
+
+
+## Rubber band residuals (v2.11 SHIPPED 2026-07-13)
+GPX export of a drawn route. South San Juan connectivity audit (main network only 15% of nodes; likely heavy bbox-pad capture plus CDT corridor fragmentation, verify against the boundary). Undo last leg. Park-side phase 1 is schema-adaptive against /api/park; if the button never appears on parks, the payload shape drifted, check the adapter first.

@@ -81,7 +81,7 @@
    "cat": "USFS wilderness",
    "official": "Powderhorn Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "powderhorn",
    "notes": "USFS and BLM jointly"
   },
@@ -90,7 +90,7 @@
    "cat": "USFS wilderness",
    "official": "La Garita Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "lagarita",
    "notes": ""
   },

@@ -250,5 +250,37 @@ areaSel.onchange = async () => {
   AREA_INFO(`${d.name}: ${d.stats.trail_miles} trail mi, ${d.stats.osm_ways + d.stats.gov_added} segments, permit: ${d.permit}`);
 };
 </script>
+<button id="rbp" style="display:none;position:fixed;bottom:18px;right:12px;z-index:1200;padding:10px 14px;border-radius:22px;border:0;background:#2f6f4f;color:#fff;font-size:15px">draw route</button>
+<script>
+(function(){
+const btn=document.getElementById('rbp');let armed=false,P=null,anchor=null,tot=0,com=null,prev=null;
+async function loadPark(slug){try{const j=await fetch('/api/park/'+slug).then(r=>r.json());
+const nodes={},paths={};(Array.isArray(j.nodes)?j.nodes:Object.entries(j.nodes||{}).map(([k,v])=>({id:k,...v}))).forEach(n=>{if(n.lat!=null)nodes[n.id]= [n.lat,n.lon];});
+const edges=[];(j.edges||[]).forEach(e=>{const a=e.a??e[0],b=e.b??e[1],mi=e.mi??e[2];if(a==null)return;edges.push([String(a),String(b),mi]);
+const k=[String(a),String(b)].sort().join('|');if(e.path)paths[k]=e.path;});
+Object.assign(paths,j.paths||{});if(!Object.keys(nodes).length||!edges.length)return null;
+const adj={};edges.forEach(([a,b,mi])=>{(adj[a]=adj[a]||[]).push([b,mi]);(adj[b]=adj[b]||[]).push([a,mi]);});
+return{nodes,adj,paths};}catch(_){return null;}}
+const sel=document.getElementById('park');
+sel&&sel.addEventListener('change',async()=>{P=await loadPark(sel.value);btn.style.display=P?'block':'none';});
+function nearN(ll){let bi=null,bd=1e9;for(const[id,c]of Object.entries(P.nodes)){const q=map.latLngToContainerPoint(c),p=map.latLngToContainerPoint(ll),dd=(q.x-p.x)**2+(q.y-p.y)**2;if(dd<bd){bd=dd;bi=id;}}return bd<1600?bi:null;}
+function pathFor(a,b){const k=[a,b].sort().join('|');let pts=P.paths[k];if(!pts)return[P.nodes[a],P.nodes[b]];
+pts=pts.map(p=>Array.isArray(p)?p:[p.lat,p.lon]);const d0=(pts[0][0]-P.nodes[a][0])**2+(pts[0][1]-P.nodes[a][1])**2;
+const d1=(pts[pts.length-1][0]-P.nodes[a][0])**2+(pts[pts.length-1][1]-P.nodes[a][1])**2;return d1<d0?pts.slice().reverse():pts;}
+btn.onclick=()=>{armed=!armed;if(!P)return;if(armed){map.dragging.disable();com=com||L.layerGroup().addTo(map);btn.textContent='tap a camp node';}
+else{map.dragging.enable();if(prev)map.removeLayer(prev);prev=null;anchor=null;btn.textContent=tot?tot.toFixed(1)+' mi drawn':'draw route';}};
+map.on('click',e=>{if(!armed)return;const i=nearN(e.latlng);if(!i)return;
+if(anchor==null){anchor=i;btn.textContent='drag toward the next camp';return;}
+if(!(P.adj[anchor]||[]).some(([v])=>v==i))return;
+com.addLayer(L.polyline(pathFor(anchor,i),{color:'#2fbf5f',weight:4,opacity:.95}));
+tot+=(P.adj[anchor].find(([v])=>v==i)[1]||0);anchor=i;if(prev){map.removeLayer(prev);prev=null;}btn.textContent=tot.toFixed(1)+' mi (tap to end)';});
+map.on('mousemove',e=>{if(!armed||anchor==null)return;const a=P.nodes[anchor],p=map.latLngToContainerPoint(e.latlng),q=map.latLngToContainerPoint(a);
+const brg=Math.atan2(p.x-q.x,q.y-p.y);let best=null,bd=1e9;
+for(const[v]of(P.adj[anchor]||[])){const c=map.latLngToContainerPoint(P.nodes[v]);const b2=Math.atan2(c.x-q.x,q.y-c.y);
+let d=Math.abs(b2-brg);d=Math.min(d,2*Math.PI-d);if(d<bd){bd=d;best=v;}}
+if(best==null||bd>1.1)return;if(prev)map.removeLayer(prev);
+prev=L.polyline(pathFor(anchor,best),{color:'#2fbf5f',weight:4,opacity:.9,dashArray:'8 8'}).addTo(map);});
+})();
+</script>
 </body>
 </html>

@@ -117,43 +117,40 @@ def build_area(slug):
 
     osm = _fetch_area_osm(bbox, slug)
     net = TrailNet(osm)
-    trails, miles = [], 0.0
+    raw, miles = [], 0.0
     for el in osm.get("elements", []):
-        pts = [(p["lat"], p["lon"]) for p in el.get("geometry") or []]
+        pts = [(round(p["lat"], 5), round(p["lon"], 5))
+               for p in el.get("geometry") or []]
         if len(pts) < 2:
             continue
-        spts = simplify(pts, tol_m=20.0)
-        mi = _polyline_mi(spts)
-        if mi < MIN_WAY_MI:
-            continue
-        trails.append([[round(p[0], 5), round(p[1], 5)] for p in spts])
-        miles += mi
-    osm_count = len(trails)
+        raw.append(pts)
+    osm_count = len(raw)
 
     gov_els, gov_src = fetch_gov(bbox, f"area_{slug}")
     gov_added = 0
     for el in gov_els:
-        pts = [(p["lat"], p["lon"]) for p in el["geometry"]]
+        pts = [(round(p["lat"], 5), round(p["lon"], 5))
+               for p in el["geometry"]]
         if len(pts) < 2:
             continue
         samples = [pts[0], pts[len(pts) // 2], pts[-1]]
         if any(net.snap_candidates(p, GOV_ADD_M, k=1) for p in samples):
             continue
-        spts = simplify(pts, tol_m=20.0)
-        mi = _polyline_mi(spts)
-        if mi < MIN_WAY_MI:
-            continue
-        trails.append([[round(p[0], 5), round(p[1], 5)] for p in spts])
-        miles += mi
+        raw.append(pts)
         gov_added += 1
 
+    nodes, edges = _junction_graph(raw)
+    nodes, edges = _bridge_components(nodes, edges)
+    nodes, edges = _prune_dust(nodes, edges)
+    miles = sum(e[2] for e in edges)
     os.makedirs(AREAS_DIR, exist_ok=True)
     out = {"slug": slug, "name": row["name"], "manager": row["cat"],
            "permit": row["permit"], "attribution": ATTRIBUTION,
            "generated": time.strftime("%Y-%m-%d"),
-           "boundary": rings, "trails": trails,
+           "boundary": rings, "nodes": nodes, "edges": edges,
            "stats": {"osm_ways": osm_count, "gov_added": gov_added,
-                     "trail_miles": round(miles, 1)}}
+                     "trail_miles": round(miles, 1),
+                     "graph_nodes": len(nodes), "graph_edges": len(edges)}}
     path = os.path.join(AREAS_DIR, f"{slug}.json")
     with open(path, "w") as fh:
         json.dump(out, fh)
@@ -176,3 +173,143 @@ def _write_manifest():
                         "trail_miles": d["stats"]["trail_miles"]})
     with open(os.path.join(AREAS_DIR, "index.json"), "w") as fh:
         json.dump({"areas": entries}, fh)
+
+
+def _junction_graph(trails):
+    from .geometry import simplify
+    """Collapse display polylines into a routable junction graph the
+    client can Dijkstra over: nodes at way endpoints and shared
+    vertices, edges carrying their real geometry, plus straight
+    connectors bridging endpoint gaps under 30 m so tiny digitization
+    seams do not fragment the network."""
+    key = lambda p: (round(p[0], 5), round(p[1], 5))
+    count = {}
+    for line in trails:
+        for i, p in enumerate(line):
+            k = key(p)
+            w = 2 if i in (0, len(line) - 1) else 1
+            count[k] = count.get(k, 0) + w
+    node_id, nodes = {}, []
+    def nid(p):
+        k = key(p)
+        if k not in node_id:
+            node_id[k] = len(nodes)
+            nodes.append([k[0], k[1]])
+        return node_id[k]
+    edges = []
+    for line in trails:
+        seg = [line[0]]
+        for p in line[1:]:
+            seg.append(p)
+            if count[key(p)] > 1 or p is line[-1]:
+                if len(seg) >= 2:
+                    mi = _polyline_mi(seg)
+                    geo = simplify(seg, tol_m=20.0)
+                    edges.append([nid(seg[0]), nid(seg[-1]), round(mi, 3),
+                                  [[round(q[0], 5), round(q[1], 5)]
+                                   for q in geo]])
+                seg = [p]
+    deg = {}
+    for e in edges:
+        deg[e[0]] = deg.get(e[0], 0) + 1
+        deg[e[1]] = deg.get(e[1], 0) + 1
+    grid = {}
+    for i, (la, lo) in enumerate(nodes):
+        grid.setdefault((int(la * 200), int(lo * 200)), []).append(i)
+    linked = {(e[0], e[1]) for e in edges} | {(e[1], e[0]) for e in edges}
+    for i, (la, lo) in enumerate(nodes):
+        if deg.get(i, 0) != 1:
+            continue
+        best = None
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                for j in grid.get((int(la * 200) + dx, int(lo * 200) + dy), []):
+                    if j == i or (i, j) in linked:
+                        continue
+                    d = _haversine_m((la, lo), tuple(nodes[j]))
+                    if d <= 30 and (best is None or d < best[0]):
+                        best = (d, j)
+        if best:
+            j = best[1]
+            edges.append([i, j, round(best[0] / 1609.34, 3),
+                          [nodes[i], nodes[j]]])
+            linked |= {(i, j), (j, i)}
+    return nodes, edges
+
+
+def _prune_dust(nodes, edges, min_component_mi=0.3):
+    """Keep only components with real trail mileage; parking stubs and
+    fragments in the bbox pad go. Reindexes nodes compactly."""
+    parent = list(range(len(nodes)))
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    for a, b, _, _ in edges:
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[ra] = rb
+    comp_mi = {}
+    for a, b, mi, _ in edges:
+        comp_mi[find(a)] = comp_mi.get(find(a), 0.0) + mi
+    keep = {r for r, m in comp_mi.items() if m >= min_component_mi}
+    new_id, out_nodes, out_edges = {}, [], []
+    for a, b, mi, geo in edges:
+        if find(a) not in keep:
+            continue
+        for x in (a, b):
+            if x not in new_id:
+                new_id[x] = len(out_nodes)
+                out_nodes.append(nodes[x])
+        out_edges.append([new_id[a], new_id[b], mi, geo])
+    return out_nodes, out_edges
+
+
+def _bridge_components(nodes, edges, max_m=200.0):
+    """Heal micro-gaps: OSM trails that cross or nearly touch without
+    sharing a node. Merges any component pair within max_m via one
+    straight connector at the closest point; kilometre-scale islands
+    are real geography and stay islands."""
+    parent = list(range(len(nodes)))
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    for a, b, _, _ in edges:
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[ra] = rb
+    grid = {}
+    for i, (la, lo) in enumerate(nodes):
+        grid.setdefault((int(la * 400), int(lo * 400)), []).append(i)
+    added = 0
+    for _ in range(5):
+        best = {}
+        for i, (la, lo) in enumerate(nodes):
+            ri = find(i)
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    for j in grid.get((int(la * 400) + dx,
+                                       int(lo * 400) + dy), []):
+                        if j <= i:
+                            continue
+                        rj = find(j)
+                        if ri == rj:
+                            continue
+                        d = _haversine_m((la, lo), tuple(nodes[j]))
+                        if d <= max_m:
+                            k = (min(ri, rj), max(ri, rj))
+                            if k not in best or d < best[k][0]:
+                                best[k] = (d, i, j)
+        if not best:
+            break
+        for d, i, j in best.values():
+            if find(i) == find(j):
+                continue
+            edges.append([i, j, round(d / 1609.34, 3),
+                          [list(nodes[i]), list(nodes[j])]])
+            parent[find(i)] = find(j)
+            added += 1
+    return nodes, edges

@@ -113,14 +113,48 @@ areaSel.onchange = async () => {
   if (!slug) return;
   const d = await fetch(AREA_ONE + slug + AREA_SUFFIX).then(r => r.json());
   const b = d.boundary.map(r => L.polyline(r, {color:'#8a5a2b', weight:2, dashArray:'6 5', opacity:.9}));
-  const t = d.trails.map(p => L.polyline(p, {color:'#2f6f4f', weight:1.5, opacity:.65}));
+  const lines = d.edges ? d.edges.map(e => e[3]) : (d.trails || []);
+  const t = lines.map(p => L.polyline(p, {color:'#2f6f4f', weight:1.5, opacity:.65}));
   areaLayer = L.layerGroup([...b, ...t]).addTo(map);
+  window.__area = d.edges ? d : null;
+  document.getElementById('rb').style.display = d.edges ? 'block' : 'none';
   map.fitBounds(L.latLngBounds(d.boundary.flat()));
   AREA_INFO(`${d.name}: ${d.stats.trail_miles} trail mi, ${d.stats.osm_ways + d.stats.gov_added} segments, permit: ${d.permit}`);
 };
 </script>
 <script>
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+</script>
+<button id="rb" style="display:none;position:fixed;bottom:18px;right:12px;z-index:1200;padding:10px 14px;border-radius:22px;border:0;background:#2f6f4f;color:#fff;font-size:15px">draw route</button>
+<script>
+(function(){
+const btn=document.getElementById('rb');let armed=false,adj=null,inB=null,anchor=null,tot=0;
+let prev=[],com=L.layerGroup(),lay=null,mk=null,last=0;
+function pip(p,rings){let c=0;for(const r of rings){for(let i=0,j=r.length-1;i<r.length;j=i++){const a=r[i],b=r[j];
+if(((a[0]>p[0])!=(b[0]>p[0]))&&(p[1]<(b[1]-a[1])*(p[0]-a[0])/(b[0]-a[0])+a[1]))c++;}}return c%2==1;}
+function prep(d){adj={};d.edges.forEach((e,i)=>{(adj[e[0]]=adj[e[0]]||[]).push([e[1],e[2],i]);(adj[e[1]]=adj[e[1]]||[]).push([e[0],e[2],i]);});
+inB=d.nodes.map(n=>pip(n,d.boundary));}
+function near(ll){const d=window.__area;let bi=-1,bd=1e9;d.nodes.forEach((n,i)=>{const q=map.latLngToContainerPoint(n),p=map.latLngToContainerPoint(ll),dd=(q.x-p.x)**2+(q.y-p.y)**2;if(dd<bd){bd=dd;bi=i;}});return bd<1600?bi:-1;}
+function route(s,t){const d=window.__area,dist={},pr={},pq=[[0,s]];dist[s]=0;
+while(pq.length){pq.sort((a,b)=>a[0]-b[0]);const[dd,u]=pq.shift();if(u==t)break;if(dd>dist[u])continue;
+for(const[v,w,ei]of(adj[u]||[])){const nd=dd+w;if(nd<(dist[v]??1e9)){dist[v]=nd;pr[v]=[u,ei];pq.push([nd,v]);}}}
+if(dist[t]==null)return null;const segs=[];let u=t;while(u!=s){const[p,ei]=pr[u];segs.push(ei);u=p;}return{mi:dist[t],segs};}
+function draw(r){if(lay){map.removeLayer(lay);}const d=window.__area,g=[];
+r.segs.forEach(ei=>{const e=d.edges[ei];const ok=inB[e[0]]&&inB[e[1]];
+g.push(L.polyline(e[3],{color:ok?'#2fbf5f':'#d9a029',weight:4,opacity:.9,dashArray:'8 8'}));});
+lay=L.layerGroup(g).addTo(map);btn.textContent=(tot+r.mi).toFixed(1)+' mi (tap to end)';}
+btn.onclick=()=>{armed=!armed;const d=window.__area;if(!d)return;
+if(armed){if(!adj)prep(d);map.dragging.disable();com.addTo(map);btn.textContent='tap a trail node';}
+else{map.dragging.enable();if(lay)map.removeLayer(lay);lay=null;anchor=null;if(mk)map.removeLayer(mk);btn.textContent=tot?tot.toFixed(1)+' mi drawn':'draw route';}};
+map.on('click',e=>{if(!armed)return;const i=near(e.latlng);if(i<0)return;const d=window.__area;
+if(anchor==null){anchor=i;mk=L.circleMarker(d.nodes[i],{radius:7,color:'#2fbf5f'}).addTo(map);btn.textContent='drag or tap the next node';return;}
+const r=route(anchor,i);if(!r){btn.textContent='no trail connects those';return;}
+r.segs.forEach(ei=>{const ed=d.edges[ei];const ok=inB[ed[0]]&&inB[ed[1]];
+com.addLayer(L.polyline(ed[3],{color:ok?'#2fbf5f':'#d9a029',weight:4,opacity:.95}));});
+tot+=r.mi;anchor=i;mk.setLatLng(d.nodes[i]);if(lay){map.removeLayer(lay);lay=null;}btn.textContent=tot.toFixed(1)+' mi (tap to end)';});
+map.on('mousemove',e=>{if(!armed||anchor==null)return;const now=Date.now();if(now-last<90)return;last=now;
+const i=near(e.latlng);if(i<0||i==anchor)return;const r=route(anchor,i);if(r)draw(r);});
+})();
 </script>
 </body>
 </html>
