@@ -131,3 +131,7 @@ First wave after the owner's v2.0.0 test drive: Olympic (NP plus the NF Lena per
 
 ## Dispersed itineraries experiment (owner approved 2026-07-13)
 Goal: full trip generation in permit-free areas. Plan: derive candidate camp nodes from OSM named lakes and basins plus trail junctions inside the boundary, build edges by routing on the area TrailNet, availability is synthetic always-open through the existing region overlay machinery (policy none). Pilot on one Weminuche drainage (Needle Creek or Vallecito) and compare output against published route knowledge before trusting it anywhere. Auto may work, auto may need a curation pass; that is the test. Next area waves per COLORADO.md: La Garita and Powderhorn complete the San Juans, then the central classics.
+
+
+## Rubber band route builder (owner spec 2026-07-13)
+Tap a node, drag toward another; the real trail polyline animates outward along the actual path, green while inside the area boundary, amber the moment it crosses out, release to commit the leg and advance the frontier. Phase 1, permit parks: no routing needed, animate the stored edge polylines with stroke dashoffset toward the neighbor nearest the drag bearing, merge with Adventure mode's frontier stepper. Phase 2, dispersed areas: ship trail adjacency in the area files, client side Dijkstra with a binary heap targeting under 100 ms at Weminuche scale, ray cast point in polygon against the boundary rings for the color split. Pairs with the dispersed itineraries experiment; adjacency shipped for one enables the other.
