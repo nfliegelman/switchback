@@ -1,0 +1,54 @@
+{
+ "olympic": {
+  "4098362011": {
+   "demand_pct": 0.065,
+   "samples": 31
+  }
+ },
+ "rainier": {
+  "46753170003": {
+   "demand_pct": 0.0,
+   "samples": 31
+  },
+  "46753170013": {
+   "demand_pct": 0.0,
+   "samples": 31
+  },
+  "46753170022": {
+   "demand_pct": 0.0,
+   "samples": 31
+  }
+ },
+ "glacier": {
+  "4675321027": {
+   "demand_pct": 0.968,
+   "samples": 31
+  }
+ },
+ "maroonbells": {
+  "4675333012": {
+   "demand_pct": 1.0,
+   "samples": 31
+  },
+  "4675333024": {
+   "demand_pct": 0.774,
+   "samples": 31
+  },
+  "4675333030": {
+   "demand_pct": 0.968,
+   "samples": 31
+  },
+  "4675333033": {
+   "demand_pct": 1.0,
+   "samples": 31
+  },
+  "4675333041": {
+   "demand_pct": 1.0,
+   "samples": 31
+  },
+  "4675333048": {
+   "demand_pct": 1.0,
+   "samples": 31
+  }
+ }
+}
