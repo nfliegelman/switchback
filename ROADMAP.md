@@ -113,4 +113,5 @@ Sequenced for the current reality: the owner is phone-only until at least July 1
 - v2.11 [SHIPPED same day]: San Juans complete (7 areas, ~3670 mi), routable junction graphs in area files, rubber band phases 1 and 2 live (drag-routing with the green and amber boundary split on the phone board).
 - v2.13 [SHIPPED same day]: national atlas, 80 tracked landscapes across CO and WA, WASHINGTON.md, Goat Rocks proof build.
 - v2.14 [SHIPPED same day]: the Washington map wave, 21 areas and about 9,000 trail miles; 43 built landscapes systemwide.
+- v2.15 [SHIPPED same day]: the Colorado map wave, 27 areas and about 12,000 trail miles; 70 built landscapes systemwide.
 - Beyond: dispersed itineraries experiment (auto camp nodes from named lakes and basins, synthetic availability, pilot one Weminuche drainage); GPX patch channel (owner traces win over everything); dem_trail_v1 (elevation along real polylines); Archetype B trailhead-quota parks (Yosemite, SEKI); RMNP corridor buildout; scoring calibration when the owner can react.

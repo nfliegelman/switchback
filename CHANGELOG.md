@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.15.0 (2026-07-13)
+
+The Colorado map wave: all 27 remaining USFS wildernesses built in one session, roughly 12,000 new trail miles. Headliners: Sangre de Cristo at 1687 trail miles with 221 government additions (the new system champion), Collegiate Peaks 1049, Eagles Nest 1045 with the densest network in the state at 2229 OSM ways, Flat Tops 939 with the second biggest government rescue yet at 256 additions, West Elk 762, Lost Creek 593. One boundary-name fix recorded: the USFS service registers Cache La Poudre with a capital La. Colorado now stands at 4 live, 34 on the map, 11 planned (the non-wilderness boundary set: BLM units, Black Canyon, Hermosa, Browns Canyon, State Forest, and the two long-trail corridors). Systemwide: 70 built landscapes across two states, every one drag-routable.
+
 ## v2.14.0 (2026-07-13)
 
 The Washington map wave. Twenty-one wilderness areas built through the unchanged pipeline in one session, about 9,000 new trail miles, headlined by Glacier Peak (1,475 mi), Pasayten (1,080), Wenaha-Tucannon (900), William O. Douglas (861), and Mount Baker (737). The way-count floor became advisory after two nearly trailless pockets starved the mirror walk; sparse areas now keep the best response with a printed note. Wonder Mountain and Glacier View stay planned honestly: their fetches hang a full mirror timeout on tiny bboxes, recorded in BACKLOG for a retry rather than fought today. Washington stands at 3 live, 22 on the map, 6 planned; the system totals 43 built landscapes across two states.

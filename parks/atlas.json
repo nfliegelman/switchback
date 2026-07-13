@@ -130,7 +130,7 @@
    "cat": "USFS wilderness",
    "official": "Lost Creek Wilderness",
    "permit": "free self-issue",
-   "status": "planned",
+   "status": "map",
    "slug": "lostcreek",
    "notes": "Goose Creek, Brookside-McCurdy",
    "state": "CO"
@@ -140,7 +140,7 @@
    "cat": "USFS wilderness",
    "official": "Holy Cross Wilderness",
    "permit": "free self-issue",
-   "status": "planned",
+   "status": "map",
    "slug": "holycross",
    "notes": "",
    "state": "CO"
@@ -150,7 +150,7 @@
    "cat": "USFS wilderness",
    "official": "Eagles Nest Wilderness",
    "permit": "free self-issue",
-   "status": "planned",
+   "status": "map",
    "slug": "eaglesnest",
    "notes": "Gore Range",
    "state": "CO"
@@ -160,7 +160,7 @@
    "cat": "USFS wilderness",
    "official": "Flat Tops Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "flattops",
    "notes": "Devils Causeway",
    "state": "CO"
@@ -170,7 +170,7 @@
    "cat": "USFS wilderness",
    "official": "Mount Zirkel Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "mountzirkel",
    "notes": "",
    "state": "CO"
@@ -180,7 +180,7 @@
    "cat": "USFS wilderness",
    "official": "Rawah Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "rawah",
    "notes": "",
    "state": "CO"
@@ -190,7 +190,7 @@
    "cat": "USFS wilderness",
    "official": "Collegiate Peaks Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "collegiatepeaks",
    "notes": "",
    "state": "CO"
@@ -200,7 +200,7 @@
    "cat": "USFS wilderness",
    "official": "Mount Massive Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "mountmassive",
    "notes": "",
    "state": "CO"
@@ -210,7 +210,7 @@
    "cat": "USFS wilderness",
    "official": "Hunter-Fryingpan Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "hunterfryingpan",
    "notes": "",
    "state": "CO"
@@ -220,7 +220,7 @@
    "cat": "USFS wilderness",
    "official": "Ptarmigan Peak Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "ptarmiganpeak",
    "notes": "",
    "state": "CO"
@@ -230,7 +230,7 @@
    "cat": "USFS wilderness",
    "official": "Byers Peak Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "byerspeak",
    "notes": "",
    "state": "CO"
@@ -240,7 +240,7 @@
    "cat": "USFS wilderness",
    "official": "Vasquez Peak Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "vasquezpeak",
    "notes": "",
    "state": "CO"
@@ -250,7 +250,7 @@
    "cat": "USFS wilderness",
    "official": "James Peak Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "jamespeak",
    "notes": "",
    "state": "CO"
@@ -260,7 +260,7 @@
    "cat": "USFS wilderness",
    "official": "Never Summer Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "neversummer",
    "notes": "",
    "state": "CO"
@@ -270,7 +270,7 @@
    "cat": "USFS wilderness",
    "official": "Neota Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "neota",
    "notes": "",
    "state": "CO"
@@ -280,7 +280,7 @@
    "cat": "USFS wilderness",
    "official": "Comanche Peak Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "comanchepeak",
    "notes": "",
    "state": "CO"
@@ -288,9 +288,9 @@
   {
    "name": "Cache la Poudre",
    "cat": "USFS wilderness",
-   "official": "Cache la Poudre Wilderness",
+   "official": "Cache La Poudre Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "cachelapoudre",
    "notes": "",
    "state": "CO"
@@ -300,7 +300,7 @@
    "cat": "USFS wilderness",
    "official": "Sarvis Creek Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "sarviscreek",
    "notes": "",
    "state": "CO"
@@ -310,7 +310,7 @@
    "cat": "USFS wilderness",
    "official": "West Elk Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "westelk",
    "notes": "",
    "state": "CO"
@@ -320,7 +320,7 @@
    "cat": "USFS wilderness",
    "official": "Raggeds Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "raggeds",
    "notes": "",
    "state": "CO"
@@ -330,7 +330,7 @@
    "cat": "USFS wilderness",
    "official": "Fossil Ridge Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "fossilridge",
    "notes": "",
    "state": "CO"
@@ -340,7 +340,7 @@
    "cat": "USFS wilderness",
    "official": "Buffalo Peaks Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "buffalopeaks",
    "notes": "",
    "state": "CO"
@@ -350,7 +350,7 @@
    "cat": "USFS wilderness",
    "official": "Mount Evans Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "mountevans",
    "notes": "peak renamed Mount Blue Sky",
    "state": "CO"
@@ -360,7 +360,7 @@
    "cat": "USFS wilderness",
    "official": "Platte River Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "platteriver",
    "notes": "",
    "state": "CO"
@@ -370,7 +370,7 @@
    "cat": "USFS wilderness",
    "official": "Sangre de Cristo Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "sangredecristo",
    "notes": "",
    "state": "CO"
@@ -380,7 +380,7 @@
    "cat": "USFS wilderness",
    "official": "Greenhorn Mountain Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "greenhornmountain",
    "notes": "",
    "state": "CO"
@@ -390,7 +390,7 @@
    "cat": "USFS wilderness",
    "official": "Spanish Peaks Wilderness",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "slug": "spanishpeaks",
    "notes": "",
    "state": "CO"

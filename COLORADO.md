@@ -4,7 +4,7 @@ Every Colorado backpacking landscape Switchback tracks, from rec.gov
 quota systems to fully dispersed wilderness. Generated from
 parks/atlas.json; edit the JSON, not this file.
 
-Status counts: 4 live (bookable itineraries), 7 trails on the map, 37 planned, 1 not suitable
+Status counts: 4 live (bookable itineraries), 34 trails on the map, 10 planned, 1 not suitable
 
 ## National parks
 
@@ -21,40 +21,40 @@ Status counts: 4 live (bookable itineraries), 7 trails on the map, 37 planned, 1
 |---|---|---|---|
 | Indian Peaks | rec.gov quota | live (bookable itineraries) | dual-permit merge queued |
 | Maroon Bells-Snowmass | rec.gov quota | live (bookable itineraries) | Four Pass, Conundrum, Capitol, Geneva |
+| Buffalo Peaks | none | trails on the map |  |
+| Byers Peak | none | trails on the map |  |
+| Cache la Poudre | none | trails on the map |  |
+| Collegiate Peaks | none | trails on the map |  |
+| Comanche Peak | none | trails on the map |  |
+| Eagles Nest | free self-issue | trails on the map | Gore Range |
+| Flat Tops | none | trails on the map | Devils Causeway |
+| Fossil Ridge | none | trails on the map |  |
+| Greenhorn Mountain | none | trails on the map |  |
+| Holy Cross | free self-issue | trails on the map |  |
+| Hunter-Fryingpan | none | trails on the map |  |
+| James Peak | none | trails on the map |  |
 | La Garita | none | trails on the map |  |
 | Lizard Head | none | trails on the map |  |
+| Lost Creek | free self-issue | trails on the map | Goose Creek, Brookside-McCurdy |
+| Mount Evans | none | trails on the map | peak renamed Mount Blue Sky |
+| Mount Massive | none | trails on the map |  |
 | Mount Sneffels | none | trails on the map | Blue Lakes |
+| Mount Zirkel | none | trails on the map |  |
+| Neota | none | trails on the map |  |
+| Never Summer | none | trails on the map |  |
+| Platte River | none | trails on the map |  |
 | Powderhorn | none | trails on the map | USFS and BLM jointly |
+| Ptarmigan Peak | none | trails on the map |  |
+| Raggeds | none | trails on the map |  |
+| Rawah | none | trails on the map |  |
+| Sangre de Cristo | none | trails on the map |  |
+| Sarvis Creek | none | trails on the map |  |
 | South San Juan | none | trails on the map |  |
+| Spanish Peaks | none | trails on the map |  |
 | Uncompahgre | none | trails on the map |  |
+| Vasquez Peak | none | trails on the map |  |
 | Weminuche | none | trails on the map | Chicago Basin (Needle Creek) is inside this area; train access via the D&SNG |
-| Buffalo Peaks | none | planned |  |
-| Byers Peak | none | planned |  |
-| Cache la Poudre | none | planned |  |
-| Collegiate Peaks | none | planned |  |
-| Comanche Peak | none | planned |  |
-| Eagles Nest | free self-issue | planned | Gore Range |
-| Flat Tops | none | planned | Devils Causeway |
-| Fossil Ridge | none | planned |  |
-| Greenhorn Mountain | none | planned |  |
-| Holy Cross | free self-issue | planned |  |
-| Hunter-Fryingpan | none | planned |  |
-| James Peak | none | planned |  |
-| Lost Creek | free self-issue | planned | Goose Creek, Brookside-McCurdy |
-| Mount Evans | none | planned | peak renamed Mount Blue Sky |
-| Mount Massive | none | planned |  |
-| Mount Zirkel | none | planned |  |
-| Neota | none | planned |  |
-| Never Summer | none | planned |  |
-| Platte River | none | planned |  |
-| Ptarmigan Peak | none | planned |  |
-| Raggeds | none | planned |  |
-| Rawah | none | planned |  |
-| Sangre de Cristo | none | planned |  |
-| Sarvis Creek | none | planned |  |
-| Spanish Peaks | none | planned |  |
-| Vasquez Peak | none | planned |  |
-| West Elk | none | planned |  |
+| West Elk | none | trails on the map |  |
 
 ## BLM lands
 

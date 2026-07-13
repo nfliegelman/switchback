@@ -146,3 +146,6 @@ One command each, statuses flip to map on success: glacierpeak, pasayten, mounta
 
 
 ## WA wave status (2026-07-13): 21 of 23 built. wondermountain and glacierview hang a full Overpass mirror timeout on tiny bboxes; retry another day or shrink the boundary pad before fetching.
+
+
+## CO wave status (2026-07-13): 27 of 27 built, wave complete. Remaining planned CO rows are the non-wilderness boundary set; sources needed: BLM NCA polygons, NPS unit boundaries, monument and state park boundaries, and long-trail centerline corridors for the CT and CDT.
