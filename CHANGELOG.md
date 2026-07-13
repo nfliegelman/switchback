@@ -2,6 +2,14 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.0.4 (2026-07-13)
+
+AllTrails synthesis unlocked at the owner's push. The blanket link-only stance is replaced by a nuanced policy (facts with attribution sparingly via the official MCP, content never, bulk never, the app never calls AllTrails). Proven live: the Lena corridor was pulled through the connector in-chat, its cross-boundary Forest and Park labels confirming the regions case, and its mileage and gain figures now seed the pilot in BACKLOG. Three synthesis uses recorded: gain validation, crowd proxy, day-hike POI enrichment.
+
+## v2.0.3 (2026-07-13)
+
+Full-conversation sweep against the docs at the owner's request. Two gaps found and closed: the naming runners-up and Switchback Travel trademark caveat now live in FUTURE.md next to the monetization gates, and HANDOFF records that Rainier's blank size field means capacity always derives from availability totals. Everything else checked out captured.
+
 ## v2.0.2 (2026-07-12)
 
 Regions recorded, coverage generated. BACKLOG gains the cross-boundary regions design (multi-permit plus permitless stitching, FCFS honesty rule, Lena corridor pilot) at the owner's direction. New coverage command and generated PARKS.md replace any hand-maintained park list; Tier 0 universality documented. No engine behavior changes. The generator's first run caught a real staleness bug (extract-time counts never refreshed by features), so coverage now counts coordinates from the camps array directly.

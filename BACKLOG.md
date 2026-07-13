@@ -58,13 +58,23 @@ GATED behind FUTURE.md gates G1-G3 (5+ personal trips across two seasons; 3 stra
 AllTrails route-builder integration, automation, or scraping. Storing or mirroring AllTrails or WTA content (link-only, always). Auto-booking permits. CalTopo-clone drag interaction. Programmatic Garmin push (manual GPX import is two taps). External per-camp crowding data. National no-permit legality database. Structured water-source status. Sub-minute polling.
 
 
+## AllTrails synthesis via the official MCP (DIRECTED 2026-07-13, owner request)
+
+The owner challenged the blanket link-only stance and was right: the official AllTrails MCP connected in his Claude returns structured facts (length, elevation gain, rating, difficulty, route type, land-unit label, URL) that can legitimately feed Switchback. Proven live 2026-07-13 by pulling the Lena corridor in-chat.
+
+Refined policy, replacing the old blanket rule: factual data points (distances, gains) may be recorded sparingly in edge files with src attribution "AllTrails official MCP <date>", exactly as WTRF and PNTA numbers are recorded today. Descriptions, reviews, and photos are never stored, only linked. Bulk harvesting is never done; that is scraping with extra steps. The Switchback app itself never calls AllTrails: the MCP lives on the Claude side, so the channels are (a) in-chat research sessions whose outputs land in repo files with attribution, and (b) the FUTURE.md item 14 medium path, a Claude-API artifact passing the AllTrails MCP server for live lookups.
+
+Three uses, in value order: (1) edge validation and seeding, especially GAINS, the engine's weakest number: an interim patch for the est-gain understatement until the DEM pass; (2) crowd proxy: trail popularity signals (ratings volume, traffic labels) approximate demand today instead of waiting weeks for M8 history, with the caveat that trail traffic is not camp fullness; (3) day-hike POI enrichment for basecamp layovers, live via the Claude-artifact path or link-only in the local app.
+
+Harvested Lena seed data (src: AllTrails official MCP, 2026-07-13): Lower Lena Lake Trail, Olympic NATIONAL FOREST label, 6.4 mi RT, +1,548 ft, 4.7 stars, moderate, out and back. Lena Lake Trail to Upper Lena Lake Trail, Olympic NATIONAL PARK label, 13.4 mi RT, +4,655 ft, 4.5 stars, hard. Derived pilot edges (est flags apply, RT gains cannot be split exactly one-way): trailhead to Lower Lena 3.2 mi, roughly +1,400 ft; Lower Lena to Upper Lena 3.5 mi, roughly +2,500 ft, the famously steep section. Day-hike POI example from a Lower Lena basecamp: The Brothers via Lower Lena, 15.8 mi, +6,870 ft, 4.3 stars. AllTrails itself labels the two lakes to different land units, confirming the exact cross-boundary case the regions item below exists for.
+
 ## Cross-boundary regions (DIRECTED 2026-07-12, owner request)
 
 The Lena problem: Lower Lena Lake is a no-permit FCFS site in Olympic National Forest; Upper Lena is inside Olympic National Park on a wilderness permit; they sit 2 to 3 trail miles apart on the same trail and should chain in one itinerary. Today's engine cannot do this: one park dataset carries one permit_id, the graph loads one park, and the solver fetches one permit's availability.
 
 The design: a REGION stitches multiple permits plus permitless overlays into one graph. Camps gain optional permit_id and a policy field (reservation, fcfs, none); availability fetches group by permit; permitless camps get an always-open entry but their nights are labeled honestly (first-come, no reservation exists to check, capacity not guaranteed) and never shown as Reservable. Scoring, GPX, watch, and day hikes already operate on nodes and need no changes. The v2.1 adventure frontier on a region delivers the owner's exact UX: click Lower Lena for night 1 and Upper Lena appears for night 2 whenever ONP inventory has it.
 
-Pilot region: the Lena corridor itself (two camps, one trailhead, two edges), which also makes the owner's real trip solvable. Estimate: 4-8 h engine work plus trivial pilot data. Sequencing: after the v2.0.0 test drive, alongside or just before Olympic proper, since Lena IS the Olympic gateway.
+Pilot region: the Lena corridor itself (two camps, one trailhead, two edges), which also makes the owner's real trip solvable. Seed mileage and gain figures already harvested via the AllTrails MCP, see the item above. Estimate: 4-8 h engine work plus trivial pilot data. Sequencing: after the v2.0.0 test drive, alongside or just before Olympic proper, since Lena IS the Olympic gateway.
 
 ## Park and forest expansion plan (recorded 2026-07-12, doc audit)
 

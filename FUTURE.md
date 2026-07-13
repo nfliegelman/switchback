@@ -35,7 +35,7 @@ Effort estimates assume the existing engine gets reused. Value is scored for the
 |---|---------|--------------|--------|-------|
 | 12 | Route templates + alternate-camp graph | Encode routes as legs with acceptable camps per night (Wonderland CW/CCW, Northern Loop, alternates when a camp is full). Solver searches chains across alternates, not just one fixed sequence. | 6-10 h | Very high for backpacking |
 | 13 | Trail context layer | Curated JSON mapping division to trails, leg mileage, elevation gain, water sources. Start with Rainier, Enchantments, North Cascades and grow per trip. This mapping does not exist cleanly anywhere public and is the durable value in the project. | Ongoing | High |
-| 14 | AllTrails via official MCP | Zero-code path: the official AllTrails MCP is already connected in Claude (trail search by location/bounds/name, trail details, trailhead weather). Workflow: export the availability workbook, hand it to Claude, ask for trail matches. Medium path: a Claude artifact that calls the API with the AllTrails MCP for an interactive planner. Experimental path: standalone Python MCP client against alltrails.com/mcp (OAuth unknowns). Never scrape AllTrails; community scrapers were shut down at their request in Jan 2026. | 0 h to a weekend | Medium-high |
+| 14 | AllTrails via official MCP | Zero-code path: the official AllTrails MCP is already connected in Claude (trail search by location/bounds/name, trail details, trailhead weather). Workflow: export the availability workbook, hand it to Claude, ask for trail matches. Medium path: a Claude artifact that calls the API with the AllTrails MCP for an interactive planner. Experimental path: standalone Python MCP client against alltrails.com/mcp (OAuth unknowns). Never scrape AllTrails; community scrapers were shut down at their request in Jan 2026. Zero-code path proven live 2026-07-13: the Lena corridor was pulled through the MCP in-chat and its figures seeded the regions pilot. | 0 h to a weekend | Medium-high |
 | 15 | Weather per camp | NWS point forecast (free, official) via division coordinates, added as columns for scanned dates. | 2-3 h | Medium |
 | 16 | Multi-permit portfolio scan | Run 2-3 permits for the same window into one workbook, one tab per park. Answers "where can I go that weekend" instead of "is this one place open." | 2-3 h | High |
 
@@ -62,3 +62,8 @@ If this ever monetizes, the differentiator is itinerary chaining plus curated tr
 - Auto-booking or holding reservations. TOS violation, account-ban risk, and ethically off-route.
 - Scraping AllTrails. Actively enforced against.
 - Sub-minute polling. Does not materially improve planning outcomes and stresses endpoints everyone depends on.
+
+
+## Naming record (decided 2026-07-07, written down 2026-07-13 sweep)
+
+Switchback won over Contour, Frontier, Legwork, Madhuvan, and Cairn (taken by an existing hiking safety app). One adjacency to remember: Switchback Travel is an established outdoor gear review publication. Irrelevant for a personal tool; becomes a real trademark and SEO consideration at gate G1. Re-evaluate the name before any paid launch.
