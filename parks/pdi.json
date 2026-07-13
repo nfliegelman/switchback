@@ -1,15 +1,22 @@
 {
  "olympic": {
   "4098362011": {
-   "pdi": 6,
-   "samples": 31,
-   "fullness": 0.065,
-   "weekend_premium": 4,
+   "pdi": 5,
+   "samples": 62,
+   "fullness": 0.048,
+   "weekend_premium": 0,
    "sellout_velocity": null
   }
  },
  "rainier": {
   "46753170003": {
+   "pdi": 0,
+   "samples": 31,
+   "fullness": 0.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
+  "46753170006": {
    "pdi": 0,
    "samples": 31,
    "fullness": 0.0,
@@ -29,9 +36,44 @@
    "fullness": 0.0,
    "weekend_premium": 0,
    "sellout_velocity": null
+  },
+  "46753170029": {
+   "pdi": 3,
+   "samples": 31,
+   "fullness": 0.032,
+   "weekend_premium": 7,
+   "sellout_velocity": null
+  },
+  "46753170051": {
+   "pdi": 0,
+   "samples": 35,
+   "fullness": 0.0,
+   "weekend_premium": null,
+   "sellout_velocity": null
   }
  },
  "glacier": {
+  "4675321022": {
+   "pdi": 96,
+   "samples": 49,
+   "fullness": 0.959,
+   "weekend_premium": -3,
+   "sellout_velocity": null
+  },
+  "4675321024": {
+   "pdi": 100,
+   "samples": 31,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
+  "4675321025": {
+   "pdi": 100,
+   "samples": 45,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
   "4675321027": {
    "pdi": 97,
    "samples": 31,
@@ -41,6 +83,20 @@
   }
  },
  "maroonbells": {
+  "4675333008": {
+   "pdi": 100,
+   "samples": 50,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
+  "4675333010": {
+   "pdi": 100,
+   "samples": 31,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
   "4675333012": {
    "pdi": 100,
    "samples": 31,
@@ -50,9 +106,23 @@
   },
   "4675333024": {
    "pdi": 77,
-   "samples": 31,
+   "samples": 62,
    "fullness": 0.774,
    "weekend_premium": 3,
+   "sellout_velocity": null
+  },
+  "4675333025": {
+   "pdi": 100,
+   "samples": 31,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
+  "4675333028": {
+   "pdi": 69,
+   "samples": 48,
+   "fullness": 0.688,
+   "weekend_premium": 6,
    "sellout_velocity": null
   },
   "4675333030": {
@@ -62,7 +132,21 @@
    "weekend_premium": 3,
    "sellout_velocity": null
   },
+  "4675333031": {
+   "pdi": 97,
+   "samples": 31,
+   "fullness": 0.968,
+   "weekend_premium": -7,
+   "sellout_velocity": null
+  },
   "4675333033": {
+   "pdi": 100,
+   "samples": 31,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
+  "4675333034": {
    "pdi": 100,
    "samples": 31,
    "fullness": 1.0,
@@ -76,7 +160,21 @@
    "weekend_premium": 0,
    "sellout_velocity": null
   },
+  "4675333042": {
+   "pdi": 100,
+   "samples": 31,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
   "4675333048": {
+   "pdi": 100,
+   "samples": 62,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
+  "4675333049": {
    "pdi": 100,
    "samples": 31,
    "fullness": 1.0,
