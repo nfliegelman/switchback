@@ -123,5 +123,27 @@ def write_board(cfg_path, out_dir, fetch_fn=None, today=None):
     os.makedirs(out_dir, exist_ok=True)
     out = os.path.join(out_dir, "board.json")
     with open(out, "w") as fh:
+        def _seam_count(obj):
+            import math as _m
+            n = 0
+            stack = [obj]
+            while stack:
+                x = stack.pop()
+                if isinstance(x, dict):
+                    dps = x.get("day_paths")
+                    if isinstance(dps, list):
+                        for dp in dps:
+                            for i in range(len(dp) - 1):
+                                la1, lo1 = _m.radians(dp[i][0]), _m.radians(dp[i][1])
+                                la2, lo2 = _m.radians(dp[i+1][0]), _m.radians(dp[i+1][1])
+                                h = (_m.sin((la2-la1)/2)**2
+                                     + _m.cos(la1)*_m.cos(la2)*_m.sin((lo2-lo1)/2)**2)
+                                if 3958.8*2*_m.asin(_m.sqrt(h)) > 0.5:
+                                    n += 1
+                    stack.extend(x.values())
+                elif isinstance(x, list):
+                    stack.extend(x)
+            return n
+        print(f"seam guard: {_seam_count(board)} straight or seam hops over 0.5 mi across all windows")
         json.dump(board, fh)
     return out, board

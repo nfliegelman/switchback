@@ -317,6 +317,8 @@ def harvest(slug, net=None, dry=False):
                              "like a wrong-way detour")
                 continue
             spts = simplify(pts)
+            if str(a) > str(b):
+                spts = list(reversed(spts))
             rec = {"pts": [[round(p[0], 5), round(p[1], 5)] for p in spts],
                    "geom_mi": round(geom_mi, 2)}
             if coarse:
