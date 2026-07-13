@@ -1,0 +1,273 @@
+{
+ "schema": 1,
+ "permit_id": "4675316",
+ "name": "Great Sand Dunes National Park Backcountry Permits",
+ "slug": "sanddunes",
+ "extracted_at": "2026-07-12T21:06:11+00:00",
+ "counts": {
+  "camps": 8,
+  "camps_included": 8,
+  "camps_with_coords": 8,
+  "entrances": 7,
+  "entrances_with_coords": 0,
+  "by_type": {
+   "Entry Point": 8
+  },
+  "excluded_by_reason": {}
+ },
+ "camps": [
+  {
+   "id": "467531606",
+   "code": "",
+   "name": "Aspen",
+   "type": "Entry Point",
+   "district": "Sand Ramp Trail",
+   "lat": 37.806,
+   "lon": -105.514,
+   "size": "",
+   "is_group": false,
+   "is_active": true,
+   "is_hidden": false,
+   "included": true,
+   "exclude_reason": null,
+   "water_lake_flag": "",
+   "on_trail": "",
+   "elevation_ft": 8780,
+   "coords_note": "curated 2026-07-13; payload gave every site the park HQ coordinate"
+  },
+  {
+   "id": "467531602",
+   "code": "",
+   "name": "Buck Creek",
+   "type": "Entry Point",
+   "district": "Sand Ramp Trail",
+   "lat": 37.751,
+   "lon": -105.518,
+   "size": "",
+   "is_group": false,
+   "is_active": true,
+   "is_hidden": false,
+   "included": true,
+   "exclude_reason": null,
+   "water_lake_flag": "",
+   "on_trail": "",
+   "elevation_ft": 8150,
+   "coords_note": "curated 2026-07-13; payload gave every site the park HQ coordinate"
+  },
+  {
+   "id": "467531607",
+   "code": "",
+   "name": "Cold Creek",
+   "type": "Entry Point",
+   "district": "Sand Ramp Trail",
+   "lat": 37.818,
+   "lon": -105.521,
+   "size": "",
+   "is_group": false,
+   "is_active": true,
+   "is_hidden": false,
+   "included": true,
+   "exclude_reason": null,
+   "water_lake_flag": "",
+   "on_trail": "",
+   "elevation_ft": 8950,
+   "coords_note": "curated 2026-07-13; payload gave every site the park HQ coordinate"
+  },
+  {
+   "id": "467531601",
+   "code": "",
+   "name": "Dunes Backcountry",
+   "type": "Entry Point",
+   "district": "Dunefield",
+   "lat": 37.756,
+   "lon": -105.545,
+   "size": "",
+   "is_group": false,
+   "is_active": true,
+   "is_hidden": false,
+   "included": true,
+   "exclude_reason": null,
+   "water_lake_flag": "",
+   "on_trail": "",
+   "elevation_ft": 8600,
+   "coords_note": "curated 2026-07-13; payload gave every site the park HQ coordinate"
+  },
+  {
+   "id": "467531603",
+   "code": "",
+   "name": "Escape Dunes",
+   "type": "Entry Point",
+   "district": "Sand Ramp Trail",
+   "lat": 37.768,
+   "lon": -105.511,
+   "size": "",
+   "is_group": false,
+   "is_active": true,
+   "is_hidden": false,
+   "included": true,
+   "exclude_reason": null,
+   "water_lake_flag": "",
+   "on_trail": "",
+   "elevation_ft": 8220,
+   "coords_note": "curated 2026-07-13; payload gave every site the park HQ coordinate"
+  },
+  {
+   "id": "467531604",
+   "code": "",
+   "name": "Indian Grove",
+   "type": "Entry Point",
+   "district": "Sand Ramp Trail",
+   "lat": 37.782,
+   "lon": -105.506,
+   "size": "",
+   "is_group": false,
+   "is_active": true,
+   "is_hidden": false,
+   "included": true,
+   "exclude_reason": null,
+   "water_lake_flag": "",
+   "on_trail": "",
+   "elevation_ft": 8450,
+   "coords_note": "curated 2026-07-13; payload gave every site the park HQ coordinate"
+  },
+  {
+   "id": "467531605",
+   "code": "",
+   "name": "Little Medano",
+   "type": "Entry Point",
+   "district": "Sand Ramp Trail",
+   "lat": 37.795,
+   "lon": -105.509,
+   "size": "",
+   "is_group": false,
+   "is_active": true,
+   "is_hidden": false,
+   "included": true,
+   "exclude_reason": null,
+   "water_lake_flag": "",
+   "on_trail": "",
+   "elevation_ft": 8600,
+   "coords_note": "curated 2026-07-13; payload gave every site the park HQ coordinate"
+  },
+  {
+   "id": "467531608",
+   "code": "",
+   "name": "Sand Creek",
+   "type": "Entry Point",
+   "district": "Sand Ramp Trail",
+   "lat": 37.839,
+   "lon": -105.544,
+   "size": "",
+   "is_group": false,
+   "is_active": true,
+   "is_hidden": false,
+   "included": true,
+   "exclude_reason": null,
+   "water_lake_flag": "",
+   "on_trail": "edge of the main dunefield",
+   "elevation_ft": 8800,
+   "coords_note": "curated 2026-07-13; payload gave every site the park HQ coordinate"
+  }
+ ],
+ "entrances": [
+  {
+   "id": "4675316003",
+   "name": "Amphitheater Parking Lot",
+   "included": true,
+   "lat": null,
+   "lon": null,
+   "has_parking": true,
+   "is_entry": false,
+   "is_exit": false,
+   "division_ids": [
+    "467531602"
+   ]
+  },
+  {
+   "id": "4675316006",
+   "name": "Castle Creek Picnic Area",
+   "included": true,
+   "lat": 37.746,
+   "lon": -105.514,
+   "has_parking": true,
+   "is_entry": false,
+   "is_exit": false,
+   "division_ids": [
+    "Internal"
+   ],
+   "elevation_ft": 8160
+  },
+  {
+   "id": "4675316001",
+   "name": "Dunes Parking Area",
+   "included": true,
+   "lat": 37.7395,
+   "lon": -105.517,
+   "has_parking": true,
+   "is_entry": false,
+   "is_exit": false,
+   "division_ids": [
+    "467531601"
+   ],
+   "elevation_ft": 8175
+  },
+  {
+   "id": "4675316002",
+   "name": "Horse Trailer Parking Lot",
+   "included": true,
+   "lat": null,
+   "lon": null,
+   "has_parking": true,
+   "is_entry": false,
+   "is_exit": false,
+   "division_ids": [
+    "467531603",
+    "467531604",
+    "467531605",
+    "467531606",
+    "467531607",
+    "467531608"
+   ]
+  },
+  {
+   "id": "4675316004",
+   "name": "Loop 2 Parking Lot",
+   "included": true,
+   "lat": 37.759,
+   "lon": -105.506,
+   "has_parking": true,
+   "is_entry": false,
+   "is_exit": false,
+   "division_ids": [
+    "Internal"
+   ],
+   "elevation_ft": 8180
+  },
+  {
+   "id": "4675316005",
+   "name": "Sand Pit Picnic Area",
+   "included": true,
+   "lat": null,
+   "lon": null,
+   "has_parking": true,
+   "is_entry": false,
+   "is_exit": false,
+   "division_ids": [
+    "Internal"
+   ]
+  },
+  {
+   "id": "4675316007",
+   "name": "Sand Ramp Trailhead",
+   "included": true,
+   "lat": null,
+   "lon": null,
+   "has_parking": true,
+   "is_entry": false,
+   "is_exit": false,
+   "division_ids": [
+    "Internal"
+   ]
+  }
+ ]
+}

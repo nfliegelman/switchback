@@ -172,6 +172,8 @@ class Scorer:
         return max((self.day_fit(o["rt_mi"], o["rt_gain"], pref_mi, pref_gain)
                     for o in self._dh_options(camp)), default=0.0)
 
+    MIN_DH_RT_MI = 1.0
+
     def day_hikes(self, camp, pref_mi, pref_gain, limit=5):
         """Ranked day-hike options: 60 percent destination quality,
         40 percent effort fit against the preferred day."""

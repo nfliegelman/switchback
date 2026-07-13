@@ -9,10 +9,14 @@ Tier 0 is universal: the availability finder (GUI and CLI) works on every recrea
 | Enchantment Permit Area Advanced Lottery | 233273 | 7 (5) | 4 | 5 (0) | 2: trips-ready |
 | Glacier National Park Wilderness Permits | 4675321 | 66 (62) | 10 | 13 (2) | 2: trips-ready |
 | Grand Teton National Park Backcountry Permits | 4675342 | 129 (0) |  | none | 1: dataset |
+| Indian Peaks Wilderness Overnight Permits - Full Season in Advance | 4675318 | 34 (14) | 14 | 17 (0) | 2: trips-ready |
 | Lena Lakes (Olympic NF + NP) | None | 2 (2) | 2 | 2 (0) | 2: trips-ready (region) |
+| Maroon Bells-Snowmass Wilderness Overnight Permits | 4675333 | 50 (49) | 49 | 55 (0) | 2: trips-ready |
 | Olympic National Park Wilderness Permit | 4098362 | 297 (146) |  | none | 1: dataset |
 | None | None | None (0) |  | none | 1: dataset |
 | Mount Rainier National Park Wilderness and Climbing Permits | 4675317 | 186 (186) | 25 | 33 (0) | 2: trips-ready |
+| Rocky Mountain National Park Wilderness Permits | 4675320 | 250 (139) | 10 | 11 (0) | 2: trips-ready |
+| Great Sand Dunes National Park Backcountry Permits | 4675316 | 8 (8) | 8 | 8 (0) | 2: trips-ready |
 | Teton Crest (GTNP + Alaska Basin) | None | 6 (6) | 6 | 7 (0) | 2: trips-ready (region) |
 
 Expansion sequencing lives in BACKLOG.md under the park and forest expansion plan; the cross-boundary region concept (linking parks and forests that share trails, Lena corridor pilot) is tracked there too.

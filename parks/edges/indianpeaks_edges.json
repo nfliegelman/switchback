@@ -1,0 +1,195 @@
+{
+ "slug": "indianpeaks",
+ "schema": 1,
+ "notes": "Full-season permit 4675318 (the 3-days-in-advance permit 4675319 is a separate inventory, future dual-permit merge). Payload ships zero coordinates; all zone and trailhead coords are curated approximations, QA queued. Gains are pass arithmetic (Pawnee 12,541 / Buchanan 11,837 / Arapaho 11,906 / Devils Thumb 11,747); the Pawnee-Buchanan loop's east-of-divide connector is deliberately absent until the zone mapping is verified.",
+ "nodes": [],
+ "edges": [
+  {
+   "a": "ENT:Monarch Lake",
+   "b": "Cascade Creek",
+   "miles": 4.3,
+   "gain_ab": 900,
+   "loss_ab": 50,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Cascade Creek trail"
+  },
+  {
+   "a": "Cascade Creek",
+   "b": "Crater Lake",
+   "miles": 3.1,
+   "gain_ab": 500,
+   "loss_ab": 280,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: up to Mirror and Crater, Lone Eagle country"
+  },
+  {
+   "a": "Cascade Creek",
+   "b": "ENT:Long Lake",
+   "miles": 6.5,
+   "gain_ab": 2780,
+   "loss_ab": 2060,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Pawnee Pass 12,541 to Brainard"
+  },
+  {
+   "a": "ENT:Monarch Lake",
+   "b": "Buchanan",
+   "miles": 5.8,
+   "gain_ab": 1700,
+   "loss_ab": 40,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Buchanan Pass trail west side"
+  },
+  {
+   "a": "Buchanan",
+   "b": "ENT:Coney Flats",
+   "miles": 7.0,
+   "gain_ab": 1880,
+   "loss_ab": 2180,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Buchanan Pass 11,837 east to Coney Flats"
+  },
+  {
+   "a": "ENT:Fourth of July",
+   "b": "Diamond Lake",
+   "miles": 2.6,
+   "gain_ab": 860,
+   "loss_ab": 40,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Diamond Lake trail"
+  },
+  {
+   "a": "ENT:Fourth of July",
+   "b": "Caribou Lake",
+   "miles": 5.0,
+   "gain_ab": 1800,
+   "loss_ab": 770,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Arapaho Pass 11,906 to Caribou"
+  },
+  {
+   "a": "ENT:Hessie",
+   "b": "Jasper Lake",
+   "miles": 4.4,
+   "gain_ab": 1850,
+   "loss_ab": 40,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Devils Thumb trail to Jasper"
+  },
+  {
+   "a": "Jasper Lake",
+   "b": "Devils Thumb",
+   "miles": 1.3,
+   "gain_ab": 380,
+   "loss_ab": 30,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Jasper to Devils Thumb Lake"
+  },
+  {
+   "a": "Devils Thumb",
+   "b": "ENT:Devils Thumb Park",
+   "miles": 5.0,
+   "gain_ab": 600,
+   "loss_ab": 2010,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "published: Devils Thumb Pass 11,747 west"
+  },
+  {
+   "a": "Cascade Creek",
+   "b": "Cascade Creek Group",
+   "miles": 0.1,
+   "gain_ab": 10,
+   "loss_ab": 10,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "group division at the same zone"
+  },
+  {
+   "a": "Crater Lake",
+   "b": "Crater Lake Group",
+   "miles": 0.1,
+   "gain_ab": 10,
+   "loss_ab": 10,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "group division at the same zone"
+  },
+  {
+   "a": "Buchanan",
+   "b": "Buchanan Group",
+   "miles": 0.1,
+   "gain_ab": 10,
+   "loss_ab": 10,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "group division at the same zone"
+  },
+  {
+   "a": "Caribou Lake",
+   "b": "Caribou Lake Group",
+   "miles": 0.1,
+   "gain_ab": 10,
+   "loss_ab": 10,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "group division at the same zone"
+  },
+  {
+   "a": "Diamond Lake",
+   "b": "Diamond Lake Group",
+   "miles": 0.1,
+   "gain_ab": 10,
+   "loss_ab": 10,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "group division at the same zone"
+  },
+  {
+   "a": "Jasper Lake",
+   "b": "Jasper Lake Group",
+   "miles": 0.1,
+   "gain_ab": 10,
+   "loss_ab": 10,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "group division at the same zone"
+  },
+  {
+   "a": "Devils Thumb",
+   "b": "Devils Thumb Group",
+   "miles": 0.1,
+   "gain_ab": 10,
+   "loss_ab": 10,
+   "est_gain": true,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true,
+   "src": "group division at the same zone"
+  }
+ ]
+}

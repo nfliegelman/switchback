@@ -1,0 +1,126 @@
+{
+ "slug": "rmnp",
+ "schema": 1,
+ "notes": "Wild Basin corridor pilot: the Thunder Lake and Ouzel/Bluebird branches from the Wild Basin trailhead, anchored on NPS mileages (Thunder 6.8, Ouzel Lake 4.9). Site coordinates come from the rec.gov payload; gains from the DEM line pass (valley terrain, valid). Glacier Gorge, East Inlet, and the rest of the park's 240+ sites are queued in BACKLOG. Site names must be referenced exactly, snow-free suffixes included.",
+ "nodes": [
+  {
+   "key": "WB_FALLS",
+   "kind": "junction",
+   "name": "Ouzel Falls junction",
+   "lat": 40.2035,
+   "lon": -105.601,
+   "elevation_ft": 9400,
+   "coords_note": "curated"
+  }
+ ],
+ "edges": [
+  {
+   "a": "ENT:Wild Basin",
+   "b": "Pine Ridge (Snow-free average: May 21)",
+   "miles": 1.4,
+   "est_gain": true,
+   "src": "NPS Wild Basin mileages",
+   "gain_ab": 577,
+   "loss_ab": 200,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Pine Ridge (Snow-free average: May 21)",
+   "b": "Aspen Knoll Llama (Snow-free average: May 26)",
+   "miles": 0.3,
+   "est_gain": true,
+   "src": "NPS",
+   "gain_ab": 574,
+   "loss_ab": 138,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Aspen Knoll Llama (Snow-free average: May 26)",
+   "b": "Tahosa [Waste Bag] (Snow-free average: May 24)",
+   "miles": 0.6,
+   "est_gain": true,
+   "src": "NPS",
+   "gain_ab": 0,
+   "loss_ab": 141,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Tahosa [Waste Bag] (Snow-free average: May 24)",
+   "b": "WB_FALLS",
+   "miles": 0.4,
+   "est_gain": true,
+   "src": "Ouzel Falls junction at 2.7",
+   "gain_ab": 184,
+   "loss_ab": 16,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "WB_FALLS",
+   "b": "Siskin (Snow-free average: June 1)",
+   "miles": 1.5,
+   "est_gain": true,
+   "src": "NPS: Siskin at 4.2",
+   "gain_ab": 230,
+   "loss_ab": 0,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Siskin (Snow-free average: June 1)",
+   "b": "Ouzel Lake (Snow-free average: June 16)",
+   "miles": 0.7,
+   "est_gain": true,
+   "src": "NPS: Ouzel Lake at 4.9",
+   "gain_ab": 584,
+   "loss_ab": 121,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Ouzel Lake (Snow-free average: June 16)",
+   "b": "Upper Ouzel Creek (Snow-free average: July 6)",
+   "miles": 0.7,
+   "est_gain": true,
+   "src": "NPS: Upper Ouzel at 5.6",
+   "gain_ab": 791,
+   "loss_ab": 108,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "WB_FALLS",
+   "b": "North St. Vrain (Snow-free average: June 1)",
+   "miles": 0.3,
+   "est_gain": true,
+   "src": "NPS: North St. Vrain at 2.9 (given anchors)"
+  },
+  {
+   "a": "North St. Vrain (Snow-free average: June 1)",
+   "b": "Thunder Lake (Snow-free average: July 5)",
+   "miles": 3.9,
+   "est_gain": true,
+   "src": "NPS: Thunder Lake at 6.8; gain from site elevations 9,480 to 10,574 (Open-Meteo 429 blocked the DEM sample; rerun queued)",
+   "gain_ab": 1150,
+   "loss_ab": 60,
+   "gain_method": "pass_arithmetic_v1",
+   "dem_exempt": true
+  },
+  {
+   "a": "Thunder Lake (Snow-free average: July 5)",
+   "b": "Thunder Lake Group (Snow-free average: July 5)",
+   "miles": 0.1,
+   "est_gain": true,
+   "src": "adjacent group site",
+   "gain_ab": 26,
+   "loss_ab": 0,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Thunder Lake (Snow-free average: July 5)",
+   "b": "Thunder Lake Stock (Snow-free average: July 5)",
+   "miles": 0.1,
+   "est_gain": true,
+   "src": "adjacent stock site",
+   "gain_ab": 0,
+   "loss_ab": 144,
+   "gain_method": "dem_line_v1"
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "slug": "sanddunes",
+ "schema": 1,
+ "notes": "The Sand Ramp linear chain plus the dunefield zone. All coordinates curated (payload cloned the HQ point onto every site). Open terrain, so gains come from the DEM line pass, which is valid here.",
+ "nodes": [],
+ "edges": [
+  {
+   "a": "ENT:Loop 2 Parking Lot",
+   "b": "Escape Dunes",
+   "miles": 1.1,
+   "est_gain": true,
+   "src": "NPS Sand Ramp site sequence, cumulative 1.1 mi; mileage QA queued",
+   "gain_ab": 358,
+   "loss_ab": 39,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Escape Dunes",
+   "b": "Indian Grove",
+   "miles": 1.2,
+   "est_gain": true,
+   "src": "NPS Sand Ramp site sequence, cumulative 2.3 mi; mileage QA queued",
+   "gain_ab": 210,
+   "loss_ab": 377,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Indian Grove",
+   "b": "Little Medano",
+   "miles": 1.1,
+   "est_gain": true,
+   "src": "NPS Sand Ramp site sequence, cumulative 3.4 mi; mileage QA queued",
+   "gain_ab": 95,
+   "loss_ab": 23,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Little Medano",
+   "b": "Aspen",
+   "miles": 0.9,
+   "est_gain": true,
+   "src": "NPS Sand Ramp site sequence, cumulative 4.3 mi; mileage QA queued",
+   "gain_ab": 190,
+   "loss_ab": 23,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Aspen",
+   "b": "Cold Creek",
+   "miles": 1.0,
+   "est_gain": true,
+   "src": "NPS Sand Ramp site sequence, cumulative 5.3 mi; mileage QA queued",
+   "gain_ab": 548,
+   "loss_ab": 0,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Cold Creek",
+   "b": "Sand Creek",
+   "miles": 2.2,
+   "est_gain": true,
+   "src": "NPS Sand Ramp site sequence, cumulative 7.5 mi; mileage QA queued",
+   "gain_ab": 2625,
+   "loss_ab": 1270,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "ENT:Castle Creek Picnic Area",
+   "b": "Buck Creek",
+   "miles": 0.7,
+   "est_gain": true,
+   "src": "NPS site list; QA queued",
+   "gain_ab": 180,
+   "loss_ab": 0,
+   "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "ENT:Dunes Parking Area",
+   "b": "Dunes Backcountry",
+   "miles": 1.6,
+   "est_gain": true,
+   "src": "NPS: dunefield camping beyond the first ridge; QA queued",
+   "gain_ab": 646,
+   "loss_ab": 354,
+   "gain_method": "dem_line_v1"
+  }
+ ]
+}

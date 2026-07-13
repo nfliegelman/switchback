@@ -95,4 +95,5 @@ def render(rows, queue):
                "(linking parks and forests that share trails, Lena corridor "
                "pilot) is tracked there too.")
     out.append("")
-    return "\n".join(out)
+    text = "\n".join(out)
+    return text.replace("\u2013", "-").replace("\u2014", "-")
