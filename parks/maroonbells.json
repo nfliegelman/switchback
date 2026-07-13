@@ -719,8 +719,8 @@
    "name": "East Fork Zone Small Group Dispersed",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.027,
-   "lon": -107.041,
+   "lat": 39.04,
+   "lon": -107.028,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -730,7 +730,7 @@
    "water_lake_flag": "",
    "on_trail": "",
    "elevation_ft": 10800,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "anchored to OSM named features 2026-07-13"
   },
   {
    "id": "4675333024",
@@ -738,8 +738,8 @@
    "name": "Geneva Lake Zone Small Group Dispersed",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.064,
-   "lon": -107.152,
+   "lat": 39.0969,
+   "lon": -107.0775,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -749,7 +749,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10940,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "anchored to OSM named features 2026-07-13"
   },
   {
    "id": "4675333026",
@@ -795,8 +795,8 @@
    "name": "North Fork Zone Large Group",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.0465,
-   "lon": -107.0935,
+   "lat": 39.06596,
+   "lon": -107.06912,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -806,7 +806,7 @@
    "water_lake_flag": "",
    "on_trail": "",
    "elevation_ft": 10600,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "snapped to the North Fork trail 2026-07-13; Elk Range zone centers remain the fuzziest coords in the repo, USFS zone-map QA queued"
   },
   {
    "id": "4675333027",
@@ -814,8 +814,8 @@
    "name": "North Fork Zone Small Group Dispersed",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.047,
-   "lon": -107.093,
+   "lat": 39.06556,
+   "lon": -107.06912,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -825,7 +825,7 @@
    "water_lake_flag": "",
    "on_trail": "",
    "elevation_ft": 10600,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "snapped to the North Fork trail 2026-07-13; Elk Range zone centers remain the fuzziest coords in the repo, USFS zone-map QA queued"
   },
   {
    "id": "4675333022",
@@ -833,8 +833,8 @@
    "name": "Snowmass Lake Zone Large Group",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.0995,
-   "lon": -107.0235,
+   "lat": 39.117,
+   "lon": -107.0358,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -844,7 +844,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10980,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "anchored to OSM named features 2026-07-13"
   },
   {
    "id": "4675333021",
@@ -852,8 +852,8 @@
    "name": "Snowmass Lake Zone Small Group Dispersed",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.1,
-   "lon": -107.023,
+   "lat": 39.1174,
+   "lon": -107.0354,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -863,7 +863,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10980,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "anchored to OSM named features 2026-07-13"
   },
   {
    "id": "4675333029",
@@ -871,8 +871,8 @@
    "name": "Upper Snowmass Zone Small Group Dispersed",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.09,
-   "lon": -107.008,
+   "lat": 39.104,
+   "lon": -107.019,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -882,7 +882,7 @@
    "water_lake_flag": "",
    "on_trail": "",
    "elevation_ft": 11400,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "anchored to OSM named features 2026-07-13"
   }
  ],
  "entrances": [
@@ -923,12 +923,13 @@
    "id": "4675333EE02",
    "name": "Conundrum Trailhead",
    "included": true,
-   "lat": 39.1193,
-   "lon": -106.85601,
+   "lat": 39.11919,
+   "lon": -106.85608,
    "has_parking": false,
    "is_entry": true,
    "is_exit": true,
-   "division_ids": []
+   "division_ids": [],
+   "coords_note": "snapped to the lower Conundrum trail component 2026-07-13; a springs-side terminus mis-anchor was caught and reverted"
   },
   {
    "id": "4675333EE03",
@@ -945,12 +946,13 @@
    "id": "4675333EE07",
    "name": "East Fork Trailhead (Schofield Park-Crested Butte)",
    "included": true,
-   "lat": 39.02461,
-   "lon": -107.0508,
+   "lat": 39.0246,
+   "lon": -107.0509,
    "has_parking": false,
    "is_entry": true,
    "is_exit": true,
-   "division_ids": []
+   "division_ids": [],
+   "coords_note": "anchored to OSM 2026-07-13"
   },
   {
    "id": "4675333EE09",
@@ -978,23 +980,25 @@
    "id": "4675333EE04",
    "name": "Geneva Lake Trailhead",
    "included": true,
-   "lat": 39.07737,
-   "lon": -107.08629,
+   "lat": 39.0772,
+   "lon": -107.0864,
    "has_parking": false,
    "is_entry": true,
    "is_exit": true,
-   "division_ids": []
+   "division_ids": [],
+   "coords_note": "anchored to OSM 2026-07-13"
   },
   {
    "id": "4675333EE05",
    "name": "Maroon Scenic Area Trailheads (Maroon Lake and West Maroon)",
    "included": true,
-   "lat": 39.09988,
-   "lon": -106.93775,
+   "lat": 39.09678,
+   "lon": -106.94511,
    "has_parking": false,
    "is_entry": true,
    "is_exit": true,
-   "division_ids": []
+   "division_ids": [],
+   "coords_note": "anchored to Maroon Lake 2026-07-13; payload coord sat at the welcome station down-valley"
   },
   {
    "id": "4675333EE06",

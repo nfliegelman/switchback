@@ -37,7 +37,7 @@
 const $ = id => document.getElementById(id);
 const map = L.map('map').setView([47.5,-113.7],6);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors; trail geometry ODbL' }).addTo(map);
 let BOARD = null, layer = null, routeLayer = null;
 
 fetch('./board.json').then(r=>r.json()).then(b=>{

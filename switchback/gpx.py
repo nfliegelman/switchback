@@ -52,14 +52,14 @@ def build_gpx(g, entrance, seq, start_date, title=None):
                             f"{g.name(a).split(' - ')[0]}")
             continue
         leg = g.leg(a, b)
-        path = leg[2] if leg else [a, b]
-        pts = [g.nodes[p] for p in path if g.nodes[p]["lat"] is not None]
-        if len(pts) < 2:
+        from .geometry import day_path as _geom_day
+        coords = _geom_day(g.park["slug"], g, [a, b])
+        if len(coords) < 2:
             skipped.append(f"day {day} leg ({g.name(a)} to {g.name(b)})")
             continue
         body = "\n".join(
-            f'      <trkpt lat="{p["lat"]:.6f}" lon="{p["lon"]:.6f}">'
-            f'{_ele(p)}</trkpt>' for p in pts)
+            f'      <trkpt lat="{p[0]:.6f}" lon="{p[1]:.6f}"></trkpt>'
+            for p in coords)
         name = (f"Day {day} ({d}): {g.name(a).split(' - ')[0]} to "
                 f"{g.name(b).split(' - ')[0]}, {leg[0]} mi" if leg else
                 f"Day {day} ({d})")

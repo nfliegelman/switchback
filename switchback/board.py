@@ -18,6 +18,7 @@ import os
 from datetime import date, datetime, timedelta, timezone
 
 from .config import load_profile
+from .geometry import day_path
 from .graph import Graph
 from .report import dedupe_routes
 from .scoring import Scorer
@@ -67,11 +68,8 @@ def build_window(w, prof, fetch_fn=None, today=None):
     for v in all_routes[: int(w.get("limit", 10))]:
         r = v["best"]
         stops_full = [r["entrance"]] + list(r["seq"]) + [r["entrance"]]
-        day_paths = []
-        for a, b in zip(stops_full, stops_full[1:]):
-            leg = g.leg(a, b)
-            path = leg[2] if leg else [a, b]
-            day_paths.append([_coords(g, n) for n in path])
+        day_paths = [day_path(w["slug"], g, [a, b])
+                     for a, b in zip(stops_full, stops_full[1:])]
         routes.append({
             "score": round(r["score"], 3), "type": r["type"],
             "entrance": g.name(r["entrance"]),

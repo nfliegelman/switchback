@@ -56,8 +56,8 @@
    "name": "Buchanan",
    "type": "Campsite",
    "district": "West of Continental Divide",
-   "lat": 40.118,
-   "lon": -105.635,
+   "lat": 40.12505,
+   "lon": -105.63905,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -67,7 +67,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10000,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "snapped to the Buchanan Pass trail 2026-07-13 (terminus trick)"
   },
   {
    "id": "4675318022",
@@ -75,8 +75,8 @@
    "name": "Buchanan Group",
    "type": "Campsite",
    "district": "West of Continental Divide",
-   "lat": 40.118,
-   "lon": -105.635,
+   "lat": 40.12545,
+   "lon": -105.63905,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -86,7 +86,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10000,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "snapped to the Buchanan Pass trail 2026-07-13 (terminus trick)"
   },
   {
    "id": "4675318023",
@@ -314,8 +314,8 @@
    "name": "Diamond Lake",
    "type": "Campsite",
    "district": "East of Continental Divide",
-   "lat": 39.994,
-   "lon": -105.655,
+   "lat": 39.9924,
+   "lon": -105.6502,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -325,7 +325,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10940,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "anchored to OSM 2026-07-13"
   },
   {
    "id": "4675318006",
@@ -333,8 +333,8 @@
    "name": "Diamond Lake Group",
    "type": "Campsite",
    "district": "East of Continental Divide",
-   "lat": 39.994,
-   "lon": -105.655,
+   "lat": 39.9924,
+   "lon": -105.6502,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -344,7 +344,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10940,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "anchored to OSM 2026-07-13"
   },
   {
    "id": "4675318007",
@@ -650,27 +650,27 @@
    "id": "467531812",
    "name": "Coney Flats",
    "included": true,
-   "lat": 40.126,
-   "lon": -105.586,
+   "lat": 40.1304,
+   "lon": -105.5774,
    "has_parking": false,
    "is_entry": true,
    "is_exit": true,
    "division_ids": [],
    "elevation_ft": 9750,
-   "coords_note": "curated 2026-07-13"
+   "coords_note": "anchored to OSM 2026-07-13"
   },
   {
    "id": "467531804",
    "name": "Devils Thumb Park",
    "included": true,
-   "lat": 39.966,
-   "lon": -105.737,
+   "lat": 40.0445,
+   "lon": -105.7322,
    "has_parking": false,
    "is_entry": true,
    "is_exit": true,
    "division_ids": [],
    "elevation_ft": 9750,
-   "coords_note": "curated 2026-07-13"
+   "coords_note": "anchored to OSM Junco Lake Trailhead 2026-07-13; prior memory coord was 8.7 km off"
   },
   {
    "id": "467531807",

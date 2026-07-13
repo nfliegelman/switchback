@@ -22,8 +22,8 @@
    "name": "Colchuck Zone",
    "type": "Zone",
    "district": "Alpine Lakes",
-   "lat": 47.4967,
-   "lon": -120.8419,
+   "lat": 47.4935,
+   "lon": -120.833,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -33,7 +33,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 5580,
-   "coords_note": "curated 2026-07-13; rec.gov zone centroids unreliable, QA queued"
+   "coords_note": "anchored to OSM named features 2026-07-13"
   },
   {
    "id": "30",
@@ -113,8 +113,8 @@
    "name": "Stuart  Zone",
    "type": "Zone",
    "district": "Alpine Lakes",
-   "lat": 47.5065,
-   "lon": -120.879,
+   "lat": 47.4995,
+   "lon": -120.866,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -124,7 +124,7 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 5064,
-   "coords_note": "curated 2026-07-13; rec.gov zone centroids unreliable, QA queued"
+   "coords_note": "anchored via Stuart Lake Trail far terminus, 2026-07-13"
   },
   {
    "id": "2727",

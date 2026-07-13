@@ -4,20 +4,40 @@
  "region": true,
  "notes": "Cross-boundary pilot region per BACKLOG: Lower Lena Lake is a first-come, no-permit site in Olympic National Forest; Upper Lena Lake is inside Olympic National Park on permit 4098362. Overlay coords are curated (rec.gov's Upper Lena coordinate is ~18 mi off and is overridden here). Edge figures derive from AllTrails official MCP, 2026-07-13.",
  "members": [
-  {"slug": "olympic",
+  {
+   "slug": "olympic",
    "include": [
-    {"name": "Upper Lena Lake (No Campfires)",
-     "lat": 47.6386, "lon": -123.1758, "elevation_ft": 4600}
-   ]}
+    {
+     "name": "Upper Lena Lake (No Campfires)",
+     "lat": 47.6386,
+     "lon": -123.1758,
+     "elevation_ft": 4600
+    }
+   ]
+  }
  ],
  "entrances": [
-  {"id": "LENA-TH", "name": "Lena Lake Trailhead",
-   "lat": 47.5993, "lon": -123.1362, "elevation_ft": 685}
+  {
+   "id": "LENA-TH",
+   "name": "Lena Lake Trailhead",
+   "lat": 47.59969,
+   "lon": -123.15112,
+   "elevation_ft": 685,
+   "coords_note": "anchored to the OSM trail terminus 2026-07-13; prior memory coord was 1.1 km off"
+  }
  ],
  "camps": [
-  {"id": "LENA-LLL", "code": "LLL", "name": "LLL - Lower Lena Lake Camp",
-   "lat": 47.6266, "lon": -123.1442, "elevation_ft": 1800,
-   "policy": "none", "water_lake_flag": "Y", "included": true,
-   "note": "First-come sites, no permit or fee; NW Forest Pass for trailhead parking. Coords approximate, QA queued."}
+  {
+   "id": "LENA-LLL",
+   "code": "LLL",
+   "name": "LLL - Lower Lena Lake Camp",
+   "lat": 47.6266,
+   "lon": -123.1442,
+   "elevation_ft": 1800,
+   "policy": "none",
+   "water_lake_flag": "Y",
+   "included": true,
+   "note": "First-come sites, no permit or fee; NW Forest Pass for trailhead parking. Coords approximate, QA queued."
+  }
  ]
 }

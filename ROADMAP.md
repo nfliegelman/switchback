@@ -105,4 +105,6 @@ Sequenced for the current reality: the owner is phone-only until at least July 1
 - v2.2 [SHIPPED same day]: regions plus Olympic. The Lena cross-boundary pilot proved live (first-come Lower Lena chaining to real open Upper Lena inventory); Olympic dataset extracted, features pass and proper corridors queued.
 - v2.3 [SHIPPED same day]: phone-native board. Daily Actions job computes board.json for relative windows and commits it with the durable history snapshot; static Leaflet board on GitHub Pages at /docs/board.
 - v2.4 [SHIPPED same day]: DEM gain pass benchmarked 43 percent low to 7 percent high on the GPS log; Teton Crest ships as the second region with pass-arithmetic gains after the DEM line method self-diagnosed its Teton limits.
-- Beyond: the Permit Difficulty Index once history has depth, Enchantments as the one-hour forest add, Archetype B trailhead-quota parks.
+- v2.6 [SHIPPED same day]: the Colorado wave. Maroon Bells-Snowmass, Indian Peaks, and Great Sand Dunes trips-ready; RMNP Tier 1 plus the Wild Basin corridor; Black Canyon recorded as a holdout (no rec.gov permit). Coverage stands at eleven entries.
+- v2.7 [SHIPPED same day]: trail-true geometry from OpenStreetMap across all nine graphed parks; map, board, and GPX draw real trails; coverage-validated fetching, component snapping, gap bridging; ODbL attribution everywhere.
+- Beyond: dem_trail_v1 (elevation along real polylines); Archetype B trailhead-quota parks (Yosemite, SEKI); RMNP corridor buildout; scoring calibration when the owner can react.

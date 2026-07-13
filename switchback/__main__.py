@@ -208,6 +208,14 @@ def cmd_watch(args):
     print(f"watch ended, {sent} alert(s) sent")
 
 
+def cmd_geometry(args):
+    from .geometry import harvest
+    routed, fallbacks, lines = harvest(args.slug, dry=args.dry)
+    print("\n".join(lines[-12:]))
+    print(f"{routed} edge(s) routed along real trails, "
+          f"{len(fallbacks)} fallback(s)")
+
+
 def cmd_dem(args):
     from .dem import dem_edges
     updated, skipped, lines = dem_edges(args.slug, dry=args.dry)
@@ -307,6 +315,11 @@ def main():
     wa.add_argument("--inject", default=None, metavar="DIV:DATE",
                     help="manufacture an opening to test the pipeline end to end")
     wa.set_defaults(fn=cmd_watch)
+
+    ge = sub.add_parser("geometry", help="harvest real trail polylines from OSM")
+    ge.add_argument("slug")
+    ge.add_argument("--dry", action="store_true")
+    ge.set_defaults(fn=cmd_geometry)
 
     de = sub.add_parser("dem", help="fill DEM route-sampled gains for estimated edges")
     de.add_argument("slug")

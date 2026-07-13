@@ -67,7 +67,7 @@
 const $ = id => document.getElementById(id);
 const map = L.map('map', { zoomSnap: 0.5 }).setView([47.5, -113.7], 6);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors; trail geometry ODbL' }).addTo(map);
 
 let PARK = null, NODES = {}, markers = {}, edgeLayer = null, routeLayer = null;
 let mode = 'trips', advSeq = [], advEntrance = null;
@@ -97,8 +97,8 @@ async function loadPark(slug){
   if (edgeLayer) map.removeLayer(edgeLayer);
   if (routeLayer) map.removeLayer(routeLayer);
   const segs = PARK.edges
-    .filter(e => NODES[e.a].lat && NODES[e.b].lat)
-    .map(e => [[NODES[e.a].lat, NODES[e.a].lon],[NODES[e.b].lat, NODES[e.b].lon]]);
+    .filter(e => e.path || (NODES[e.a].lat && NODES[e.b].lat))
+    .map(e => e.path ? e.path : [[NODES[e.a].lat, NODES[e.a].lon],[NODES[e.b].lat, NODES[e.b].lon]]);
   edgeLayer = L.polyline(segs, {color:'#8a8375', weight:1.5, opacity:.6, dashArray:'4 5'}).addTo(map);
   const pts = [];
   PARK.nodes.forEach(n => {

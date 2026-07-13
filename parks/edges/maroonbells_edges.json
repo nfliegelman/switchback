@@ -1,15 +1,16 @@
 {
  "slug": "maroonbells",
  "schema": 1,
- "notes": "Four Pass Loop trunk, Crested Butte connection over West Maroon Pass, and the Conundrum, Capitol, Geneva, and Snowmass Creek approaches. Site-level booking is modeled as clusters: a junction node per destination with 0.1 mi spokes to every bookable site, so the solver finds ANY open site. Gains are pass arithmetic from named pass elevations (DEM lines cross the Bells massif, invalid); zone coords curated. Site clusters GENERATED from parks/maroonbells.json.",
+ "notes": "Four Pass Loop trunk, Crested Butte connection over West Maroon Pass, and the Conundrum, Capitol, Geneva, and Snowmass Creek approaches. Site-level booking is modeled as clusters: a junction node per destination with 0.1 mi spokes to every bookable site, so the solver finds ANY open site. Gains are pass arithmetic from named pass elevations (DEM lines cross the Bells massif, invalid); zone coords curated. Site clusters GENERATED from parks/maroonbells.json. Trunk pass-leg mileages adopted from OSM-measured geometry 2026-07-13.",
  "nodes": [
   {
    "key": "CRATER_JCT",
    "kind": "junction",
    "name": "Crater Lake junction",
-   "lat": 39.071,
-   "lon": -107.0405,
-   "elevation_ft": 10076
+   "lat": 39.0848,
+   "lon": -106.9676,
+   "elevation_ft": 10076,
+   "coords_note": "anchored to OSM Crater Lake 2026-07-13"
   },
   {
    "key": "CONUNDRUM_JCT",
@@ -23,8 +24,8 @@
    "key": "CAPITOL_JCT",
    "kind": "junction",
    "name": "Capitol Lake junction",
-   "lat": 39.147,
-   "lon": -107.079,
+   "lat": 39.1617,
+   "lon": -107.0813,
    "elevation_ft": 11600
   }
  ],
@@ -54,24 +55,24 @@
   {
    "a": "Maroon Zone Small Group Dispersed",
    "b": "North Fork Zone Small Group Dispersed",
-   "miles": 4.9,
+   "miles": 7.19,
    "gain_ab": 2015,
    "loss_ab": 2415,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "loop guides: West Maroon Pass 12,500 and Frigid Air Pass 12,415 into Fravert Basin"
+   "src": "loop guides: West Maroon Pass 12,500 and Frigid Air Pass 12,415 into Fravert Basin; miles corrected to OSM-measured 7.19 (loop arithmetic said 4.9)"
   },
   {
    "a": "North Fork Zone Small Group Dispersed",
    "b": "Snowmass Lake Zone Small Group Dispersed",
-   "miles": 6.2,
+   "miles": 8.7,
    "gain_ab": 1820,
    "loss_ab": 1440,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "loop guides: Trail Rider Pass 12,420"
+   "src": "loop guides: Trail Rider Pass 12,420; miles corrected to OSM-measured 8.7 (loop arithmetic said 6.2)"
   },
   {
    "a": "Snowmass Lake Zone Small Group Dispersed",
@@ -87,13 +88,13 @@
   {
    "a": "Upper Snowmass Zone Small Group Dispersed",
    "b": "CRATER_JCT",
-   "miles": 5.3,
+   "miles": 5.71,
    "gain_ab": 1060,
    "loss_ab": 2385,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "loop guides: Buckskin Pass 12,462 back to Crater"
+   "src": "loop guides: Buckskin Pass 12,462 back to Crater; miles corrected to OSM-measured 5.71 (loop arithmetic said 5.3)"
   },
   {
    "a": "Maroon Zone Large Group",
@@ -142,13 +143,13 @@
   {
    "a": "East Fork Zone Small Group Dispersed",
    "b": "Maroon Zone Small Group Dispersed",
-   "miles": 3.0,
+   "miles": 2.91,
    "gain_ab": 1700,
    "loss_ab": 1500,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "loop guides: West Maroon Pass 12,500 from the East Fork side"
+   "src": "loop guides: West Maroon Pass 12,500 from the East Fork side; miles corrected to OSM-measured 2.91 (loop arithmetic said 3.0)"
   },
   {
    "a": "ENT:Conundrum Trailhead",

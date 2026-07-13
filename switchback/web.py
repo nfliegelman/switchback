@@ -33,6 +33,7 @@ from pydantic import BaseModel
 from .config import load_profile
 from .extract import load_park
 from .coverage import survey
+from .geometry import ATTRIBUTION as GEOM_ATTRIBUTION, day_path, path_for
 from .graph import Graph
 from .report import dedupe_routes
 from .scoring import Scorer
@@ -146,7 +147,11 @@ def create_app(fetch_fn=None):
                 if key in seen:
                     continue
                 seen.add(key)
-                edges.append({"a": a, "b": b, "mi": mi, "est": bool(est)})
+                rec = {"a": a, "b": b, "mi": mi, "est": bool(est)}
+                p = path_for(slug, a, b)
+                if p:
+                    rec["path"] = p
+                edges.append(rec)
         return {"slug": slug, "name": g.park["name"],
                 "permit_id": g.park["permit_id"],
                 "nodes": nodes, "edges": edges}
@@ -195,11 +200,8 @@ def create_app(fetch_fn=None):
         for v in shown:
             r = v["best"]
             stops = [r["entrance"]] + list(r["seq"]) + [r["entrance"]]
-            day_paths = []
-            for a, b in zip(stops, stops[1:]):
-                leg = g.leg(a, b)
-                path = leg[2] if leg else [a, b]
-                day_paths.append([_coords(g, n) for n in path])
+            day_paths = [day_path(req.slug, g, [a, b])
+                         for a, b in zip(stops, stops[1:])]
             routes.append({
                 "score": round(r["score"], 3),
                 "type": r["type"],

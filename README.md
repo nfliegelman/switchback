@@ -52,3 +52,8 @@ v2.0.0 completes the engine ladder (M0 through M10, see ROADMAP.md). Next is v2.
 ## Versioning
 
 v1.0.0 was the original GUI upload. Each engine milestone bumped the minor version; v2.0.0 marks the complete engine, reached 2026-07-12. The web UI ships as v2.1.
+
+
+## Trail geometry
+
+Route lines on the map, the board, and in GPX exports follow real trail polylines harvested from OpenStreetMap, with straight-line fallback wherever routing honestly failed (each case is recorded in BACKLOG). Trail geometry is derived from OpenStreetMap via the Overpass API, copyright OpenStreetMap contributors, ODbL 1.0.

@@ -2,25 +2,72 @@
  "slug": "tetoncrest",
  "name": "Teton Crest (GTNP + Alaska Basin)",
  "region": true,
- "notes": "Second cross-boundary region: Grand Teton camping zones (permit 4675342) plus Alaska Basin, which sits in Caribou-Targhee National Forest and needs no permit. Teton's payload ships zero coordinates, so all zone coords are curated approximations of zone centers, QA queued. Mileages are standard Teton Crest guide figures flagged est; gains come from the v2.4 DEM pass.",
+ "notes": "Second cross-boundary region: Grand Teton camping zones (permit 4675342) plus Alaska Basin, which sits in Caribou-Targhee National Forest and needs no permit. Teton's payload ships zero coordinates, so all zone coords are anchored to OSM named features 2026-07-13 (Marion and Holly lakes, Fox Creek and Mount Meek passes, Sunset Lake); the first-pass memory-curated coords were off by up to 4 km and the geometry coverage validator caught it. Mileages are standard Teton Crest guide figures flagged est; gains come from the v2.4 DEM pass.",
  "members": [
-  {"slug": "gteton",
+  {
+   "slug": "gteton",
    "include": [
-    {"name": "Marion Lake", "lat": 43.6597, "lon": -110.8672, "elevation_ft": 9240},
-    {"name": "Death Canyon Shelf", "lat": 43.6795, "lon": -110.8480, "elevation_ft": 9500},
-    {"name": "Cascade South Fork", "lat": 43.7280, "lon": -110.8410, "elevation_ft": 9100},
-    {"name": "Cascade North Fork", "lat": 43.7565, "lon": -110.8180, "elevation_ft": 9000},
-    {"name": "Holly Lake", "lat": 43.7756, "lon": -110.7955, "elevation_ft": 9410}
-   ]}
+    {
+     "name": "Marion Lake",
+     "lat": 43.6235,
+     "lon": -110.9291,
+     "elevation_ft": 9240
+    },
+    {
+     "name": "Death Canyon Shelf",
+     "lat": 43.666,
+     "lon": -110.892,
+     "elevation_ft": 9500
+    },
+    {
+     "name": "Cascade South Fork",
+     "lat": 43.728,
+     "lon": -110.841,
+     "elevation_ft": 9100
+    },
+    {
+     "name": "Cascade North Fork",
+     "lat": 43.7565,
+     "lon": -110.818,
+     "elevation_ft": 9000
+    },
+    {
+     "name": "Holly Lake",
+     "lat": 43.792,
+     "lon": -110.798,
+     "elevation_ft": 9410
+    }
+   ]
+  }
  ],
  "entrances": [
-  {"id": "TC-DCTH", "name": "Death Canyon Trailhead", "lat": 43.6564, "lon": -110.7823, "elevation_ft": 6780},
-  {"id": "TC-SLTH", "name": "String Lake Trailhead", "lat": 43.7853, "lon": -110.7290, "elevation_ft": 6870}
+  {
+   "id": "TC-DCTH",
+   "name": "Death Canyon Trailhead",
+   "lat": 43.6564,
+   "lon": -110.7823,
+   "elevation_ft": 6780
+  },
+  {
+   "id": "TC-SLTH",
+   "name": "String Lake Trailhead",
+   "lat": 43.7853,
+   "lon": -110.729,
+   "elevation_ft": 6870
+  }
  ],
  "camps": [
-  {"id": "TC-AB", "code": "AB", "name": "AB - Alaska Basin",
-   "lat": 43.7086, "lon": -110.8420, "elevation_ft": 9600,
-   "policy": "none", "water_lake_flag": "Y", "included": true,
-   "note": "Caribou-Targhee NF, no permit required; first-come. Coords approximate, QA queued."}
+  {
+   "id": "TC-AB",
+   "code": "AB",
+   "name": "AB - Alaska Basin",
+   "lat": 43.71,
+   "lon": -110.848,
+   "elevation_ft": 9600,
+   "policy": "none",
+   "water_lake_flag": "Y",
+   "included": true,
+   "note": "Caribou-Targhee NF, no permit required; first-come. Coords approximate, QA queued."
+  }
  ]
 }

@@ -1,41 +1,41 @@
 {
  "slug": "indianpeaks",
  "schema": 1,
- "notes": "Full-season permit 4675318 (the 3-days-in-advance permit 4675319 is a separate inventory, future dual-permit merge). Payload ships zero coordinates; all zone and trailhead coords are curated approximations, QA queued. Gains are pass arithmetic (Pawnee 12,541 / Buchanan 11,837 / Arapaho 11,906 / Devils Thumb 11,747); the Pawnee-Buchanan loop's east-of-divide connector is deliberately absent until the zone mapping is verified.",
+ "notes": "Full-season permit 4675318 (the 3-days-in-advance permit 4675319 is a separate inventory, future dual-permit merge). Payload ships zero coordinates; all zone and trailhead coords are curated approximations, QA queued. Gains are pass arithmetic (Pawnee 12,541 / Buchanan 11,837 / Arapaho 11,906 / Devils Thumb 11,747); the Pawnee-Buchanan loop's east-of-divide connector is deliberately absent until the zone mapping is verified. Mileages adopted from OSM-measured geometry 2026-07-13 where routed.",
  "nodes": [],
  "edges": [
   {
    "a": "ENT:Monarch Lake",
    "b": "Cascade Creek",
-   "miles": 4.3,
+   "miles": 7.32,
    "gain_ab": 900,
    "loss_ab": 50,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "published: Cascade Creek trail"
+   "src": "published: Cascade Creek trail; miles corrected to OSM-measured 7.32 (recall said 4.3)"
   },
   {
    "a": "Cascade Creek",
    "b": "Crater Lake",
-   "miles": 3.1,
+   "miles": 2.13,
    "gain_ab": 500,
    "loss_ab": 280,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "published: up to Mirror and Crater, Lone Eagle country"
+   "src": "published: up to Mirror and Crater, Lone Eagle country; miles corrected to OSM-measured 2.13 (recall said 3.1)"
   },
   {
    "a": "Cascade Creek",
    "b": "ENT:Long Lake",
-   "miles": 6.5,
+   "miles": 6.7,
    "gain_ab": 2780,
    "loss_ab": 2060,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "published: Pawnee Pass 12,541 to Brainard"
+   "src": "published: Pawnee Pass 12,541 to Brainard; miles corrected to OSM-measured 6.7 (recall said 6.5)"
   },
   {
    "a": "ENT:Monarch Lake",
@@ -62,57 +62,57 @@
   {
    "a": "ENT:Fourth of July",
    "b": "Diamond Lake",
-   "miles": 2.6,
+   "miles": 4.65,
    "gain_ab": 860,
    "loss_ab": 40,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "published: Diamond Lake trail"
+   "src": "published: Diamond Lake trail; miles corrected to OSM-measured 4.65 (recall said 2.6)"
   },
   {
    "a": "ENT:Fourth of July",
    "b": "Caribou Lake",
-   "miles": 5.0,
+   "miles": 4.77,
    "gain_ab": 1800,
    "loss_ab": 770,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "published: Arapaho Pass 11,906 to Caribou"
+   "src": "published: Arapaho Pass 11,906 to Caribou; miles corrected to OSM-measured 4.77 (recall said 5.0)"
   },
   {
    "a": "ENT:Hessie",
    "b": "Jasper Lake",
-   "miles": 4.4,
+   "miles": 5.04,
    "gain_ab": 1850,
    "loss_ab": 40,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "published: Devils Thumb trail to Jasper"
+   "src": "published: Devils Thumb trail to Jasper; miles corrected to OSM-measured 5.04 (recall said 4.4)"
   },
   {
    "a": "Jasper Lake",
    "b": "Devils Thumb",
-   "miles": 1.3,
+   "miles": 1.66,
    "gain_ab": 380,
    "loss_ab": 30,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "published: Jasper to Devils Thumb Lake"
+   "src": "published: Jasper to Devils Thumb Lake; miles corrected to OSM-measured 1.66 (recall said 1.3)"
   },
   {
    "a": "Devils Thumb",
    "b": "ENT:Devils Thumb Park",
-   "miles": 5.0,
+   "miles": 8.73,
    "gain_ab": 600,
    "loss_ab": 2010,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "published: Devils Thumb Pass 11,747 west"
+   "src": "published: Devils Thumb Pass 11,747 west; miles corrected to OSM-measured 8.73 (recall said 5.0)"
   },
   {
    "a": "Cascade Creek",
