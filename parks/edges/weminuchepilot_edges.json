@@ -1,7 +1,7 @@
 {
  "slug": "weminuchepilot",
  "schema": 1,
- "notes": "Phase B auto-generated; miles from the area graph Dijkstra, gains absent by design.",
+ "notes": "Auto edges; miles from the area graph, gains from USGS EPQS point elevations, est_gain flagged.",
  "nodes": [],
  "edges": [
   {
@@ -11,13 +11,148 @@
   },
   {
    "a": "ENT:Needleton Bridge (train stop)",
-   "b": "P02",
+   "b": "P03",
    "miles": 7.7
   },
   {
+   "a": "ENT:Needleton Bridge (train stop)",
+   "b": "P03",
+   "miles": 7.7
+  },
+  {
+   "a": "ENT:Needleton Bridge (train stop)",
+   "b": "P04",
+   "miles": 8.3
+  },
+  {
+   "a": "ENT:Needleton Bridge (train stop)",
+   "b": "P05",
+   "miles": 8.7
+  },
+  {
+   "a": "ENT:Needleton Bridge (train stop)",
+   "b": "P06",
+   "miles": 8.8
+  },
+  {
+   "a": "ENT:Needleton Bridge (train stop)",
+   "b": "P07",
+   "miles": 8.8
+  },
+  {
+   "a": "ENT:Needleton Bridge (train stop)",
+   "b": "P08",
+   "miles": 9.1
+  },
+  {
    "a": "P01",
-   "b": "P02",
+   "b": "P03",
    "miles": 1.1
+  },
+  {
+   "a": "P01",
+   "b": "P03",
+   "miles": 1.1
+  },
+  {
+   "a": "P01",
+   "b": "P04",
+   "miles": 1.7
+  },
+  {
+   "a": "P01",
+   "b": "P05",
+   "miles": 2.2
+  },
+  {
+   "a": "P01",
+   "b": "P06",
+   "miles": 2.2
+  },
+  {
+   "a": "P01",
+   "b": "P07",
+   "miles": 2.3
+  },
+  {
+   "a": "P01",
+   "b": "P08",
+   "miles": 2.5
+  },
+  {
+   "a": "P03",
+   "b": "P05",
+   "miles": 1.1
+  },
+  {
+   "a": "P03",
+   "b": "P06",
+   "miles": 3.3
+  },
+  {
+   "a": "P03",
+   "b": "P07",
+   "miles": 3.4
+  },
+  {
+   "a": "P03",
+   "b": "P08",
+   "miles": 3.6
+  },
+  {
+   "a": "P03",
+   "b": "P05",
+   "miles": 1.1
+  },
+  {
+   "a": "P03",
+   "b": "P06",
+   "miles": 3.3
+  },
+  {
+   "a": "P03",
+   "b": "P07",
+   "miles": 3.4
+  },
+  {
+   "a": "P03",
+   "b": "P08",
+   "miles": 3.6
+  },
+  {
+   "a": "P04",
+   "b": "P05",
+   "miles": 1.7
+  },
+  {
+   "a": "P04",
+   "b": "P06",
+   "miles": 3.9
+  },
+  {
+   "a": "P04",
+   "b": "P07",
+   "miles": 4.0
+  },
+  {
+   "a": "P04",
+   "b": "P08",
+   "miles": 4.2
+  },
+  {
+   "a": "P05",
+   "b": "P06",
+   "miles": 4.4
+  },
+  {
+   "a": "P05",
+   "b": "P07",
+   "miles": 4.4
+  },
+  {
+   "a": "P05",
+   "b": "P08",
+   "miles": 4.7
   }
  ]
 }

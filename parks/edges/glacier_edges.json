@@ -107,12 +107,13 @@
   {
    "a": "ELH",
    "b": "HEL",
-   "miles": 1.5,
+   "miles": 2.6,
    "gain_ab": 220,
    "loss_ab": 59,
    "est_gain": true,
    "src": "est; verify against park table",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_line_v1",
+   "note": "corrected 2026-07-13: AllTrails corridor RTs place this leg near 2.6 to 2.9; the 1.5 was the outlier; NPS chart confirmation queued"
   },
   {
    "a": "ELF",

@@ -4,7 +4,7 @@ Every Washington backpacking landscape Switchback tracks, from rec.gov
 quota systems to fully dispersed wilderness. Generated from
 parks/atlas.json; edit the JSON, not this file.
 
-Status counts: 3 live (bookable itineraries), 22 trails on the map, 6 planned, 0 not suitable
+Status counts: 3 live (bookable itineraries), 24 trails on the map, 4 planned, 0 not suitable
 
 ## National parks
 
@@ -24,6 +24,7 @@ Status counts: 3 live (bookable itineraries), 22 trails on the map, 6 planned, 0
 | Clearwater | none | trails on the map | Rainier neighbor |
 | Colonel Bob | free self-issue | trails on the map | Olympic NF satellite |
 | Glacier Peak | free self-issue | trails on the map | Spider Gap, Image Lake |
+| Glacier View | none | trails on the map | pocket wilderness |
 | Goat Rocks | free self-issue | trails on the map | Knifes Edge, Goat Lake |
 | Henry M. Jackson | free self-issue | trails on the map | PCT country |
 | Indian Heaven | none | trails on the map | lake basins |
@@ -41,8 +42,7 @@ Status counts: 3 live (bookable itineraries), 22 trails on the map, 6 planned, 0
 | Wenaha-Tucannon | none | trails on the map | Blue Mountains canyons |
 | Wild Sky | free self-issue | trails on the map | newest, thin trails |
 | William O. Douglas | free self-issue | trails on the map | lake plateau |
-| Glacier View | none | planned | pocket wilderness |
-| Wonder Mountain | none | planned | trailless |
+| Wonder Mountain | none | trails on the map | trailless |
 
 ## BLM lands
 

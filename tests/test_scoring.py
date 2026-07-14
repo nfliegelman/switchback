@@ -36,7 +36,7 @@ def main():
     assert any(o["rt_mi"] == 3.2 and o["rt_gain"] > 0 for o in dh), \
         "ELH out-and-back from ELF must be 3.2 mi RT (gain floats with the DEM pass)"
     hel = [o for o in dh if o["name"].startswith("HEL")]
-    assert hel and hel[0]["rt_mi"] == 6.2, "Helen Lake RT from ELF must be 6.2 mi"
+    assert hel and hel[0]["rt_mi"] == 8.4, "Helen Lake RT from ELF must be 8.4 mi (leg corrected 2026-07-13)"
     ent = next(nid for nid, n in g.nodes.items()
                if n["kind"] == "entrance" and "Belly River" in n["name"])
     row_base = {"entrance": ent, "seq": [elf, elf],

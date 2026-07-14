@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.17.0 (2026-07-13)
+
+The roadmap sweep, everything that fit. Phase B productized: build_pilot with widened dedupe and named junctions took Needle Creek from 2 camps to 10 and from 14 itineraries to 168 across 24 routes; gains blocked by an unreachable USGS EPQS endpoint, recorded for retry. Both Washington hangers built on clean retries, taking the state to 24 areas on the map and confirming the earlier failures as transient mirror pathology. Glacier's ELH to HEL leg corrected from 1.5 to 2.6 miles on oracle-consistent corridor evidence, the curated figure having been the outlier. The IPW dual-permit merge is now fully designed in EXPERIMENTS.md but unbuilt, since the schema is single permit_id and the merge belongs in the availability layer. Boundary source expansion, calibration, and Telegram remain open by honest constraint, not neglect.
+
 ## v2.16.0 (2026-07-13)
 
 Dispersed itineraries phase B passes. dispersed.py now builds a real park from an area graph: auto camps with policy none, Dijkstra edges in the standard schema, and the existing solver produced 14 ranked bookable itineraries on the Needle Creek pilot, including the classic Chicago Basin trip reproduced exactly. The AllTrails oracle verified the flagship leg inside a tenth of a mile (Windom via Needle Creek, 18.1 mi RT). Limitations recorded in EXPERIMENTS.md before any app exposure: widen the candidate dedupe, gains await dem_trail, junction naming needs a pass.
