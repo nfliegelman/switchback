@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.22.0 (2026-07-14)
+
+The QA sweep plus the second dual park. Enchantments daily lottery 445863 merged onto all 5 zones in one command, proving merge-inventory generic. ELF to IPE confirmed at 9.8 by AllTrails oracle triangulation and closed; the neighboring ELF to Cosley discrepancy (PNTA 6.0 vs a community-implied 4.1) is recorded with official figures retained. The Elk Range Maroon to North Fork display mismatch is flagged geometry_suspect for the dem_trail pass to resolve. Maroon Bells Areas Outside of Permit Zones semantics decided: real dispersed inventory, stays un-graphed. OWNER.md is born: every task on the owner, phone vs desktop, updated each release.
+
 ## v2.21.0 (2026-07-14)
 
 Item 3, the dual-permit merge. Camps can now carry extra reservation inventories; the availability choke point fetches all of them and MAX-merges per date, since a party books within one inventory. A new merge-inventory command attaches a second permit by normalized division name. Indian Peaks is the first dual park: all 17 zones matched the 3-days-in-advance permit 4675319 exactly (zero Group false-matches), and the live proof found Cascade Creek on July 16 bookable only through the 3-day channel. The shared report labels the short-release channel honestly; watch mode is unchanged. Semantics are pinned in tests: max not sum, both permits fetched, second inventory can rescue a night.

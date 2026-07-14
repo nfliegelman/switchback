@@ -33,7 +33,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 5580,
-   "coords_note": "anchored to OSM named features 2026-07-13"
+   "coords_note": "anchored to OSM named features 2026-07-13",
+   "inventories": [
+    {
+     "permit_id": "445863",
+     "division_id": "445863002"
+    }
+   ]
   },
   {
    "id": "30",
@@ -52,7 +58,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 7100,
-   "coords_note": "curated 2026-07-13; rec.gov zone centroids unreliable, QA queued"
+   "coords_note": "curated 2026-07-13; rec.gov zone centroids unreliable, QA queued",
+   "inventories": [
+    {
+     "permit_id": "445863",
+     "division_id": "445863001"
+    }
+   ]
   },
   {
    "id": "28",
@@ -69,7 +81,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "Y",
-   "on_trail": ""
+   "on_trail": "",
+   "inventories": [
+    {
+     "permit_id": "445863",
+     "division_id": "445863003"
+    }
+   ]
   },
   {
    "id": "2828",
@@ -105,7 +123,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 5415,
-   "coords_note": "curated 2026-07-13; rec.gov zone centroids unreliable, QA queued"
+   "coords_note": "curated 2026-07-13; rec.gov zone centroids unreliable, QA queued",
+   "inventories": [
+    {
+     "permit_id": "445863",
+     "division_id": "445863004"
+    }
+   ]
   },
   {
    "id": "27",
@@ -124,7 +148,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 5064,
-   "coords_note": "anchored via Stuart Lake Trail far terminus, 2026-07-13"
+   "coords_note": "anchored via Stuart Lake Trail far terminus, 2026-07-13",
+   "inventories": [
+    {
+     "permit_id": "445863",
+     "division_id": "445863005"
+    }
+   ]
   },
   {
    "id": "2727",
@@ -181,6 +211,14 @@
    "division_ids": [],
    "elevation_ft": 3400,
    "coords_note": "curated 2026-07-13"
+  }
+ ],
+ "merged_inventories": [
+  {
+   "permit_id": "445863",
+   "name": "Enchantment Permit Area Daily Lottery",
+   "matched": 5,
+   "merged_at": "2026-07-14"
   }
  ]
 }

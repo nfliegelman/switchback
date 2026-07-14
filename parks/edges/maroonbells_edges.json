@@ -61,7 +61,8 @@
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "loop guides: West Maroon Pass 12,500 and Frigid Air Pass 12,415 into Fravert Basin; miles corrected to OSM-measured 7.19 (loop arithmetic said 4.9)"
+   "src": "loop guides: West Maroon Pass 12,500 and Frigid Air Pass 12,415 into Fravert Basin; miles corrected to OSM-measured 7.19 (loop arithmetic said 4.9)",
+   "geometry_suspect": true
   },
   {
    "a": "North Fork Zone Small Group Dispersed",

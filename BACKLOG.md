@@ -149,3 +149,7 @@ One command each, statuses flip to map on success: glacierpeak, pasayten, mounta
 
 
 ## CO wave status (2026-07-13): 27 of 27 built, wave complete. Remaining planned CO rows are the non-wilderness boundary set; sources needed: BLM NCA polygons, NPS unit boundaries, monument and state park boundaries, and long-trail centerline corridors for the CT and CDT.
+
+## Owner task tracking (2026-07-14)
+
+OWNER.md is now the single list of everything on Noah, phone vs desktop; keeping it current on every release is a standing convention alongside the dash gate.
