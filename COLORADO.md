@@ -4,7 +4,7 @@ Every Colorado backpacking landscape Switchback tracks, from rec.gov
 quota systems to fully dispersed wilderness. Generated from
 parks/atlas.json; edit the JSON, not this file.
 
-Status counts: 4 live (bookable itineraries), 34 trails on the map, 10 planned, 1 not suitable
+Status counts: 4 live (bookable itineraries), 42 trails on the map, 2 planned, 1 not suitable
 
 ## National parks
 
@@ -12,7 +12,7 @@ Status counts: 4 live (bookable itineraries), 34 trails on the map, 10 planned, 
 |---|---|---|---|
 | Great Sand Dunes NP | rec.gov quota | live (bookable itineraries) | Sand Ramp chain plus dunefield |
 | Rocky Mountain NP | rec.gov quota | live (bookable itineraries) | Wild Basin corridor trips-ready; 240+ sites queued |
-| Black Canyon of the Gunnison NP | free self-issue | planned | inner canyon routes; no rec.gov inventory |
+| Black Canyon of the Gunnison NP | free self-issue | trails on the map | inner canyon routes; no rec.gov inventory |
 | Mesa Verde NP | n/a | not suitable | backcountry camping prohibited |
 
 ## Wilderness areas (USFS)
@@ -60,23 +60,23 @@ Status counts: 4 live (bookable itineraries), 34 trails on the map, 10 planned, 
 
 | Area | Permit | Status | Notes |
 |---|---|---|---|
-| BLM wilderness study areas | none | planned | Handies Peak and others, cataloged collectively |
-| Black Ridge Canyons | none | planned | McInnis Canyons NCA |
-| Dominguez Canyon | none | planned | Dominguez-Escalante NCA |
-| Gunnison Gorge | self-issue fee | planned | NCA wilderness |
+| Black Ridge Canyons | none | trails on the map | McInnis Canyons NCA |
+| Dominguez Canyon | none | trails on the map | Dominguez-Escalante NCA |
+| Gunnison Gorge | self-issue fee | trails on the map | NCA wilderness |
+| Handies Peak WSA | none | trails on the map | Alpine Loop 14er country; other CO WSAs added on request |
 
 ## Other public lands
 
 | Area | Permit | Status | Notes |
 |---|---|---|---|
-| Browns Canyon NM | none | planned |  |
-| Colorado State Forest SP | state pass | planned |  |
-| Hermosa Creek | none | planned | special management area, San Juan NF |
+| Browns Canyon NM | none | trails on the map |  |
+| Colorado State Forest SP | state pass | trails on the map |  |
+| Hermosa Creek | none | trails on the map | special management area, San Juan NF |
 
 ## Long trails
 
 | Area | Permit | Status | Notes |
 |---|---|---|---|
-| Colorado Trail | none statewide | planned | 485 mi corridor; crosses six wildernesses |
-| Continental Divide Trail (CO) | none statewide | planned | corridor treatment later |
+| Colorado Trail | none statewide | planned | 485 mi corridor; crosses six wildernesses; corridor treatment designed in EXPERIMENTS.md |
+| Continental Divide Trail (CO) | none statewide | planned | corridor treatment designed in EXPERIMENTS.md |
 

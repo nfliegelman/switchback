@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.20.0 (2026-07-14)
+
+Item 2, the boundary source expansion. A six-source boundary registry (USFS wilderness, NPS units, wilderness.net all-agency, BLM WSA, USFS designated areas, PAD-US) replaces the single USFS service, and eleven planned rows became built maps in one pass: Black Canyon of the Gunnison, Gunnison Gorge, Dominguez Canyon, Black Ridge Canyons, Handies Peak WSA, Hermosa Creek SMA, Browns Canyon NM, Colorado State Forest SP, North Cascades NP, Juniper Dunes, and Mount St. Helens NVM. About 6,090 new trail miles; 83 built landscapes systemwide. A mileage-weighted containment audit cleared all eleven against Weminuche and Goat Rocks controls and retired the node-fraction variant, which underreads systematically. The three long-trail corridor rows now carry a written design in EXPERIMENTS.md and wait as their own build.
+
 ## v2.19.0 (2026-07-13)
 
 Item 1 closed for real. Elevation gains flow into auto-generated dispersed parks via OpenTopoData NED 10m (EPQS confirmed blocked from this egress), est_gain flagged on every edge, and the Needle Creek pilot carries an experimental flag. The gains immediately proved their worth: itineraries fell from 168 to 14 under the owner's real 4000 ft daily ceiling, honest trips replacing gain-blind ones. An NPS boundary service probe is recorded for the item 2 build next session.

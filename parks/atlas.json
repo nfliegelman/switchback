@@ -23,9 +23,14 @@
    "name": "Black Canyon of the Gunnison NP",
    "cat": "NPS",
    "permit": "free self-issue",
-   "status": "planned",
+   "status": "map",
    "notes": "inner canyon routes; no rec.gov inventory",
-   "state": "CO"
+   "state": "CO",
+   "slug": "blackcanyon",
+   "boundary": {
+    "src": "nps",
+    "code": "BLCA"
+   }
   },
   {
    "name": "Mesa Verde NP",
@@ -399,64 +404,103 @@
    "name": "Dominguez Canyon",
    "cat": "BLM",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "notes": "Dominguez-Escalante NCA",
-   "state": "CO"
+   "state": "CO",
+   "slug": "dominguez",
+   "boundary": {
+    "src": "wildnet",
+    "name": "Dominguez Canyon Wilderness"
+   }
   },
   {
    "name": "Gunnison Gorge",
    "cat": "BLM",
    "permit": "self-issue fee",
-   "status": "planned",
+   "status": "map",
    "notes": "NCA wilderness",
-   "state": "CO"
+   "state": "CO",
+   "slug": "gunnisongorge",
+   "boundary": {
+    "src": "wildnet",
+    "name": "Gunnison Gorge Wilderness"
+   }
   },
   {
    "name": "Black Ridge Canyons",
    "cat": "BLM",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "notes": "McInnis Canyons NCA",
-   "state": "CO"
+   "state": "CO",
+   "slug": "blackridge",
+   "boundary": {
+    "src": "wildnet",
+    "name": "Black Ridge Canyons Wilderness"
+   }
   },
   {
-   "name": "BLM wilderness study areas",
+   "name": "Handies Peak WSA",
    "cat": "BLM",
    "permit": "none",
-   "status": "planned",
-   "notes": "Handies Peak and others, cataloged collectively",
-   "state": "CO"
+   "status": "map",
+   "notes": "Alpine Loop 14er country; other CO WSAs added on request",
+   "state": "CO",
+   "slug": "handiespeak",
+   "boundary": {
+    "src": "blm_wsa",
+    "name": "Handies Peak"
+   }
   },
   {
    "name": "Hermosa Creek",
    "cat": "other",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "notes": "special management area, San Juan NF",
-   "state": "CO"
+   "state": "CO",
+   "slug": "hermosa",
+   "boundary": {
+    "src": "usfs_ond",
+    "name": "Hermosa Creek",
+    "type": "Special Management Area"
+   }
   },
   {
    "name": "Browns Canyon NM",
    "cat": "other",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "notes": "",
-   "state": "CO"
+   "state": "CO",
+   "slug": "brownscanyon",
+   "boundary": {
+    "src": "usfs_ond",
+    "name": "Browns Canyon",
+    "type": "National Monument"
+   }
   },
   {
    "name": "Colorado State Forest SP",
    "cat": "other",
    "permit": "state pass",
-   "status": "planned",
+   "status": "map",
    "notes": "",
-   "state": "CO"
+   "state": "CO",
+   "slug": "stateforest",
+   "boundary": {
+    "src": "padus",
+    "name": "State Forest State Park",
+    "state": "CO",
+    "des": "SP"
+   }
   },
   {
    "name": "Colorado Trail",
    "cat": "long trail",
    "permit": "none statewide",
    "status": "planned",
-   "notes": "485 mi corridor; crosses six wildernesses",
+   "notes": "485 mi corridor; crosses six wildernesses; corridor treatment designed in EXPERIMENTS.md",
    "state": "CO"
   },
   {
@@ -464,7 +508,7 @@
    "cat": "long trail",
    "permit": "none statewide",
    "status": "planned",
-   "notes": "corridor treatment later",
+   "notes": "corridor treatment designed in EXPERIMENTS.md",
    "state": "CO"
   },
   {
@@ -489,9 +533,14 @@
    "name": "North Cascades NP",
    "cat": "NPS",
    "permit": "NPS advance/walk-up",
-   "status": "planned",
+   "status": "map",
    "notes": "Stephen Mather Wilderness; Copper Ridge, Sahale",
-   "state": "WA"
+   "state": "WA",
+   "slug": "northcascades",
+   "boundary": {
+    "src": "nps",
+    "code": "NOCA"
+   }
   },
   {
    "name": "Alpine Lakes",
@@ -747,24 +796,35 @@
    "name": "Juniper Dunes",
    "cat": "BLM",
    "permit": "none",
-   "status": "planned",
+   "status": "map",
    "notes": "trailless dunes, no water",
-   "state": "WA"
+   "state": "WA",
+   "slug": "juniperdunes",
+   "boundary": {
+    "src": "wildnet",
+    "name": "Juniper Dunes Wilderness"
+   }
   },
   {
    "name": "Mount St. Helens NVM (Loowit)",
    "cat": "other",
    "permit": "none for backpack sections",
-   "status": "planned",
+   "status": "map",
    "notes": "blast zone circumnavigation",
-   "state": "WA"
+   "state": "WA",
+   "slug": "mountsthelens",
+   "boundary": {
+    "src": "usfs_ond",
+    "name": "Mount St. Helens",
+    "type": "National Volcanic Monument"
+   }
   },
   {
    "name": "Pacific Crest Trail (WA)",
    "cat": "long trail",
    "permit": "none statewide",
    "status": "planned",
-   "notes": "corridor treatment later",
+   "notes": "corridor treatment designed in EXPERIMENTS.md",
    "state": "WA"
   }
  ]

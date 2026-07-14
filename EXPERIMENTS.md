@@ -19,3 +19,15 @@ Item 1: EPQS dead on a second independent attempt hours apart, upgraded from tra
 ## Item 1 completion (2026-07-13): gains live, pilot flagged experimental
 
 OpenTopoData NED 10m delivered 11 of 11 elevations where EPQS was blocked; edges carry gain_ab with est_gain flagged; the pilot park carries experimental true. The itinerary count fell from 168 to 14 under the real 4000 ft daily ceiling, which is the constraint engine telling the truth instead of counting gain-blind fantasies. Items 2 and 3 hand to the next session with the NPS boundary endpoint probe result recorded in HANDOFF.
+
+## Long-trail corridor treatment (designed 2026-07-14, build pending)
+
+The three corridor rows (Colorado Trail, CDT Colorado, PCT Washington) do not fit the polygon pipeline; this is their design, written before any build per the standing convention.
+
+Boundary: the corridor polygon is a buffered centerline. Fetch the trail's OSM route relation, stitch member ways into one centerline (run _bridge_components on the stitched line first; relation gaps are the known failure), buffer 1.5 km per side, simplify at 150 m, store as ordinary boundary rings so rubber band green and amber logic works unchanged.
+
+Trails: tile the corridor bbox chain into segments of about 0.3 degrees and run the existing mirror-walked fetch per tile against the disk cache, then dedupe elements by way id before the junction graph. Estimated tile counts: CT about 20, CDT-CO about 30, PCT-WA about 22. Each corridor is a session-scale build at current mirror behavior.
+
+File size: cap area files near 1 MB by splitting a corridor into segment files if needed; the board loader is already lazy per area.
+
+Owner question before building: buffer width. 1 km keeps files small and misses some side trails; 2 km roughly doubles capture and size. Default proposal is 1.5 km.

@@ -4,7 +4,7 @@ Every Washington backpacking landscape Switchback tracks, from rec.gov
 quota systems to fully dispersed wilderness. Generated from
 parks/atlas.json; edit the JSON, not this file.
 
-Status counts: 3 live (bookable itineraries), 24 trails on the map, 4 planned, 0 not suitable
+Status counts: 3 live (bookable itineraries), 27 trails on the map, 1 planned, 0 not suitable
 
 ## National parks
 
@@ -12,7 +12,7 @@ Status counts: 3 live (bookable itineraries), 24 trails on the map, 4 planned, 0
 |---|---|---|---|
 | Mount Rainier NP | rec.gov quota | live (bookable itineraries) | Wonderland, Summerland |
 | Olympic NP | rec.gov quota | live (bookable itineraries) | Lena region live; Grand Valley |
-| North Cascades NP | NPS advance/walk-up | planned | Stephen Mather Wilderness; Copper Ridge, Sahale |
+| North Cascades NP | NPS advance/walk-up | trails on the map | Stephen Mather Wilderness; Copper Ridge, Sahale |
 
 ## Wilderness areas (USFS)
 
@@ -48,17 +48,17 @@ Status counts: 3 live (bookable itineraries), 24 trails on the map, 4 planned, 0
 
 | Area | Permit | Status | Notes |
 |---|---|---|---|
-| Juniper Dunes | none | planned | trailless dunes, no water |
+| Juniper Dunes | none | trails on the map | trailless dunes, no water |
 
 ## Other public lands
 
 | Area | Permit | Status | Notes |
 |---|---|---|---|
-| Mount St. Helens NVM (Loowit) | none for backpack sections | planned | blast zone circumnavigation |
+| Mount St. Helens NVM (Loowit) | none for backpack sections | trails on the map | blast zone circumnavigation |
 
 ## Long trails
 
 | Area | Permit | Status | Notes |
 |---|---|---|---|
-| Pacific Crest Trail (WA) | none statewide | planned | corridor treatment later |
+| Pacific Crest Trail (WA) | none statewide | planned | corridor treatment designed in EXPERIMENTS.md |
 
