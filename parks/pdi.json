@@ -1,9 +1,9 @@
 {
  "olympic": {
   "4098362011": {
-   "pdi": 5,
-   "samples": 62,
-   "fullness": 0.048,
+   "pdi": 9,
+   "samples": 80,
+   "fullness": 0.087,
    "weekend_premium": 0,
    "sellout_velocity": null
   }
@@ -16,9 +16,16 @@
    "weekend_premium": 0,
    "sellout_velocity": null
   },
+  "46753170005": {
+   "pdi": 14,
+   "samples": 49,
+   "fullness": 0.143,
+   "weekend_premium": -7,
+   "sellout_velocity": null
+  },
   "46753170006": {
    "pdi": 0,
-   "samples": 31,
+   "samples": 47,
    "fullness": 0.0,
    "weekend_premium": 0,
    "sellout_velocity": null
@@ -30,6 +37,13 @@
    "weekend_premium": 0,
    "sellout_velocity": null
   },
+  "46753170015": {
+   "pdi": 0,
+   "samples": 34,
+   "fullness": 0.0,
+   "weekend_premium": null,
+   "sellout_velocity": null
+  },
   "46753170022": {
    "pdi": 0,
    "samples": 31,
@@ -39,32 +53,53 @@
   },
   "46753170029": {
    "pdi": 3,
-   "samples": 31,
+   "samples": 62,
    "fullness": 0.032,
    "weekend_premium": 7,
    "sellout_velocity": null
   },
-  "46753170051": {
+  "46753170037": {
+   "pdi": 15,
+   "samples": 48,
+   "fullness": 0.146,
+   "weekend_premium": 14,
+   "sellout_velocity": null
+  },
+  "46753170040": {
    "pdi": 0,
-   "samples": 35,
+   "samples": 34,
    "fullness": 0.0,
    "weekend_premium": null,
+   "sellout_velocity": null
+  },
+  "46753170051": {
+   "pdi": 0,
+   "samples": 51,
+   "fullness": 0.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
+  },
+  "46753170058": {
+   "pdi": 0,
+   "samples": 49,
+   "fullness": 0.0,
+   "weekend_premium": 0,
    "sellout_velocity": null
   }
  },
  "glacier": {
   "4675321022": {
-   "pdi": 96,
-   "samples": 49,
-   "fullness": 0.959,
-   "weekend_premium": -3,
+   "pdi": 94,
+   "samples": 65,
+   "fullness": 0.938,
+   "weekend_premium": 1,
    "sellout_velocity": null
   },
   "4675321024": {
-   "pdi": 100,
-   "samples": 31,
-   "fullness": 1.0,
-   "weekend_premium": 0,
+   "pdi": 98,
+   "samples": 47,
+   "fullness": 0.979,
+   "weekend_premium": 2,
    "sellout_velocity": null
   },
   "4675321025": {
@@ -80,12 +115,19 @@
    "fullness": 0.968,
    "weekend_premium": -7,
    "sellout_velocity": null
+  },
+  "4675321028": {
+   "pdi": 100,
+   "samples": 31,
+   "fullness": 1.0,
+   "weekend_premium": 0,
+   "sellout_velocity": null
   }
  },
  "maroonbells": {
   "4675333008": {
    "pdi": 100,
-   "samples": 50,
+   "samples": 49,
    "fullness": 1.0,
    "weekend_premium": 0,
    "sellout_velocity": null
@@ -119,10 +161,10 @@
    "sellout_velocity": null
   },
   "4675333028": {
-   "pdi": 69,
-   "samples": 48,
-   "fullness": 0.688,
-   "weekend_premium": 6,
+   "pdi": 68,
+   "samples": 47,
+   "fullness": 0.681,
+   "weekend_premium": 7,
    "sellout_velocity": null
   },
   "4675333030": {
