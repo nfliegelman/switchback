@@ -19,6 +19,7 @@ is deleted; the solver simply respects the flag.
 import json
 import os
 import re
+import time
 from datetime import datetime, timezone
 
 from .api import get_permit_content, parse_description
@@ -133,6 +134,46 @@ def save_park(park, out_dir="parks"):
     with open(path, "w") as fh:
         json.dump(park, fh, indent=1)
     return path
+
+
+def merge_dual_inventory(slug, extra_permit_id, out_dir="parks"):
+    """Attach a second reservation inventory to matching camps by
+    normalized division name (v2.21, built for the IPW 3-days-in-advance
+    permit; generic so the Enchantments daily lottery can reuse it).
+    Idempotent: re-running refreshes rather than duplicates. Returns
+    (matched, unmatched_extra_names)."""
+    from .api import get_permit_content
+    park = _load_park_raw(slug, out_dir)
+    payload, err = get_permit_content(str(extra_permit_id))
+    if err:
+        raise SystemExit(f"permitcontent {extra_permit_id} failed: {err}")
+    extra = {_norm_lite(d["name"]): str(d["id"])
+             for d in (payload.get("divisions") or {}).values()
+             if d.get("name")}
+    matched, used = 0, set()
+    for camp in park["camps"]:
+        if not camp.get("included"):
+            continue
+        div = extra.get(_norm_lite(camp["name"]))
+        if not div:
+            continue
+        inv = [i for i in camp.get("inventories") or []
+               if i.get("permit_id") != str(extra_permit_id)]
+        inv.append({"permit_id": str(extra_permit_id), "division_id": div})
+        camp["inventories"] = inv
+        matched += 1
+        used.add(_norm_lite(camp["name"]))
+    merged = [m for m in park.get("merged_inventories", [])
+              if m.get("permit_id") != str(extra_permit_id)]
+    merged.append({"permit_id": str(extra_permit_id),
+                   "name": (payload.get("name", "")
+                            .replace("\u2013", "-").replace("\u2014", "-")),
+                   "matched": matched,
+                   "merged_at": time.strftime("%Y-%m-%d")})
+    park["merged_inventories"] = merged
+    save_park(park, out_dir)
+    unmatched = sorted(n for n in extra if n not in used)
+    return matched, unmatched
 
 
 def load_park(slug, out_dir="parks"):

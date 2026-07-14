@@ -36,6 +36,30 @@ def main():
     s = Solver(g, av, party=2, nights=2, max_mi=13.0, max_gain=4000)
     rows = s.batch(g.entrances(), D0, D0)
     assert rows, "LLL always-open must guarantee itineraries"
+
+    # Dual-inventory merge (v2.21): a camp listing a second (permit,
+    # division) pair fetches both and MAX-merges, never sums. Party 2
+    # with 1 remaining in each inventory stays unbookable.
+    g.nodes[ull]["inventories"] = [{"permit_id": "9990001",
+                                    "division_id": "D9"}]
+    calls2 = []
+    def fetch2(pid, divs, start, end):
+        calls2.append((pid, tuple(sorted(divs))))
+        val = {"4098362": 1, "9990001": 1}[pid]
+        return {d: {(D0 + timedelta(days=i)).isoformat(): val
+                    for i in range(4)} for d in divs}
+    av2 = fetch_for_graph(g, g.camps(), D0, D0 + timedelta(days=3),
+                          fetch_fn=fetch2)
+    assert sorted(c[0] for c in calls2) == ["4098362", "9990001"], calls2
+    assert av2[ull][D0.isoformat()] == 1, "max-merge, not sum"
+    def fetch3(pid, divs, start, end):
+        val = {"4098362": 0, "9990001": 2}[pid]
+        return {d: {(D0 + timedelta(days=i)).isoformat(): val
+                    for i in range(4)} for d in divs}
+    av3 = fetch_for_graph(g, g.camps(), D0, D0 + timedelta(days=3),
+                          fetch_fn=fetch3)
+    assert av3[ull][D0.isoformat()] == 2, "second inventory rescues the night"
+    g.nodes[ull]["inventories"] = None
     seqs = {r["seq"] for r in rows}
     assert (lll, ull) in seqs, "the cross-boundary chain LLL then ULL must exist"
 

@@ -218,6 +218,15 @@ def cmd_area(args):
     build_area(args.slug)
 
 
+def cmd_merge_inventory(args):
+    from .extract import merge_dual_inventory
+    matched, unmatched = merge_dual_inventory(args.slug, args.permit_id)
+    print(f"{matched} camps now carry permit {args.permit_id} as a second "
+          f"inventory")
+    if unmatched:
+        print(f"  unmatched extra divisions: {', '.join(unmatched)}")
+
+
 def cmd_geometry(args):
     from .geometry import harvest
     routed, fallbacks, lines = harvest(args.slug, dry=args.dry)
@@ -358,6 +367,12 @@ def main():
 
     pr = sub.add_parser("profile", help="show the saved effort profile")
     pr.set_defaults(fn=cmd_profile)
+
+    mi = sub.add_parser("merge-inventory", help="attach a second rec.gov "
+                        "permit's divisions to a park's camps by name")
+    mi.add_argument("slug")
+    mi.add_argument("permit_id")
+    mi.set_defaults(fn=cmd_merge_inventory)
 
     ex = sub.add_parser("extract", help="write parks/<slug>.json from a permit")
     ex.add_argument("permit_id")

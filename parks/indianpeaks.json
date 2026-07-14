@@ -31,7 +31,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "Y",
-   "on_trail": ""
+   "on_trail": "",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319019"
+    }
+   ]
   },
   {
    "id": "4675318020",
@@ -67,7 +73,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10000,
-   "coords_note": "snapped to the Buchanan Pass trail 2026-07-13 (terminus trick)"
+   "coords_note": "snapped to the Buchanan Pass trail 2026-07-13 (terminus trick)",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319021"
+    }
+   ]
   },
   {
    "id": "4675318022",
@@ -105,7 +117,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 11150,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "curated zone center 2026-07-13, QA queued",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319023"
+    }
+   ]
   },
   {
    "id": "4675318024",
@@ -143,7 +161,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 9800,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "curated zone center 2026-07-13, QA queued",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319025"
+    }
+   ]
   },
   {
    "id": "4675318026",
@@ -179,7 +203,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "Y",
-   "on_trail": ""
+   "on_trail": "",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319027"
+    }
+   ]
   },
   {
    "id": "4675318028",
@@ -213,7 +243,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "Y",
-   "on_trail": "north,; Four Lakes BZ on the south"
+   "on_trail": "north,; Four Lakes BZ on the south",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319001"
+    }
+   ]
   },
   {
    "id": "4675318002",
@@ -249,7 +285,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10020,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "curated zone center 2026-07-13, QA queued",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319029"
+    }
+   ]
   },
   {
    "id": "4675318030",
@@ -287,7 +329,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 11160,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "curated zone center 2026-07-13, QA queued",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319003"
+    }
+   ]
   },
   {
    "id": "4675318004",
@@ -325,7 +373,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10940,
-   "coords_note": "anchored to OSM 2026-07-13"
+   "coords_note": "anchored to OSM 2026-07-13",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319005"
+    }
+   ]
   },
   {
    "id": "4675318006",
@@ -361,7 +415,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "Y",
-   "on_trail": "north"
+   "on_trail": "north",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319007"
+    }
+   ]
   },
   {
    "id": "4675318008",
@@ -395,7 +455,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "",
-   "on_trail": ""
+   "on_trail": "",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319031"
+    }
+   ]
   },
   {
    "id": "4675318032",
@@ -431,7 +497,13 @@
    "water_lake_flag": "Y",
    "on_trail": "",
    "elevation_ft": 10814,
-   "coords_note": "curated zone center 2026-07-13, QA queued"
+   "coords_note": "curated zone center 2026-07-13, QA queued",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319009"
+    }
+   ]
   },
   {
    "id": "4675318010",
@@ -467,7 +539,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "Y",
-   "on_trail": "south by national forest; by the James Peak Wilderness"
+   "on_trail": "south by national forest; by the James Peak Wilderness",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319011"
+    }
+   ]
   },
   {
    "id": "4675318012",
@@ -501,7 +579,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "",
-   "on_trail": "north The most common Trailhead (TH) to access this BZ is the Middle St"
+   "on_trail": "north The most common Trailhead (TH) to access this BZ is the Middle St",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319013"
+    }
+   ]
   },
   {
    "id": "4675318014",
@@ -535,7 +619,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "Y",
-   "on_trail": ""
+   "on_trail": "",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319015"
+    }
+   ]
   },
   {
    "id": "4675318016",
@@ -569,7 +659,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "",
-   "on_trail": ""
+   "on_trail": "",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319033"
+    }
+   ]
   },
   {
    "id": "4675318034",
@@ -603,7 +699,13 @@
    "included": true,
    "exclude_reason": null,
    "water_lake_flag": "Y",
-   "on_trail": "north,; Middle Boulder BZ on the south"
+   "on_trail": "north,; Middle Boulder BZ on the south",
+   "inventories": [
+    {
+     "permit_id": "4675319",
+     "division_id": "4675319017"
+    }
+   ]
   },
   {
    "id": "4675318018",
@@ -800,6 +902,14 @@
    "is_entry": true,
    "is_exit": true,
    "division_ids": []
+  }
+ ],
+ "merged_inventories": [
+  {
+   "permit_id": "4675319",
+   "name": "Indian Peaks Wilderness Overnight Permits - 3 Days in Advance",
+   "matched": 17,
+   "merged_at": "2026-07-14"
   }
  ]
 }

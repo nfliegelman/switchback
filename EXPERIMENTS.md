@@ -31,3 +31,7 @@ Trails: tile the corridor bbox chain into segments of about 0.3 degrees and run 
 File size: cap area files near 1 MB by splitting a corridor into segment files if needed; the board loader is already lazy per area.
 
 Owner question before building: buffer width. 1 km keeps files small and misses some side trails; 2 km roughly doubles capture and size. Default proposal is 1.5 km.
+
+## Item 3 completion (2026-07-14): IPW dual-permit merge live
+
+The schema blocker is gone: camps carry an optional inventories list of extra (permit_id, division_id) pairs, fetch_for_graph fetches every inventory and MAX-merges per date (a party books within one inventory, so sum would overstate). merge-inventory <slug> <permit_id> attaches a second permit by normalized division name; on Indian Peaks it matched all 17 zones of the 3-days-in-advance permit 4675319 exactly, zero Group false-matches, idempotent on re-run. Live proof July 15 to 17: Cascade Creek on July 16 had 5 spots open only on the 3-day channel, a night the full-season permit alone called closed. The shared report carries a NOTE naming the short-release channel. Enchantments (233273 plus daily 445863) reuses this machinery when its turn comes.

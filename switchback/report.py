@@ -30,6 +30,12 @@ def format_trips(g, scorer, ranked, pref_mi, pref_gain, nights, party,
              f"{len(shown)} distinct routes, party {party}, "
              f"max {max_mi} mi / {max_gain} ft, "
              f"trip type {trip_type}, ranked:"]
+    if getattr(g, "park", {}).get("merged_inventories"):
+        pids = ", ".join(m["permit_id"]
+                         for m in g.park["merged_inventories"])
+        lines.append(f"  NOTE: zones here also draw on a short-release "
+                     f"inventory (permit {pids}); near-term openings may "
+                     f"come from that channel and book separately.")
     if trip_type and trip_type != "any":
         lines.append(f"  FILTER ACTIVE: only {trip_type} trips are shown. "
                      "Routes of every other shape were discarded before "

@@ -114,6 +114,7 @@ class Graph:
                                    else None,
                                "permit_id": camp.get(
                                    "permit_id", self.park.get("permit_id")),
+                               "inventories": camp.get("inventories"),
                                "policy": camp.get("policy", "reservation")}
         return nid
 

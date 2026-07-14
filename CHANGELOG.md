@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.21.0 (2026-07-14)
+
+Item 3, the dual-permit merge. Camps can now carry extra reservation inventories; the availability choke point fetches all of them and MAX-merges per date, since a party books within one inventory. A new merge-inventory command attaches a second permit by normalized division name. Indian Peaks is the first dual park: all 17 zones matched the 3-days-in-advance permit 4675319 exactly (zero Group false-matches), and the live proof found Cascade Creek on July 16 bookable only through the 3-day channel. The shared report labels the short-release channel honestly; watch mode is unchanged. Semantics are pinned in tests: max not sum, both permits fetched, second inventory can rescue a night.
+
 ## v2.20.0 (2026-07-14)
 
 Item 2, the boundary source expansion. A six-source boundary registry (USFS wilderness, NPS units, wilderness.net all-agency, BLM WSA, USFS designated areas, PAD-US) replaces the single USFS service, and eleven planned rows became built maps in one pass: Black Canyon of the Gunnison, Gunnison Gorge, Dominguez Canyon, Black Ridge Canyons, Handies Peak WSA, Hermosa Creek SMA, Browns Canyon NM, Colorado State Forest SP, North Cascades NP, Juniper Dunes, and Mount St. Helens NVM. About 6,090 new trail miles; 83 built landscapes systemwide. A mileage-weighted containment audit cleared all eleven against Weminuche and Goat Rocks controls and retired the node-fraction variant, which underreads systematically. The three long-trail corridor rows now carry a written design in EXPERIMENTS.md and wait as their own build.

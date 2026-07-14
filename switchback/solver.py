@@ -53,7 +53,14 @@ def fetch_for_graph(g, camps, start, end, fetch_fn=None, workers=6):
     permit, grouped so each permit is hit once; permitless and first-come
     camps (policy none or fcfs) get a synthetic always-open series, since
     no reservation system exists to ask. Callers label those nights
-    honestly; the solver just sees open."""
+    honestly; the solver just sees open.
+
+    Dual-inventory camps (v2.21): a camp may list extra inventories
+    (permit_id, division_id pairs, e.g. the IPW 3-days-in-advance permit
+    mirroring the full-season zones). Every inventory is fetched and the
+    per-date values are MAX-merged, never summed: a party books within
+    one inventory, so the bookable count for the night is the best any
+    single inventory offers."""
     fetch = fetch_fn or fetch_availability
     groups, synth = {}, []
     for c in camps:
@@ -63,12 +70,16 @@ def fetch_for_graph(g, camps, start, end, fetch_fn=None, workers=6):
             continue
         pid = n.get("permit_id") or g.park.get("permit_id")
         groups.setdefault(pid, {})[n["division_id"]] = c
+        for inv in n.get("inventories") or []:
+            groups.setdefault(inv["permit_id"], {})[inv["division_id"]] = c
     out = {}
     for pid, divmap in groups.items():
         raw = fetch(pid, list(divmap), start, end)
         for d, days in raw.items():
             if d in divmap:
-                out[divmap[d]] = days
+                cur = out.setdefault(divmap[d], {})
+                for ds, v in days.items():
+                    cur[ds] = max(cur.get(ds, 0), v)
     if synth:
         dates = []
         d = start
