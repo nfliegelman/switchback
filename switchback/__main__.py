@@ -218,6 +218,11 @@ def cmd_area(args):
     build_area(args.slug)
 
 
+def cmd_corridor(args):
+    from .corridor import build_corridor
+    build_corridor(args.slug, max_tiles=args.max_tiles)
+
+
 def cmd_dem_trail(args):
     from .dem import dem_trail
     updated, skipped, lines = dem_trail(args.slug, dry=args.dry)
@@ -377,6 +382,12 @@ def main():
 
     pr = sub.add_parser("profile", help="show the saved effort profile")
     pr.set_defaults(fn=cmd_profile)
+
+    co = sub.add_parser("corridor", help="build a long-trail corridor "
+                        "area: buffered centerline plus tiled trails")
+    co.add_argument("slug")
+    co.add_argument("--max-tiles", type=int, default=8)
+    co.set_defaults(fn=cmd_corridor)
 
     dt = sub.add_parser("dem-trail", help="regrade est gains by sampling "
                         "elevation along real trail polylines")

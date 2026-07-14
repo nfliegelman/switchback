@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.24.0 (2026-07-14)
+
+The Colorado Trail is on the map as the corridor pilot: 485 miles of centerline buffered 1.5 km into a boundary, 23 resumable tiles, 2,687 trail miles clipped to the corridor, 991 KB. The corridor builder is generic (corridor <slug> --max-tiles N) and per-tile failures retry on the next run instead of killing the build.
+
 ## v2.23.0 (2026-07-14)
 
 dem_trail_v1: gains sampled along real trail polylines. The benchmark chain lands within one percent of the GPS log (6,544 vs 6,450). Rainier and Glacier regraded; pass-arithmetic parks untouched by tier; reruns idempotent. The Elk Range mystery closed in the geometry's favor: Maroon Zone to North Fork is 11.53 trail miles, not the stored 7.19, replaced per policy with the curated value preserved. The sorted-key orientation invariant is now enforced inside the grader after the first run counted descents as climbs.

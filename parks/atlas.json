@@ -499,9 +499,15 @@
    "name": "Colorado Trail",
    "cat": "long trail",
    "permit": "none statewide",
-   "status": "planned",
+   "status": "map",
    "notes": "485 mi corridor; crosses six wildernesses; corridor treatment designed in EXPERIMENTS.md",
-   "state": "CO"
+   "state": "CO",
+   "slug": "coloradotrail",
+   "boundary": {
+    "src": "corridor",
+    "relation": 3445384,
+    "buffer_km": 1.5
+   }
   },
   {
    "name": "Continental Divide Trail (CO)",
@@ -509,7 +515,13 @@
    "permit": "none statewide",
    "status": "planned",
    "notes": "corridor treatment designed in EXPERIMENTS.md",
-   "state": "CO"
+   "state": "CO",
+   "slug": "cdtco",
+   "boundary": {
+    "src": "corridor",
+    "relation": null,
+    "buffer_km": 1.5
+   }
   },
   {
    "name": "Mount Rainier NP",
@@ -825,7 +837,13 @@
    "permit": "none statewide",
    "status": "planned",
    "notes": "corridor treatment designed in EXPERIMENTS.md",
-   "state": "WA"
+   "state": "WA",
+   "slug": "pctwa",
+   "boundary": {
+    "src": "corridor",
+    "relation": null,
+    "buffer_km": 1.5
+   }
   }
  ]
 }
