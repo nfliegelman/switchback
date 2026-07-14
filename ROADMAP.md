@@ -115,3 +115,12 @@ Sequenced for the current reality: the owner is phone-only until at least July 1
 - v2.14 [SHIPPED same day]: the Washington map wave, 21 areas and about 9,000 trail miles; 43 built landscapes systemwide.
 - v2.15 [SHIPPED same day]: the Colorado map wave, 27 areas and about 12,000 trail miles; 70 built landscapes systemwide.
 - Beyond: dispersed itineraries experiment (auto camp nodes from named lakes and basins, synthetic availability, pilot one Weminuche drainage); GPX patch channel (owner traces win over everything); dem_trail_v1 (elevation along real polylines); Archetype B trailhead-quota parks (Yosemite, SEKI); RMNP corridor buildout; scoring calibration when the owner can react.
+
+
+## v3.0.0 shipped (2026-07-14)
+
+The eight-rung ladder ran in one day: v2.22 QA sweep and the Enchantments dual, v2.23 dem_trail within one percent of GPS, v2.24 and v2.25 the three corridors, v2.26 the RMNP buildout and the Pawnee-Buchanan closure, v2.27 dispersed wave 2 (one shipped, two dropped by their own gates), v2.28 clip toggle and GPX export, v2.29 the calibration scaffold. Every planned atlas row is built.
+
+## v3.x horizon (unscheduled, in rough order of pull)
+
+Calibration fold-in the session after CALIBRATION_NOTES.md comes back filled. Dispersed candidate criteria pass (upper-basin reach, orphan check) to revive Blue Lakes and Highland Mary. Pilot inline-geometry carry-through. Archetype B parks (trailhead-quota systems, Yosemite style). Seasonal winter divisions. Corridor buffer revisit if the 1.5 km default gets vetoed. Monetization gates G1 to G3 stay parked where they were.

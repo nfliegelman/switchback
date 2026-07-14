@@ -1,5 +1,8 @@
 # Switchback
 
+Switchback v3.0.0. A constraint-based backcountry itinerary engine: 72 landscape maps across Colorado and Washington (wilderness, parks, monuments, state lands, and the CT, CDT-CO, and PCT-WA corridors), live rec.gov availability with dual-permit merging, trail-true elevation grading within one percent of GPS logs, an experimental dispersed layer, a PWA map with a rubber-band route builder and GPX export, cloud watching with Telegram alerts, and a scoring layer waiting on its owner's calibration half hour. HANDOFF.md carries the decision log; OWNER.md carries the human's side; ROADMAP.md carries what v3.x means.
+
+
 Backcountry permit availability, trip planning, and effort math, automated. A switchback is the trail's answer to terrain too steep to climb in one go; this project does the same thing to backcountry itineraries.
 
 ## Quickstart

@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.0.0 (2026-07-14)
+
+The trustworthy-planner release. Everything the v3 definition demanded is in: gains graded on real trails, every planned landscape built including the three long corridors, the dual-permit layer live in two parks, dispersed camping surfaced behind an experimental flag with its own honesty gates, the map able to clip and export, alerts one secrets-paste from armed, and calibration one filled sheet from personal. The invariant sweep passed: eleven graphed parks load, 72 areas in the manifest, tests green, dash gate clean. What is deliberately not here is recorded in ROADMAP.md as the v3.x horizon.
+
 ## v2.29.0 (2026-07-14)
 
 The calibration build, scaffolded to the owner gate. A calibrate command runs a real search, prints the top ten with the score decomposed (day fit, camp percentile, lake nights), and writes docs/CALIBRATION_NOTES.md with a reaction line under every route; the fold into scoring.json happens the session after Noah fills it. The PDI audit ran and returned a finding: the committed history snapshot is empty, so percentile re-norm is not ready and the cloud watcher's cache is the open question, checkable once the Telegram secrets land.
