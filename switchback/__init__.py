@@ -1,5 +1,5 @@
 """Switchback: backcountry permit availability and trip planning engine."""
-__version__ = "2.24.0"
+__version__ = "2.25.0"
 
 from .api import (search_permits, get_divisions, fetch_division_month,
                   classify_status, daterange, fetch_availability_rows,

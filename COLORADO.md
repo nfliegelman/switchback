@@ -4,7 +4,7 @@ Every Colorado backpacking landscape Switchback tracks, from rec.gov
 quota systems to fully dispersed wilderness. Generated from
 parks/atlas.json; edit the JSON, not this file.
 
-Status counts: 4 live (bookable itineraries), 42 trails on the map, 2 planned, 1 not suitable
+Status counts: 4 live (bookable itineraries), 44 trails on the map, 0 planned, 1 not suitable
 
 ## National parks
 
@@ -77,6 +77,6 @@ Status counts: 4 live (bookable itineraries), 42 trails on the map, 2 planned, 1
 
 | Area | Permit | Status | Notes |
 |---|---|---|---|
-| Colorado Trail | none statewide | planned | 485 mi corridor; crosses six wildernesses; corridor treatment designed in EXPERIMENTS.md |
-| Continental Divide Trail (CO) | none statewide | planned | corridor treatment designed in EXPERIMENTS.md |
+| Colorado Trail | none statewide | trails on the map | 485 mi corridor; crosses six wildernesses; corridor treatment designed in EXPERIMENTS.md |
+| Continental Divide Trail (CO) | none statewide | trails on the map | corridor treatment designed in EXPERIMENTS.md |
 

@@ -4,7 +4,7 @@ Every Washington backpacking landscape Switchback tracks, from rec.gov
 quota systems to fully dispersed wilderness. Generated from
 parks/atlas.json; edit the JSON, not this file.
 
-Status counts: 3 live (bookable itineraries), 27 trails on the map, 1 planned, 0 not suitable
+Status counts: 3 live (bookable itineraries), 28 trails on the map, 0 planned, 0 not suitable
 
 ## National parks
 
@@ -60,5 +60,5 @@ Status counts: 3 live (bookable itineraries), 27 trails on the map, 1 planned, 0
 
 | Area | Permit | Status | Notes |
 |---|---|---|---|
-| Pacific Crest Trail (WA) | none statewide | planned | corridor treatment designed in EXPERIMENTS.md |
+| Pacific Crest Trail (WA) | none statewide | trails on the map | corridor treatment designed in EXPERIMENTS.md |
 

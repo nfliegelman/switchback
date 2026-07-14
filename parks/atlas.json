@@ -513,13 +513,13 @@
    "name": "Continental Divide Trail (CO)",
    "cat": "long trail",
    "permit": "none statewide",
-   "status": "planned",
+   "status": "map",
    "notes": "corridor treatment designed in EXPERIMENTS.md",
    "state": "CO",
    "slug": "cdtco",
    "boundary": {
     "src": "corridor",
-    "relation": null,
+    "relation": 19113150,
     "buffer_km": 1.5
    }
   },
@@ -835,13 +835,13 @@
    "name": "Pacific Crest Trail (WA)",
    "cat": "long trail",
    "permit": "none statewide",
-   "status": "planned",
+   "status": "map",
    "notes": "corridor treatment designed in EXPERIMENTS.md",
    "state": "WA",
    "slug": "pctwa",
    "boundary": {
     "src": "corridor",
-    "relation": null,
+    "relation": 1225378,
     "buffer_km": 1.5
    }
   }

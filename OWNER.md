@@ -20,4 +20,6 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 
 ## Done (kept for the record)
 
+- 2026-07-14: all three long-trail corridors built at your 1.5 km default; veto window stays open, a rebuild is one command per corridor.
+
 - 2026-07-14: pushed v2.20.0 and v2.21.0 to GitHub with tags (Claude, with your PAT).

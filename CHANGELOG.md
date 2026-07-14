@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.25.0 (2026-07-14)
+
+The corridor set completes: CDT Colorado (relation 19113150, 3,305 trail miles, 30 tiles with 22 reused from the CT via the new shared tile cache) and PCT Washington (relation 1225378 clipped to the state, 2,468 miles, 21 tiles). Atlas planned rows: zero. The CDT file runs 1,148 KB, fifteen percent over the soft cap, accepted with lazy loading rather than split.
+
 ## v2.24.0 (2026-07-14)
 
 The Colorado Trail is on the map as the corridor pilot: 485 miles of centerline buffered 1.5 km into a boundary, 23 resumable tiles, 2,687 trail miles clipped to the corridor, 991 KB. The corridor builder is generic (corridor <slug> --max-tiles N) and per-tile failures retry on the next run instead of killing the build.

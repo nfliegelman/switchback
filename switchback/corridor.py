@@ -96,8 +96,12 @@ def _tiles(poly, sx, sy):
 
 
 def _tile_cache(slug, t):
+    """Tiles are pure bbox fetches, so the cache is slug-independent
+    and corridors share coverage; the legacy per-slug path still reads."""
     key = hashlib.sha1(json.dumps(t).encode()).hexdigest()[:16]
-    return os.path.join(CACHE_DIR, f"trails_area_{slug}_{key}.json")
+    shared = os.path.join(CACHE_DIR, f"trails_tile_{key}.json")
+    legacy = os.path.join(CACHE_DIR, f"trails_area_{slug}_{key}.json")
+    return legacy if os.path.exists(legacy) and not         os.path.exists(shared) else shared
 
 
 def _fetch_tile(t):
