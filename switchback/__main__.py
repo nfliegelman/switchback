@@ -218,6 +218,70 @@ def cmd_area(args):
     build_area(args.slug)
 
 
+def cmd_calibrate(args):
+    """The owner's half hour: run a real search, print the top ten with
+    the score broken into its components, and write a reaction sheet to
+    docs/CALIBRATION_NOTES.md. Reactions fold into scoring.json in the
+    session after Noah fills the sheet. --pdi-check audits whether the
+    committed demand history is deep enough to re-norm percentiles."""
+    import json as _j
+    import os as _o
+    import sqlite3 as _s
+    if args.pdi_check:
+        path = _o.path.join("data", "history.sqlite")
+        if not _o.path.exists(path):
+            print("PDI: no committed snapshot at data/history.sqlite")
+            return
+        con = _s.connect(path)
+        tabs = [r[0] for r in con.execute(
+            "select name from sqlite_master where type='table'")]
+        if not tabs:
+            print("PDI: snapshot exists but is EMPTY (zero tables). The "
+                  "cloud watcher's cache may hold history; verify on the "
+                  "Actions page after the Telegram secrets land. "
+                  "Percentile re-norm is NOT ready.")
+            return
+        for t in tabs:
+            n = con.execute(f"select count(*) from {t}").fetchone()[0]
+            print(f"PDI: table {t}: {n} rows")
+        return
+    from datetime import date, timedelta
+    from .graph import Graph
+    from .solver import Solver, fetch_for_graph
+    from .scoring import Scorer
+    g = Graph(args.slug)
+    start = date.fromisoformat(args.start) if args.start         else date.today() + timedelta(days=2)
+    end = date.fromisoformat(args.end) if args.end         else start + timedelta(days=2)
+    av = fetch_for_graph(g, g.camps(), start, end)
+    s = Solver(g, av, party=args.party, nights=args.nights,
+               max_mi=13.0, max_gain=4000)
+    rows = s.batch(g.entrances(), start, end)[:10]
+    sc = Scorer(g)
+    for r in rows:
+        try:
+            r["breakdown"] = sc.score(r, 9.0, 2200)
+        except Exception:
+            r["breakdown"] = {}
+    lines = ["# CALIBRATION_NOTES", "",
+             f"Search: {args.slug}, {start} to {end}, "
+             f"{args.nights} nights, party {args.party}.",
+             "For each row write one reaction: too far / too flat / "
+             "wrong camps / boring / crowded / good / love it. "
+             "Add anything else that felt off.", ""]
+    for i, r in enumerate(rows, 1):
+        b = r.get("breakdown") or {}
+        names = " > ".join(g.name(c).split(" (")[0] for c in r["seq"])
+        line = (f"{i}. {names}  score {r['score']}"
+                f" (day_fit {b.get('day_fit')}, camps {b.get('camp_pct')},"
+                f" lake nights {b.get('lake_nights')})")
+        print(line)
+        lines += [line, "   REACTION: ", ""]
+    _o.makedirs("docs", exist_ok=True)
+    with open(_o.path.join("docs", "CALIBRATION_NOTES.md"), "w") as fh:
+        fh.write("\n".join(lines) + "\n")
+    print("reaction sheet written to docs/CALIBRATION_NOTES.md")
+
+
 def cmd_corridor(args):
     from .corridor import build_corridor
     build_corridor(args.slug, max_tiles=args.max_tiles)
@@ -382,6 +446,15 @@ def main():
 
     pr = sub.add_parser("profile", help="show the saved effort profile")
     pr.set_defaults(fn=cmd_profile)
+
+    ca = sub.add_parser("calibrate", help="run a search and write the "
+                        "owner reaction sheet; --pdi-check audits history")
+    ca.add_argument("slug", nargs="?", default="glacier")
+    ca.add_argument("--start"); ca.add_argument("--end")
+    ca.add_argument("--nights", type=int, default=2)
+    ca.add_argument("--party", type=int, default=2)
+    ca.add_argument("--pdi-check", action="store_true")
+    ca.set_defaults(fn=cmd_calibrate)
 
     co = sub.add_parser("corridor", help="build a long-trail corridor "
                         "area: buffered centerline plus tiled trails")

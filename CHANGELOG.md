@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.29.0 (2026-07-14)
+
+The calibration build, scaffolded to the owner gate. A calibrate command runs a real search, prints the top ten with the score decomposed (day fit, camp percentile, lake nights), and writes docs/CALIBRATION_NOTES.md with a reaction line under every route; the fold into scoring.json happens the session after Noah fills it. The PDI audit ran and returned a finding: the committed history snapshot is empty, so percentile re-norm is not ready and the cloud watcher's cache is the open question, checkable once the Telegram secrets land.
+
 ## v2.28.0 (2026-07-14)
 
 Map polish. The atlas explorer gains a clip-to-boundary toggle (midpoint-in-rings, the same test the audit uses) so pad-captured frontcountry can be hidden on demand, and the rubber-band builder gains GPX export: every committed leg is recorded in walk orientation and downloads as a GPX 1.1 track for CalTopo or AllTrails. Service worker shell bumped to v2280 so installed phones pick both up.

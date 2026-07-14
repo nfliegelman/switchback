@@ -12,7 +12,7 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 
 ## Desktop, first session back (about 45 minutes total)
 
-6. Calibration half hour, the single highest-value thing on this list. Double-click Switchback.bat, run searches for two or three real trips, and for each top-10 list note what feels wrong (too far, wrong camps, boring, crowded). Put reactions in docs/CALIBRATION_NOTES.md (template ships in v2.29) or just tell Claude. Scoring stays generic until this happens.
+6. Calibration half hour, the single highest-value thing on this list. On desktop run: python -m switchback calibrate glacier --start <date> --end <date> (repeat for maroonbells and rmnp). Each run prints the top ten with score components and writes docs/CALIBRATION_NOTES.md with a REACTION line under every route. Fill those in with anything: too far, too flat, wrong camps, boring, love it. Then hand the file to Claude and scoring.json gets fit to you. Scoring stays generic until this happens.
 7. Smoke test: click Find Trips in the old GUI once (switchback_gui.py). It compiles but no human has clicked it.
 8. Smoke test: import the shipped sample GPX (glacier_2026-09-22_BRE_GAB-GLF.gpx) into CalTopo or AllTrails. Confirm it draws.
 9. Smoke test: paste your bot token into telegram.json (copy telegram.json.example), run python -m switchback watch glacier --inject --once, confirm one Telegram message arrives.
