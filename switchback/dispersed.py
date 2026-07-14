@@ -73,14 +73,26 @@ def candidates(slug, th_pt, bbox):
 
 
 def _elev_ft(lat, lon):
-    import urllib.request, json as _j
-    try:
-        u = (f"https://epqs.nationalmap.gov/v1/json?x={lon}&y={lat}"
-             f"&units=Feet&wkid=4326&includeDate=false")
-        with urllib.request.urlopen(u, timeout=25) as r:
-            return int(float(_j.load(r)["value"]))
-    except Exception:
-        return None
+    """USGS EPQS is blocked from this egress (two failures 2026-07-13),
+    so OpenTopoData NED 10m leads with open-elevation as fallback; both
+    return meters, converted to feet."""
+    import urllib.request, json as _j, time as _t
+    for u, path in (
+        (f"https://api.opentopodata.org/v1/ned10m?locations={lat},{lon}",
+         ("results", 0, "elevation")),
+        (f"https://api.open-elevation.com/api/v1/lookup?locations={lat},{lon}",
+         ("results", 0, "elevation")),
+    ):
+        try:
+            with urllib.request.urlopen(u, timeout=20) as r:
+                v = _j.load(r)
+            for k in path:
+                v = v[k]
+            _t.sleep(1.1)
+            return int(float(v) * 3.28084)
+        except Exception:
+            continue
+    return None
 
 
 def build_pilot(area_slug, park_slug, park_name, th_name, th_pt, bbox):

@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.19.0 (2026-07-13)
+
+Item 1 closed for real. Elevation gains flow into auto-generated dispersed parks via OpenTopoData NED 10m (EPQS confirmed blocked from this egress), est_gain flagged on every edge, and the Needle Creek pilot carries an experimental flag. The gains immediately proved their worth: itineraries fell from 168 to 14 under the owner's real 4000 ft daily ceiling, honest trips replacing gain-blind ones. An NPS boundary service probe is recorded for the item 2 build next session.
+
 ## v2.18.0 (2026-07-13)
 
 The session-floor sprint: items 1 and 4 of the menu, sealed honestly, with 2 and 3 deferred whole rather than started and abandoned. EPQS confirmed blocked on a second attempt, alternates recorded. The South San Juan mystery closed by audit: 79 percent of its nodes sit outside the boundary, so the thin main network is pad capture plus sparse interior mapping, and the containment audit joins the QA toolkit. The Conundrum trailhead, the oldest open question in the repo, resolved against the oracle: 8.55 miles one way to the springs, coordinate relocated to the road terminus, and the remaining straight confirmed absent on both datasets, graduated to the GPX patch channel.

@@ -7,152 +7,212 @@
   {
    "a": "ENT:Needleton Bridge (train stop)",
    "b": "P01",
-   "miles": 6.6
+   "miles": 6.6,
+   "gain_ab": 2972,
+   "est_gain": true
   },
   {
    "a": "ENT:Needleton Bridge (train stop)",
    "b": "P03",
-   "miles": 7.7
+   "miles": 7.7,
+   "gain_ab": 4280,
+   "est_gain": true
   },
   {
    "a": "ENT:Needleton Bridge (train stop)",
    "b": "P03",
-   "miles": 7.7
+   "miles": 7.7,
+   "gain_ab": 4280,
+   "est_gain": true
   },
   {
    "a": "ENT:Needleton Bridge (train stop)",
    "b": "P04",
-   "miles": 8.3
+   "miles": 8.3,
+   "gain_ab": 4801,
+   "est_gain": true
   },
   {
    "a": "ENT:Needleton Bridge (train stop)",
    "b": "P05",
-   "miles": 8.7
+   "miles": 8.7,
+   "gain_ab": 5592,
+   "est_gain": true
   },
   {
    "a": "ENT:Needleton Bridge (train stop)",
    "b": "P06",
-   "miles": 8.8
+   "miles": 8.8,
+   "gain_ab": 4479,
+   "est_gain": true
   },
   {
    "a": "ENT:Needleton Bridge (train stop)",
    "b": "P07",
-   "miles": 8.8
+   "miles": 8.8,
+   "gain_ab": 4388,
+   "est_gain": true
   },
   {
    "a": "ENT:Needleton Bridge (train stop)",
    "b": "P08",
-   "miles": 9.1
+   "miles": 9.1,
+   "gain_ab": 4089,
+   "est_gain": true
   },
   {
    "a": "P01",
    "b": "P03",
-   "miles": 1.1
+   "miles": 1.1,
+   "gain_ab": 1308,
+   "est_gain": true
   },
   {
    "a": "P01",
    "b": "P03",
-   "miles": 1.1
+   "miles": 1.1,
+   "gain_ab": 1308,
+   "est_gain": true
   },
   {
    "a": "P01",
    "b": "P04",
-   "miles": 1.7
+   "miles": 1.7,
+   "gain_ab": 1829,
+   "est_gain": true
   },
   {
    "a": "P01",
    "b": "P05",
-   "miles": 2.2
+   "miles": 2.2,
+   "gain_ab": 2620,
+   "est_gain": true
   },
   {
    "a": "P01",
    "b": "P06",
-   "miles": 2.2
+   "miles": 2.2,
+   "gain_ab": 1507,
+   "est_gain": true
   },
   {
    "a": "P01",
    "b": "P07",
-   "miles": 2.3
+   "miles": 2.3,
+   "gain_ab": 1416,
+   "est_gain": true
   },
   {
    "a": "P01",
    "b": "P08",
-   "miles": 2.5
+   "miles": 2.5,
+   "gain_ab": 1117,
+   "est_gain": true
   },
   {
    "a": "P03",
    "b": "P05",
-   "miles": 1.1
+   "miles": 1.1,
+   "gain_ab": 1312,
+   "est_gain": true
   },
   {
    "a": "P03",
    "b": "P06",
-   "miles": 3.3
+   "miles": 3.3,
+   "gain_ab": 199,
+   "est_gain": true
   },
   {
    "a": "P03",
    "b": "P07",
-   "miles": 3.4
+   "miles": 3.4,
+   "gain_ab": 108,
+   "est_gain": true
   },
   {
    "a": "P03",
    "b": "P08",
-   "miles": 3.6
+   "miles": 3.6,
+   "gain_ab": 0,
+   "est_gain": true
   },
   {
    "a": "P03",
    "b": "P05",
-   "miles": 1.1
+   "miles": 1.1,
+   "gain_ab": 1312,
+   "est_gain": true
   },
   {
    "a": "P03",
    "b": "P06",
-   "miles": 3.3
+   "miles": 3.3,
+   "gain_ab": 199,
+   "est_gain": true
   },
   {
    "a": "P03",
    "b": "P07",
-   "miles": 3.4
+   "miles": 3.4,
+   "gain_ab": 108,
+   "est_gain": true
   },
   {
    "a": "P03",
    "b": "P08",
-   "miles": 3.6
+   "miles": 3.6,
+   "gain_ab": 0,
+   "est_gain": true
   },
   {
    "a": "P04",
    "b": "P05",
-   "miles": 1.7
+   "miles": 1.7,
+   "gain_ab": 791,
+   "est_gain": true
   },
   {
    "a": "P04",
    "b": "P06",
-   "miles": 3.9
+   "miles": 3.9,
+   "gain_ab": 0,
+   "est_gain": true
   },
   {
    "a": "P04",
    "b": "P07",
-   "miles": 4.0
+   "miles": 4.0,
+   "gain_ab": 0,
+   "est_gain": true
   },
   {
    "a": "P04",
    "b": "P08",
-   "miles": 4.2
+   "miles": 4.2,
+   "gain_ab": 0,
+   "est_gain": true
   },
   {
    "a": "P05",
    "b": "P06",
-   "miles": 4.4
+   "miles": 4.4,
+   "gain_ab": 0,
+   "est_gain": true
   },
   {
    "a": "P05",
    "b": "P07",
-   "miles": 4.4
+   "miles": 4.4,
+   "gain_ab": 0,
+   "est_gain": true
   },
   {
    "a": "P05",
    "b": "P08",
-   "miles": 4.7
+   "miles": 4.7,
+   "gain_ab": 0,
+   "est_gain": true
   }
  ]
 }
