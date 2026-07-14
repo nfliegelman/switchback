@@ -1,0 +1,239 @@
+{
+ "slug": "vestalpilot",
+ "schema": 1,
+ "notes": "Auto edges; miles from the area graph, gains from USGS EPQS point elevations, est_gain flagged.",
+ "nodes": [],
+ "edges": [
+  {
+   "a": "ENT:Elk Park",
+   "b": "P02",
+   "miles": 2.9,
+   "gain_ab": 1096,
+   "est_gain": true
+  },
+  {
+   "a": "ENT:Elk Park",
+   "b": "P03",
+   "miles": 3.1,
+   "gain_ab": 1405,
+   "est_gain": true
+  },
+  {
+   "a": "ENT:Elk Park",
+   "b": "P04",
+   "miles": 3.7,
+   "gain_ab": 1329,
+   "est_gain": true
+  },
+  {
+   "a": "ENT:Elk Park",
+   "b": "P05",
+   "miles": 3.9,
+   "gain_ab": 1424,
+   "est_gain": true
+  },
+  {
+   "a": "ENT:Elk Park",
+   "b": "P06",
+   "miles": 4.0,
+   "gain_ab": 1334,
+   "est_gain": true
+  },
+  {
+   "a": "ENT:Elk Park",
+   "b": "P07",
+   "miles": 4.0,
+   "gain_ab": 1510,
+   "est_gain": true
+  },
+  {
+   "a": "ENT:Elk Park",
+   "b": "P08",
+   "miles": 4.0,
+   "gain_ab": 1347,
+   "est_gain": true
+  },
+  {
+   "a": "ENT:Elk Park",
+   "b": "P09",
+   "miles": 4.1,
+   "gain_ab": 1533,
+   "est_gain": true
+  },
+  {
+   "a": "ENT:Elk Park",
+   "b": "P10",
+   "miles": 4.2,
+   "gain_ab": 1625,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P02",
+   "miles": 2.8,
+   "gain_ab": 914,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P03",
+   "miles": 2.9,
+   "gain_ab": 1223,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P04",
+   "miles": 3.6,
+   "gain_ab": 1147,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P05",
+   "miles": 3.8,
+   "gain_ab": 1242,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P06",
+   "miles": 3.8,
+   "gain_ab": 1152,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P07",
+   "miles": 3.8,
+   "gain_ab": 1328,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P08",
+   "miles": 3.8,
+   "gain_ab": 1165,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P09",
+   "miles": 3.9,
+   "gain_ab": 1351,
+   "est_gain": true
+  },
+  {
+   "a": "P01",
+   "b": "P10",
+   "miles": 4.1,
+   "gain_ab": 1443,
+   "est_gain": true
+  },
+  {
+   "a": "P02",
+   "b": "P03",
+   "miles": 5.6,
+   "gain_ab": 309,
+   "est_gain": true
+  },
+  {
+   "a": "P02",
+   "b": "P04",
+   "miles": 6.3,
+   "gain_ab": 233,
+   "est_gain": true
+  },
+  {
+   "a": "P02",
+   "b": "P05",
+   "miles": 6.5,
+   "gain_ab": 328,
+   "est_gain": true
+  },
+  {
+   "a": "P02",
+   "b": "P06",
+   "miles": 6.5,
+   "gain_ab": 238,
+   "est_gain": true
+  },
+  {
+   "a": "P02",
+   "b": "P07",
+   "miles": 6.6,
+   "gain_ab": 414,
+   "est_gain": true
+  },
+  {
+   "a": "P02",
+   "b": "P08",
+   "miles": 6.6,
+   "gain_ab": 251,
+   "est_gain": true
+  },
+  {
+   "a": "P02",
+   "b": "P09",
+   "miles": 6.6,
+   "gain_ab": 437,
+   "est_gain": true
+  },
+  {
+   "a": "P02",
+   "b": "P10",
+   "miles": 6.8,
+   "gain_ab": 529,
+   "est_gain": true
+  },
+  {
+   "a": "P03",
+   "b": "P05",
+   "miles": 0.9,
+   "gain_ab": 19,
+   "est_gain": true
+  },
+  {
+   "a": "P03",
+   "b": "P06",
+   "miles": 0.9,
+   "gain_ab": 0,
+   "est_gain": true
+  },
+  {
+   "a": "P03",
+   "b": "P07",
+   "miles": 1.0,
+   "gain_ab": 105,
+   "est_gain": true
+  },
+  {
+   "a": "P03",
+   "b": "P08",
+   "miles": 0.9,
+   "gain_ab": 0,
+   "est_gain": true
+  },
+  {
+   "a": "P03",
+   "b": "P09",
+   "miles": 1.0,
+   "gain_ab": 128,
+   "est_gain": true
+  },
+  {
+   "a": "P03",
+   "b": "P10",
+   "miles": 1.2,
+   "gain_ab": 220,
+   "est_gain": true
+  },
+  {
+   "a": "P09",
+   "b": "P10",
+   "miles": 0.8,
+   "gain_ab": 92,
+   "est_gain": true
+  }
+ ]
+}

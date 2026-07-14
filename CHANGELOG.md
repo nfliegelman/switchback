@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.27.0 (2026-07-14)
+
+Dispersed wave 2 ships what survived its own gates: the Elk Creek pilot (vestalpilot, 10 camps from the Elk Park train stop, 33 edges, every elevation from NED 10m) passed the oracle against the drainage's published figures. Two candidates dropped whole per the standing discipline: Highland Mary produced zero gated candidates from Cunningham Gulch, and Blue Lakes failed its oracle with every camp below Lower Blue Lake plus one orphaned node, so the candidate criteria get a pass before either returns. Experimental flag on, itineraries labeled.
+
 ## v2.26.0 (2026-07-14)
 
 The RMNP buildout: 74 new sites graphed across the Glacier Gorge, Bear Lake, East Inlet, North Inlet, and Lawn Lake corridors by snapping payload coordinates onto a four-tile OSM network (400 m gate) and cutting a global subtree into 122 edges with stored geometry, all gain-graded on real polylines. Live proof: 86 camps fetched, 1,021 bookable two-night itineraries including trans-divide routes. Honest residuals on the record: 31 sites failed the snap gate and 24 sat beyond the 20-mile corridor cap or on burn-area islands. Indian Peaks gains its east side: Long Lake and Camp Dick entrances plus three measured connectors (8.9 over Pawnee, 16.0 over Buchanan, 9.9 east tie), closing the Pawnee-Buchanan horseshoe. Junction pass-through nodes ride the BELLY_JCT mechanism; the gain grader saves incrementally and resumes for free.

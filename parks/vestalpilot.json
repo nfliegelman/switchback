@@ -1,0 +1,139 @@
+{
+ "slug": "vestalpilot",
+ "name": "Weminuche Elk Creek Dispersed (experimental)",
+ "region": "colorado",
+ "notes": "EXPERIMENTAL: auto-generated dispersed park; camps policy none; gains from OpenTopoData NED 10m, est_gain flagged.",
+ "members": [],
+ "entrances": [
+  {
+   "id": "VESTALPILOT-ENT",
+   "code": "ENT",
+   "name": "ENT - Elk Park",
+   "lat": 37.72477,
+   "lon": -107.65286
+  }
+ ],
+ "camps": [
+  {
+   "id": "VESTALPILOT-P01",
+   "code": "P01",
+   "name": "P01 - Trail Junction at 0.2 mi (dispersed)",
+   "lat": 37.727,
+   "lon": -107.65164,
+   "elevation_ft": 9060,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P02",
+   "code": "P02",
+   "name": "P02 - Trail Junction at 2.9 mi (dispersed)",
+   "lat": 37.72081,
+   "lon": -107.60762,
+   "elevation_ft": 9974,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P03",
+   "code": "P03",
+   "name": "P03 - Trail Junction at 3.1 mi (dispersed)",
+   "lat": 37.74248,
+   "lon": -107.67069,
+   "elevation_ft": 10283,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P04",
+   "code": "P04",
+   "name": "P04 - Trail Junction at 3.7 mi (dispersed)",
+   "lat": 37.73978,
+   "lon": -107.68187,
+   "elevation_ft": 10207,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P05",
+   "code": "P05",
+   "name": "P05 - Trail Junction at 3.9 mi (dispersed)",
+   "lat": 37.73954,
+   "lon": -107.68521,
+   "elevation_ft": 10302,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P06",
+   "code": "P06",
+   "name": "P06 - Trail Junction at 4.0 mi (dispersed)",
+   "lat": 37.73817,
+   "lon": -107.68499,
+   "elevation_ft": 10212,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P07",
+   "code": "P07",
+   "name": "P07 - Trail Junction at 4.0 mi (dispersed)",
+   "lat": 37.73993,
+   "lon": -107.68575,
+   "elevation_ft": 10388,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P08",
+   "code": "P08",
+   "name": "P08 - Trail Junction at 4.0 mi (dispersed)",
+   "lat": 37.7382,
+   "lon": -107.68535,
+   "elevation_ft": 10225,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P09",
+   "code": "P09",
+   "name": "P09 - Trail Junction at 4.1 mi (dispersed)",
+   "lat": 37.7405,
+   "lon": -107.68583,
+   "elevation_ft": 10411,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  },
+  {
+   "id": "VESTALPILOT-P10",
+   "code": "P10",
+   "name": "P10 - Trail Junction at 4.2 mi (dispersed)",
+   "lat": 37.73744,
+   "lon": -107.68913,
+   "elevation_ft": 10503,
+   "policy": "none",
+   "water_lake_flag": "N",
+   "included": true,
+   "note": "auto-generated dispersed candidate"
+  }
+ ],
+ "experimental": true
+}
