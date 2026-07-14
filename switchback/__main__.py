@@ -225,7 +225,7 @@ def cmd_corridor(args):
 
 def cmd_dem_trail(args):
     from .dem import dem_trail
-    updated, skipped, lines = dem_trail(args.slug, dry=args.dry)
+    updated, skipped, lines = dem_trail(args.slug, dry=args.dry, force=args.force)
     print("\n".join(lines))
     print(f"{updated} edges regraded on trail geometry, "
           f"{len(skipped)} skipped")
@@ -393,6 +393,7 @@ def main():
                         "elevation along real trail polylines")
     dt.add_argument("slug")
     dt.add_argument("--dry", action="store_true")
+    dt.add_argument("--force", action="store_true", help="regrade dem_trail_v1 edges too")
     dt.set_defaults(fn=cmd_dem_trail)
 
     mi = sub.add_parser("merge-inventory", help="attach a second rec.gov "

@@ -902,6 +902,13 @@
    "is_entry": true,
    "is_exit": true,
    "division_ids": []
+  },
+  {
+   "id": "CAMPDICK",
+   "name": "Camp Dick",
+   "lat": 40.12908,
+   "lon": -105.53894,
+   "elevation_ft": null
   }
  ],
  "merged_inventories": [

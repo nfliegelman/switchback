@@ -20,9 +20,9 @@
    "miles": 1.4,
    "est_gain": true,
    "src": "NPS Wild Basin mileages",
-   "gain_ab": 577,
-   "loss_ab": 200,
-   "gain_method": "dem_line_v1"
+   "gain_ab": 266,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Pine Ridge (Snow-free average: May 21)",
@@ -40,9 +40,9 @@
    "miles": 0.6,
    "est_gain": true,
    "src": "NPS",
-   "gain_ab": 0,
-   "loss_ab": 141,
-   "gain_method": "dem_line_v1"
+   "gain_ab": 30,
+   "loss_ab": 213,
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Tahosa [Waste Bag] (Snow-free average: May 24)",
@@ -50,9 +50,9 @@
    "miles": 0.4,
    "est_gain": true,
    "src": "Ouzel Falls junction at 2.7",
-   "gain_ab": 184,
-   "loss_ab": 16,
-   "gain_method": "dem_line_v1"
+   "gain_ab": 226,
+   "loss_ab": 32,
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "WB_FALLS",
@@ -121,6 +121,1226 @@
    "gain_ab": 0,
    "loss_ab": 144,
    "gain_method": "dem_line_v1"
+  },
+  {
+   "a": "Timberline Group (Snow-free average: July 9)",
+   "b": "JCT 585",
+   "miles": 0.15,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 67,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Big Meadows Group (Snow-free average: June 13)",
+   "b": "JCT 398",
+   "miles": 0.2,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 17,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Big Meadows Group (Snow-free average: June 13)",
+   "b": "South Meadows (Snow-free average: June 13)",
+   "miles": 0.3,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 18,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Green Mountain (Snow-free average: June 13)",
+   "b": "JCT 231",
+   "miles": 0.19,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 86,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Fern Lake [Waste Bag] (Snow-free average: June 10)",
+   "b": "JCT 694",
+   "miles": 0.15,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 65,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 1038",
+   "b": "Mill Creek Basin (Snow-free average: May 18)",
+   "miles": 0.12,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 46,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 1038",
+   "b": "JCT 76",
+   "miles": 1.6,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 445,
+   "loss_ab": 695,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 1038",
+   "b": "JCT 665",
+   "miles": 0.22,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 100,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Upper Mill Creek (Snow-free average: May 22)",
+   "b": "JCT 665",
+   "miles": 0.05,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 38,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 17",
+   "b": "JCT 408",
+   "miles": 3.32,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 1695,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 17",
+   "b": "JCT 68",
+   "miles": 3.28,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 2364,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 17",
+   "b": "JCT 585",
+   "miles": 4.12,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 78,
+   "loss_ab": 1832,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Lower Granite Falls (Snow-free average: June 23)",
+   "b": "JCT 229",
+   "miles": 2.91,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 89,
+   "loss_ab": 511,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 284",
+   "b": "Moore Park (Snow-free average: May 28)",
+   "miles": 4.68,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 1605,
+   "loss_ab": 642,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 284",
+   "b": "JCT 148",
+   "miles": 2.3,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 394,
+   "loss_ab": 48,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 284",
+   "b": "Sprague Lake Accessible Site [WF] (Snow-free average: June 1)",
+   "miles": 1.61,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 44,
+   "loss_ab": 241,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Onahu Creek (Snow-free average: June 13)",
+   "b": "JCT 736",
+   "miles": 0.86,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 116,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Upper Onahu (Snow-free average: June 13)",
+   "b": "JCT 736",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "ENT:North Inlet",
+   "b": "JCT 398",
+   "miles": 5.2,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 1058,
+   "loss_ab": 118,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Ypsilon Creek (Snow-free average: May 24)",
+   "b": "JCT 910",
+   "miles": 0.21,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 49,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 561",
+   "b": "Ute Meadow Llama (Snow-free average: June 10)",
+   "miles": 8.35,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 1862,
+   "loss_ab": 1058,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 561",
+   "b": "JCT 578",
+   "miles": 1.29,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 636,
+   "loss_ab": 19,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 561",
+   "b": "ENT:Lawn Lake",
+   "miles": 0.06,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 48,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "ENT:Glacier Gorge",
+   "b": "JCT 148",
+   "miles": 0.26,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 70,
+   "loss_ab": 19,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Arch Rock (Snow-free average: May 13)",
+   "b": "JCT 84",
+   "miles": 0.34,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 88,
+   "loss_ab": 48,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "ENT:Bear Lake",
+   "b": "JCT 67",
+   "miles": 0.46,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 246,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Lower Tileston (Snow-free average: June 17)",
+   "b": "JCT 188",
+   "miles": 0.03,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 22,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 577",
+   "b": "JCT 190",
+   "miles": 2.8,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 1241,
+   "loss_ab": 33,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 577",
+   "b": "JCT 578",
+   "miles": 1.41,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 404,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 577",
+   "b": "JCT 911",
+   "miles": 0.09,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 40,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 67",
+   "b": "JCT 68",
+   "miles": 0.49,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 262,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 67",
+   "b": "JCT 665",
+   "miles": 1.65,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 61,
+   "loss_ab": 672,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 68",
+   "b": "JCT 386",
+   "miles": 1.62,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 640,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 578",
+   "b": "Upper Chipmunk (Snow-free average: June 30)",
+   "miles": 2.86,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 1525,
+   "loss_ab": 74,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Tonahutu Group/Stock (Snow-free average: July 5)",
+   "b": "Tonahutu Meadows (Snow-free average: July 3)",
+   "miles": 0.79,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 283,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Tonahutu Group/Stock (Snow-free average: July 5)",
+   "b": "JCT 585",
+   "miles": 0.38,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 212,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 76",
+   "b": "JCT 84",
+   "miles": 0.85,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 417,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 76",
+   "b": "Cub Creek (Snow-free average: May 13)",
+   "miles": 0.49,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 99,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 84",
+   "b": "Old Forest Inn [Waste Bag] (Snow-free average: May 13)",
+   "miles": 0.15,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 96,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 3929",
+   "b": "Kettle Tarn (Snow-free average: May 25)",
+   "miles": 0.25,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 63,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 3929",
+   "b": "Halfway [Waste Bag] (Snow-free average: May 31)",
+   "miles": 0.41,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 78,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 3929",
+   "b": "JCT 3024",
+   "miles": 0.49,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 134,
+   "loss_ab": 23,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Boulderfield 3 (Three 2-person tents) (Snow-free average: June 19)",
+   "b": "JCT 94",
+   "miles": 1.37,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 643,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Silvanmere (Snow-free average: June 4)",
+   "b": "JCT 3024",
+   "miles": 0.03,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 17,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 94",
+   "b": "Battle Mountain Group (Snow-free average: June 18)",
+   "miles": 1.51,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 41,
+   "loss_ab": 1114,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 94",
+   "b": "Boulder Brook Group (Snow-free average: June 17)",
+   "miles": 3.18,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 1776,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Spruce Lake Admin (Snow-free average: June 24)",
+   "b": "JCT 695",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Moore Park (Snow-free average: May 28)",
+   "b": "Goblins Forest (Snow-free average: June 7)",
+   "miles": 1.63,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 475,
+   "loss_ab": 199,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 1911",
+   "b": "JCT 1916",
+   "miles": 0.77,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 200,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 1911",
+   "b": "JCT 187",
+   "miles": 2.4,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 946,
+   "loss_ab": 146,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 1911",
+   "b": "Peregrine (Snow-free average: May 10)",
+   "miles": 0.07,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 20,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Rabbit Ears [Waste Bag] (Snow-free average: May 13)",
+   "b": "JCT 1916",
+   "miles": 0.1,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 20,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Odessa Lake (Snow-free average: June 28)",
+   "b": "JCT 390",
+   "miles": 0.1,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 52,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 1916",
+   "b": "JCT 3024",
+   "miles": 6.5,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 2595,
+   "loss_ab": 1300,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Spruce Lake (Snow-free average: June 24)",
+   "b": "JCT 695",
+   "miles": 0.06,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 20,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 386",
+   "b": "JCT 390",
+   "miles": 1.33,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 91,
+   "loss_ab": 727,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 386",
+   "b": "Sourdough (Snow-free average: July 7)",
+   "miles": 0.06,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 45,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 390",
+   "b": "JCT 391",
+   "miles": 0.73,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 424,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 391",
+   "b": "JCT 694",
+   "miles": 0.17,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 21,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 391",
+   "b": "Fern Lake Group (Snow-free average: June 10)",
+   "miles": 0.05,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Lower East Inlet (Snow-free average: May 23)",
+   "b": "JCT 194",
+   "miles": 0.1,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 82,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Boulder Brook Group (Snow-free average: June 17)",
+   "b": "Boulder Brook [Waste Bag] (Snow-free average: June 17)",
+   "miles": 0.21,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 150,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Boulder Brook Group (Snow-free average: June 17)",
+   "b": "JCT 651",
+   "miles": 3.34,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 85,
+   "loss_ab": 1095,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 651",
+   "b": "JCT 169",
+   "miles": 0.9,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 497,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 651",
+   "b": "JCT 148",
+   "miles": 0.17,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 62,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Cutbank (Snow-free average: May 21)",
+   "b": "JCT 910",
+   "miles": 0.03,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 19,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 398",
+   "b": "JCT 231",
+   "miles": 0.12,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "North Inlet Falls (Snow-free average: June 26)",
+   "b": "Pine Marten (Snow-free average: July 6)",
+   "miles": 0.16,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 59,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "North Inlet Falls (Snow-free average: June 26)",
+   "b": "JCT 422",
+   "miles": 0.19,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 117,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 910",
+   "b": "JCT 911",
+   "miles": 0.05,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 49,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 911",
+   "b": "Golden Banner (Snow-free average: May 24)",
+   "miles": 0.2,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "July Group [Waste Bag] (Snow-free average: July 14)",
+   "b": "July [Waste Bag] (Snow-free average: July 14)",
+   "miles": 0.14,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 118,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "July [Waste Bag] (Snow-free average: July 14)",
+   "b": "JCT 408",
+   "miles": 0.05,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 32,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Lawn Lake (Snow-free average: June 26)",
+   "b": "JCT 919",
+   "miles": 0.06,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 57,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Lawn Lake Stock (Snow-free average: June 26)",
+   "b": "JCT 919",
+   "miles": 0.08,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 61,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Summerland Park [Waste Bag] (Snow-free average: May 19)",
+   "b": "JCT 412",
+   "miles": 0.13,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 47,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 919",
+   "b": "JCT 190",
+   "miles": 0.66,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 171,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 408",
+   "b": "JCT 733",
+   "miles": 1.76,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 56,
+   "loss_ab": 1087,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 412",
+   "b": "Summerland Park Group (Snow-free average: May 19)",
+   "miles": 0.56,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 70,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 412",
+   "b": "JCT 417",
+   "miles": 1.24,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 261,
+   "loss_ab": 119,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 417",
+   "b": "Cascade Falls (Snow-free average: May 25)",
+   "miles": 0.53,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 167,
+   "loss_ab": 25,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 417",
+   "b": "Twinberry Group [Waste Bag] (Snow-free average: May 25)",
+   "miles": 0.12,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 60,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Cascade Falls (Snow-free average: May 25)",
+   "b": "Ptarmigan (Snow-free average: June 14)",
+   "miles": 2.88,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 444,
+   "loss_ab": 25,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Ptarmigan (Snow-free average: June 14)",
+   "b": "JCT 421",
+   "miles": 0.3,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 66,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Ptarmigan (Snow-free average: June 14)",
+   "b": "North Inlet Group/Stock (Snow-free average: June 19)",
+   "miles": 0.03,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 421",
+   "b": "JCT 422",
+   "miles": 0.6,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 251,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 421",
+   "b": "Porcupine (Snow-free average: June 25)",
+   "miles": 0.06,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 36,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 422",
+   "b": "JCT 733",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "JCT 169",
+   "b": "Andrews Creek [Waste Bag] (Snow-free average: July 2)",
+   "miles": 1.71,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 700,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 169",
+   "b": "Glacier Gorge [Waste Bag] (Snow-free average: June 19)",
+   "miles": 1.36,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 242,
+   "loss_ab": 17,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "McGregor Mountain (Snow-free average: May 30)",
+   "b": "JCT 187",
+   "miles": 0.14,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "ENT:East Inlet",
+   "b": "JCT 180",
+   "miles": 1.16,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 154,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 180",
+   "b": "JCT 194",
+   "miles": 1.06,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 172,
+   "loss_ab": 57,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 180",
+   "b": "East Meadow (Snow-free average: May 22)",
+   "miles": 0.04,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 694",
+   "b": "JCT 695",
+   "miles": 0.67,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 212,
+   "loss_ab": 80,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Cats Lair (Snow-free average: May 31)",
+   "b": "JCT 193",
+   "miles": 0.08,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 23,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Slickrock (Snow-free average: June 22)",
+   "b": "JCT 209",
+   "miles": 0.05,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Solitaire (Snow-free average: June 28)",
+   "b": "JCT 220",
+   "miles": 0.01,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Upper East Inlet (Snow-free average: July 4)",
+   "b": "JCT 219",
+   "miles": 0.04,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 35,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Lake Verna (Snow-free average: July 9)",
+   "b": "JCT 219",
+   "miles": 0.27,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 32,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 187",
+   "b": "JCT 188",
+   "miles": 2.75,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 1691,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 188",
+   "b": "JCT 190",
+   "miles": 1.04,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 246,
+   "loss_ab": 181,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 193",
+   "b": "JCT 200",
+   "miles": 1.19,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 614,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 193",
+   "b": "JCT 194",
+   "miles": 1.42,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 77,
+   "loss_ab": 565,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 200",
+   "b": "JCT 209",
+   "miles": 0.76,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 227,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 200",
+   "b": "Gray Jay Group (Snow-free average: June 11)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "JCT 209",
+   "b": "JCT 220",
+   "miles": 0.23,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 106,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "North Inlet Junction (Snow-free average: June 11)",
+   "b": "JCT 733",
+   "miles": 0.03,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 219",
+   "b": "JCT 220",
+   "miles": 0.57,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 23,
+   "loss_ab": 142,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Onahu Bridge (Snow-free average: June 17)",
+   "b": "JCT 736",
+   "miles": 0.14,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Onahu Bridge (Snow-free average: June 17)",
+   "b": "JCT 229",
+   "miles": 1.55,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 317,
+   "loss_ab": 454,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "JCT 229",
+   "b": "JCT 231",
+   "miles": 0.56,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 0,
+   "loss_ab": 63,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "North Inlet Group/Stock (Snow-free average: June 19)",
+   "b": "Grouseberry (Snow-free average: June 12)",
+   "miles": 0.1,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": true,
+   "gain_ab": 18,
+   "loss_ab": 0,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "Bighorn Mt Group/Stock (Snow-free average: June 25)",
+   "b": "Lower Tileston (Snow-free average: June 17)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Boulderfield (Snow-free average: June 19)",
+   "b": "Boulderfield 1 (One 2-person tent) (Snow-free average: June 19)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Boulderfield (Snow-free average: June 19)",
+   "b": "Boulderfield 2 (Two 2-person tents) (Snow-free average: June 19)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Boulderfield (Snow-free average: June 19)",
+   "b": "Boulderfield 3 (Three 2-person tents) (Snow-free average: June 19)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Ditch Camp (Snow-free average: June 26)",
+   "b": "Ditch Camp Group/Stock (Snow-free average: June 26)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Foot Bridge (Snow-free average: June 19)",
+   "b": "North Inlet Group/Stock (Snow-free average: June 19)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Granite Falls [Waste Bag] (Snow-free average: June 18)",
+   "b": "Lower Granite Falls (Snow-free average: June 23)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Hague Creek (Snow-free average: July 4)",
+   "b": "Hague Creek Group/Stock (Snow-free average: July 4)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
+  },
+  {
+   "a": "Renegade (Snow-free average: July 19)",
+   "b": "Tonahutu Group/Stock (Snow-free average: July 5)",
+   "miles": 0.02,
+   "src": "osm network measured, v2.26 buildout",
+   "est_gain": false,
+   "gain_ab": 0,
+   "loss_ab": 0,
+   "gain_method": "twin_tie"
   }
  ]
 }

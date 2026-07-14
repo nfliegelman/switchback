@@ -10424,6 +10424,17 @@
    "is_entry": false,
    "is_exit": false,
    "division_ids": []
+  },
+  {
+   "id": "GGTH",
+   "name": "Glacier Gorge",
+   "included": null,
+   "lat": 40.31048,
+   "lon": -105.64036,
+   "has_parking": null,
+   "is_entry": null,
+   "is_exit": null,
+   "division_ids": null
   }
  ]
 }

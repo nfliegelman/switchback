@@ -190,6 +190,36 @@
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
    "src": "group division at the same zone"
+  },
+  {
+   "a": "ENT:Long Lake",
+   "b": "Crater Lake",
+   "miles": 8.9,
+   "src": "osm network measured, v2.26 east connectors",
+   "est_gain": true,
+   "gain_ab": 2434,
+   "loss_ab": 2530,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "ENT:Camp Dick",
+   "b": "Crater Lake",
+   "miles": 15.98,
+   "src": "osm network measured, v2.26 east connectors",
+   "est_gain": true,
+   "gain_ab": 4545,
+   "loss_ab": 3108,
+   "gain_method": "dem_trail_v1"
+  },
+  {
+   "a": "ENT:Long Lake",
+   "b": "ENT:Camp Dick",
+   "miles": 9.89,
+   "src": "osm network measured, v2.26 east connectors",
+   "est_gain": true,
+   "gain_ab": 520,
+   "loss_ab": 2054,
+   "gain_method": "dem_trail_v1"
   }
  ]
 }

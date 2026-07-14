@@ -110,6 +110,9 @@ def dem_edges(slug, elev_fn=None, dry=False):
         if suspect:
             lines[-1] += "  RIDGE SUSPECT: line crosses terrain far above both endpoints; verify or use pass arithmetic"
         updated += 1
+        if not dry and updated % 12 == 0:
+            with open(path, "w") as fh:
+                json.dump(spec, fh, indent=1)
     if not dry:
         with open(path, "w") as fh:
             json.dump(spec, fh, indent=1)
@@ -178,7 +181,7 @@ def fetch_elev_trail(coords):
     return out
 
 
-def dem_trail(slug, elev_fn=None, dry=False):
+def dem_trail(slug, elev_fn=None, dry=False, force=False):
     """Trail-true gains for every edge with usable geometry. Returns
     (updated, skipped, report_lines)."""
     from .graph import Graph
@@ -193,8 +196,10 @@ def dem_trail(slug, elev_fn=None, dry=False):
     for e in spec["edges"]:
         method = e.get("gain_method", "")
         sourced = e.get("gain_ab") is not None and not e.get("est_gain")
-        if sourced or method in ("pass_arithmetic_v1",
-                                 "alltrails_derived"):
+        skip_methods = ("pass_arithmetic_v1", "alltrails_derived") \
+            if force else ("pass_arithmetic_v1", "alltrails_derived",
+                           "dem_trail_v1")
+        if sourced or method in skip_methods:
             continue
         a, b = g._resolve(e["a"]), g._resolve(e["b"])
         if not a or not b:

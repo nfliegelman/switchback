@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.26.0 (2026-07-14)
+
+The RMNP buildout: 74 new sites graphed across the Glacier Gorge, Bear Lake, East Inlet, North Inlet, and Lawn Lake corridors by snapping payload coordinates onto a four-tile OSM network (400 m gate) and cutting a global subtree into 122 edges with stored geometry, all gain-graded on real polylines. Live proof: 86 camps fetched, 1,021 bookable two-night itineraries including trans-divide routes. Honest residuals on the record: 31 sites failed the snap gate and 24 sat beyond the 20-mile corridor cap or on burn-area islands. Indian Peaks gains its east side: Long Lake and Camp Dick entrances plus three measured connectors (8.9 over Pawnee, 16.0 over Buchanan, 9.9 east tie), closing the Pawnee-Buchanan horseshoe. Junction pass-through nodes ride the BELLY_JCT mechanism; the gain grader saves incrementally and resumes for free.
+
 ## v2.25.0 (2026-07-14)
 
 The corridor set completes: CDT Colorado (relation 19113150, 3,305 trail miles, 30 tiles with 22 reused from the CT via the new shared tile cache) and PCT Washington (relation 1225378 clipped to the state, 2,468 miles, 21 tiles). Atlas planned rows: zero. The CDT file runs 1,148 KB, fifteen percent over the soft cap, accepted with lazy loading rather than split.
