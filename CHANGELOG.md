@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.23.0 (2026-07-14)
+
+dem_trail_v1: gains sampled along real trail polylines. The benchmark chain lands within one percent of the GPS log (6,544 vs 6,450). Rainier and Glacier regraded; pass-arithmetic parks untouched by tier; reruns idempotent. The Elk Range mystery closed in the geometry's favor: Maroon Zone to North Fork is 11.53 trail miles, not the stored 7.19, replaced per policy with the curated value preserved. The sorted-key orientation invariant is now enforced inside the grader after the first run counted descents as climbs.
+
 ## v2.22.0 (2026-07-14)
 
 The QA sweep plus the second dual park. Enchantments daily lottery 445863 merged onto all 5 zones in one command, proving merge-inventory generic. ELF to IPE confirmed at 9.8 by AllTrails oracle triangulation and closed; the neighboring ELF to Cosley discrepancy (PNTA 6.0 vs a community-implied 4.1) is recorded with official figures retained. The Elk Range Maroon to North Fork display mismatch is flagged geometry_suspect for the dem_trail pass to resolve. Maroon Bells Areas Outside of Permit Zones semantics decided: real dispersed inventory, stays un-graphed. OWNER.md is born: every task on the owner, phone vs desktop, updated each release.

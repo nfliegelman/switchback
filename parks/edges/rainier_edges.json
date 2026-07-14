@@ -9,230 +9,230 @@
    "b": "Pyramid Creek",
    "miles": 3.7,
    "src": "derived: WG Longmire>South Puyallup 12.8 minus WTRF legs 7.0 and 2.1",
-   "gain_ab": 1414,
-   "loss_ab": 427,
+   "gain_ab": 1300,
+   "loss_ab": 305,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Pyramid Creek",
    "b": "Devil's Dream",
    "miles": 2.1,
    "src": "WTRF",
-   "gain_ab": 1322,
-   "loss_ab": 0,
+   "gain_ab": 1320,
+   "loss_ab": 59,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Devil's Dream",
    "b": "South Puyallup",
    "miles": 7.0,
    "src": "WTRF",
-   "gain_ab": 1831,
-   "loss_ab": 2907,
+   "gain_ab": 1813,
+   "loss_ab": 2821,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "South Puyallup",
    "b": "Klapatche Park",
    "miles": 3.9,
    "src": "WTRF",
-   "gain_ab": 2303,
-   "loss_ab": 955,
+   "gain_ab": 2111,
+   "loss_ab": 651,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Klapatche Park",
    "b": "North Puyallup",
    "miles": 2.8,
    "src": "WTRF",
-   "gain_ab": 121,
-   "loss_ab": 1801,
+   "gain_ab": 27,
+   "loss_ab": 1816,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "North Puyallup",
    "b": "Golden Lakes",
    "miles": 4.8,
    "src": "WTRF; SP>GL sum 11.5 matches WG",
-   "gain_ab": 2743,
-   "loss_ab": 1309,
+   "gain_ab": 1721,
+   "loss_ab": 296,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Golden Lakes",
    "b": "South Mowich River",
    "miles": 6.0,
    "src": "WTRF, matches WG",
-   "gain_ab": 587,
-   "loss_ab": 3058,
+   "gain_ab": 147,
+   "loss_ab": 2662,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "South Mowich River",
    "b": "Mowich Lake",
    "miles": 4.3,
    "src": "WTRF; SM>Ipsut sum 9.7 matches WG",
-   "gain_ab": 2605,
-   "loss_ab": 335,
+   "gain_ab": 2332,
+   "loss_ab": 0,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Mowich Lake",
    "b": "Ipsut Creek",
    "miles": 5.4,
    "src": "WTRF",
-   "gain_ab": 1132,
-   "loss_ab": 3629,
+   "gain_ab": 194,
+   "loss_ab": 2765,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Ipsut Creek",
    "b": "Carbon River",
    "miles": 3.3,
    "src": "WTRF",
-   "gain_ab": 2510,
-   "loss_ab": 1781,
+   "gain_ab": 988,
+   "loss_ab": 153,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Carbon River",
    "b": "Dick Creek",
    "miles": 1.2,
    "src": "WTRF",
-   "gain_ab": 1145,
-   "loss_ab": 102,
+   "gain_ab": 1014,
+   "loss_ab": 0,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Dick Creek",
    "b": "Mystic",
    "miles": 3.6,
    "src": "WTRF",
-   "gain_ab": 2785,
-   "loss_ab": 1440,
+   "gain_ab": 1943,
+   "loss_ab": 607,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Mystic",
    "b": "Granite Creek",
    "miles": 4.5,
    "src": "WTRF",
-   "gain_ab": 1355,
-   "loss_ab": 1184,
+   "gain_ab": 1217,
+   "loss_ab": 1011,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Granite Creek",
    "b": "Sunrise Camp",
    "miles": 4.1,
    "src": "WTRF",
-   "gain_ab": 1975,
-   "loss_ab": 1444,
+   "gain_ab": 1423,
+   "loss_ab": 913,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Sunrise Camp",
    "b": "ENT:White River",
    "miles": 4.3,
    "src": "WTRF",
-   "gain_ab": 0,
-   "loss_ab": 1893,
+   "gain_ab": 19,
+   "loss_ab": 1978,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "ENT:White River",
    "b": "Summerland",
    "miles": 5.5,
    "src": "WTRF",
-   "gain_ab": 3566,
-   "loss_ab": 2021,
+   "gain_ab": 2245,
+   "loss_ab": 591,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Summerland",
    "b": "Indian Bar",
    "miles": 4.5,
    "src": "WTRF; thruhiker.co says 4.7, variance noted",
-   "gain_ab": 1329,
-   "loss_ab": 2146,
+   "gain_ab": 1166,
+   "loss_ab": 1995,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Indian Bar",
    "b": "Nickel Creek",
    "miles": 6.8,
    "src": "WTRF, matches thruhiker.co",
-   "gain_ab": 1204,
-   "loss_ab": 2877,
+   "gain_ab": 1238,
+   "loss_ab": 2979,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Nickel Creek",
    "b": "Maple Creek",
    "miles": 3.1,
    "src": "WTRF; thruhiker.co 3.6, variance noted",
-   "gain_ab": 1329,
-   "loss_ab": 1916,
+   "gain_ab": 329,
+   "loss_ab": 894,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Maple Creek",
    "b": "Paradise River",
    "miles": 6.8,
    "src": "WTRF; VR cumulative implies 6.3, thruhiker 7.3, variance noted",
-   "gain_ab": 3921,
-   "loss_ab": 2726,
+   "gain_ab": 2228,
+   "loss_ab": 1128,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Paradise River",
    "b": "ENT:Longmire",
    "miles": 3.6,
    "src": "thruhiker.co; consistent with WTRF PR>Pyramid 7.1",
-   "gain_ab": 1916,
-   "loss_ab": 3153,
+   "gain_ab": 0,
+   "loss_ab": 1127,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "ENT:Sunrise",
    "b": "Sunrise Camp",
    "miles": 1.2,
    "src": "WTRF prose: just over a mile",
-   "gain_ab": 161,
-   "loss_ab": 305,
+   "gain_ab": 59,
+   "loss_ab": 214,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "ENT:Box Canyon",
    "b": "Maple Creek",
    "miles": 2.3,
    "src": "Visit Rainier",
-   "gain_ab": 482,
-   "loss_ab": 781,
+   "gain_ab": 213,
+   "loss_ab": 479,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "ENT:Box Canyon",
@@ -249,90 +249,90 @@
    "b": "Eagles Roost",
    "miles": 1.9,
    "src": "WTRF Spray Park",
-   "gain_ab": 1270,
-   "loss_ab": 1158,
+   "gain_ab": 300,
+   "loss_ab": 399,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Eagles Roost",
    "b": "Cataract Valley",
    "miles": 4.8,
    "src": "WTRF Spray Park",
-   "gain_ab": 1004,
-   "loss_ab": 1473,
+   "gain_ab": 1550,
+   "loss_ab": 1793,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Cataract Valley",
    "b": "Carbon River",
    "miles": 1.6,
    "src": "WTRF Spray Park",
-   "gain_ab": 112,
-   "loss_ab": 1526,
+   "gain_ab": 67,
+   "loss_ab": 1474,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Sunrise Camp",
    "b": "Berkeley Park",
    "miles": 3.9,
    "src": "WTRF Northern Loop; endpoint ambiguity (Sunrise camp vs trailhead) noted",
-   "gain_ab": 912,
-   "loss_ab": 1788,
+   "gain_ab": 511,
+   "loss_ab": 1377,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Berkeley Park",
    "b": "Fire Creek",
    "miles": 3.8,
    "src": "WTRF Northern Loop",
-   "gain_ab": 705,
-   "loss_ab": 1788,
+   "gain_ab": 552,
+   "loss_ab": 1649,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Fire Creek",
    "b": "James",
    "miles": 3.8,
    "src": "WTRF Northern Loop",
-   "gain_ab": 1329,
-   "loss_ab": 1165,
+   "gain_ab": 1337,
+   "loss_ab": 1120,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "James",
    "b": "Yellowstone Cliffs",
    "miles": 3.3,
    "src": "WTRF Northern Loop",
-   "gain_ab": 1844,
-   "loss_ab": 1070,
+   "gain_ab": 1381,
+   "loss_ab": 708,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Yellowstone Cliffs",
    "b": "Carbon River",
    "miles": 4.2,
    "src": "WTRF Northern Loop",
-   "gain_ab": 325,
-   "loss_ab": 2388,
+   "gain_ab": 435,
+   "loss_ab": 2415,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "Yellowstone Cliffs",
    "b": "Ipsut Creek",
    "miles": 5.5,
    "src": "WTRF Northern Loop",
-   "gain_ab": 807,
-   "loss_ab": 3612,
+   "gain_ab": 91,
+   "loss_ab": 2896,
    "est_gain": true,
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   }
  ]
 }

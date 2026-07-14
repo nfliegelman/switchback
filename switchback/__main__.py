@@ -218,6 +218,16 @@ def cmd_area(args):
     build_area(args.slug)
 
 
+def cmd_dem_trail(args):
+    from .dem import dem_trail
+    updated, skipped, lines = dem_trail(args.slug, dry=args.dry)
+    print("\n".join(lines))
+    print(f"{updated} edges regraded on trail geometry, "
+          f"{len(skipped)} skipped")
+    for s in skipped[:8]:
+        print("  skip:", s)
+
+
 def cmd_merge_inventory(args):
     from .extract import merge_dual_inventory
     matched, unmatched = merge_dual_inventory(args.slug, args.permit_id)
@@ -367,6 +377,12 @@ def main():
 
     pr = sub.add_parser("profile", help="show the saved effort profile")
     pr.set_defaults(fn=cmd_profile)
+
+    dt = sub.add_parser("dem-trail", help="regrade est gains by sampling "
+                        "elevation along real trail polylines")
+    dt.add_argument("slug")
+    dt.add_argument("--dry", action="store_true")
+    dt.set_defaults(fn=cmd_dem_trail)
 
     mi = sub.add_parser("merge-inventory", help="attach a second rec.gov "
                         "permit's divisions to a park's camps by name")

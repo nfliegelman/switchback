@@ -18,11 +18,11 @@
    "a": "ENT:Belly River Trail",
    "b": "BELLY_JCT",
    "miles": 6.1,
-   "gain_ab": 220,
-   "loss_ab": 873,
+   "gain_ab": 184,
+   "loss_ab": 858,
    "est_gain": true,
    "src": "PNTA planner WBO 6.1; descent est from Glacier Guides day 1",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "BELLY_JCT",
@@ -38,81 +38,81 @@
    "a": "BELLY_JCT",
    "b": "ELF",
    "miles": 3.4,
-   "gain_ab": 505,
-   "loss_ab": 233,
+   "gain_ab": 390,
+   "loss_ab": 136,
    "est_gain": true,
    "src": "PNTA planner off-trail column",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "BELLY_JCT",
    "b": "COS",
    "miles": 2.6,
-   "gain_ab": 568,
-   "loss_ab": 348,
+   "gain_ab": 473,
+   "loss_ab": 274,
    "est_gain": true,
    "src": "PNTA planner, 8.7 minus 6.1",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "COS",
    "b": "GLF",
    "miles": 1.5,
-   "gain_ab": 52,
-   "loss_ab": 75,
+   "gain_ab": 99,
+   "loss_ab": 78,
    "est_gain": true,
    "src": "PNTA planner",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "GLF",
    "b": "GLH",
    "miles": 2.5,
-   "gain_ab": 108,
-   "loss_ab": 125,
+   "gain_ab": 170,
+   "loss_ab": 164,
    "est_gain": true,
    "src": "PNTA planner",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "GLH",
    "b": "MOJ",
    "miles": 0.7,
-   "gain_ab": 108,
+   "gain_ab": 62,
    "loss_ab": 0,
    "est_gain": true,
    "src": "PNTA planner",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "MOJ",
    "b": "MOL",
    "miles": 1.1,
-   "gain_ab": 144,
-   "loss_ab": 125,
+   "gain_ab": 174,
+   "loss_ab": 112,
    "est_gain": true,
    "src": "PNTA planner, 0.3 corridor plus 0.8 spur",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "ELF",
    "b": "ELH",
    "miles": 1.6,
-   "gain_ab": 52,
-   "loss_ab": 43,
+   "gain_ab": 85,
+   "loss_ab": 68,
    "est_gain": true,
    "src": "est, lake length; verify against park table",
-   "gain_method": "dem_line_v1"
+   "gain_method": "dem_trail_v1"
   },
   {
    "a": "ELH",
    "b": "HEL",
    "miles": 2.6,
-   "gain_ab": 220,
-   "loss_ab": 59,
+   "gain_ab": 195,
+   "loss_ab": 0,
    "est_gain": true,
    "src": "est; verify against park table",
-   "gain_method": "dem_line_v1",
+   "gain_method": "dem_trail_v1",
    "note": "corrected 2026-07-13: AllTrails corridor RTs place this leg near 2.6 to 2.9; the 1.5 was the outlier; NPS chart confirmation queued"
   },
   {
