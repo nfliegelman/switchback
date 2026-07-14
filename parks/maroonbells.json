@@ -923,13 +923,13 @@
    "id": "4675333EE02",
    "name": "Conundrum Trailhead",
    "included": true,
-   "lat": 39.11919,
-   "lon": -106.85608,
+   "lat": 39.07307,
+   "lon": -106.87708,
    "has_parking": false,
    "is_entry": true,
    "is_exit": true,
    "division_ids": [],
-   "coords_note": "snapped to the lower Conundrum trail component 2026-07-13; a springs-side terminus mis-anchor was caught and reverted"
+   "coords_note": "relocated to the Conundrum Creek Road terminus 2026-07-13; AllTrails anchors the springs at 8.55 mi one way; the payload point sat on Castle Creek Road"
   },
   {
    "id": "4675333EE03",

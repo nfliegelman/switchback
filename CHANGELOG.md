@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.18.0 (2026-07-13)
+
+The session-floor sprint: items 1 and 4 of the menu, sealed honestly, with 2 and 3 deferred whole rather than started and abandoned. EPQS confirmed blocked on a second attempt, alternates recorded. The South San Juan mystery closed by audit: 79 percent of its nodes sit outside the boundary, so the thin main network is pad capture plus sparse interior mapping, and the containment audit joins the QA toolkit. The Conundrum trailhead, the oldest open question in the repo, resolved against the oracle: 8.55 miles one way to the springs, coordinate relocated to the road terminus, and the remaining straight confirmed absent on both datasets, graduated to the GPX patch channel.
+
 ## v2.17.0 (2026-07-13)
 
 The roadmap sweep, everything that fit. Phase B productized: build_pilot with widened dedupe and named junctions took Needle Creek from 2 camps to 10 and from 14 itineraries to 168 across 24 routes; gains blocked by an unreachable USGS EPQS endpoint, recorded for retry. Both Washington hangers built on clean retries, taking the state to 24 areas on the map and confirming the earlier failures as transient mirror pathology. Glacier's ELH to HEL leg corrected from 1.5 to 2.6 miles on oracle-consistent corridor evidence, the curated figure having been the outlier. The IPW dual-permit merge is now fully designed in EXPERIMENTS.md but unbuilt, since the schema is single permit_id and the merge belongs in the availability layer. Boundary source expansion, calibration, and Telegram remain open by honest constraint, not neglect.
