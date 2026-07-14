@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v2.28.0 (2026-07-14)
+
+Map polish. The atlas explorer gains a clip-to-boundary toggle (midpoint-in-rings, the same test the audit uses) so pad-captured frontcountry can be hidden on demand, and the rubber-band builder gains GPX export: every committed leg is recorded in walk orientation and downloads as a GPX 1.1 track for CalTopo or AllTrails. Service worker shell bumped to v2280 so installed phones pick both up.
+
 ## v2.27.0 (2026-07-14)
 
 Dispersed wave 2 ships what survived its own gates: the Elk Creek pilot (vestalpilot, 10 camps from the Elk Park train stop, 33 edges, every elevation from NED 10m) passed the oracle against the drainage's published figures. Two candidates dropped whole per the standing discipline: Highland Mary produced zero gated candidates from Cunningham Gulch, and Blue Lakes failed its oracle with every camp below Lower Blue Lake plus one orphaned node, so the candidate criteria get a pass before either returns. Experimental flag on, itineraries labeled.

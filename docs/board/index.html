@@ -107,15 +107,26 @@ fetch(AREA_INDEX).then(r => r.ok ? r.json() : {areas: []}).then(m => {
   areaSel.innerHTML = '<option value="">explore areas</option>' +
     m.areas.map(a => `<option value="${a.slug}">${a.name} (${Math.round(a.trail_miles)} mi)</option>`).join('');
 });
+function clipPip(p, rings){let c=0;for(const r of rings){for(let i=0,j=r.length-1;i<r.length;j=i++){const a=r[i],b=r[j];
+if(((a[0]>p[0])!=(b[0]>p[0]))&&(p[1]<(b[1]-a[1])*(p[0]-a[0])/(b[0]-a[0])+a[1]))c++;}}return c%2==1;}
+function renderArea(){
+  const d = window.__rawArea; if (!d) return;
+  if (areaLayer) { map.removeLayer(areaLayer); areaLayer = null; }
+  const clip = document.getElementById('clip').checked;
+  const b = d.boundary.map(r => L.polyline(r, {color:'#8a5a2b', weight:2, dashArray:'6 5', opacity:.9}));
+  let lines = d.edges ? d.edges.map(e => e[3]) : (d.trails || []);
+  if (clip && d.boundary) lines = lines.filter(p => p.length > 1 && clipPip(p[Math.floor(p.length/2)], d.boundary));
+  const t = lines.map(p => L.polyline(p, {color:'#2f6f4f', weight:1.5, opacity:.65}));
+  areaLayer = L.layerGroup([...b, ...t]).addTo(map);
+}
+document.getElementById('clip').onchange = renderArea;
 areaSel.onchange = async () => {
   if (areaLayer) { map.removeLayer(areaLayer); areaLayer = null; }
   const slug = areaSel.value;
-  if (!slug) return;
+  if (!slug) { window.__rawArea = null; return; }
   const d = await fetch(AREA_ONE + slug + AREA_SUFFIX).then(r => r.json());
-  const b = d.boundary.map(r => L.polyline(r, {color:'#8a5a2b', weight:2, dashArray:'6 5', opacity:.9}));
-  const lines = d.edges ? d.edges.map(e => e[3]) : (d.trails || []);
-  const t = lines.map(p => L.polyline(p, {color:'#2f6f4f', weight:1.5, opacity:.65}));
-  areaLayer = L.layerGroup([...b, ...t]).addTo(map);
+  window.__rawArea = d;
+  renderArea();
   window.__area = d.edges ? d : null;
   document.getElementById('rb').style.display = d.edges ? 'block' : 'none';
   map.fitBounds(L.latLngBounds(d.boundary.flat()));
@@ -125,6 +136,8 @@ areaSel.onchange = async () => {
 <script>
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
 </script>
+<label style="position:fixed;bottom:64px;right:12px;z-index:1200;background:#fff;padding:6px 10px;border-radius:14px;font-size:13px;box-shadow:0 1px 4px rgba(0,0,0,.25)"><input type="checkbox" id="clip"> clip to boundary</label>
+<button id="gpx" style="display:none;position:fixed;bottom:18px;right:150px;z-index:1200;padding:10px 14px;border-radius:22px;border:0;background:#8a5a2b;color:#fff;font-size:15px">GPX</button>
 <button id="rb" style="display:none;position:fixed;bottom:18px;right:12px;z-index:1200;padding:10px 14px;border-radius:22px;border:0;background:#2f6f4f;color:#fff;font-size:15px">draw route</button>
 <script>
 (function(){
@@ -149,11 +162,22 @@ else{map.dragging.enable();if(lay)map.removeLayer(lay);lay=null;anchor=null;if(m
 map.on('click',e=>{if(!armed)return;const i=near(e.latlng);if(i<0)return;const d=window.__area;
 if(anchor==null){anchor=i;mk=L.circleMarker(d.nodes[i],{radius:7,color:'#2fbf5f'}).addTo(map);btn.textContent='drag or tap the next node';return;}
 const r=route(anchor,i);if(!r){btn.textContent='no trail connects those';return;}
+let u=anchor;const chain=[];
+r.segs.slice().reverse().forEach(ei=>{const ed=d.edges[ei];
+const fwd=(ed[0]==u);const pts=fwd?ed[3]:ed[3].slice().reverse();
+chain.push(...(chain.length?pts.slice(1):pts));u=fwd?ed[1]:ed[0];});
+window.__gpx=(window.__gpx||[]);window.__gpx.push(chain);
+document.getElementById('gpx').style.display='block';
 r.segs.forEach(ei=>{const ed=d.edges[ei];const ok=inB[ed[0]]&&inB[ed[1]];
 com.addLayer(L.polyline(ed[3],{color:ok?'#2fbf5f':'#d9a029',weight:4,opacity:.95}));});
 tot+=r.mi;anchor=i;mk.setLatLng(d.nodes[i]);if(lay){map.removeLayer(lay);lay=null;}btn.textContent=tot.toFixed(1)+' mi (tap to end)';});
 map.on('mousemove',e=>{if(!armed||anchor==null)return;const now=Date.now();if(now-last<90)return;last=now;
 const i=near(e.latlng);if(i<0||i==anchor)return;const r=route(anchor,i);if(r)draw(r);});
+document.getElementById('gpx').onclick=()=>{const segs=window.__gpx||[];if(!segs.length)return;
+const trksegs=segs.map(c=>'<trkseg>'+c.map(p=>`<trkpt lat="${p[0]}" lon="${p[1]}"></trkpt>`).join('')+'</trkseg>').join('');
+const doc=`<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="switchback" xmlns="http://www.topografix.com/GPX/1/1"><trk><name>switchback drawn route</name>${trksegs}</trk></gpx>`;
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([doc],{type:'application/gpx+xml'}));
+a.download='switchback-route-'+new Date().toISOString().slice(0,10)+'.gpx';a.click();};
 })();
 </script>
 </body>
