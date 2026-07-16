@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.0.1 (2026-07-15)
+
+Owner-gated day. The corridor buffer is now the owner's 1 km (veto received), and all three corridors rebuilt from the shared tile cache without a single network call: trail sets unchanged by design since the clip anchors to the centerline, boundaries visibly tighter so the rubber-band green/amber judgment sharpens. Telegram secrets are live and Actions run green, so alerts are armed and the PDI cache question becomes checkable on the next cron cycle. Trip-shape toggles entered the roadmap as an owner request. The accidental upload commit was deleted from history. AllTrails detail approval remains the one stuck gate, now with sharper instructions in OWNER.md.
+
 ## v3.0.0 (2026-07-14)
 
 The trustworthy-planner release. Everything the v3 definition demanded is in: gains graded on real trails, every planned landscape built including the three long corridors, the dual-permit layer live in two parks, dispersed camping surfaced behind an experimental flag with its own honesty gates, the map able to clip and export, alerts one secrets-paste from armed, and calibration one filled sheet from personal. The invariant sweep passed: eleven graphed parks load, 72 areas in the manifest, tests green, dash gate clean. What is deliberately not here is recorded in ROADMAP.md as the v3.x horizon.

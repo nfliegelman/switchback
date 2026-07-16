@@ -153,3 +153,5 @@ One command each, statuses flip to map on success: glacierpeak, pasayten, mounta
 ## Owner task tracking (2026-07-14)
 
 OWNER.md is now the single list of everything on Noah, phone vs desktop; keeping it current on every release is a standing convention alongside the dash gate.
+
+- Trip-shape toggles (owner, 2026-07-15): trip_types list replaces trip_type string; toggles in every settings surface; default all-on. Spec in ROADMAP v3.x. NOT STARTED.

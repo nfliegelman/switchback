@@ -4,11 +4,8 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 
 ## Phone, anytime (each under 5 minutes)
 
-1. DELETE TODAY'S GITHUB TOKEN. github.com > Settings > Developer settings > Fine-grained tokens > delete. Do this after every build day, no exceptions.
-2. Telegram secrets. Repo Settings > Secrets and variables > Actions > New secret: TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID (your existing digest bot). Unlocks watch alerts and the cloud watcher.
-3. Glance at the Actions tab once after a push day: Switchback watch and the board cron should both be listed and green.
-4. Next Claude session that uses AllTrails details: a permission prompt appears MID-CALL; tap approve. Three sessions have missed it. Unlocks crowd-volume stats.
-5. Answer two standing questions in any chat: (a) profile trip_type: keep loop or flip to any? The loop filter once hid 635 of 639 routes. (b) Corridor buffer width: 1.5 km default was used; veto if you want 1 or 2.
+1. DELETE TODAY'S GITHUB TOKEN (the one from the 2026-07-15 session). Same drill as always: Settings > Developer settings > Fine-grained tokens.
+2. AllTrails detail approval, STILL OPEN after five attempts. Mechanics matter: the approval card appears INSIDE THE CHAT at the exact moment Claude makes the call, and it times out in under a minute. Next session, say "test AllTrails now" and keep the chat open with your thumb ready. Unlocks crowd-volume stats for the solitude signal.
 
 ## Desktop, first session back (about 45 minutes total)
 
@@ -19,6 +16,8 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 10. Optional, whenever you hike it: record a GPX trace of the Conundrum spur. It is the one edge waiting on your feet.
 
 ## Done (kept for the record)
+
+- 2026-07-15: old PAT deleted, Telegram secrets landed, Actions verified green (your items 1 to 3). Standing questions answered: corridor buffer vetoed to 1 km (all three corridors rebuilt same day) and the loop-vs-any question superseded by your trip-shape toggles request, now specced in ROADMAP. The accidental "Add files via upload" commit was force-push deleted.
 
 - 2026-07-14: v2.20.0 through v3.0.0 shipped and pushed in one day. Nine releases, all tagged. Your five phone tasks and four desktop tasks above are the entire critical path now.
 
