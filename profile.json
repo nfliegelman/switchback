@@ -1,7 +1,17 @@
 {
   "party_size": 2,
-  "daily_pref": {"miles": 9.0, "gain_ft": 2200},
-  "daily_max": {"miles": 13.0, "gain_ft": 4000},
-  "trip_type": "loop",
-  "include_walkup": false
+  "daily_pref": {
+    "miles": 9.0,
+    "gain_ft": 2200
+  },
+  "daily_max": {
+    "miles": 13.0,
+    "gain_ft": 4000
+  },
+  "include_walkup": false,
+  "trip_types": [
+    "loop",
+    "out and back",
+    "basecamp"
+  ]
 }

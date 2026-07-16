@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.1.0 (2026-07-15)
+
+Trip-shape selection, the engine half of the owner's toggles request. The single trip_type string becomes a trip_types set: pick any combination of loop, out and back (which gathers its lollipop stem-and-loop variant), basecamp, and point to point. A --trip-types comma list drives it from the CLI, profile.json carries the default (now your loop plus out and back plus basecamp), and the old single string still works untouched. Proven on RMNP where the same search yields 520 routes at any, 119 at out and back, and 0 loops, the filter partitioning exactly as the classifier sees the graph. The remaining work is UI toggle controls, tracked for the next GUI session. Also on the record: the AllTrails detail gate finally cleared, so crowd-volume stats are confirmed flowing for the future solitude signal.
+
 ## v3.0.1 (2026-07-15)
 
 Owner-gated day. The corridor buffer is now the owner's 1 km (veto received), and all three corridors rebuilt from the shared tile cache without a single network call: trail sets unchanged by design since the clip anchors to the centerline, boundaries visibly tighter so the rubber-band green/amber judgment sharpens. Telegram secrets are live and Actions run green, so alerts are armed and the PDI cache question becomes checkable on the next cron cycle. Trip-shape toggles entered the roadmap as an owner request. The accidental upload commit was deleted from history. AllTrails detail approval remains the one stuck gate, now with sharper instructions in OWNER.md.

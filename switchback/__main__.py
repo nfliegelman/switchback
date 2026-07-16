@@ -119,8 +119,11 @@ def cmd_trips(args):
                max_mi=args.max_mi or prof["daily_max"]["miles"],
                max_gain=args.max_gain or prof["daily_max"]["gain_ft"],
                basecamp_ok=not args.no_basecamp)
-    rows = s.batch(g.entrances(), start, end,
-                   trip_type=args.trip_type or prof.get("trip_type", "any"))
+    trip_sel = (args.trip_types if args.trip_types is not None
+                else prof.get("trip_types")
+                if prof.get("trip_types") is not None
+                else args.trip_type or prof.get("trip_type", "any"))
+    rows = s.batch(g.entrances(), start, end, trip_types=trip_sel)
     if args.via:
         via_id = g.find(args.via)
         if not via_id:
@@ -136,8 +139,7 @@ def cmd_trips(args):
     text, shown = format_trips(
         g, scorer, ranked, prof["daily_pref"]["miles"],
         prof["daily_pref"]["gain_ft"], nights, s.party, s.max_mi, s.max_gain,
-        sort=args.sort,
-        trip_type=args.trip_type or prof.get("trip_type", "any"))
+        sort=args.sort, trip_types=trip_sel)
     print(text)
     if args.gpx:
         if not 1 <= args.gpx <= min(len(shown), 15):
@@ -504,7 +506,11 @@ def main():
     tr.add_argument("--max-mi", type=float, default=None)
     tr.add_argument("--max-gain", type=int, default=None)
     tr.add_argument("--trip-type", default=None,
-                    choices=["any", "loop", "out_and_back", "lollipop"])
+                    choices=["any", "loop", "out_and_back", "lollipop"],
+                    help="legacy single shape; --trip-types is preferred")
+    tr.add_argument("--trip-types", default=None,
+                    help="comma list of shapes to allow: loop, out and "
+                         "back, basecamp, point_to_point, or any")
     tr.add_argument("--codes", default=None,
                     help="restrict to camp codes, comma separated")
     tr.add_argument("--no-basecamp", action="store_true")

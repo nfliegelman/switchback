@@ -50,3 +50,26 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def test_trip_shape_selection():
+    """v3.1 toggles: the normalizer maps user labels to classify() sets,
+    handles the legacy string, comma lists, and multi-word 'out and back',
+    and 'any'/empty disables filtering."""
+    from switchback.solver import _normalize_types
+    assert _normalize_types(None, "any") is None
+    assert _normalize_types(None, "loop") == {"loop"}
+    assert _normalize_types(["loop", "out and back"]) == \
+        {"loop", "out_and_back", "lollipop"}
+    assert _normalize_types(None, "out and back") == \
+        {"out_and_back", "lollipop"}
+    assert _normalize_types(None, "loop,basecamp") == {"loop", "basecamp"}
+    assert _normalize_types([]) is None
+    assert _normalize_types(["any", "loop"]) is None  # any wins
+    print("trip-shape selection: legacy, list, multi-word, any all pass")
+
+
+if __name__ == "__main__":
+    for name, fn in list(globals().items()):
+        if name.startswith("test_") and callable(fn):
+            fn()

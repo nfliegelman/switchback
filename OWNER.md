@@ -5,7 +5,7 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 ## Phone, anytime (each under 5 minutes)
 
 1. DELETE TODAY'S GITHUB TOKEN (the one from the 2026-07-15 session). Same drill as always: Settings > Developer settings > Fine-grained tokens.
-2. AllTrails detail approval, STILL OPEN after five attempts. Mechanics matter: the approval card appears INSIDE THE CHAT at the exact moment Claude makes the call, and it times out in under a minute. Next session, say "test AllTrails now" and keep the chat open with your thumb ready. Unlocks crowd-volume stats for the solitude signal.
+2. (CLOSED 2026-07-15) AllTrails detail approval worked; crowd-volume stats confirmed flowing (Vestal Basin returned 89 reviews, 189 completed hikes). The solitude signal now has a live data source when a future session wires it into scoring.
 
 ## Desktop, first session back (about 45 minutes total)
 

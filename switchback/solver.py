@@ -91,6 +91,35 @@ def fetch_for_graph(g, camps, start, end, fetch_fn=None, workers=6):
     return out
 
 
+# Trip-shape selection (v3.1). Accepts a set/list of shapes, the legacy
+# single string, or None. Toggle vocabulary is user-facing: loop,
+# out_and_back (gathers the lollipop stem-and-loop variant), basecamp,
+# point_to_point. "any"/"all"/empty means no filter. Returns a set of
+# internal classify() labels, or None for no filtering.
+_TOGGLE_MAP = {"loop": {"loop"},
+               "out_and_back": {"out_and_back", "lollipop"},
+               "out and back": {"out_and_back", "lollipop"},
+               "basecamp": {"basecamp"},
+               "point_to_point": {"point_to_point"},
+               "lollipop": {"lollipop"}}
+
+
+def _normalize_types(trip_types, trip_type="any"):
+    raw = trip_types if trip_types is not None else trip_type
+    if raw is None:
+        return None
+    if isinstance(raw, str):
+        raw = [p.strip() for p in raw.split(",")]
+    picks = [p.lower() for p in raw if p]
+    if not picks or any(p in ("any", "all") for p in picks):
+        return None
+    allow = set()
+    for p in picks:
+        allow |= _TOGGLE_MAP.get(p, {p})
+    return allow
+
+
+
 class Solver:
     def __init__(self, graph, availability, party=2, nights=3,
                  max_mi=13.0, max_gain=4000, basecamp_ok=True,
@@ -203,14 +232,15 @@ class Solver:
             days.append((mi, gain))
         return days
 
-    def batch(self, entrances, start, end, trip_type="any"):
+    def batch(self, entrances, start, end, trip_type="any", trip_types=None):
+        allow = _normalize_types(trip_types, trip_type)
         rows = []
         d = start
         while d <= end:
             for ent in entrances:
                 for seq in self.itineraries(ent, d):
                     t = self.classify(ent, seq)
-                    if trip_type != "any" and t != trip_type:
+                    if allow is not None and t not in allow:
                         continue
                     rows.append({"start": d, "entrance": ent, "seq": seq,
                                  "type": t,
