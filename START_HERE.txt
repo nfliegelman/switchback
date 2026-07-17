@@ -1,0 +1,15 @@
+SWITCHBACK, THE NON-CODER PATH (Windows)
+
+STEP 1, ONE TIME ONLY: install Python.
+  Go to python.org, click Downloads, click the big button.
+  Run the installer. On the FIRST screen, tick the checkbox that says
+  "Add python.exe to PATH". Then click Install Now. Close it when done.
+
+STEP 2: double-click the .bat file for what you want.
+  CALIBRATE.bat      runs three searches and opens your reaction sheet
+  SMOKE_GUI.bat      opens the app window; click Find Trips once
+  TELEGRAM_TEST.bat  sends one test alert to your phone
+  Switchback.bat     the normal app
+
+If Windows shows "protected your PC", click More info, then Run anyway.
+That warning appears for any file Windows has not seen before.

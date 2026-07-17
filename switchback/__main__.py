@@ -279,9 +279,15 @@ def cmd_calibrate(args):
         print(line)
         lines += [line, "   REACTION: ", ""]
     _o.makedirs("docs", exist_ok=True)
-    with open(_o.path.join("docs", "CALIBRATION_NOTES.md"), "w") as fh:
-        fh.write("\n".join(lines) + "\n")
-    print("reaction sheet written to docs/CALIBRATION_NOTES.md")
+    sheet = _o.path.join("docs", "CALIBRATION_NOTES.md")
+    fresh = not _o.path.exists(sheet)
+    body = lines if fresh else [""] + lines[2:]
+    if not fresh:
+        body[1] = "## " + body[1][8:]
+    with open(sheet, "a") as fh:
+        fh.write("\n".join(body) + "\n")
+    print(("created" if fresh else "appended to")
+          + " docs/CALIBRATION_NOTES.md")
 
 
 def cmd_corridor(args):

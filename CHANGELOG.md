@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.1.1 (2026-07-16)
+
+The non-coder desktop kit. Three double-clickable helpers (CALIBRATE.bat, SMOKE_GUI.bat, TELEGRAM_TEST.bat) plus a recreated START_HERE.txt, so the owner's entire test session is download, extract, double-click. Calibrate now appends one section per park instead of overwriting, and a real sample GPX ships at docs/samples for the import test since permit_exports never travels in zips. Windows discovery of the day: Glacier's September window is genuinely sold out flat, so the calibration script leans on RMNP and the Elks for guaranteed rows.
+
 ## v3.1.0 (2026-07-15)
 
 Trip-shape selection, the engine half of the owner's toggles request. The single trip_type string becomes a trip_types set: pick any combination of loop, out and back (which gathers its lollipop stem-and-loop variant), basecamp, and point to point. A --trip-types comma list drives it from the CLI, profile.json carries the default (now your loop plus out and back plus basecamp), and the old single string still works untouched. Proven on RMNP where the same search yields 520 routes at any, 119 at out and back, and 0 loops, the filter partitioning exactly as the classifier sees the graph. The remaining work is UI toggle controls, tracked for the next GUI session. Also on the record: the AllTrails detail gate finally cleared, so crowd-volume stats are confirmed flowing for the future solitude signal.

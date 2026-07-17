@@ -9,10 +9,10 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 
 ## Desktop, first session back (about 45 minutes total)
 
-6. Calibration half hour, the single highest-value thing on this list. On desktop run: python -m switchback calibrate glacier --start <date> --end <date> (repeat for maroonbells and rmnp). Each run prints the top ten with score components and writes docs/CALIBRATION_NOTES.md with a REACTION line under every route. Fill those in with anything: too far, too flat, wrong camps, boring, love it. Then hand the file to Claude and scoring.json gets fit to you. Scoring stays generic until this happens.
-7. Smoke test: click Find Trips in the old GUI once (switchback_gui.py). It compiles but no human has clicked it.
-8. Smoke test: import the shipped sample GPX (glacier_2026-09-22_BRE_GAB-GLF.gpx) into CalTopo or AllTrails. Confirm it draws.
-9. Smoke test: paste your bot token into telegram.json (copy telegram.json.example), run python -m switchback watch glacier --inject --once, confirm one Telegram message arrives.
+6. Calibration, the crown jewel: double-click CALIBRATE.bat, wait 2 or 3 minutes, then type a few words after every REACTION line in the Notepad file that opens, save, and send that file (or its text) to Claude. Scoring stays generic until this happens.
+7. Smoke test: double-click SMOKE_GUI.bat, click Find Trips once, note whether results appear or anything looks broken.
+8. Smoke test: go to caltopo.com, click Import (top left), choose docs\samples\sample_rmnp_route.gpx from the extracted folder, confirm a line draws on the map near Estes Park.
+9. Smoke test: double-click TELEGRAM_TEST.bat; first run opens a file to paste your two bot values into, second run sends one test message to your phone.
 10. Optional, whenever you hike it: record a GPX trace of the Conundrum spur. It is the one edge waiting on your feet.
 
 ## Done (kept for the record)
