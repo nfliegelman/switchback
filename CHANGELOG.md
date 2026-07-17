@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.2.1 (2026-07-16)
+
+Docs only: the Elk Range root cause is on the record. The Maroon Zone anchor sits on the West Maroon ridge at 13,450 feet instead of the camping valley, discovered when the owner asked for elevation profiles of his calibration ballot. The fix plan and the re-audit of the v2.23 mileage correction are queued in BACKLOG.
+
 ## v3.2.0 (2026-07-16)
 
 Toughest-stretch, an owner idea from mid-calibration: every travel day in the reaction sheet now carries its steepest sustained mile, where it falls, and a shape word (steady, rolling, front-loaded, middle-heavy, back-loaded), computed from the same trail-true elevation profiles dem_trail samples. It answered the founding question immediately: McGregor's 2,510-foot day is rolling with a 627-foot toughest mile, while the Elks' East Fork approach hides a 2,542-foot middle mile inside an 8-mile day, two very different days the totals alone cannot distinguish. Return legs profile correctly after two field fixes: the camp list omits the exit hop, and route_nodes returns an unordered set, so exits now derive from trip shape or nearest trail entrance. Display only for now; the scoring dial waits for reactions to reveal a preference.

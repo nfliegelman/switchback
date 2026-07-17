@@ -155,3 +155,5 @@ One command each, statuses flip to map on success: glacierpeak, pasayten, mounta
 OWNER.md is now the single list of everything on Noah, phone vs desktop; keeping it current on every release is a standing convention alongside the dash gate.
 
 - Trip-shape toggles (owner, 2026-07-15): trip_types list replaces trip_type string; toggles in every settings surface; default all-on. Spec in ROADMAP v3.x. NOT STARTED.
+
+- ELK RANGE ROOT CAUSE (found 2026-07-16 by the owner's profile request): the Maroon Zone anchor node 4675333025 sits at about 13,450 ft ON the West Maroon ridge; the curated zone centroid landed on the ridge, not in the camping valley. This is the true root of the v2.8 display mystery, and it taints the v2.23 mileage correction (7.19 to 11.53 was measured along geometry TO the misplaced node, so it inherits the error). NEXT SESSION: relocate the anchor to a representative valley point (Crater Lake basin, about 10,100 ft), re-derive the affected edges and geometry, re-audit the corrected mileage, and rerun the Elks calibration ballot. Until then, Elks distances and profiles above about 12,000 ft near Maroon Zone are suspect.
