@@ -257,8 +257,9 @@ def cmd_calibrate(args):
     av = fetch_for_graph(g, g.camps(), start, end)
     s = Solver(g, av, party=args.party, nights=args.nights,
                max_mi=13.0, max_gain=4000)
-    rows = s.batch(g.entrances(), start, end)[:10]
+    rows = s.batch(g.entrances(), start, end)
     sc = Scorer(g)
+    rows = sc.rank(rows, 9.0, 2200)[:10]
     for r in rows:
         try:
             r["breakdown"] = sc.score(r, 9.0, 2200)
@@ -270,6 +271,9 @@ def cmd_calibrate(args):
              "For each row write one reaction: too far / too flat / "
              "wrong camps / boring / crowded / good / love it. "
              "Add anything else that felt off.", ""]
+    if not rows:
+        lines += ["(no bookable itineraries in this window: sold out or "
+                  "not yet released; nothing to grade here, not a bug)", ""]
     for i, r in enumerate(rows, 1):
         b = r.get("breakdown") or {}
         names = " > ".join(g.name(c).split(" (")[0] for c in r["seq"])

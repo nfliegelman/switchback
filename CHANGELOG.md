@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.1.2 (2026-07-16)
+
+Calibrate hotfix, found by the owner in the field: rows were never ranked, so any park with real availability crashed on a missing score and any park without wrote a bare header, and a stale test sheet had shipped in the repo on top of it. Calibrate now ranks before printing, empty windows say plainly that sold out is not a bug, and the stale sheet is gone. The owner-facing lesson is recorded: the one path that got smoke-tested was the empty one.
+
 ## v3.1.1 (2026-07-16)
 
 The non-coder desktop kit. Three double-clickable helpers (CALIBRATE.bat, SMOKE_GUI.bat, TELEGRAM_TEST.bat) plus a recreated START_HERE.txt, so the owner's entire test session is download, extract, double-click. Calibrate now appends one section per park instead of overwriting, and a real sample GPX ships at docs/samples for the import test since permit_exports never travels in zips. Windows discovery of the day: Glacier's September window is genuinely sold out flat, so the calibration script leans on RMNP and the Elks for guaranteed rows.
