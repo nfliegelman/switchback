@@ -259,7 +259,9 @@ def cmd_calibrate(args):
                max_mi=13.0, max_gain=4000)
     rows = s.batch(g.entrances(), start, end)
     sc = Scorer(g)
-    rows = sc.rank(rows, 9.0, 2200)[:10]
+    ranked = sc.rank(rows, 9.0, 2200)
+    from .report import dedupe_routes
+    rows = [v["best"] for v in dedupe_routes(ranked, "score")][:10]
     for r in rows:
         try:
             r["breakdown"] = sc.score(r, 9.0, 2200)
@@ -277,8 +279,10 @@ def cmd_calibrate(args):
     for i, r in enumerate(rows, 1):
         b = r.get("breakdown") or {}
         names = " > ".join(g.name(c).split(" (")[0] for c in r["seq"])
-        line = (f"{i}. {names}  score {r['score']}"
-                f" (day_fit {b.get('day_fit')}, camps {b.get('camp_pct')},"
+        days = ", ".join(f"{mi:g}mi/{gn:g}ft" for mi, gn in r["days"])
+        line = (f"{i}. {names}  [{r['type']}]  score {r['score']}\n"
+                f"   days: {days}\n"
+                f"   (day_fit {b.get('day_fit')}, camps {b.get('camp_pct')},"
                 f" lake nights {b.get('lake_nights')})")
         print(line)
         lines += [line, "   REACTION: ", ""]

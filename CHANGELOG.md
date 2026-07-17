@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.1.3 (2026-07-16)
+
+Calibration sheet, third cut, shaped by the owner's questions from the field: every route now shows its trip shape and every day's miles and elevation gain, and duplicate routes collapse to one line, because nobody can judge too far or too flat while the far and the flat are hidden. The numbers immediately corrected a wrong impression: the top RMNP pick runs 9.5-mile 2,500-foot days with a layover, not the timid entrance-hugger it looked like nameless.
+
 ## v3.1.2 (2026-07-16)
 
 Calibrate hotfix, found by the owner in the field: rows were never ranked, so any park with real availability crashed on a missing score and any park without wrote a bare header, and a stale test sheet had shipped in the repo on top of it. Calibrate now ranks before printing, empty windows say plainly that sold out is not a bug, and the stale sheet is gone. The owner-facing lesson is recorded: the one path that got smoke-tested was the empty one.
