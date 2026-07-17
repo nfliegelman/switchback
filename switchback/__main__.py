@@ -276,6 +276,43 @@ def cmd_calibrate(args):
     if not rows:
         lines += ["(no bookable itineraries in this window: sold out or "
                   "not yet released; nothing to grade here, not a bug)", ""]
+    prof_cache = {}
+    def day_lines(r):
+        if args.no_profile:
+            return []
+        from .dem import day_toughness
+        hops = [r["entrance"]] + list(r["seq"])
+        if len(r["days"]) > len(hops) - 1:
+            if r.get("type") in ("loop", "out_and_back", "lollipop",
+                                 "basecamp"):
+                hops.append(r["entrance"])
+            else:
+                last = hops[-1]
+                cand = sorted(
+                    g.entrances(),
+                    key=lambda e: abs(g.nodes[e].get("lat") or 99
+                                      - (g.nodes[last].get("lat") or 0))
+                    + abs(g.nodes[e].get("lon") or 199
+                          - (g.nodes[last].get("lon") or 0)))[:6]
+                legs = [(g.leg(last, e), e) for e in cand]
+                legs = [(l[0], e) for l, e in legs if l]
+                if legs:
+                    hops.append(min(legs)[1])
+        out = []
+        for k, (x, y) in enumerate(zip(hops, hops[1:]), 1):
+            if x == y:
+                continue
+            key = (x, y)
+            if key not in prof_cache:
+                try:
+                    prof_cache[key] = day_toughness(args.slug, g, x, y)
+                except Exception:
+                    prof_cache[key] = None
+            t = prof_cache[key]
+            if t:
+                out.append(f"   day {k}: toughest mile {t['toughest_ft']} "
+                           f"ft at mile {t['at_mi']}, {t['shape']}")
+        return out
     for i, r in enumerate(rows, 1):
         b = r.get("breakdown") or {}
         names = " > ".join(g.name(c).split(" (")[0] for c in r["seq"])
@@ -284,6 +321,7 @@ def cmd_calibrate(args):
                 f"   days: {days}\n"
                 f"   (day_fit {b.get('day_fit')}, camps {b.get('camp_pct')},"
                 f" lake nights {b.get('lake_nights')})")
+        line = "\n".join([line] + day_lines(r))
         print(line)
         lines += [line, "   REACTION: ", ""]
     _o.makedirs("docs", exist_ok=True)
@@ -470,6 +508,8 @@ def main():
     ca.add_argument("--nights", type=int, default=2)
     ca.add_argument("--party", type=int, default=2)
     ca.add_argument("--pdi-check", action="store_true")
+    ca.add_argument("--no-profile", action="store_true",
+                    help="skip the toughest-stretch day profiles (faster)")
     ca.set_defaults(fn=cmd_calibrate)
 
     co = sub.add_parser("corridor", help="build a long-trail corridor "

@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.2.0 (2026-07-16)
+
+Toughest-stretch, an owner idea from mid-calibration: every travel day in the reaction sheet now carries its steepest sustained mile, where it falls, and a shape word (steady, rolling, front-loaded, middle-heavy, back-loaded), computed from the same trail-true elevation profiles dem_trail samples. It answered the founding question immediately: McGregor's 2,510-foot day is rolling with a 627-foot toughest mile, while the Elks' East Fork approach hides a 2,542-foot middle mile inside an 8-mile day, two very different days the totals alone cannot distinguish. Return legs profile correctly after two field fixes: the camp list omits the exit hop, and route_nodes returns an unordered set, so exits now derive from trip shape or nearest trail entrance. Display only for now; the scoring dial waits for reactions to reveal a preference.
+
 ## v3.1.3 (2026-07-16)
 
 Calibration sheet, third cut, shaped by the owner's questions from the field: every route now shows its trip shape and every day's miles and elevation gain, and duplicate routes collapse to one line, because nobody can judge too far or too flat while the far and the flat are hidden. The numbers immediately corrected a wrong impression: the top RMNP pick runs 9.5-mile 2,500-foot days with a layover, not the timid entrance-hugger it looked like nameless.

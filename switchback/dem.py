@@ -238,3 +238,60 @@ def dem_trail(slug, elev_fn=None, dry=False, force=False):
         with open(path, "w") as fh:
             json.dump(spec, fh, indent=1)
     return updated, skipped, lines
+
+
+# v3.2 toughest-stretch: within one day's walk, where does the climbing
+# concentrate? Built on the same trail-profile sampling dem_trail uses.
+def toughest_stretch(elev_m, step_m):
+    """Max sustained climb in any one-mile window of the profile.
+    Returns (climb_ft, start_mile)."""
+    win = max(2, int(1609.34 / step_m))
+    gains = [max(0.0, b - a) for a, b in zip(elev_m, elev_m[1:])]
+    if not gains:
+        return 0, 0.0
+    win = min(win, len(gains))
+    cur = sum(gains[:win])
+    best, at = cur, 0.0
+    for i in range(1, len(gains) - win + 1):
+        cur += gains[i + win - 1] - gains[i - 1]
+        if cur > best:
+            best, at = cur, i * step_m / 1609.34
+    return int(best * 3.28084), round(at, 1)
+
+
+def grade_shape(elev_m):
+    """Where the day's climbing lives: front-loaded, back-loaded,
+    middle-heavy, steady, or rolling (climb roughly equals descent
+    throughout)."""
+    gains = [max(0.0, b - a) for a, b in zip(elev_m, elev_m[1:])]
+    drops = [max(0.0, a - b) for a, b in zip(elev_m, elev_m[1:])]
+    total = sum(gains)
+    if total * 3.28084 < 250:
+        return "flat"
+    n = len(gains)
+    t1, t2 = sum(gains[:n // 3]), sum(gains[n // 3:2 * n // 3])
+    t3 = total - t1 - t2
+    if sum(drops) > 0.75 * total and total * 3.28084 > 800:
+        return "rolling"
+    top = max(t1, t2, t3)
+    if top < 0.5 * total:
+        return "steady"
+    return {0: "front-loaded", 1: "middle-heavy",
+            2: "back-loaded"}[[t1, t2, t3].index(top)]
+
+
+def day_toughness(slug, g, a, b, elev_fn=None):
+    """Profile one day's walk from node a to node b along real trails.
+    Returns dict(toughest_ft, at_mi, shape, samples) or None if no
+    usable line exists."""
+    from .geometry import day_path
+    pts = [p for p in day_path(slug, g, [a, b])
+           if p and p[0] is not None and p[1] is not None]
+    if len(pts) < 3:
+        return None
+    step = 100.0
+    sp = sample_polyline([tuple(p) for p in pts], step_m=step, max_pts=220)
+    elev = (elev_fn or fetch_elev_trail)(sp)
+    ft, at = toughest_stretch(elev, step)
+    return {"toughest_ft": ft, "at_mi": at, "shape": grade_shape(elev),
+            "samples": len(sp)}
