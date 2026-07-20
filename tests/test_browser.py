@@ -126,6 +126,7 @@ def main():
             page.fill("#p_max_mi", "13")
             page.fill("#p_pref_gain", "2500")
             page.fill("#p_max_gain", "4500")
+            page.select_option("#p_pace", "0.85")
             page.check("#p_arrive")
             summary = page.text_content("#p_summary")
             assert "2 backcountry night" in summary, summary
@@ -146,6 +147,7 @@ def main():
             detail = page.inner_text("#results")
             assert "Day by day" in detail
             assert "Download GPX" in detail
+            assert "about " in detail, "hiking days carry time estimates"
             nightrows = page.locator(".nightrow").count()
             assert nightrows >= 3, f"expected night+day rows, {nightrows}"
 

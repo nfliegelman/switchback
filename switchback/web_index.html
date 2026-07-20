@@ -222,7 +222,8 @@ async function showProfile(i, k){
         <polyline points="${pts}" fill="none" stroke="#2f6f4f" stroke-width="2"/>
         <line x1="${markX}" y1="0" x2="${markX}" y2="${h}" stroke="#e0a13d" stroke-width="1" stroke-dasharray="3 2"/>
       </svg>
-      <div class="muted">${eMin.toFixed(0)} to ${eMax.toFixed(0)} ft over ${miMax.toFixed(1)} mi</div>`;
+      <div class="muted">${eMin.toFixed(0)} to ${eMax.toFixed(0)} ft over ${miMax.toFixed(1)} mi</div>
+      ${prof.est_hours ? `<div class="muted">About ${fmtH(prof.est_hours)} at a typical pace; steepest section ${prof.steepest_pct}%${prof.steep_miles_30plus ? `, with ${prof.steep_miles_30plus} mi at 30%+ grade` : ''}</div>` : ''}`;
   } catch(e){ p.innerHTML = `<div class="warn">Profile unavailable: ${e.message}</div>`; }
 }
 
@@ -336,6 +337,9 @@ function renderPlanForm(){
       <label>Absolute maximum day</label>
       <input class="small" id="p_max_mi" type="number" step="0.5" value="${PDEF.max_mi}"> miles,
       <input class="small" id="p_max_gain" type="number" step="100" value="${PDEF.max_gain}"> ft of climb
+      <label>Hiking pace (for time estimates)</label>
+      <select id="p_pace"><option value="1">Typical backpacking pace</option><option value="0.85">A bit slower, heavy packs</option><option value="1.2">Faster, light and fit</option></select>
+      <div class="meta">Times use grade-banded speeds (steep miles count for more). Exact per-grade speeds can go in profile.json as a "pace" table.</div>
     </div>
     <div class="sec"><b>WHAT KIND OF TRIP?</b><br>
       <label><input type="checkbox" id="s_loop" ${shapeChecked('loop')?'checked':''}> Loop</label>
@@ -392,7 +396,8 @@ async function runPlan(){
     pref_mi: +$('p_pref_mi').value, max_mi: +$('p_max_mi').value,
     pref_gain: +$('p_pref_gain').value, max_gain: +$('p_max_gain').value,
     shapes: planShapes(), first_come_ok: $('p_fcfs').checked,
-    arrival_night: $('p_arrive').checked, recovery_night: $('p_recover').checked };
+    arrival_night: $('p_arrive').checked, recovery_night: $('p_recover').checked,
+    pace: +$('p_pace').value === 1 ? null : +$('p_pace').value };
   $('results').innerHTML = '<div class="muted">Checking availability and building complete trips...</div>';
   try {
     PLANRES = await jpost('/api/plan', body);
@@ -406,6 +411,8 @@ async function runPlan(){
 }
 
 function fmtWhen(iso){ return iso ? iso.replace('T',' ').replace('+00:00',' UTC') : ''; }
+function fmtH(h){ if (h == null) return ''; const m = Math.round(h*60);
+  return m < 60 ? m + ' min' : Math.floor(m/60) + ' h' + (m%60 ? ' ' + (m%60) + ' min' : ''); }
 
 function renderPlanCards(){
   const res = PLANRES;
@@ -425,7 +432,7 @@ function renderPlanCards(){
       <span class="badge avail">${p.availability_summary}</span>
       <div class="ttl">${p.title}</div>
       <div class="meta">${p.start} to ${p.end} &middot; ${p.nights.length} night(s) &middot; ${p.shape} from ${p.trailhead.name}</div>
-      <div class="meta">${p.totals.miles} trail mi${hd ? ` &middot; hardest day ${hd.miles} mi / ${hd.gain_ft.toLocaleString()} ft` : ''}${p.alternate_starts.length ? ` &middot; ${p.alternate_starts.length} other start date(s)` : ''}</div>
+      <div class="meta">${p.totals.miles} trail mi${p.totals.hiking_hours ? ` (~${fmtH(p.totals.hiking_hours)} walking)` : ''}${hd ? ` &middot; hardest day ${hd.miles} mi / ${hd.gain_ft.toLocaleString()} ft${hd.est_hours ? ' / ~' + fmtH(hd.est_hours) : ''}` : ''}${p.alternate_starts.length ? ` &middot; ${p.alternate_starts.length} other start date(s)` : ''}</div>
       <div class="meta">${seq}</div>
       <div class="why">${p.fit.reasons[0]||''}</div>
       ${p.fit.tradeoffs.length ? `<div class="trade">Tradeoff: ${p.fit.tradeoffs[0]}</div>` : ''}
@@ -472,7 +479,9 @@ function showPlanDetail(i){
   p.days.forEach(d => {
     const what = d.kind === 'travel' ? `drive in, camp near ${d.to}` :
       d.kind === 'layover' ? `layover at ${d.to}` :
-      `${d.from} to ${d.to}, ${d.miles} mi, +${d.gain_ft.toLocaleString()} ft`;
+      `${d.from} to ${d.to}, ${d.miles} mi, +${d.gain_ft.toLocaleString()} ft` +
+      (d.est_hours ? `, about ${fmtH(d.est_hours)}` : '') +
+      (d.steepest_grade_pct >= 25 ? ` &middot; sustained grades around ${d.steepest_grade_pct}%` : '');
     html += `<div class="nightrow"><b>Day ${d.day}</b> &middot; ${d.date}<div class="meta">${what}</div></div>`;
   });
   if (p.fit.reasons.length) html += `<div class="why"><b>Why it fits:</b> ${p.fit.reasons.join(' ')}</div>`;

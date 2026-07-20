@@ -29,6 +29,8 @@ below the triage table retain their original detail.
 | Winter seasonal divisions | PARKED | |
 | Monetization gates G1 to G3 | PARKED | see project/archive/FUTURE.md |
 | Calibrate and trips must announce total network failure instead of reading as sold out | P1 | trust; the v2.0.6 silent-filter lesson applies; evidence 2026-07-20, a blocked container printed the honest-empty section for two live windows |
+| Trace-backed durations at plan time | P1 | cache per-edge elevation traces to disk so the planner can run the 20-section grade math offline instead of the edge-level characteristic-grade fallback; profile panel already does the accurate version live |
+| Calibrate default pace bands from owner GPX tracks | P2 | pace.py DEFAULT_PACE_MPH is Tobler-informed hand-set; real recorded hikes beat it; owner can already override via profile.json pace table |
 | Trip-shape toggles engine, dual merge, corridors, RMNP buildout, dem_trail, toughest-stretch, coverage waves | SHIPPED | CHANGELOG.md |
 
 ## Original detail (pre-triage, kept)

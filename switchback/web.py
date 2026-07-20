@@ -63,6 +63,7 @@ class ProfileReq(BaseModel):
     slug: str
     a: str
     b: str
+    pace: float | dict | None = None
 
 
 class PlanReq(BaseModel):
@@ -83,6 +84,7 @@ class PlanReq(BaseModel):
     arrival_night: bool = False
     recovery_night: bool = False
     limit: int = 8
+    pace: float | dict | None = None
 
 
 class PlanGpxReq(BaseModel):
@@ -317,10 +319,20 @@ def create_app(fetch_fn=None, elev_fn=None):
     @app.post("/api/profile")
     def profile(req: ProfileReq):
         from .dem import day_toughness
+        from .pace import (grade_sections, hours_for_sections,
+                           normalize_pace, steep_summary)
         g = _graph(req.slug)
         prof = day_toughness(req.slug, g, req.a, req.b, elev_fn=elev_fn)
         if not prof:
             raise HTTPException(404, "no usable trail line between those two stops")
+        pace, _errs = normalize_pace(req.pace)
+        sections = grade_sections(prof["mi"], prof["elev_ft"])
+        if sections:
+            steepest, steep_mi = steep_summary(sections)
+            prof["sections"] = sections
+            prof["est_hours"] = hours_for_sections(sections, pace)
+            prof["steepest_pct"] = steepest
+            prof["steep_miles_30plus"] = steep_mi
         return prof
 
     @app.post("/api/frontier")

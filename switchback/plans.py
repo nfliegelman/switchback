@@ -49,6 +49,7 @@ class TripRequest:
     arrival_night: bool = False
     recovery_night: bool = False
     limit: int = 8
+    pace: dict = None      # normalized band->mph table; None = defaults
 
     def to_dict(self):
         d = asdict(self)
@@ -118,12 +119,16 @@ class TripDay:
     to_name: str
     miles: float
     gain_ft: int
+    est_hours: float = None          # grade-aware duration estimate
+    steepest_grade_pct: float = None  # characteristic grade of the
+                                      # steepest edge on the day
 
     def to_dict(self):
         return {"day": self.day, "date": self.date.isoformat(),
                 "kind": self.kind, "from": self.from_name,
                 "to": self.to_name, "miles": self.miles,
-                "gain_ft": self.gain_ft}
+                "gain_ft": self.gain_ft, "est_hours": self.est_hours,
+                "steepest_grade_pct": self.steepest_grade_pct}
 
 
 @dataclass
@@ -246,6 +251,13 @@ def validate_request(raw, profile=None):
         shapes = []
     limit = int(num("limit", 8, 1, 25, "result limit"))
 
+    from .pace import normalize_pace
+    pace_spec = raw.get("pace")
+    if pace_spec is None:
+        pace_spec = profile.get("pace")
+    pace, pace_errors = normalize_pace(pace_spec)
+    errors.extend(pace_errors)
+
     if errors:
         return None, errors
     return TripRequest(
@@ -255,7 +267,7 @@ def validate_request(raw, profile=None):
         first_come_ok=bool(raw.get("first_come_ok", True)),
         arrival_night=bool(raw.get("arrival_night", False)),
         recovery_night=bool(raw.get("recovery_night", False)),
-        limit=limit), []
+        limit=limit, pace=pace), []
 
 
 def overall_confidence(nights):

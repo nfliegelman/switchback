@@ -269,6 +269,40 @@ def scenario_declared_window_invariant():
         "without trip_window the declared start and end still govern"
 
 
+def scenario_grade_aware_durations():
+    """Owner ask 2026-07-20: a short day on a sustained steep edge must
+    carry an honest duration and a grade tradeoff, and a slower pace
+    must stretch every estimate."""
+    from switchback.pace import normalize_pace
+    r = req(max_mi=3.0, pref_mi=2.0, pref_gain=800, limit=25)
+    res = plan_trips(r, fetch_fn=open_fetch())
+    box = [p for p in res["plans"]
+           if "Box Canyon" in p["trailhead"]["name"]
+           and any(n["name"].startswith("Nickel") for n in p["nights"])]
+    assert box, "a Nickel Creek plan from Box Canyon must exist"
+    p = box[0]
+    hikes = [d for d in p["days"] if d["kind"] == "hike"]
+    assert all(d["est_hours"] and d["est_hours"] > 0 for d in hikes)
+    assert all(d["steepest_grade_pct"] is not None for d in hikes)
+    assert max(d["steepest_grade_pct"] for d in hikes) >= 25
+    assert any("sustained grades" in t for t in p["fit"]["tradeoffs"]), \
+        "steep terrain must surface as a tradeoff even on short days"
+    assert p["totals"]["hiking_hours"] > 0
+    assert p["totals"]["hardest_day"]["est_hours"]
+
+    slow = plan_trips(_slowed(r), fetch_fn=open_fetch())
+    sbox = [q for q in slow["plans"] if q["id"] == p["id"]]
+    assert sbox, "same plan must exist at the slower pace"
+    ratio = sbox[0]["totals"]["hiking_hours"] / p["totals"]["hiking_hours"]
+    assert 1.9 < ratio < 2.1, f"half speed must double durations, {ratio}"
+
+
+def _slowed(r):
+    from dataclasses import replace
+    from switchback.pace import normalize_pace
+    return replace(r, pace=normalize_pace(0.5)[0])
+
+
 def scenario_validation():
     _r, errs = validate_request({})
     assert any("destination" in e for e in errs)
@@ -300,10 +334,11 @@ def main():
     scenario_geometry()
     scenario_sellout_honesty_note()
     scenario_declared_window_invariant()
+    scenario_grade_aware_durations()
     scenario_validation()
-    print("PLANNER OK: 15 golden scenarios green (declared-window "
-          "invariant, policy vs availability, closures, honesty, "
-          "relaxations, geometry)")
+    print("PLANNER OK: 16 golden scenarios green (declared-window "
+          "invariant, policy vs availability, closures, grade-aware "
+          "durations, honesty, relaxations, geometry)")
 
 
 if __name__ == "__main__":

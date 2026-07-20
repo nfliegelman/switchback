@@ -20,6 +20,7 @@ from datetime import datetime, timedelta, timezone
 
 from .frontcountry import options_for_entrance
 from .graph import Graph
+from .pace import (DEFAULT_PACE_MPH, format_hours, leg_hours, speed_for)
 from .plans import (BookingAction, NightStay, TripDay, TripPlan,
                     TripWarning, complete_night_problems,
                     overall_confidence)
@@ -221,6 +222,27 @@ def _fit(req, r, plan_nights):
             "reasons": reasons[:3], "tradeoffs": tradeoffs[:3]}
 
 
+# characteristic edge grade at or above this reads as sustained steep
+_STEEP_TRADEOFF_PCT = 25
+
+
+def _steep_tradeoffs(fit, days, pace):
+    """Grade-aware honesty: a day whose steepest edge runs at a
+    sustained hard grade gets a tradeoff naming the grade and the
+    realistic speed there, even when its mileage looks easy."""
+    for x in days:
+        if x.kind != "hike" or not x.steepest_grade_pct:
+            continue
+        if x.steepest_grade_pct >= _STEEP_TRADEOFF_PCT:
+            mph = speed_for(x.steepest_grade_pct, pace)
+            fit["tradeoffs"].append(
+                f"Day {x.day} holds sustained grades around "
+                f"{x.steepest_grade_pct:g} percent; expect roughly "
+                f"{mph:g} mph there and about "
+                f"{format_hours(x.est_hours)} for the day.")
+    return fit
+
+
 def _availability_summary(plan_nights):
     if any(n.stay_type == "unplanned" for n in plan_nights):
         return "One night needs your own plan"
@@ -285,19 +307,29 @@ def _build_plan(req, g, av, solver, view, fetched_at, include_geometry):
                             kind="travel", from_name=None,
                             to_name=_short(g.name(ent)),
                             miles=0.0, gain_ft=0))
+    pace = req.pace or DEFAULT_PACE_MPH
     for i, (mi, gain) in enumerate(r["days"]):
         a, b = stops[i], stops[i + 1]
+        hours, steepest = (None, None)
+        if a != b:
+            path = solver._leg(a, b)[2]
+            if path:
+                hours, steepest = leg_hours(g, path, pace)
         days.append(TripDay(day=i + 1, date=start + timedelta(days=i),
                             kind="layover" if a == b else "hike",
                             from_name=_short(g.name(a)),
                             to_name=_short(g.name(b)),
-                            miles=round(mi, 1), gain_ft=int(gain)))
+                            miles=round(mi, 1), gain_ft=int(gain),
+                            est_hours=hours,
+                            steepest_grade_pct=steepest))
     hikes = [x for x in days if x.kind == "hike" and x.miles]
     hardest = None
     if hikes:
-        hd = max(hikes, key=lambda x: x.miles / req.max_mi
-                 + x.gain_ft / req.max_gain)
-        hardest = {"day": hd.day, "miles": hd.miles, "gain_ft": hd.gain_ft}
+        hd = max(hikes, key=lambda x: x.est_hours
+                 if x.est_hours is not None
+                 else x.miles / req.max_mi + x.gain_ft / req.max_gain)
+        hardest = {"day": hd.day, "miles": hd.miles, "gain_ft": hd.gain_ft,
+                   "est_hours": hd.est_hours}
 
     shorts = list(dict.fromkeys(_short(g.name(c)) for c in seq))
     shape = _SHAPE_LABEL.get(r["type"], r["type"])
@@ -319,8 +351,10 @@ def _build_plan(req, g, av, solver, view, fetched_at, include_geometry):
         nights=nights, days=days,
         totals={"miles": round(sum(m for m, _ in r["days"]), 1),
                 "gain_ft": int(sum(gft for _, gft in r["days"])),
+                "hiking_hours": round(sum(x.est_hours for x in hikes
+                                          if x.est_hours), 2) or None,
                 "hardest_day": hardest},
-        fit=_fit(req, r, nights),
+        fit=_steep_tradeoffs(_fit(req, r, nights), days, pace),
         availability_summary=_availability_summary(nights),
         confidence=overall_confidence(nights),
         data_quality=_data_quality(g, ent, seq, solver),
