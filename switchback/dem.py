@@ -282,8 +282,9 @@ def grade_shape(elev_m):
 
 def day_toughness(slug, g, a, b, elev_fn=None):
     """Profile one day's walk from node a to node b along real trails.
-    Returns dict(toughest_ft, at_mi, shape, samples) or None if no
-    usable line exists."""
+    Returns dict(toughest_ft, at_mi, shape, samples, mi, elev_ft) or
+    None if no usable line exists. mi and elev_ft are parallel arrays
+    (cumulative distance, elevation) suitable for plotting a profile."""
     from .geometry import day_path
     pts = [p for p in day_path(slug, g, [a, b])
            if p and p[0] is not None and p[1] is not None]
@@ -293,5 +294,7 @@ def day_toughness(slug, g, a, b, elev_fn=None):
     sp = sample_polyline([tuple(p) for p in pts], step_m=step, max_pts=220)
     elev = (elev_fn or fetch_elev_trail)(sp)
     ft, at = toughest_stretch(elev, step)
+    mi = [round(i * step / 1609.34, 3) for i in range(len(elev))]
+    elev_ft = [round(e * 3.28084, 1) for e in elev]
     return {"toughest_ft": ft, "at_mi": at, "shape": grade_shape(elev),
-            "samples": len(sp)}
+            "samples": len(sp), "mi": mi, "elev_ft": elev_ft}

@@ -2,6 +2,10 @@
 
 Versioning per project/ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.4.3 (2026-07-20)
+
+Day elevation profiles, owner-requested. The calibration sheet already broke each day into miles, climb, and where the toughest mile sits, but only as text; the real interactive app could not show it as a picture. Now it can: click any day's mileage in the map app and a small chart draws showing the actual up-and-down shape of that day's walk, with the steepest stretch marked. The engine side of this already existed (the toughest-stretch pass from v3.2.0); this release only teaches it to hand over the full elevation trace, not just the summary, and adds the one new spot in the map app that asks for it and draws it. No changes to search, scoring, or availability. Verified with an offline test that exercises the real endpoint end to end, plus a live check of the exact rendering math against a running copy of the app; the CDN map library this app pulls in from the internet could not be reached from inside this working session, which is a limit of that session's network, not of the feature, so the owner's own click-through during the test drive is the first real look at it on screen.
+
 ## v3.4.2 (2026-07-20)
 
 Releases robot, round two. The first run worked almost all the way: every version from v1.0.0 through v3.3.1 got its proper GitHub Release in one pass. It fell at the final step because GitHub forbids a workflow's own credentials from creating a tag that points at a commit which changes workflow files, and the robot had picked exactly such a commit. It now tags the oldest commit carrying the version's title, which is the true release commit rather than the merge wrapper, shrugs off a rejected tag push instead of dying, and falls back to creating the release through the API; if even that is refused it names the version that needs a human once, in the run log. No engine changes.

@@ -29,8 +29,14 @@ def make_fetch():
     return fetch
 
 
+def make_elev():
+    def elev_fn(coords):
+        return [1800 + 3 * i for i in range(len(coords))]
+    return elev_fn
+
+
 def main():
-    client = TestClient(create_app(fetch_fn=make_fetch()))
+    client = TestClient(create_app(fetch_fn=make_fetch(), elev_fn=make_elev()))
 
     parks = client.get("/api/parks").json()
     assert any(p["slug"] == "glacier" for p in parks)
@@ -55,6 +61,14 @@ def main():
     r0 = trips["routes"][0]
     assert r0["day_paths"] and all(len(p) >= 1 for p in r0["day_paths"])
     assert len(r0["days"]) == 4 and r0["score"] > 0
+
+    hops = [r0["entrance"]["id"]] + [s["id"] for s in r0["stops"]] + [r0["entrance"]["id"]]
+    prof = client.post("/api/profile", json={
+        "slug": "glacier", "a": hops[0], "b": hops[1]}).json()
+    assert prof["mi"] and prof["elev_ft"] and len(prof["mi"]) == len(prof["elev_ft"])
+    assert prof["mi"][0] == 0 and prof["mi"][-1] > 0
+    assert prof["shape"] in ("flat", "steady", "rolling",
+                             "front-loaded", "middle-heavy", "back-loaded")
 
     f0 = client.post("/api/frontier", json={
         "slug": "glacier", "entrance": "Belly River Trail",
