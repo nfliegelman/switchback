@@ -1,0 +1,77 @@
+{
+  "slug": "rainier",
+  "curated_at": "2026-07-20",
+  "note": "Hand-curated arrival and recovery campgrounds for the Mount Rainier vertical slice. Policies transcribed from nps.gov/mora/planyourvisit/campgrounds.htm and corrected per the 2026-07-20 post-alignment audit: White River is first-come first-served, and Ohanapecosh is closed for the 2026 season for construction. Live campground inventory is NOT fetched; a reservable campground's availability must be reported unknown, and first-come stays carry no guarantee. Drive minutes are road-time approximations keyed by graph entrance node id. Closures use inclusive ISO date ranges; a campground closed for a requested night must never be offered for it.",
+  "campgrounds": [
+    {
+      "id": "cougar_rock",
+      "name": "Cougar Rock Campground",
+      "lat": 46.7666,
+      "lon": -121.7946,
+      "policy": "reservable",
+      "booking_url": "https://www.recreation.gov/camping/campgrounds/232466",
+      "source": "nps.gov Mount Rainier campgrounds page; recreation.gov campground 232466",
+      "confidence": "curated",
+      "season": "late May to late September, check current dates",
+      "policy_checked_at": "2026-07-20",
+      "revalidate_after": "2027-04-01",
+      "closures": [],
+      "drive_minutes": {"ENT:4675317025": 8},
+      "notes": "2 miles up the road from Longmire. Reservations through recreation.gov in summer."
+    },
+    {
+      "id": "white_river",
+      "name": "White River Campground",
+      "lat": 46.9021,
+      "lon": -121.6437,
+      "policy": "first_come",
+      "booking_url": "https://www.nps.gov/mora/planyourvisit/campgrounds.htm",
+      "source": "nps.gov Mount Rainier campgrounds page (first-come, first-served per current NPS information; corrected 2026-07-20)",
+      "confidence": "curated",
+      "season": "late June to late September, check current dates",
+      "policy_checked_at": "2026-07-20",
+      "revalidate_after": "2027-04-01",
+      "closures": [],
+      "drive_minutes": {"ENT:4675317047": 2, "ENT:4675317042": 35},
+      "notes": "Adjacent to the White River trailhead; about 45 minutes of road to Sunrise. First-come, first-served: no reservations, arrive early, especially on summer weekends."
+    },
+    {
+      "id": "ohanapecosh",
+      "name": "Ohanapecosh Campground",
+      "lat": 46.7326,
+      "lon": -121.5663,
+      "policy": "reservable",
+      "booking_url": "https://www.recreation.gov/camping/campgrounds/232465",
+      "source": "nps.gov Mount Rainier campgrounds page; closure recorded 2026-07-20 from current NPS information",
+      "confidence": "curated",
+      "season": "closed for 2026; normally late May to late September",
+      "policy_checked_at": "2026-07-20",
+      "revalidate_after": "2027-04-01",
+      "closures": [
+        {
+          "from": "2026-01-01",
+          "through": "2026-12-31",
+          "reason": "Ohanapecosh Campground is closed for the 2026 season for construction (per nps.gov); check the park site for reopening"
+        }
+      ],
+      "drive_minutes": {"ENT:4675317003": 18},
+      "notes": "Old-growth river campground on the southeast side, closest drive to Box Canyon. Closed for the 2026 season."
+    },
+    {
+      "id": "mowich_lake",
+      "name": "Mowich Lake Campground",
+      "lat": 46.9325,
+      "lon": -121.8632,
+      "policy": "first_come",
+      "booking_url": "https://www.nps.gov/mora/planyourvisit/campgrounds.htm",
+      "source": "nps.gov Mount Rainier campgrounds page",
+      "confidence": "curated",
+      "season": "July to early October, gravel road, check current status",
+      "policy_checked_at": "2026-07-20",
+      "revalidate_after": "2027-04-01",
+      "closures": [],
+      "drive_minutes": {},
+      "notes": "Primitive walk-in sites at the lake, no reservations, arrive early. Serves the northwest corner; no graph entrance is keyed to it yet."
+    }
+  ]
+}

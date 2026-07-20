@@ -1,78 +1,79 @@
 # ROADMAP.md
 
-The active plan, and only the active plan. As of v3.3.0 (2026-07-17).
-Product truth lives in PRODUCT.md (Part 1 adjusts Part 2);
-shipped history lives in CHANGELOG.md; deferred items live in
-BACKLOG.md with priority labels. This file holds outcomes, not feature
-archaeology.
+The active plan, and only the active plan. Rewritten 2026-07-20 around
+the strategic horizons in project/MASTER_COURSE_CORRECTION.md, which
+supersedes the previous phase-numbered roadmap (its Phase 0 shipped as
+v3.3.0; its Phases 1 to 3 are absorbed into the short-term horizon
+below; its Phases 4 and 5 map to the medium and long term). Product
+definition lives in MASTER_COURSE_CORRECTION.md; live status in
+CURRENT_PHASE.md; parked work in PARKED_FEATURES.md; shipped history
+in CHANGELOG.md.
 
-## Vertical-slice destinations (recommended, owner veto open)
+## SHORT-TERM: make one destination genuinely useful
 
-Mount Rainier, Rocky Mountain NP, and Lena. Rainier is the brief's own
-worked example on a mature graph; RMNP has 86 live camps after the
-v2.26 buildout plus real rec.gov frontcountry campgrounds; Lena is the
-mixed-policy honesty scenario in miniature. Indian Peaks is the fourth
-when dual-permit correctness deserves a showcase.
+Not broad coverage; proving the complete product loop on Mount
+Rainier (chosen for its mature graph, live permit wiring, and real
+frontcountry campgrounds). The milestone is complete only when a user
+can plan a realistic Rainier trip through the interface without
+interpreting internal codes or raw solver output.
 
-## Phase 0, product and documentation reset: DONE v3.3.0
+Required and status as of v3.5.0:
 
-PRODUCT.md adopted, this roadmap rewritten, README rewritten, BACKLOG
-triaged with priority labels, PARKS.md regenerated with honest support
-tiers, standard pytest discovery runs all twelve suites, the false
-shuttle option removed, version number visible in every surface the
-owner tests.
+- Structured trip request with user-entered physical limits: DONE.
+- Multiple Rainier recommendations with complete nightly stay
+  records and no silent overnight gaps: DONE, invariant-tested.
+- Curated frontcountry arrival and recovery stays: DONE (curated
+  dataset, honest unknown-availability labels).
+- Availability, booking actions, and freshness on every stay: DONE.
+- Honest first-come and unknown handling: DONE.
+- Recommendation cards and complete trip detail in the app,
+  connected to the existing map (inspection, not editing) and GPX:
+  DONE, repaired 2026-07-20 after the post-alignment audit caught the
+  submit crash.
+- Automated golden-scenario tests under one standard command: DONE,
+  plus a real-browser workflow test (form to cards to detail).
+- Date-aware frontcountry closures and corrected Rainier campground
+  policies: DONE (Ohanapecosh closed for 2026, White River
+  first-come).
+- Owner browser test drive and one live-network verification:
+  REMAINING; Rainier stays classified VERIFICATION BLOCKED until
+  they pass (project/COVERAGE_STATUS.md).
+- Controlled edit-trip subset from a selected recommendation (camp
+  swap, layover add or remove, reverse): REMAINING.
 
-## Phase 1, request and result contract
+## MEDIUM-TERM: make the recommendation engine differentiated
 
-Outcome: an API test submits destination, dates, party, visible
-preferred and maximum effort, and style toggles, and receives complete
-structured TripPlan objects with explicit nights, per-night
-availability and booking actions, fit components, confidence labels,
-and zero silent profile.json dependence. New planner.py orchestration
-above the untouched solver; models per SPEC.md; the complete-night
-invariant enforced. Includes the Maroon anchor relocation and edge
-re-audit, which is a data-integrity precondition for any Elks-adjacent
-work and one focused session.
+After the slice is verified: three to five trip-ready regions (RMNP
+and Lena first; Indian Peaks when dual-permit correctness deserves a
+showcase); cross-destination search; flexible-date and drive-radius
+search; saved preference profiles; trip-level availability
+monitoring on the existing watch substrate; route repair, camp
+substitution, direction reversal, basecamp conversion; deeper
+quantified relaxation; permit-free and mixed-policy fallbacks using
+the corridor and dispersed assets; better frontcountry arrival and
+recovery options with live inventory; improved confidence and
+freshness reporting; calibration from the owner's reaction sheets.
+Target outcome: "I have these dates and limits; Switchback found
+several complete trips I would not have identified on my own."
 
-## Phase 2, coherent UI vertical slice
+Data-integrity precondition carried forward: the Maroon Zone anchor
+relocation and Elks edge re-audit before any Elks-adjacent
+destination is promoted.
 
-Outcome: the three-surface workflow (describe, browse, inspect) on the
-slice destinations. Constraint form with effort presets and plain
-language, grouped recommendation cards without raw decimal scores,
-night-by-night trip detail, booking steps, zero-result repair ladder
-with quantified relaxations, mobile-first because the owner is.
+## LONG-TERM: the planning layer across availability systems
 
-## Phase 3, frontcountry and integrated editing
-
-Outcome: complete vacation shells. Curated arrival and recovery
-campgrounds for the slice destinations with honest policy labels, the
-frontcountry-basecamp trip style, and the route editor opening FROM a
-selected recommendation with camp swap, layover, reverse, undo, reset,
-and live feasibility, built on the camp-list principle in SPEC.md Part 2.
-
-## Phase 4, discovery and repair
-
-Outcome: the market wedge. Cross-destination and flexible-date search,
-route repair with quantified suggestions, permit-free and
-cross-boundary fallbacks drawing on the corridor and dispersed assets,
-saved trip profiles, complete-trip alerts on the existing watch
-substrate, Campflare handoff.
-
-## Phase 5, expansion, only after P0 metrics are healthy
-
-Road-corridor search, multi-stop vacations, true point-to-point with
-shuttle logistics, broader frontcountry inventory, group planning,
-monetization experiments per the archived gates in project/archive/FUTURE.md.
+Larger regional coverage and national portfolio search;
+road-corridor backpacking discovery (a logistical wrapper around
+outdoor-trip discovery, never a generic road-trip planner);
+frontcountry and backcountry vacation orchestration; condition-aware
+recommendations (snow, fire, water, road access, season); robust
+permit-free and cross-boundary routing; personalized ranking; group
+constraint reconciliation; paid trip-level monitoring; formal
+partner integrations; mobile-specific experience; user-submitted
+corrections.
 
 ## Owner gates on the critical path
 
-The calibration half hour (P1 scoring work waits on reactions; the
-scaffold is ready). The manual UX test script in PRODUCT.md section
-18.3 when Phase 2 lands. Smoke tests remain listed in OWNER.md.
-
-## Parked, do not build without new evidence
-
-Everything in PRODUCT.md section 5's parked list, plus Archetype B
-Sierra trailhead-quota parks (moved from the old horizon by the
-decision filter) and solitude modeling despite its newly unlocked data
-source.
+The Plan trips browser test drive (OWNER.md item 9a). The calibration
+half hour (scaffold ready; P1 scoring work waits on reactions). The
+two stuck release taps (OWNER.md phone item 5).

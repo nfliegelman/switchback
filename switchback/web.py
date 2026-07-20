@@ -27,14 +27,17 @@ import time
 from datetime import date, timedelta
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from pydantic import BaseModel
 
+from . import planner
 from .config import load_profile
 from .extract import load_park
 from .coverage import survey
 from .geometry import ATTRIBUTION as GEOM_ATTRIBUTION, day_path, path_for
+from .gpx import build_gpx
 from .graph import Graph
+from .plans import validate_request
 from .report import dedupe_routes
 from .scoring import Scorer
 from .solver import Solver, fetch_availability, fetch_for_graph
@@ -60,6 +63,36 @@ class ProfileReq(BaseModel):
     slug: str
     a: str
     b: str
+    pace: float | dict | None = None
+
+
+class PlanReq(BaseModel):
+    """The consumer trip request (plans.TripRequest wire shape).
+    Effort fields left null fall back to profile.json as visible
+    defaults; the response echoes what was actually used."""
+    slug: str
+    start: date
+    latest_start: date | None = None
+    nights: int = 2
+    party: int | None = None
+    pref_mi: float | None = None
+    max_mi: float | None = None
+    pref_gain: int | None = None
+    max_gain: int | None = None
+    shapes: list[str] = []
+    first_come_ok: bool = True
+    arrival_night: bool = False
+    recovery_night: bool = False
+    limit: int = 8
+    pace: float | dict | None = None
+
+
+class PlanGpxReq(BaseModel):
+    slug: str
+    entrance: str
+    seq: list[str]
+    start: date
+    title: str | None = None
 
 
 class FrontierReq(BaseModel):
@@ -247,13 +280,59 @@ def create_app(fetch_fn=None, elev_fn=None):
                 len(dedupe_routes(ranked)), "trip_type": req.trip_type,
                 "party": s.party, "routes": routes}
 
+    @app.get("/api/plan/defaults")
+    def plan_defaults():
+        prof = load_profile()
+        return {"party": prof["party_size"],
+                "pref_mi": prof["daily_pref"]["miles"],
+                "pref_gain": prof["daily_pref"]["gain_ft"],
+                "max_mi": prof["daily_max"]["miles"],
+                "max_gain": prof["daily_max"]["gain_ft"],
+                "shapes": prof.get("trip_types") or []}
+
+    @app.post("/api/plan")
+    def plan(req: PlanReq):
+        raw = (req.model_dump() if hasattr(req, "model_dump")
+               else req.dict())
+        parsed, errors = validate_request(raw, load_profile())
+        if errors:
+            raise HTTPException(400, {"errors": errors})
+        g = _graph(parsed.slug)
+        fs, fe = planner.availability_window(parsed)
+        av = _availability_by_node(g, g.camps(), fs, fe, fetch_fn)
+        try:
+            return planner.plan_trips(parsed, availability=av, graph=g,
+                                      include_geometry=True)
+        except planner.PlannerError as ex:
+            raise HTTPException(404, str(ex))
+
+    @app.post("/api/plan/gpx")
+    def plan_gpx(req: PlanGpxReq):
+        g = _graph(req.slug)
+        if req.entrance not in g.nodes or any(c not in g.nodes
+                                              for c in req.seq):
+            raise HTTPException(400, "unknown route nodes for GPX export")
+        xml, _skipped = build_gpx(g, req.entrance, req.seq, req.start,
+                                  req.title)
+        return Response(content=xml, media_type="application/gpx+xml")
+
     @app.post("/api/profile")
     def profile(req: ProfileReq):
         from .dem import day_toughness
+        from .pace import (grade_sections, hours_for_sections,
+                           normalize_pace, steep_summary)
         g = _graph(req.slug)
         prof = day_toughness(req.slug, g, req.a, req.b, elev_fn=elev_fn)
         if not prof:
             raise HTTPException(404, "no usable trail line between those two stops")
+        pace, _errs = normalize_pace(req.pace)
+        sections = grade_sections(prof["mi"], prof["elev_ft"])
+        if sections:
+            steepest, steep_mi = steep_summary(sections)
+            prof["sections"] = sections
+            prof["est_hours"] = hours_for_sections(sections, pace)
+            prof["steepest_pct"] = steepest
+            prof["steep_miles_30plus"] = steep_mi
         return prof
 
     @app.post("/api/frontier")
