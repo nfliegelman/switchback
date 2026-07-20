@@ -1,9 +1,12 @@
 """Golden scenarios for the course-correction planner layer
-(project/MASTER_COURSE_CORRECTION.md section 13), fully offline via an
-injected fetcher. Covers: valid plans inside preferred limits, stretch
+(project/MASTER_COURSE_CORRECTION.md section 13, hardened per the
+2026-07-20 post-alignment audit), fully offline via an injected
+fetcher. Covers: valid plans inside preferred limits, stretch
 labeling, hard-limit rejection with quantified relaxations, arrival
-frontcountry nights, first-come and unknown honesty, the complete-night
-invariant, flexible dates, geometry, and request validation."""
+frontcountry nights, policy-versus-availability separation, first-come
+and unknown honesty, the declared-window complete-night invariant,
+date-aware campground closures, flexible dates, geometry, and request
+validation."""
 import sys, os
 from datetime import date, timedelta
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -57,6 +60,9 @@ def scenario_within_preferred():
         assert p["availability_summary"] == "Bookable now"
         assert p["confidence"] == "live_inventory"
         for n in p["nights"]:
+            assert n["policy"] == "reservable"
+            assert n["availability"] == "available", \
+                "policy and availability are separate concepts"
             assert n["booking"]["url"], "reservable nights carry a link"
             assert n["fetched_at"], "freshness must be stamped"
 
@@ -94,7 +100,8 @@ def scenario_reject_over_max_gain():
 
 
 def scenario_arrival_frontcountry_and_unknown():
-    res = plan_trips(req(arrival_night=True), fetch_fn=open_fetch())
+    res = plan_trips(req(arrival_night=True, limit=25),
+                     fetch_fn=open_fetch())
     assert res["plans"]
     for p in res["plans"]:
         assert_complete(p)
@@ -102,15 +109,52 @@ def scenario_arrival_frontcountry_and_unknown():
         assert first["date"] == (D0 - timedelta(days=1)).isoformat()
         assert first["stay_type"] in ("frontcountry_campground", "unplanned")
         if first["stay_type"] == "frontcountry_campground":
-            if first["policy"] == "reservation":
-                assert first["availability"] == "unknown", \
-                    "unfetched inventory must read unknown, never available"
-            else:
-                assert first["availability"] == "first_come"
+            assert first["policy"] in ("reservable", "first_come")
+            assert first["availability"] == "unknown", \
+                "unfetched inventory must read unknown, never available"
             assert first["confidence"] == "curated"
         else:
             assert p["warnings"], "unplanned nights must carry a warning"
+            assert all(w["message"] for w in p["warnings"])
         assert p["days"][0]["kind"] == "travel"
+
+
+def scenario_closed_campground_never_recommended():
+    """Ohanapecosh is closed for the 2026 season; a Box Canyon trip in
+    2026 must not be handed that campground for its arrival night."""
+    res = plan_trips(req(arrival_night=True, limit=25, max_mi=3.0,
+                         pref_mi=2.0, pref_gain=800),
+                     fetch_fn=open_fetch())
+    box = [p for p in res["plans"] if "Box Canyon" in p["trailhead"]["name"]]
+    assert box, "a Box Canyon plan must exist under 3 mi (Nickel Creek)"
+    for p in box:
+        first = p["nights"][0]
+        assert first["name"] != "Ohanapecosh Campground", \
+            "a closed campground must never be recommended"
+        assert first["stay_type"] == "unplanned"
+        assert any("closed" in w["message"].lower()
+                   and w["code"] == "campground_closed"
+                   for w in p["warnings"]), \
+            "the closure must be explained, not silently absorbed"
+        assert_complete(p)
+
+
+def scenario_frontcountry_respects_first_come_tolerance():
+    """White River campground is first-come; a search that excludes
+    first-come stays must not receive it as an arrival night."""
+    res = plan_trips(req(arrival_night=True, first_come_ok=False,
+                         limit=25, max_mi=2.0, pref_mi=1.5,
+                         pref_gain=500), fetch_fn=open_fetch())
+    wr = [p for p in res["plans"]
+          if "White River" in p["trailhead"]["name"]
+          or "Sunrise" in p["trailhead"]["name"]]
+    assert wr, "White River side plans must exist under 2 mi (Sunrise Camp)"
+    for p in wr:
+        first = p["nights"][0]
+        assert first["name"] != "White River Campground"
+        assert first["stay_type"] == "unplanned"
+        assert any("first-come" in w["message"] for w in p["warnings"])
+        assert_complete(p)
 
 
 def scenario_backcountry_only():
@@ -128,17 +172,19 @@ def scenario_first_come_honesty():
         nodes = {"X": {"name": "Windy Camp", "policy": "fcfs"}}
         park = {"permit_id": "999"}
     n = _backcountry_night(StubG(), {}, "X", D0, 0, 2, "now")
-    assert n["availability"] == "first_come"
-    assert n["stay_type"] == "first_come_site"
-    assert n["booking"]["action"] == "arrive_early"
+    assert n.policy == "first_come"
+    assert n.availability == "unknown", \
+        "first-come is a policy; capacity is unknown, not available"
+    assert n.stay_type == "first_come_site"
+    assert n.booking.action == "arrive_early"
 
     lreq = req(slug="lena", nights=2, shapes=["basecamp"])
     res = plan_trips(lreq, fetch_fn=open_fetch())
     for p in res["plans"]:
-        for n in p["nights"]:
-            if n["name"].startswith("LLL"):
-                assert n["availability"] == "permit_free"
-                assert n["availability"] != "reservable"
+        for x in p["nights"]:
+            if x["name"].startswith("LLL"):
+                assert x["policy"] == "permit_free"
+                assert x["availability"] != "available"
 
 
 def scenario_flexible_dates():
@@ -182,6 +228,47 @@ def scenario_sellout_honesty_note():
         "an all-zero window must warn it may be a network failure"
 
 
+def scenario_declared_window_invariant():
+    """The audit's exact repro: a plan declaring Aug 14 to 17 with only
+    one night record must FAIL the checker; the declared window is the
+    authority, never the observed records."""
+    truncated = {"start": "2026-08-14", "end": "2026-08-17",
+                 "trip_window": {"first_night": "2026-08-14",
+                                 "checkout": "2026-08-17"},
+                 "nights": [{"date": "2026-08-14",
+                             "stay_type": "backcountry_camp"}],
+                 "warnings": []}
+    probs = complete_night_problems(truncated)
+    assert len(probs) == 2 and all("no stay record" in p for p in probs), \
+        f"trailing omitted nights must be caught, got {probs}"
+
+    dup = {"start": "2026-08-14", "end": "2026-08-15",
+           "trip_window": {"first_night": "2026-08-14",
+                           "checkout": "2026-08-15"},
+           "nights": [{"date": "2026-08-14", "stay_type": "backcountry_camp"},
+                      {"date": "2026-08-14", "stay_type": "backcountry_camp"}],
+           "warnings": []}
+    assert any("2 stay records" in p for p in complete_night_problems(dup))
+
+    stray = {"start": "2026-08-14", "end": "2026-08-15",
+             "trip_window": {"first_night": "2026-08-14",
+                             "checkout": "2026-08-15"},
+             "nights": [{"date": "2026-08-14",
+                         "stay_type": "backcountry_camp"},
+                        {"date": "2026-08-20",
+                         "stay_type": "backcountry_camp"}],
+             "warnings": []}
+    assert any("outside the declared window" in p
+               for p in complete_night_problems(stray))
+
+    legacy = {"start": "2026-08-14", "end": "2026-08-16",
+              "nights": [{"date": "2026-08-14",
+                          "stay_type": "backcountry_camp"}],
+              "warnings": []}
+    assert complete_night_problems(legacy), \
+        "without trip_window the declared start and end still govern"
+
+
 def scenario_validation():
     _r, errs = validate_request({})
     assert any("destination" in e for e in errs)
@@ -204,15 +291,19 @@ def main():
     scenario_reject_over_max_miles()
     scenario_reject_over_max_gain()
     scenario_arrival_frontcountry_and_unknown()
+    scenario_closed_campground_never_recommended()
+    scenario_frontcountry_respects_first_come_tolerance()
     scenario_backcountry_only()
     scenario_first_come_honesty()
     scenario_flexible_dates()
     scenario_date_shift_relaxation()
     scenario_geometry()
     scenario_sellout_honesty_note()
+    scenario_declared_window_invariant()
     scenario_validation()
-    print("PLANNER OK: 12 golden scenarios green (complete-night "
-          "invariant, honesty labels, relaxations, geometry)")
+    print("PLANNER OK: 15 golden scenarios green (declared-window "
+          "invariant, policy vs availability, closures, honesty, "
+          "relaxations, geometry)")
 
 
 if __name__ == "__main__":

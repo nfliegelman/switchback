@@ -42,8 +42,15 @@ def main():
     assert res["request"]["max_mi"] == 13, "request must be echoed"
     p = res["plans"][0]
     assert not complete_night_problems(p)
+    assert p["trip_window"]["first_night"] < p["start"], \
+        "an arrival-night plan declares its window from the night before"
     assert p["nights"][0]["stay_type"] in ("frontcountry_campground",
                                            "unplanned")
+    for n in p["nights"]:
+        assert n["policy"] in ("reservable", "first_come", "walk_up",
+                               "permit_free", "unknown")
+        assert n["availability"] in ("available", "limited", "full",
+                                     "not_released", "unknown")
     assert p["day_paths"], "the map needs geometry for the selection"
     assert p["checked_at"] and p["availability_summary"]
     assert "score" not in p, "raw solver scores stay internal"
