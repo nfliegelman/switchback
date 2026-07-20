@@ -3,7 +3,7 @@ Phase A shipped here: auto camp candidates for a permit-free area from
 named waters plus 3-way-or-better junctions, routed over the shipped
 area graph, with a 400 m snap gate. Phase B (synthetic availability and
 solver integration) proceeds only because phase A graded within the
-published bands; see docs/EXPERIMENTS.md."""
+published bands; see project/EXPERIMENTS.md."""
 import json, heapq, math, urllib.request, urllib.parse
 
 SNAP_GATE_M = 400.0

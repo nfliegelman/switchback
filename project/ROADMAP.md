@@ -48,7 +48,7 @@ Outcome: complete vacation shells. Curated arrival and recovery
 campgrounds for the slice destinations with honest policy labels, the
 frontcountry-basecamp trip style, and the route editor opening FROM a
 selected recommendation with camp swap, layover, reverse, undo, reset,
-and live feasibility, built on the SCOPE.md camp-list principle.
+and live feasibility, built on the camp-list principle in SPEC.md Part 2.
 
 ## Phase 4, discovery and repair
 
@@ -62,7 +62,7 @@ substrate, Campflare handoff.
 
 Road-corridor search, multi-stop vacations, true point-to-point with
 shuttle logistics, broader frontcountry inventory, group planning,
-monetization experiments per the archived gates in docs/archive/FUTURE.md.
+monetization experiments per the archived gates in project/archive/FUTURE.md.
 
 ## Owner gates on the critical path
 

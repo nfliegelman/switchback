@@ -11,14 +11,14 @@ so this generates the list from the repo's actual state. Tiers:
   Tier 2  trips-ready: a route graph exists, so trips, watch, GPX,
           day hikes, and scoring all work on its corridors
 
-python -m switchback coverage [--write] regenerates COVERAGE.md.
+python -m switchback coverage [--write] regenerates coverage/COVERAGE.md.
 """
 import glob
 import json
 import os
 from datetime import datetime, timezone
 
-PARKS_MD = "COVERAGE.md"
+COVERAGE_MD = "coverage/COVERAGE.md"
 _SKIP = {"manual_coords.json", "ratings.json", "demand.json"}
 
 
@@ -100,7 +100,7 @@ def render(rows, queue):
 
 
 def write_coverage():
-    """One coverage truth file. COVERAGE.md carries the trip-ready tier
+    """One coverage truth file. coverage/COVERAGE.md carries the trip-ready tier
     table plus both state atlases; COLORADO.md, WASHINGTON.md, and
     PARKS.md are retired (v3.3.1 consolidation). Both the atlas and
     coverage CLI commands regenerate the whole file."""
@@ -119,7 +119,7 @@ def write_coverage():
         total += len(srows)
         parts.append(_render_state(srows, title).replace(
             f"# {title} coverage atlas", f"## {title} atlas", 1))
-    with open("COVERAGE.md", "w") as fh:
+    with open(COVERAGE_MD, "w") as fh:
         fh.write("\n".join(parts))
     return total
 

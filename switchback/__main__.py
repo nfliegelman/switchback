@@ -212,7 +212,7 @@ def cmd_watch(args):
 
 def cmd_atlas(args):
     from .coverage import render_atlas
-    print(f"COVERAGE.md regenerated, {render_atlas()} entries")
+    print(f"coverage/COVERAGE.md regenerated, {render_atlas()} entries")
 
 
 def cmd_area(args):
@@ -396,7 +396,7 @@ def cmd_coverage(args):
     rows, queue = survey()
     if args.write:
         n = write_coverage()
-        print(f"COVERAGE.md regenerated, {len(rows)} datasets, {n} atlas rows")
+        print(f"coverage/COVERAGE.md regenerated, {len(rows)} datasets, {n} atlas rows")
     else:
         print(render(rows, queue))
 
@@ -468,7 +468,7 @@ def main():
                     help="manufacture an opening to test the pipeline end to end")
     wa.set_defaults(fn=cmd_watch)
 
-    at = sub.add_parser("atlas", help="regenerate COVERAGE.md from the atlas json")
+    at = sub.add_parser("atlas", help="regenerate coverage/COVERAGE.md from the atlas json")
     at.set_defaults(fn=cmd_atlas)
 
     ar = sub.add_parser("area", help="build a dispersed trail area: boundary plus full trail layer")
@@ -491,7 +491,7 @@ def main():
     bo.set_defaults(fn=cmd_board)
 
     co = sub.add_parser("coverage", help="which parks are at which tier")
-    co.add_argument("--write", action="store_true", help="regenerate COVERAGE.md")
+    co.add_argument("--write", action="store_true", help="regenerate coverage/COVERAGE.md")
     co.set_defaults(fn=cmd_coverage)
 
     hi = sub.add_parser("history", help="scan-history stats or demand derivation")

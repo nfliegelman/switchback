@@ -1,6 +1,10 @@
 # CHANGELOG
 
-Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
+Versioning per project/ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
+
+## v3.4.0 (2026-07-20)
+
+The folder layout, finishing what the markdown diet started, this time owner-approved in conversation. The repo front page now shows four documents instead of ten: README, OWNER, CLAUDE, and CHANGELOG. Everything that steers development (PRODUCT, ROADMAP, SPEC, HANDOFF, BACKLOG, EXPERIMENTS, and the archived FUTURE) moved into a project folder, and the app-written coverage table moved to coverage/COVERAGE.md, with the generator taught to write it there. The experiment log and the archive also moved back out of docs, which is the published map site, not a filing cabinet. Loose ends from the diet are closed: README no longer points at the retired PARKS.md, and every surface that names the version says v3.4.0 again.
 
 ## v3.3.1 (2026-07-17)
 

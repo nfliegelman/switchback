@@ -1,9 +1,9 @@
 # CLAUDE.md
 
-Operating manual for Claude Code sessions in this repository. Read HANDOFF.md before doing anything else; its decision log is the
+Operating manual for Claude Code sessions in this repository. Read project/HANDOFF.md before doing anything else; its decision log is the
 project's memory and it wins every argument with this file. For product
-direction (what to build and why), read PRODUCT.md (Part 1 carries
-the operative adjustments) then ROADMAP.md. SURVEY THE FULL FILE TREE before
+direction (what to build and why), read project/PRODUCT.md (Part 1 carries
+the operative adjustments) then project/ROADMAP.md. SURVEY THE FULL FILE TREE before
 claiming anything is missing; a prior reviewer shipped thirty releases
 without opening five root docs that existed the whole time.
 
@@ -33,9 +33,9 @@ in the same PR. Never ask him to run commands beyond double-clicking a
 2. Surgical edits. Change the fewest lines that do the job. Never
    reformat, resort, or "clean up" untouched code.
 3. Decisions get written down the same session they are made: durable
-   conventions and hard-won facts go in HANDOFF.md's decision log
-   (newest first), deferred work goes in BACKLOG.md, experiment results
-   in EXPERIMENTS.md.
+   conventions and hard-won facts go in project/HANDOFF.md's decision log
+   (newest first), deferred work goes in project/BACKLOG.md, experiment
+   results in project/EXPERIMENTS.md.
 4. Every release: bump switchback/__init__.py, add a CHANGELOG.md entry
    (prose, no bullets), tag vX.Y.Z. Version-per-PR is fine.
 5. Full test suite green before any push:
@@ -90,7 +90,7 @@ in the same PR. Never ask him to run commands beyond double-clicking a
 - `python3 -m switchback dem-trail <slug>` trail-true gains (resumable)
 - `python3 -m switchback corridor <slug> --max-tiles N` (resumable)
 - `python3 -m switchback area <slug>` landscape build from atlas row
-- `python3 -m switchback atlas` regenerate COLORADO.md, WASHINGTON.md
+- `python3 -m switchback atlas` regenerate coverage/COVERAGE.md
 - `python3 -m switchback merge-inventory <slug> <permit_id>` dual permit
 - `python3 -m switchback watch <slug> --inject --once` alert test
 
@@ -105,7 +105,7 @@ parks/*.json park data; parks/edges/ edge specs with provenance;
 parks/geometry/ display polylines; parks/atlas.json the landscape
 registry; docs/areas/ built landscape maps plus index.json manifest;
 docs/board/ the PWA (bump the sw.js SHELL string when changing it);
-switchback/ the engine; tests/ offline suite; root docs are the ten-file paper
-trail (PRODUCT, ROADMAP, SPEC, COVERAGE, HANDOFF, BACKLOG, CHANGELOG,
-OWNER, CLAUDE, README); experiment history lives in docs/EXPERIMENTS.md
-and the archive in docs/archive/.
+switchback/ the engine; tests/ offline suite; root markdown is README,
+OWNER, CLAUDE, CHANGELOG only; project/ the working docs (PRODUCT,
+ROADMAP, SPEC, HANDOFF, BACKLOG, EXPERIMENTS, archive/FUTURE.md);
+coverage/COVERAGE.md the generated coverage truth, written by the app.
