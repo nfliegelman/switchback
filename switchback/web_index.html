@@ -75,9 +75,11 @@
   <input type="date" id="start"><input type="date" id="end">
   <input class="small" id="nights" type="number" min="1" max="8" value="3" title="nights">
   <input class="small" id="party" type="number" min="1" max="12" value="2" title="party">
+  <span id="advctl" style="display:none">
   <select id="ttype"><option value="any">any shape</option><option value="loop">loop</option><option value="out and back">out and back</option><option value="basecamp">basecamp</option></select>
   <input class="codes" id="codes" placeholder="codes (optional)">
   <input class="codes" id="via" placeholder="via camp (optional)">
+  </span>
   <button class="primary" id="plan">Plan trips</button>
   <button class="ghost" id="find">Classic list</button>
   <button class="ghost" id="adv">Adventure</button>
@@ -89,6 +91,7 @@
       <span class="dot" style="background:#e0a13d"></span>some
       <span class="dot" style="background:#b8433a"></span>full
       <span class="dot" style="background:#9aa"></span>unknown</div>
+    <div id="planform" style="display:none;margin-top:12px"></div>
     <div id="profile" style="display:none;margin-top:12px"></div>
     <div id="results" style="margin-top:12px"></div>
   </div>
@@ -168,6 +171,8 @@ async function refreshAvailability(){
 
 $('find').onclick = async () => {
   mode = 'trips'; resetAdventure(false);
+  $('planform').style.display = 'none';
+  $('advctl').style.display = '';   // classic mode is the expert surface
   $('results').innerHTML = '<div class="muted">Fetching availability and solving...</div>';
   try {
     const body = { slug: PARK.slug, start: $('start').value, end: $('end').value,
@@ -233,6 +238,7 @@ function drawRoute(i, el){
 
 $('adv').onclick = () => {
   mode = 'adventure'; advSeq = []; advEntrance = null;
+  $('planform').style.display = 'none';
   if (routeLayer) map.removeLayer(routeLayer);
   $('results').innerHTML = `<h3>Adventure mode</h3>
     <div class="muted">Tap a triangle (a trailhead) on the map to start. Then choose each night from the live frontier: camps you can reach that day with an open site, ranked by how many ways the trip can still finish.</div>`;
@@ -297,6 +303,7 @@ const PRESETS = {
 
 $('plan').onclick = async () => {
   mode = 'plan'; resetAdventure(false);
+  $('advctl').style.display = 'none';   // no internal codes in the consumer flow
   if (routeLayer) map.removeLayer(routeLayer);
   if (!PDEF) { try { PDEF = await jget('/api/plan/defaults'); } catch(e){ PDEF = {pref_mi:9,pref_gain:2200,max_mi:13,max_gain:4000,shapes:[]}; } }
   renderPlanForm();
@@ -304,8 +311,13 @@ $('plan').onclick = async () => {
 
 function shapeChecked(s){ return (PDEF.shapes||[]).length === 0 || PDEF.shapes.includes(s); }
 
+// The constraint form lives in its own persistent container (#planform),
+// deliberately separate from loading/result output (#results): submitting
+// a search must never destroy the form it is reading from.
 function renderPlanForm(){
-  $('results').innerHTML = `
+  $('planform').style.display = 'block';
+  $('results').innerHTML = '';
+  $('planform').innerHTML = `
   <div class="pform">
     <h3>Plan a trip</h3>
     <div class="sec"><b>WHERE AND WHEN</b>
@@ -346,6 +358,7 @@ function renderPlanForm(){
   document.querySelectorAll('.pform input').forEach(el => el.oninput = planSummary);
   planSummary();
   $('p_go').onclick = runPlan;
+  if (PLANRES) renderPlanCards();   // coming back from a detail view
 }
 
 function planShapes(){
@@ -370,22 +383,25 @@ function planSummary(){
 }
 
 async function runPlan(){
+  // Read EVERY form value before touching any container. The form
+  // survives regardless (it lives in #planform, not #results), but
+  // read-first is the rule: the 2026-07-20 audit caught this exact
+  // ordering destroying the form mid-read.
+  const body = { slug: PARK.slug, start: $('start').value, latest_start: $('end').value,
+    nights: +$('nights').value, party: +$('party').value,
+    pref_mi: +$('p_pref_mi').value, max_mi: +$('p_max_mi').value,
+    pref_gain: +$('p_pref_gain').value, max_gain: +$('p_max_gain').value,
+    shapes: planShapes(), first_come_ok: $('p_fcfs').checked,
+    arrival_night: $('p_arrive').checked, recovery_night: $('p_recover').checked };
   $('results').innerHTML = '<div class="muted">Checking availability and building complete trips...</div>';
   try {
-    const body = { slug: PARK.slug, start: $('start').value, latest_start: $('end').value,
-      nights: +$('nights').value, party: +$('party').value,
-      pref_mi: +$('p_pref_mi').value, max_mi: +$('p_max_mi').value,
-      pref_gain: +$('p_pref_gain').value, max_gain: +$('p_max_gain').value,
-      shapes: planShapes(), first_come_ok: $('p_fcfs').checked,
-      arrival_night: $('p_arrive').checked, recovery_night: $('p_recover').checked };
     PLANRES = await jpost('/api/plan', body);
     PLANS = PLANRES.plans;
     renderPlanCards();
   } catch(e){
     let msg = e.message;
     try { const d = JSON.parse(msg); if (d.detail && d.detail.errors) msg = d.detail.errors.join('; '); } catch(_){}
-    $('results').innerHTML = `<div class="warn">${msg}</div><button class="ghost" id="p_back0">Back to the form</button>`;
-    $('p_back0').onclick = renderPlanForm;
+    $('results').innerHTML = `<div class="warn">${msg}</div>`;
   }
 }
 
@@ -393,8 +409,8 @@ function fmtWhen(iso){ return iso ? iso.replace('T',' ').replace('+00:00',' UTC'
 
 function renderPlanCards(){
   const res = PLANRES;
-  let html = `<button class="ghost" id="p_back1">Change the search</button>
-    <div class="fresh">Availability checked ${fmtWhen(res.checked_at)}</div>`;
+  $('planform').style.display = 'block';   // constraints stay editable above the results
+  let html = `<div class="fresh">Availability checked ${fmtWhen(res.checked_at)}</div>`;
   (res.notes||[]).forEach(n => html += `<div class="warn">${n}</div>`);
   if (!PLANS.length){
     html += `<div class="muted">No complete trip fits those limits in that window. The smallest changes that would open trips up:</div>`;
@@ -416,22 +432,26 @@ function renderPlanCards(){
     </div>`;
   });
   $('results').innerHTML = html;
-  $('p_back1').onclick = renderPlanForm;
   document.querySelectorAll('.card').forEach(el => el.onclick = () => showPlanDetail(+el.dataset.i));
   if (PLANS.length) drawPlan(0);
 }
 
 function availLine(n){
-  if (n.availability === 'reservable') return `${n.remaining != null ? n.remaining + ' site(s) open' : 'reservable'}, book it`;
-  if (n.availability === 'first_come') return 'first-come: no reservation possible, arrive early';
-  if (n.availability === 'permit_free') return 'permit-free: follow dispersed rules';
-  if (n.availability === 'unknown') return 'availability unverified, check before relying on it';
-  return n.availability;
+  const pol = {reservable:'reservable', first_come:'first-come',
+    walk_up:'walk-up', permit_free:'permit-free', unknown:'policy unknown'}[n.policy] || n.policy;
+  if (n.policy === 'first_come') return 'first-come: no reservation possible, arrive early';
+  if (n.policy === 'permit_free') return 'permit-free: no inventory system, follow dispersed rules';
+  if (n.availability === 'available') return `${pol}, ${n.remaining != null ? n.remaining + ' site(s) open' : 'sites open'}, book it`;
+  if (n.availability === 'limited') return `${pol}, only ${n.remaining} site(s) left, book soon`;
+  if (n.availability === 'full') return `${pol}, full for this night`;
+  if (n.availability === 'not_released') return `${pol}, inventory not released yet`;
+  return `${pol}, availability unverified, check before relying on it`;
 }
 
 function showPlanDetail(i){
   const p = PLANS[i];
   drawPlan(i);
+  $('planform').style.display = 'none';   // detail is its own screen; back restores the form
   let html = `<button class="ghost" id="p_back2">All recommendations</button>
     <h3>${p.title}</h3>
     <div><span class="badge ${p.fit.label==='Great fit'?'fit':'stretch'}">${p.fit.label}</span>
@@ -439,7 +459,7 @@ function showPlanDetail(i){
     <div class="meta">${p.start} to ${p.end} &middot; party of ${p.party} &middot; ${p.shape} from ${p.trailhead.name}
     &middot; ${p.totals.miles} mi, ${p.totals.gain_ft.toLocaleString()} ft total</div>
     <div class="fresh">Availability checked ${fmtWhen(p.checked_at)} &middot; confidence: ${p.confidence.replace(/_/g,' ')}</div>`;
-  (p.warnings||[]).forEach(w => html += `<div class="warn">${w}</div>`);
+  (p.warnings||[]).forEach(w => html += `<div class="warn">${w.message||w}</div>`);
   (p.data_quality||[]).forEach(w => html += `<div class="warn">${w}</div>`);
   html += `<h3 style="margin-top:10px">Where you sleep</h3>`;
   p.nights.forEach(n => {
