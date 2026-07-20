@@ -1,0 +1,59 @@
+{
+  "slug": "rainier",
+  "curated_at": "2026-07-20",
+  "note": "Hand-curated arrival and recovery campgrounds for the Mount Rainier vertical slice. Policies transcribed from nps.gov/mora/planyourvisit/campgrounds.htm. Live campground inventory is NOT fetched; availability must be reported unknown for reservation campgrounds and first-come for the rest. Drive minutes are road-time approximations keyed by graph entrance node id.",
+  "campgrounds": [
+    {
+      "id": "cougar_rock",
+      "name": "Cougar Rock Campground",
+      "lat": 46.7666,
+      "lon": -121.7946,
+      "policy": "reservation",
+      "booking_url": "https://www.recreation.gov/camping/campgrounds/232466",
+      "source": "nps.gov Mount Rainier campgrounds page; recreation.gov campground 232466",
+      "confidence": "curated",
+      "season": "late May to late September, check current dates",
+      "drive_minutes": {"ENT:4675317025": 8},
+      "notes": "2 miles up the road from Longmire. Reservations through recreation.gov in summer."
+    },
+    {
+      "id": "white_river",
+      "name": "White River Campground",
+      "lat": 46.9021,
+      "lon": -121.6437,
+      "policy": "reservation",
+      "booking_url": "https://www.nps.gov/mora/planyourvisit/campgrounds.htm",
+      "source": "nps.gov Mount Rainier campgrounds page",
+      "confidence": "curated",
+      "season": "late June to late September, check current dates",
+      "drive_minutes": {"ENT:4675317047": 2, "ENT:4675317042": 35},
+      "notes": "Adjacent to the White River trailhead; about 45 minutes of road to Sunrise. Check the NPS page for the current reservation channel before relying on a site."
+    },
+    {
+      "id": "ohanapecosh",
+      "name": "Ohanapecosh Campground",
+      "lat": 46.7326,
+      "lon": -121.5663,
+      "policy": "reservation",
+      "booking_url": "https://www.recreation.gov/camping/campgrounds/232465",
+      "source": "nps.gov Mount Rainier campgrounds page; recreation.gov campground 232465",
+      "confidence": "curated",
+      "season": "late May to late September, check current dates",
+      "drive_minutes": {"ENT:4675317003": 18},
+      "notes": "Old-growth river campground on the southeast side, closest drive to Box Canyon."
+    },
+    {
+      "id": "mowich_lake",
+      "name": "Mowich Lake Campground",
+      "lat": 46.9325,
+      "lon": -121.8632,
+      "policy": "first_come",
+      "booking_url": "https://www.nps.gov/mora/planyourvisit/campgrounds.htm",
+      "source": "nps.gov Mount Rainier campgrounds page",
+      "confidence": "curated",
+      "season": "July to early October, gravel road, check current status",
+      "drive_minutes": {},
+      "notes": "Primitive walk-in sites at the lake, no reservations, arrive early. Serves the northwest corner; no graph entrance is keyed to it yet."
+    }
+  ]
+}
