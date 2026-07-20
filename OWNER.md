@@ -9,11 +9,11 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 
 ## Product brief: RECEIVED and processed (2026-07-17)
 
-The alignment brief is now PRODUCT.md; Claude's candid Historical Context Addendum is PRODUCT_ADDENDUM.md; the roadmap is rewritten around it. Nothing owed from you here; read PRODUCT.md Part 1 section 7 if you want the priority changes in one place.
+The alignment brief is now Part 2 of project/PRODUCT.md; Claude's candid Historical Context Addendum is its Part 1; the roadmap is rewritten around it. Nothing owed from you here; read project/PRODUCT.md Part 1 section 7 if you want the priority changes in one place.
 
 ## Checking you are on the right version
 
-Everything now announces itself. The CLI prints "switchback v3.3.0" at the top of every command; the app window title bar shows "Switchback v3.3.0"; the map board shows it bottom-left; the .bat files print it first. If any surface does not say v3.3.0, you are running an old copy: re-download the ZIP from GitHub.
+Everything now announces itself. The CLI prints "switchback v3.4.0" at the top of every command; the app window title bar shows "Switchback v3.4.0"; the map board shows it bottom-left; the .bat files print it first. If any surface does not say v3.4.0, you are running an old copy: re-download the ZIP from GitHub.
 
 ## Desktop, first session back (about 45 minutes total)
 
@@ -24,6 +24,8 @@ Everything now announces itself. The CLI prints "switchback v3.3.0" at the top o
 10. Optional, whenever you hike it: record a GPX trace of the Conundrum spur. It is the one edge waiting on your feet.
 
 ## Done (kept for the record)
+
+- 2026-07-20: the markdown cleanup you asked for, in two passes: an automated v3.3.1 pass merged overlapping docs (the addendum now lives inside PRODUCT.md as its Part 1), then v3.4.0 finished the folder layout you approved. The repo front page now shows just README, OWNER, CLAUDE, and CHANGELOG; the working docs live in project/; the app-written coverage table is coverage/COVERAGE.md. Nothing was deleted, only merged or moved. Also per your ask, every version now shows up on the repo's Releases page on GitHub automatically, past ones included, and each release carries a downloadable zip of the code as of that version, which is the safest place to grab your re-download from now on.
 
 - 2026-07-15: old PAT deleted, Telegram secrets landed, Actions verified green (your items 1 to 3). Standing questions answered: corridor buffer vetoed to 1 km (all three corridors rebuilt same day) and the loop-vs-any question superseded by your trip-shape toggles request, now specced in ROADMAP. The accidental "Add files via upload" commit was force-push deleted.
 

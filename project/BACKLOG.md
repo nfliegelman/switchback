@@ -27,13 +27,13 @@ below the triage table retain their original detail.
 | Solitude modeling | PARKED | data unlocked, build parked per brief |
 | More alert channels | PARKED | |
 | Winter seasonal divisions | PARKED | |
-| Monetization gates G1 to G3 | PARKED | see docs/archive/FUTURE.md |
+| Monetization gates G1 to G3 | PARKED | see project/archive/FUTURE.md |
 | Trip-shape toggles engine, dual merge, corridors, RMNP buildout, dem_trail, toughest-stretch, coverage waves | SHIPPED | CHANGELOG.md |
 
 ## Original detail (pre-triage, kept)
 
 
-Future features, categorized, with the owner's direction recorded. Status tags: DIRECTED (Noah gave explicit direction), DISCUSSED (analyzed together, no commitment), PARKED (explicitly deferred by Noah), GATED (blocked behind a decision gate). Last updated 2026-07-07. Engine work lives in ROADMAP.md; rationale lives in SPEC.md and SCOPE.md.
+Future features, categorized, with the owner's direction recorded. Status tags: DIRECTED (Noah gave explicit direction), DISCUSSED (analyzed together, no commitment), PARKED (explicitly deferred by Noah), GATED (blocked behind a decision gate). Last updated 2026-07-07. Engine work lives in ROADMAP.md; rationale lives in SPEC.md, whose Part 2 carries the old SCOPE.
 
 ## 1. Trip shapes and logistics
 
@@ -163,7 +163,7 @@ First wave after the owner's v2.0.0 test drive: Olympic (NP plus the NF Lena per
 
 
 ## Dispersed itineraries experiment (owner approved 2026-07-13)
-Goal: full trip generation in permit-free areas. Plan: derive candidate camp nodes from OSM named lakes and basins plus trail junctions inside the boundary, build edges by routing on the area TrailNet, availability is synthetic always-open through the existing region overlay machinery (policy none). Pilot on one Weminuche drainage (Needle Creek or Vallecito) and compare output against published route knowledge before trusting it anywhere. Auto may work, auto may need a curation pass; that is the test. STATUS: phase A PASSED 2026-07-13, see EXPERIMENTS.md; phase B (synthetic availability plus solver) is next. Next area waves per COLORADO.md: La Garita and Powderhorn complete the San Juans, then the central classics.
+Goal: full trip generation in permit-free areas. Plan: derive candidate camp nodes from OSM named lakes and basins plus trail junctions inside the boundary, build edges by routing on the area TrailNet, availability is synthetic always-open through the existing region overlay machinery (policy none). Pilot on one Weminuche drainage (Needle Creek or Vallecito) and compare output against published route knowledge before trusting it anywhere. Auto may work, auto may need a curation pass; that is the test. STATUS: phase A PASSED 2026-07-13, see EXPERIMENTS.md; phase B (synthetic availability plus solver) is next. Next area waves per the Colorado atlas in coverage/COVERAGE.md: La Garita and Powderhorn complete the San Juans, then the central classics.
 
 
 ## Rubber band route builder (owner spec 2026-07-13)

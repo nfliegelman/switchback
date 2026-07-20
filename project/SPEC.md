@@ -195,7 +195,7 @@ Onboarding checklist per park: confirm booking system and archetype (systems mig
 
 (Targets the v2.1 web UI per the 2026-07-12 reshuffle. The engine functions this section needs, endings and camp_card and the availability re-verify clamp, shipped with M4/M5; only the interaction layer is deferred.)
 
-Batch mode and adventure mode are the same solver. The DP lattice over (night, camp) states is the book: batch mode enumerates every ending and ranks them, adventure mode turns one page at a time. Editing an existing route is re-opening the book at chapter k, so this section absorbs the structured route editing line item in SCOPE.md.
+Batch mode and adventure mode are the same solver. The DP lattice over (night, camp) states is the book: batch mode enumerates every ending and ranks them, adventure mode turns one page at a time. Editing an existing route is re-opening the book at chapter k, so this section absorbs the structured route editing line item in Part 2, the old SCOPE.
 
 Start resolution. Trailheads are ordinary nodes. A virtual origin connects to every entry trailhead at zero cost, so the night-1 frontier is every camp reachable from any trailhead within daily bounds. A camp reachable from multiple trailheads appears once, with one via entry per approach carrying that approach's distance, gain, and grade. The trailhead choice is deferred until logistics force it. Validated against live Glacier data: Elizabeth Lake Foot is reachable from both the BRE Belly River Trail and IPE Iceberg/Ptarmigan Trail entrances, exactly the case this design defers rather than forces.
 
@@ -219,7 +219,7 @@ Data-quality findings from Glacier (permit 4675321, 213 divisions):
 - Divisions include administrative sites, stock hitch rails, and spike camps. Each park needs a division filter so the frontier shows only reservable hiker camps by default.
 - Official camp and trailhead mileage tables exist in the park's backcountry guide, so Glacier edges are transcription, like Rainier.
 
-Cost. Backward pruning plus endings counts: 2-3 h in the solver. Interactive UI: 6-10 h on map v0, or 2-3 h as a numbered-list CLI available immediately after P1. Net effect on SCOPE.md totals: +2-4 h, since this absorbs the 8-12 h structured editing line.
+Cost. Backward pruning plus endings counts: 2-3 h in the solver. Interactive UI: 6-10 h on map v0, or 2-3 h as a numbered-list CLI available immediately after P1. Net effect on Part 2 (old SCOPE) totals: +2-4 h, since this absorbs the 8-12 h structured editing line.
 
 
 ## Addendum, v1.6.2 (2026-07-12): basecamp day hikes
