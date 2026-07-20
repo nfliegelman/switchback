@@ -1,8 +1,11 @@
 # CLAUDE.md
 
-Operating manual for Claude Code sessions in this repository. Read
-HANDOFF.md before doing anything else; its decision log is the project's
-memory and it wins every argument with this file.
+Operating manual for Claude Code sessions in this repository. Read HANDOFF.md before doing anything else; its decision log is the
+project's memory and it wins every argument with this file. For product
+direction (what to build and why), read PRODUCT.md then
+PRODUCT_ADDENDUM.md then ROADMAP.md. SURVEY THE FULL FILE TREE before
+claiming anything is missing; a prior reviewer shipped thirty releases
+without opening five root docs that existed the whole time.
 
 ## What this is
 

@@ -7,9 +7,13 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 1. DELETE TODAY'S GITHUB TOKEN (the one from the 2026-07-15 session). Same drill as always: Settings > Developer settings > Fine-grained tokens.
 2. (CLOSED 2026-07-15) AllTrails detail approval worked; crowd-volume stats confirmed flowing (Vestal Basin returned 89 reviews, 189 completed hikes). The solitude signal now has a live data source when a future session wires it into scoring.
 
-## Waiting on one upload
+## Product brief: RECEIVED and processed (2026-07-17)
 
-- Re-send the product-alignment brief in chat; the first attempt did not attach. The Historical Context Addendum and the roadmap rewrite start the moment it lands.
+The alignment brief is now PRODUCT.md; Claude's candid Historical Context Addendum is PRODUCT_ADDENDUM.md; the roadmap is rewritten around it. Nothing owed from you here; read PRODUCT_ADDENDUM.md section 7 if you want the priority changes in one place.
+
+## Checking you are on the right version
+
+Everything now announces itself. The CLI prints "switchback v3.3.0" at the top of every command; the app window title bar shows "Switchback v3.3.0"; the map board shows it bottom-left; the .bat files print it first. If any surface does not say v3.3.0, you are running an old copy: re-download the ZIP from GitHub.
 
 ## Desktop, first session back (about 45 minutes total)
 

@@ -1,6 +1,15 @@
 # SPEC.md
 
-Design spec for Switchback: the trip-finding engine layered on the permit finder. Companion to FUTURE.md (this is Tier 3, fully expanded). Status: design, not built.
+The technical product contract. As of v3.3.0 this file is being
+re-anchored to PRODUCT.md sections 6 and 13: the models to implement in
+Phase 1 are TripRequest, TripPlan, Stay, and the confidence vocabulary,
+with the complete-night invariant (every calendar night has exactly one
+stay record or an explicit unplanned gap) and a planner.py orchestration
+layer ABOVE the untouched solver. The original v2-era design below is
+retained as archive; where it disagrees with PRODUCT.md, PRODUCT.md
+wins.
+
+## Archived original design (pre-brief)
 
 ## 1. Purpose
 

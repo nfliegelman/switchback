@@ -13,6 +13,7 @@ Exports are written to a `permit_exports` subfolder next to this file.
 Data source: recreation.gov.
 """
 
+from switchback import __version__
 import csv
 import os
 import sys
@@ -241,7 +242,7 @@ PCT_DISPLAY_INDEX = 7  # 0-based position of pct in a row tuple (see headers)
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Switchback")
+        self.title(f"Switchback v{__version__}")
         self.geometry("940x720")
         self.minsize(860, 640)
 
@@ -627,7 +628,7 @@ class App(ctk.CTk):
 
     def _show_trips(self, text):
         win = ctk.CTkToplevel(self)
-        win.title("Switchback: ranked trips")
+        win.title(f"Switchback v{__version__}: ranked trips")
         win.geometry("1020x640")
         box = tk.Text(win, wrap="none", font=("Courier New", 10),
                       bg="#1E1E1E", fg="#DCE4EE", insertbackground="#DCE4EE")

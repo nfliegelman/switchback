@@ -1,5 +1,38 @@
 # BACKLOG.md
 
+Triaged v3.3.0 against PRODUCT.md priorities. Labels: P0 required for
+the coherent product, P1 immediately after, P2 strategic, PARKED do
+not build without new evidence, SHIPPED kept for the record. Items
+below the triage table retain their original detail.
+
+| Item | Label | Note |
+|---|---|---|
+| Maroon Zone anchor relocation and edge re-audit | P0 | data integrity; one session; blocks Elks quality bar |
+| TripRequest, TripPlan, Stay, planner.py contract | P0 | Phase 1 core, spec in PRODUCT.md 6 and SPEC.md |
+| Per-search effort in request API and form | P0 | ends silent profile.json dependence |
+| Frontcountry curation for Rainier, RMNP, Lena | P0 | narrow, honest policy labels first |
+| Trip-shape toggle UI (engine shipped v3.1.0) | P0 | form chips, vocabulary already aligned |
+| Zero-result repair ladder with quantified relaxations | P0 | solver relaxation analysis |
+| Golden scenario suite (PRODUCT.md 18.2) | P0 | 10 scenarios, offline fixtures |
+| Complete-trip alerts on watch substrate | P1 | after TripPlan exists |
+| Calibration reactions fold-in | P1 | owner-gated; scaffold ready; ballots issued |
+| Route repair and permit-free fallbacks | P1 | corridors and dispersed are the inventory |
+| Campflare handoff | P1 | outbound links first |
+| Pilot inline-geometry carry-through | P1 | dispersed regrade quality |
+| Dispersed candidate criteria pass (upper basins, orphan check) | P2 | revives Blue Lakes, Highland Mary |
+| IPW as fourth slice destination | P2 | dual-permit showcase |
+| Point-to-point with exit entrances and shuttle logistics | P2 | UI already truthful |
+| Long-trail section planning on corridor assets | P2 | |
+| Archetype B Sierra trailhead-quota parks | PARKED | fails the decision filter until P0 metrics healthy |
+| Solitude modeling | PARKED | data unlocked, build parked per brief |
+| More alert channels | PARKED | |
+| Winter seasonal divisions | PARKED | |
+| Monetization gates G1 to G3 | PARKED | see archived FUTURE.md |
+| Trip-shape toggles engine, dual merge, corridors, RMNP buildout, dem_trail, toughest-stretch, coverage waves | SHIPPED | CHANGELOG.md |
+
+## Original detail (pre-triage, kept)
+
+
 Future features, categorized, with the owner's direction recorded. Status tags: DIRECTED (Noah gave explicit direction), DISCUSSED (analyzed together, no commitment), PARKED (explicitly deferred by Noah), GATED (blocked behind a decision gate). Last updated 2026-07-07. Engine work lives in ROADMAP.md; rationale lives in SPEC.md and SCOPE.md.
 
 ## 1. Trip shapes and logistics

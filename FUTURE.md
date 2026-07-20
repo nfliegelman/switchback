@@ -1,6 +1,6 @@
 # FUTURE.md
 
-Note (2026-07-07): superseded as the active tracker by ROADMAP.md and BACKLOG.md. Retained for history and the monetization gates.
+Note (2026-07-07, reaffirmed v3.3.0): ARCHIVED. Superseded by PRODUCT.md, ROADMAP.md, and BACKLOG.md. Retained for history and the monetization gates, which stay parked per PRODUCT.md section 5.
 
 Roadmap for the Recreation.gov Permit Availability Finder.
 

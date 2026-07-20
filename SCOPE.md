@@ -2,6 +2,13 @@
 
 Feature triage for the full loop: recommend camp sequences within effort limits, display on a map, edit or build routes, export GPX to AllTrails / Garmin / CalTopo. Companion to SPEC.md and FUTURE.md. Part of Switchback.
 
+## Status (v3.3.0)
+
+Still governing. PRODUCT.md's Edit-this-trip surface is cheap precisely
+because of the principle below; the Phase 3 editor must not violate it.
+The build/borrow/avoid buckets align with PRODUCT.md section 5 and the
+Parked list; where they disagree, PRODUCT.md wins.
+
 ## The principle that keeps this buildable
 
 A route is an ordered list of camps (with pass-through flags), never a geometric line. Geometry, distance, gain, and the GPX track are always derived from the camp sequence via graph edges. Editing becomes list surgery: swap a camp, insert or remove a night, reverse direction. The solver, the map editor, and the GPX exporter share one representation, so building the editor is cheap. The moment routes become freehand geometry, cost jumps an order of magnitude, and freehand only matters in camp-anywhere terrain where designated camps do not constrain you anyway.

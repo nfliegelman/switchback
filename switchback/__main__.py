@@ -428,6 +428,8 @@ def cmd_profile(args):
 
 
 def main():
+    from . import __version__
+    print(f"switchback v{__version__}", file=sys.stderr)
     p = argparse.ArgumentParser(prog="switchback")
     sub = p.add_subparsers(dest="cmd", required=True)
 
