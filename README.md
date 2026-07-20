@@ -1,6 +1,6 @@
 # Switchback
 
-v3.4.0. A constraint-based backcountry trip planner: tell it when you
+v3.4.1. A constraint-based backcountry trip planner: tell it when you
 can go and what you can handle, it finds complete trips you can
 actually take, checked against live rec.gov availability.
 
@@ -32,4 +32,4 @@ the published map site docs/, tests tests/.
 Tests: `python -m pytest -q` runs the full twelve-suite invariant
 battery, offline. Non-coder path: START_HERE.txt and the .bat
 launchers. Every surface prints its version; if it does not say
-v3.4.0, you are not on this release.
+v3.4.1, you are not on this release.

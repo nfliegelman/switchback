@@ -6,6 +6,8 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 
 1. DELETE TODAY'S GITHUB TOKEN (the one from the 2026-07-15 session). Same drill as always: Settings > Developer settings > Fine-grained tokens.
 2. (CLOSED 2026-07-15) AllTrails detail approval worked; crowd-volume stats confirmed flowing (Vestal Basin returned 89 reviews, 189 completed hikes). The solitude signal now has a live data source when a future session wires it into scoring.
+3. Map board check: open the board (your home screen icon, or nfliegelman.github.io/switchback/board/). Bottom-left should say v3.4.1; the app caches itself, so give it a close-and-reopen or two. Tap a trip and confirm trail lines draw.
+4. Releases check: repo page > Releases. You should see every version back to v1.0.0, each with a downloadable zip. That page is your download spot from now on.
 
 ## Product brief: RECEIVED and processed (2026-07-17)
 
@@ -13,15 +15,21 @@ The alignment brief is now Part 2 of project/PRODUCT.md; Claude's candid Histori
 
 ## Checking you are on the right version
 
-Everything now announces itself. The CLI prints "switchback v3.4.0" at the top of every command; the app window title bar shows "Switchback v3.4.0"; the map board shows it bottom-left; the .bat files print it first. If any surface does not say v3.4.0, you are running an old copy: re-download the ZIP from GitHub.
+Everything now announces itself. The CLI prints "switchback v3.4.1" at the top of every command; the app window title bar shows "Switchback v3.4.1"; the map board shows it bottom-left; the .bat files print it first. If any surface does not say v3.4.1, you are running an old copy: grab the newest zip from the Releases page.
 
-## Desktop, first session back (about 45 minutes total)
+## Desktop, the big test drive (your call, 2026-07-20; about 90 minutes, fine to split across evenings)
 
-6. (MOVED TO FUTURE TODO by your call, 2026-07-17; everything stays ready) Calibration: double-click CALIBRATE.bat, wait 2 or 3 minutes, then type a few words after every REACTION line in the Notepad file that opens, save, and send that file (or its text) to Claude. Scoring stays generic until this happens.
-7. Smoke test: double-click SMOKE_GUI.bat, click Find Trips once, note whether results appear or anything looks broken.
-8. Smoke test: go to caltopo.com, click Import (top left), choose docs\samples\sample_rmnp_route.gpx from the extracted folder, confirm a line draws on the map near Estes Park.
-9. Smoke test: double-click TELEGRAM_TEST.bat; first run opens a file to paste your two bot values into, second run sends one test message to your phone.
-10. Optional, whenever you hike it: record a GPX trace of the Conundrum spur. It is the one edge waiting on your feet.
+Do these in order and keep one running note of anything broken, confusing, or great. Messy reactions are exactly the data Claude needs; there are no wrong answers here.
+
+6. Fresh copy first: repo page > Releases > top entry > download "Source code (zip)" and extract it. Every surface should say v3.4.1; if one does not, you grabbed an old zip.
+7. REOPENED, the calibration half hour: double-click CALIBRATE.bat, wait 2 or 3 minutes, then type a few words after every REACTION line in the Notepad file that opens (would you actually hike it? too hard, too easy, wrong camps, anything look wrong?), save, and send the file text to Claude. Scoring stays generic until this lands. One caution: if a Maroon Bells route's miles look off, note it and move on; that corridor has a known data bug already on the fix list.
+8. Smoke test: double-click SMOKE_GUI.bat, click Find Trips once, note whether results appear.
+9. The real app: double-click Switchback.bat. Run a live search on each of Rainier, RMNP, and Lena for a window you might actually go (say late September, 3 nights, party of 2). Gut-check the top three trips per park: miles, climbs, camps, shapes. Flip the trip-shape toggles. Draw a route with the rubber-band builder. Export one GPX.
+10. GPX proof: at caltopo.com click Import and load docs\samples\sample_rmnp_route.gpx from the extracted folder (a line should draw near Estes Park), then import the GPX you exported in step 9 the same way.
+11. Alerts: double-click TELEGRAM_TEST.bat; first run opens a file to paste your two bot values into, second run sends one test message to your phone.
+12. Optional, whenever you hike it: record a GPX trace of the Conundrum spur. Still the one edge waiting on your feet.
+
+Report back with three things: the filled calibration sheet, your running note from steps 6 to 11, and screenshots of anything that looked wrong. Claude folds all of it into scoring and the fix list.
 
 ## Done (kept for the record)
 
