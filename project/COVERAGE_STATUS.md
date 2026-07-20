@@ -25,10 +25,16 @@ recommendations.
 
 ## Current classifications
 
-- Mount Rainier (rainier): COMPLETE-TRIP SUPPORTED as of v3.5.0,
-  pending owner browser verification and one live-network run (see
-  project/CURRENT_PHASE.md); the automated golden scenarios pass.
-  First and only destination at level 5.
+- Mount Rainier (rainier): SOLVER SUPPORTED plus planning layer
+  implemented, VERIFICATION BLOCKED (reclassified 2026-07-20 by the
+  post-alignment audit; the earlier complete-trip-supported label was
+  premature). The automated golden scenarios and a real-browser
+  workflow test now pass, the form-crash and frontcountry data
+  defects the audit found are fixed, but promotion to COMPLETE-TRIP
+  SUPPORTED still requires: an owner browser walkthrough, one
+  live-network run against real rec.gov inventory, and a live check
+  that the booking links resolve. The gates live in
+  project/CURRENT_PHASE.md.
 - Glacier (glacier), Rocky Mountain NP (rmnp), Teton Crest
   (tetoncrest), Indian Peaks (indianpeaks), Maroon Bells
   (maroonbells), Sand Dunes (sanddunes), Enchantments

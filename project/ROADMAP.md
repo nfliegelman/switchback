@@ -27,10 +27,17 @@ Required and status as of v3.5.0:
 - Availability, booking actions, and freshness on every stay: DONE.
 - Honest first-come and unknown handling: DONE.
 - Recommendation cards and complete trip detail in the app,
-  connected to the existing map and GPX: DONE.
-- Automated golden-scenario tests under one standard command: DONE.
+  connected to the existing map (inspection, not editing) and GPX:
+  DONE, repaired 2026-07-20 after the post-alignment audit caught the
+  submit crash.
+- Automated golden-scenario tests under one standard command: DONE,
+  plus a real-browser workflow test (form to cards to detail).
+- Date-aware frontcountry closures and corrected Rainier campground
+  policies: DONE (Ohanapecosh closed for 2026, White River
+  first-come).
 - Owner browser test drive and one live-network verification:
-  REMAINING (the container cannot reach rec.gov or the map CDN).
+  REMAINING; Rainier stays classified VERIFICATION BLOCKED until
+  they pass (project/COVERAGE_STATUS.md).
 - Controlled edit-trip subset from a selected recommendation (camp
   swap, layover add or remove, reverse): REMAINING.
 

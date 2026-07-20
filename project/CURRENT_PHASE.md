@@ -40,16 +40,35 @@ solver output.
 - Fixed in passing: a latent JavaScript syntax error in the map app's
   quit link that would have blanked the whole app in a real browser.
 
+## Repaired 2026-07-20 after the post-alignment audit
+
+The independent audit of this phase found the primary form crashed on
+submit (it destroyed itself before reading its own values), the
+complete-night checker validated only the observed records instead of
+the declared trip window, plans were free-form dicts, policy and
+availability were conflated, and the Rainier frontcountry data was
+wrong for 2026 (Ohanapecosh is closed for construction; White River
+is first-come). All fixed: the constraint form now lives in its own
+persistent container, plans/days/nights/booking/warnings are typed
+dataclasses, the invariant validates the declared window, policy and
+availability are separate vocabularies, closures are date-aware and a
+closed campground can never be recommended for a closed date, the
+first-come tolerance now also governs frontcountry selection, the
+internal codes/via/shape controls moved behind Classic mode, and a
+real-browser test drives the whole flow (and provably fails against
+the pre-fix page).
+
 ## Remaining before the phase is complete
 
-1. Owner browser test drive of the Plan trips flow (OWNER.md item 9a);
-   no real browser has rendered it yet because this container cannot
-   reach the map CDN. Verified headlessly instead.
-2. Live-network verification against real rec.gov inventory.
-3. Rainier's COVERAGE_STATUS.md classification moves to complete-trip
-   supported once 1 and 2 pass.
+1. Owner browser test drive of the Plan trips flow (OWNER.md item 9a).
+2. Live-network verification against real rec.gov inventory,
+   including that the booking links resolve.
+3. Rainier's classification stays VERIFICATION BLOCKED
+   (project/COVERAGE_STATUS.md) until 1 and 2 pass.
 4. Then the controlled edit-trip subset (camp swap, layover, reverse)
    from a selected recommendation, per the directive's editor scope.
+5. Frontcountry policy data must be revalidated against nps.gov each
+   season (revalidate_after fields in parks/frontcountry/rainier.json).
 
 ## Not in this phase
 
