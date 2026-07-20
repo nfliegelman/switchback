@@ -2,8 +2,11 @@
 
 Operating manual for Claude Code sessions in this repository. Read project/HANDOFF.md before doing anything else; its decision log is the
 project's memory and it wins every argument with this file. For product
-direction (what to build and why), read project/PRODUCT.md (Part 1 carries
-the operative adjustments) then project/ROADMAP.md. SURVEY THE FULL FILE TREE before
+direction (what to build and why), read project/MASTER_COURSE_CORRECTION.md
+(the newest directive, supersedes conflicting older priorities), then
+project/CURRENT_PHASE.md for where the work stands, then
+project/ROADMAP.md; project/PRODUCT.md is background and yields to the
+directive. SURVEY THE FULL FILE TREE before
 claiming anything is missing; a prior reviewer shipped thirty releases
 without opening five root docs that existed the whole time.
 
@@ -36,11 +39,17 @@ in the same PR. Never ask him to run commands beyond double-clicking a
    conventions and hard-won facts go in project/HANDOFF.md's decision log
    (newest first), deferred work goes in project/BACKLOG.md, experiment
    results in project/EXPERIMENTS.md.
-4. Every release: bump switchback/__init__.py, add a CHANGELOG.md entry
-   (prose, no bullets), tag vX.Y.Z. Version-per-PR is fine.
-5. Full test suite green before any push:
+4. Version bumps are for meaningful, user-testable milestones ONLY
+   (owner directive 2026-07-20, supersedes the old version-per-PR
+   habit). Routine and documentation-only work ships without a bump.
+   When a milestone does bump: switchback/__init__.py, a CHANGELOG.md
+   entry (prose, no bullets), and the vX.Y.Z: commit-subject
+   convention so the release robot can tag it.
+5. Full test suite green before any push. The standard command is
+   `python3 -m pytest -q` (discovers everything);
    `for t in tests/test_*.py; do python3 $t >/dev/null || echo FAIL $t; done`
-   Tests run offline by design; keep them that way.
+   is the no-pytest fallback. Tests run offline by design; keep them
+   that way.
 6. Never commit state: telegram.json, parks/history.sqlite*,
    parks/.watch_state.json, parks/pdi.json, parks/.osm_cache/,
    permit_exports/, docs/CALIBRATION_NOTES.md. The .gitignore covers
@@ -102,10 +111,15 @@ so in the PR.
 ## Where things live
 
 parks/*.json park data; parks/edges/ edge specs with provenance;
-parks/geometry/ display polylines; parks/atlas.json the landscape
+parks/geometry/ display polylines; parks/frontcountry/ curated
+arrival and recovery campgrounds; parks/atlas.json the landscape
 registry; docs/areas/ built landscape maps plus index.json manifest;
 docs/board/ the PWA (bump the sw.js SHELL string when changing it);
-switchback/ the engine; tests/ offline suite; root markdown is README,
-OWNER, CLAUDE, CHANGELOG only; project/ the working docs (PRODUCT,
-ROADMAP, SPEC, HANDOFF, BACKLOG, EXPERIMENTS, archive/FUTURE.md);
+switchback/ the engine (plans.py the request and TripPlan contract,
+planner.py the orchestration above the solver, frontcountry.py the
+curated-stay loader); tests/ offline suite; root markdown is README,
+OWNER, CLAUDE, CHANGELOG only; project/ the working docs
+(MASTER_COURSE_CORRECTION, CURRENT_PHASE, PARKED_FEATURES,
+COVERAGE_STATUS, PRODUCT, ROADMAP, SPEC, HANDOFF, BACKLOG,
+EXPERIMENTS, archive/FUTURE.md);
 coverage/COVERAGE.md the generated coverage truth, written by the app.

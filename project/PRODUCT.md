@@ -1,5 +1,12 @@
 # PRODUCT.md
 
+SUPERSEDED WHERE CONFLICTING as of 2026-07-20: the owner's master
+course-correction directive, adopted as
+project/MASTER_COURSE_CORRECTION.md, is now the newest product source
+of truth and wins over both parts of this file wherever they
+disagree. This file remains the richer background brief and the
+record of the v3.3.0 reconciliation; read it second.
+
 The product source of truth, v3.3.1 (2026-07-17). Two parts: Part 1 is
 the Historical Context Addendum, which reconciles the brief against
 thirty releases of decisions and carries the operative priority
