@@ -28,6 +28,7 @@ below the triage table retain their original detail.
 | More alert channels | PARKED | |
 | Winter seasonal divisions | PARKED | |
 | Monetization gates G1 to G3 | PARKED | see project/archive/FUTURE.md |
+| Calibrate and trips must announce total network failure instead of reading as sold out | P1 | trust; the v2.0.6 silent-filter lesson applies; evidence 2026-07-20, a blocked container printed the honest-empty section for two live windows |
 | Trip-shape toggles engine, dual merge, corridors, RMNP buildout, dem_trail, toughest-stretch, coverage waves | SHIPPED | CHANGELOG.md |
 
 ## Original detail (pre-triage, kept)
