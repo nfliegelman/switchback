@@ -6,7 +6,7 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 
 1. DELETE TODAY'S GITHUB TOKEN (the one from the 2026-07-15 session). Same drill as always: Settings > Developer settings > Fine-grained tokens.
 2. (CLOSED 2026-07-15) AllTrails detail approval worked; crowd-volume stats confirmed flowing (Vestal Basin returned 89 reviews, 189 completed hikes). The solitude signal now has a live data source when a future session wires it into scoring.
-3. Map board check: open the board (your home screen icon, or nfliegelman.github.io/switchback/board/). Bottom-left should say v3.4.1; the app caches itself, so give it a close-and-reopen or two. Tap a trip and confirm trail lines draw.
+3. Map board check: open the board (your home screen icon, or nfliegelman.github.io/switchback/board/). Bottom-left should say v3.4.2; the app caches itself, so give it a close-and-reopen or two. Tap a trip and confirm trail lines draw.
 4. Releases check: repo page > Releases. You should see every version back to v1.0.0, each with a downloadable zip. That page is your download spot from now on.
 
 ## Product brief: RECEIVED and processed (2026-07-17)
@@ -15,13 +15,13 @@ The alignment brief is now Part 2 of project/PRODUCT.md; Claude's candid Histori
 
 ## Checking you are on the right version
 
-Everything now announces itself. The CLI prints "switchback v3.4.1" at the top of every command; the app window title bar shows "Switchback v3.4.1"; the map board shows it bottom-left; the .bat files print it first. If any surface does not say v3.4.1, you are running an old copy: grab the newest zip from the Releases page.
+Everything now announces itself. The CLI prints "switchback v3.4.2" at the top of every command; the app window title bar shows "Switchback v3.4.2"; the map board shows it bottom-left; the .bat files print it first. If any surface does not say v3.4.2, you are running an old copy: grab the newest zip from the Releases page.
 
 ## Desktop, the big test drive (your call, 2026-07-20; about 90 minutes, fine to split across evenings)
 
 Do these in order and keep one running note of anything broken, confusing, or great. Messy reactions are exactly the data Claude needs; there are no wrong answers here.
 
-6. Fresh copy first: repo page > Releases > top entry > download "Source code (zip)" and extract it. Every surface should say v3.4.1; if one does not, you grabbed an old zip.
+6. Fresh copy first: repo page > Releases > top entry > download "Source code (zip)" and extract it. Every surface should say v3.4.2; if one does not, you grabbed an old zip.
 7. REOPENED, the calibration half hour: double-click CALIBRATE.bat, wait 2 or 3 minutes, then type a few words after every REACTION line in the Notepad file that opens (would you actually hike it? too hard, too easy, wrong camps, anything look wrong?), save, and send the file text to Claude. Scoring stays generic until this lands. One caution: if a Maroon Bells route's miles look off, note it and move on; that corridor has a known data bug already on the fix list.
 8. Smoke test: double-click SMOKE_GUI.bat, click Find Trips once, note whether results appear.
 9. The real app: double-click Switchback.bat. Run a live search on each of Rainier, RMNP, and Lena for a window you might actually go (say late September, 3 nights, party of 2). Gut-check the top three trips per park: miles, climbs, camps, shapes. Flip the trip-shape toggles. Draw a route with the rubber-band builder. Export one GPX.

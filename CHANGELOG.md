@@ -2,6 +2,10 @@
 
 Versioning per project/ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.4.2 (2026-07-20)
+
+Releases robot, round two. The first run worked almost all the way: every version from v1.0.0 through v3.3.1 got its proper GitHub Release in one pass. It fell at the final step because GitHub forbids a workflow's own credentials from creating a tag that points at a commit which changes workflow files, and the robot had picked exactly such a commit. It now tags the oldest commit carrying the version's title, which is the true release commit rather than the merge wrapper, shrugs off a rejected tag push instead of dying, and falls back to creating the release through the API; if even that is refused it names the version that needs a human once, in the run log. No engine changes.
+
 ## v3.4.1 (2026-07-20)
 
 The owner test drive plan. OWNER.md's desktop section is now one ordered drive, owner-requested: download the newest release zip, run the reopened calibration half hour, smoke the GUI, run live searches on Rainier, RMNP, and Lena in the real app with the shape toggles and the route builder, prove GPX both ways in CalTopo, and fire the Telegram test. The phone side adds the map board check and a look at the new Releases page. Findings come back to Claude in one messy pile by design; that pile calibrates scoring and drives the fix list. Also hardened: the day-old releases robot now skips a version that has no tag and no matching commit instead of stopping early.
