@@ -2,6 +2,10 @@
 
 Versioning per project/ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.4.1 (2026-07-20)
+
+The owner test drive plan. OWNER.md's desktop section is now one ordered drive, owner-requested: download the newest release zip, run the reopened calibration half hour, smoke the GUI, run live searches on Rainier, RMNP, and Lena in the real app with the shape toggles and the route builder, prove GPX both ways in CalTopo, and fire the Telegram test. The phone side adds the map board check and a look at the new Releases page. Findings come back to Claude in one messy pile by design; that pile calibrates scoring and drives the fix list. Also hardened: the day-old releases robot now skips a version that has no tag and no matching commit instead of stopping early.
+
 ## v3.4.0 (2026-07-20)
 
 The folder layout, finishing what the markdown diet started, this time owner-approved in conversation. The repo front page now shows four documents instead of ten: README, OWNER, CLAUDE, and CHANGELOG. Everything that steers development (PRODUCT, ROADMAP, SPEC, HANDOFF, BACKLOG, EXPERIMENTS, and the archived FUTURE) moved into a project folder, and the app-written coverage table moved to coverage/COVERAGE.md, with the generator taught to write it there. The experiment log and the archive also moved back out of docs, which is the published map site, not a filing cabinet. Loose ends from the diet are closed: README no longer points at the retired PARKS.md, and every surface that names the version says v3.4.0 again. Also new, at the owner's request: a releases workflow that turns every version heading in this file into a proper GitHub Release automatically on each main-branch update, with past versions backfilled, so the Releases page now marks every build and each one carries a downloadable source zip.
