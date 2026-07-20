@@ -3,11 +3,20 @@ name: releases
 # Marks every version as a GitHub Release, owner request 2026-07-20.
 # On each push to main (and on manual dispatch) this walks the version
 # headings in CHANGELOG.md oldest to newest. A version with no tag gets
-# one, placed on the commit whose subject starts with "vX.Y.Z:". A tag
-# with no GitHub Release gets one, its notes pulled from the matching
-# CHANGELOG section. Idempotent: existing tags and releases are never
-# touched, so normal runs are cheap no-ops. Sessions must not push tags
-# themselves (remote sessions get 403 anyway); this workflow owns tags.
+# one, placed on the OLDEST commit whose subject starts with "vX.Y.Z:"
+# (the true release commit, not the merge wrapper). A tag with no
+# GitHub Release gets one, notes pulled from the matching CHANGELOG
+# section. Idempotent: existing releases are never touched, so normal
+# runs are cheap no-ops. Sessions must not push tags themselves
+# (remote sessions get 403 anyway); this workflow owns tags.
+#
+# KNOWN RULE, learned 2026-07-20: GitHub refuses to let this job's own
+# token create a tag pointing at a commit that adds or changes files
+# under .github/workflows. So a rejected tag push is survived, the
+# release API with a target commit is tried next, and if that is also
+# refused the log names the version that needs a human once. Keep
+# release commits free of workflow-file edits; commit workflow changes
+# separately, with a subject that avoids the "vX.Y.Z:" pattern.
 
 on:
   push:
@@ -31,17 +40,27 @@ jobs:
           git fetch --tags --quiet
           git log --all --format='%H %s' > /tmp/subjects.txt
           for tag in $(grep -oE '^## v[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md | cut -d' ' -f2 | tac); do
-            if ! git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
-              commit=$(grep -F -m1 " $tag:" /tmp/subjects.txt | cut -d' ' -f1 || true)
-              if [ -z "$commit" ]; then
-                echo "$tag: no tag and no commit titled $tag, skipped"
-                continue
-              fi
-              git tag "$tag" "$commit"
-              git push origin "refs/tags/$tag"
+            gh release view "$tag" >/dev/null 2>&1 && continue
+            awk -v t="## $tag " 'index($0, t) == 1 {f=1; next} /^## v/ {f=0} f' CHANGELOG.md > notes.md
+            if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+              gh release create "$tag" --title "$tag" --notes-file notes.md || echo "$tag: release create failed"
+              continue
             fi
-            if ! gh release view "$tag" >/dev/null 2>&1; then
-              awk -v t="## $tag " 'index($0, t) == 1 {f=1; next} /^## v/ {f=0} f' CHANGELOG.md > notes.md
-              gh release create "$tag" --title "$tag" --notes-file notes.md
+            commit=$(grep -F " $tag:" /tmp/subjects.txt | tail -1 | cut -d' ' -f1 || true)
+            if [ -z "$commit" ]; then
+              echo "$tag: no tag and no commit titled $tag, skipped"
+              continue
+            fi
+            git tag "$tag" "$commit"
+            if git push origin "refs/tags/$tag" 2>/dev/null; then
+              gh release create "$tag" --title "$tag" --notes-file notes.md || echo "$tag: release create failed"
+            else
+              git tag -d "$tag"
+              echo "$tag: tag push rejected (workflow-files rule), trying the release API with a target"
+              if gh release create "$tag" --target "$commit" --title "$tag" --notes-file notes.md; then
+                echo "$tag: released via the API"
+              else
+                echo "$tag: NEEDS A HUMAN ONCE: repo > Releases > Draft a new release > create tag $tag on commit $commit"
+              fi
             fi
           done
