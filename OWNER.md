@@ -7,9 +7,13 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 1. DELETE TODAY'S GITHUB TOKEN (the one from the 2026-07-15 session). Same drill as always: Settings > Developer settings > Fine-grained tokens.
 2. (CLOSED 2026-07-15) AllTrails detail approval worked; crowd-volume stats confirmed flowing (Vestal Basin returned 89 reviews, 189 completed hikes). The solitude signal now has a live data source when a future session wires it into scoring.
 
+## Waiting on one upload
+
+- Re-send the product-alignment brief in chat; the first attempt did not attach. The Historical Context Addendum and the roadmap rewrite start the moment it lands.
+
 ## Desktop, first session back (about 45 minutes total)
 
-6. Calibration, the crown jewel: double-click CALIBRATE.bat, wait 2 or 3 minutes, then type a few words after every REACTION line in the Notepad file that opens, save, and send that file (or its text) to Claude. Scoring stays generic until this happens.
+6. (MOVED TO FUTURE TODO by your call, 2026-07-17; everything stays ready) Calibration: double-click CALIBRATE.bat, wait 2 or 3 minutes, then type a few words after every REACTION line in the Notepad file that opens, save, and send that file (or its text) to Claude. Scoring stays generic until this happens.
 7. Smoke test: double-click SMOKE_GUI.bat, click Find Trips once, note whether results appear or anything looks broken.
 8. Smoke test: go to caltopo.com, click Import (top left), choose docs\samples\sample_rmnp_route.gpx from the extracted folder, confirm a line draws on the map near Estes Park.
 9. Smoke test: double-click TELEGRAM_TEST.bat; first run opens a file to paste your two bot values into, second run sends one test message to your phone.

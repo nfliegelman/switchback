@@ -121,6 +121,10 @@ Sequenced for the current reality: the owner is phone-only until at least July 1
 
 The eight-rung ladder ran in one day: v2.22 QA sweep and the Enchantments dual, v2.23 dem_trail within one percent of GPS, v2.24 and v2.25 the three corridors, v2.26 the RMNP buildout and the Pawnee-Buchanan closure, v2.27 dispersed wave 2 (one shipped, two dropped by their own gates), v2.28 clip toggle and GPX export, v2.29 the calibration scaffold. Every planned atlas row is built.
 
+## Pending input (2026-07-17)
+
+The owner has a product-alignment brief with P0 through Parked priorities; it has not yet reached Claude (upload failed once). When it lands: Historical Context Addendum first, then this roadmap gets rewritten against it. Owner decision same day: effort-engine calibration reactions move from blocking to future todo; the scaffold, ballots, and profiles stand ready whenever.
+
 ## v3.x horizon (unscheduled, in rough order of pull)
 
 Trip-shape toggles: ENGINE SHIPPED v3.1.0 (trip_types list, --trip-types comma CLI, banner and filter, profile migrated to loop plus out and back plus basecamp, legacy string still honored). REMAINING is the UI surface only: real toggle controls in the GUI and the board settings panel, plus exposing trip_types as calibrate defaults. That rides the next GUI or board session. Calibration fold-in the session after reactions come back. Toughest-stretch as a SCORING dial (owner request 2026-07-16): the display shipped v3.2.0; once reactions reveal a preference (steady vs front-loaded vs hates walls), a max_sustained_climb term joins the formula, likely as a per-day penalty above a personal threshold. Persistence path when wanted: dem_trail already holds the samples at grading time and can store per-edge steep_ft and steep_at for free on future grades. Dispersed candidate criteria pass (upper-basin reach, orphan check) to revive Blue Lakes and Highland Mary. Pilot inline-geometry carry-through. Archetype B parks (trailhead-quota systems, Yosemite style). Seasonal winter divisions. Corridor buffer revisit if the 1.5 km default gets vetoed. Monetization gates G1 to G3 stay parked where they were.

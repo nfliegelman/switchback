@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.2.2 (2026-07-17)
+
+Claude Code readiness. CLAUDE.md lands at the root: the operating manual distilling thirty releases of conventions, the dash gate, the miles policy, the domain traps that each cost a session, and the open Maroon anchor bug, so web sessions inherit the project's memory on arrival. A SessionStart hook installs the test extras automatically in remote environments, and the gitignore now covers every state file so nothing sensitive can ride a PR. Owner decisions recorded: calibration reactions move to future todo, and the roadmap holds a slot for the product-alignment brief that did not survive its first upload.
+
 ## v3.2.1 (2026-07-16)
 
 Docs only: the Elk Range root cause is on the record. The Maroon Zone anchor sits on the West Maroon ridge at 13,450 feet instead of the camping valley, discovered when the owner asked for elevation profiles of his calibration ballot. The fix plan and the re-audit of the v2.23 mileage correction are queued in BACKLOG.

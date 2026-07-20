@@ -6,3 +6,6 @@ parks/.osm_cache/
 parks/history.sqlite*
 parks/.watch_state.json
 telegram.json
+parks/history.sqlite-journal
+parks/pdi.json
+docs/CALIBRATION_NOTES.md
