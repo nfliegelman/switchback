@@ -27,7 +27,7 @@ below the triage table retain their original detail.
 | Solitude modeling | PARKED | data unlocked, build parked per brief |
 | More alert channels | PARKED | |
 | Winter seasonal divisions | PARKED | |
-| Monetization gates G1 to G3 | PARKED | see archived FUTURE.md |
+| Monetization gates G1 to G3 | PARKED | see docs/archive/FUTURE.md |
 | Trip-shape toggles engine, dual merge, corridors, RMNP buildout, dem_trail, toughest-stretch, coverage waves | SHIPPED | CHANGELOG.md |
 
 ## Original detail (pre-triage, kept)

@@ -2,6 +2,10 @@
 
 Versioning per ROADMAP.md: milestones bump the minor version; v2.0.0 is the full Switchback engine.
 
+## v3.3.1 (2026-07-17)
+
+The great markdown diet, owner-prompted: sixteen root files become ten. The addendum folds into PRODUCT.md as Part 1 (and keeps its authority over Part 2, the brief); SCOPE folds into SPEC as its build-boundaries part; FUTURE moves to docs/archive; EXPERIMENTS moves to docs; and the three generated coverage files (PARKS, COLORADO, WASHINGTON) collapse into one COVERAGE.md, tiers first then both state atlases, with both CLI commands routed through a single composer so neither can clobber the other's half. Every living pointer updated; nothing erased, only merged, moved, or generated differently. The ten that remain: README, PRODUCT, ROADMAP, SPEC, COVERAGE, HANDOFF, BACKLOG, CHANGELOG, OWNER, CLAUDE.
+
 ## v3.3.0 (2026-07-17)
 
 The product-alignment reset. The owner's market brief is adopted as PRODUCT.md (dash-sanitized on ingest); a candid Historical Context Addendum, PRODUCT_ADDENDUM.md, reconciles it with thirty releases of decisions and, notably, opens by correcting the reviewer, who had been operating on a slice of a repository the brief audited whole. Standard test discovery is fixed: python -m pytest -q now runs all twelve invariant suites instead of one, via a wrapper that subprocesses the legacy scripts. The false shuttle option is gone from the web UI and point-to-point stays engine-only until the solver builds different exit entrances. ROADMAP.md is rewritten around P0-through-Parked outcomes with three named vertical-slice destinations (Rainier, RMNP, Lena); README, SPEC, SCOPE, and FUTURE are re-anchored to the new hierarchy with history preserved, not erased; BACKLOG is triaged with priority labels; PARKS.md is regenerated. Version is now visible everywhere the owner tests: CLI banner, GUI title, board footer, and the .bat launchers, so being on the wrong build is obvious at a glance. The Archetype B Sierra expansion I recommended two days ago is demoted to Parked by the brief's own decision filter, which I concur with.

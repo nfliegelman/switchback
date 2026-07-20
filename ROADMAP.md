@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 The active plan, and only the active plan. As of v3.3.0 (2026-07-17).
-Product truth lives in PRODUCT.md as adjusted by PRODUCT_ADDENDUM.md;
+Product truth lives in PRODUCT.md (Part 1 adjusts Part 2);
 shipped history lives in CHANGELOG.md; deferred items live in
 BACKLOG.md with priority labels. This file holds outcomes, not feature
 archaeology.
@@ -62,7 +62,7 @@ substrate, Campflare handoff.
 
 Road-corridor search, multi-stop vacations, true point-to-point with
 shuttle logistics, broader frontcountry inventory, group planning,
-monetization experiments per the archived FUTURE.md gates.
+monetization experiments per the archived gates in docs/archive/FUTURE.md.
 
 ## Owner gates on the critical path
 

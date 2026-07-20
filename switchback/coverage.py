@@ -11,14 +11,14 @@ so this generates the list from the repo's actual state. Tiers:
   Tier 2  trips-ready: a route graph exists, so trips, watch, GPX,
           day hikes, and scoring all work on its corridors
 
-python -m switchback coverage [--write] regenerates PARKS.md.
+python -m switchback coverage [--write] regenerates COVERAGE.md.
 """
 import glob
 import json
 import os
 from datetime import datetime, timezone
 
-PARKS_MD = "PARKS.md"
+PARKS_MD = "COVERAGE.md"
 _SKIP = {"manual_coords.json", "ratings.json", "demand.json"}
 
 
@@ -99,19 +99,36 @@ def render(rows, queue):
     return text.replace("\u2013", "-").replace("\u2014", "-")
 
 
-def render_atlas():
+def write_coverage():
+    """One coverage truth file. COVERAGE.md carries the trip-ready tier
+    table plus both state atlases; COLORADO.md, WASHINGTON.md, and
+    PARKS.md are retired (v3.3.1 consolidation). Both the atlas and
+    coverage CLI commands regenerate the whole file."""
     import json as _json
+    rows, queue = survey()
+    parts = [render(rows, queue).replace(
+        "# Switchback coverage",
+        "# COVERAGE.md\n\nThe single coverage truth: trip-ready tiers "
+        "first, then the full state atlases. Mapped does not mean "
+        "plannable; the tier column is the truth.\n\n## Trip-ready "
+        "datasets", 1)]
     data = _json.load(open("parks/atlas.json"))
     total = 0
-    for state, fname, title in (("CO", "COLORADO.md", "Colorado"),
-                                ("WA", "WASHINGTON.md", "Washington")):
-        rows = [r for r in data["rows"] if r.get("state") == state]
-        total += len(rows)
-        _render_state(rows, fname, title)
+    for state, title in (("CO", "Colorado"), ("WA", "Washington")):
+        srows = [r for r in data["rows"] if r.get("state") == state]
+        total += len(srows)
+        parts.append(_render_state(srows, title).replace(
+            f"# {title} coverage atlas", f"## {title} atlas", 1))
+    with open("COVERAGE.md", "w") as fh:
+        fh.write("\n".join(parts))
     return total
 
 
-def _render_state(rows, fname, title):
+def render_atlas():
+    return write_coverage()
+
+
+def _render_state(rows, title):
 
     import json as _json
     import json as _json
@@ -141,6 +158,4 @@ def _render_state(rows, fname, title):
                        f"| {r.get('notes','')} |")
         out.append("")
     text = "\n".join(out) + "\n"
-    text = text.replace("\u2013", "-").replace("\u2014", "-")
-    with open(fname, "w") as fh:
-        fh.write(text)
+    return text.replace("\u2013", "-").replace("\u2014", "-")

@@ -2,8 +2,8 @@
 
 Operating manual for Claude Code sessions in this repository. Read HANDOFF.md before doing anything else; its decision log is the
 project's memory and it wins every argument with this file. For product
-direction (what to build and why), read PRODUCT.md then
-PRODUCT_ADDENDUM.md then ROADMAP.md. SURVEY THE FULL FILE TREE before
+direction (what to build and why), read PRODUCT.md (Part 1 carries
+the operative adjustments) then ROADMAP.md. SURVEY THE FULL FILE TREE before
 claiming anything is missing; a prior reviewer shipped thirty releases
 without opening five root docs that existed the whole time.
 
@@ -105,5 +105,7 @@ parks/*.json park data; parks/edges/ edge specs with provenance;
 parks/geometry/ display polylines; parks/atlas.json the landscape
 registry; docs/areas/ built landscape maps plus index.json manifest;
 docs/board/ the PWA (bump the sw.js SHELL string when changing it);
-switchback/ the engine; tests/ offline suite; HANDOFF.md OWNER.md
-ROADMAP.md BACKLOG.md EXPERIMENTS.md CHANGELOG.md the paper trail.
+switchback/ the engine; tests/ offline suite; root docs are the ten-file paper
+trail (PRODUCT, ROADMAP, SPEC, COVERAGE, HANDOFF, BACKLOG, CHANGELOG,
+OWNER, CLAUDE, README); experiment history lives in docs/EXPERIMENTS.md
+and the archive in docs/archive/.

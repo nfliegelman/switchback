@@ -9,7 +9,7 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 
 ## Product brief: RECEIVED and processed (2026-07-17)
 
-The alignment brief is now PRODUCT.md; Claude's candid Historical Context Addendum is PRODUCT_ADDENDUM.md; the roadmap is rewritten around it. Nothing owed from you here; read PRODUCT_ADDENDUM.md section 7 if you want the priority changes in one place.
+The alignment brief is now PRODUCT.md; Claude's candid Historical Context Addendum is PRODUCT_ADDENDUM.md; the roadmap is rewritten around it. Nothing owed from you here; read PRODUCT.md Part 1 section 7 if you want the priority changes in one place.
 
 ## Checking you are on the right version
 

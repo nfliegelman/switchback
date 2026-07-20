@@ -1,6 +1,6 @@
 """
 switchback.corridor: long-trail corridors as areas. v2.24, built to the
-design recorded in EXPERIMENTS.md on 2026-07-14.
+design recorded in docs/EXPERIMENTS.md on 2026-07-14.
 
 The boundary is the trail centerline buffered 1.5 km per side (owner
 default, standing veto open). Trails come from 0.3 degree tiles fetched

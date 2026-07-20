@@ -4,12 +4,12 @@ v3.3.0. A constraint-based backcountry trip planner: tell it when you
 can go and what you can handle, it finds complete trips you can
 actually take, checked against live rec.gov availability.
 
-Start here by role. Product direction: PRODUCT.md, then
-PRODUCT_ADDENDUM.md, then ROADMAP.md. Working in the code (human or
+Start here by role. Product direction: PRODUCT.md (addendum
+first, brief second), then ROADMAP.md. Working in the code (human or
 Claude Code): CLAUDE.md first, then HANDOFF.md's decision log. The
-owner's own task list: OWNER.md. Coverage truth: PARKS.md for
-trip-ready datasets, COLORADO.md and WASHINGTON.md for the map atlas
-(mapped does not mean plannable; the tier labels are the truth).
+owner's own task list: OWNER.md. Coverage truth: COVERAGE.md, one
+file, tiers first then both state atlases (mapped does not mean
+plannable; the tier column is the truth).
 
 What works today: availability-aware itinerary search across the
 trip-ready parks in PARKS.md (`python3 -m switchback trips <slug> ...`),
