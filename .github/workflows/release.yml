@@ -1,0 +1,46 @@
+name: releases
+
+# Marks every version as a GitHub Release, owner request 2026-07-20.
+# On each push to main (and on manual dispatch) this walks the version
+# headings in CHANGELOG.md oldest to newest. A version with no tag gets
+# one, placed on the commit whose subject starts with "vX.Y.Z:". A tag
+# with no GitHub Release gets one, its notes pulled from the matching
+# CHANGELOG section. Idempotent: existing tags and releases are never
+# touched, so normal runs are cheap no-ops. Sessions must not push tags
+# themselves (remote sessions get 403 anyway); this workflow owns tags.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  mark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Tag and release every CHANGELOG version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git fetch --tags --quiet
+          for tag in $(grep -oE '^## v[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md | cut -d' ' -f2 | tac); do
+            if ! git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+              commit=$(git log --all --format='%H %s' | grep -F -m1 " $tag:" | cut -d' ' -f1)
+              if [ -z "$commit" ]; then
+                echo "$tag: no tag and no commit titled $tag, skipped"
+                continue
+              fi
+              git tag "$tag" "$commit"
+              git push origin "refs/tags/$tag"
+            fi
+            if ! gh release view "$tag" >/dev/null 2>&1; then
+              awk -v t="## $tag " 'index($0, t) == 1 {f=1; next} /^## v/ {f=0} f' CHANGELOG.md > notes.md
+              gh release create "$tag" --title "$tag" --notes-file notes.md
+            fi
+          done

@@ -25,7 +25,7 @@ Everything now announces itself. The CLI prints "switchback v3.4.0" at the top o
 
 ## Done (kept for the record)
 
-- 2026-07-20: the markdown cleanup you asked for, in two passes: an automated v3.3.1 pass merged overlapping docs (the addendum now lives inside PRODUCT.md as its Part 1), then v3.4.0 finished the folder layout you approved. The repo front page now shows just README, OWNER, CLAUDE, and CHANGELOG; the working docs live in project/; the app-written coverage table is coverage/COVERAGE.md. Nothing was deleted, only merged or moved.
+- 2026-07-20: the markdown cleanup you asked for, in two passes: an automated v3.3.1 pass merged overlapping docs (the addendum now lives inside PRODUCT.md as its Part 1), then v3.4.0 finished the folder layout you approved. The repo front page now shows just README, OWNER, CLAUDE, and CHANGELOG; the working docs live in project/; the app-written coverage table is coverage/COVERAGE.md. Nothing was deleted, only merged or moved. Also per your ask, every version now shows up on the repo's Releases page on GitHub automatically, past ones included, and each release carries a downloadable zip of the code as of that version, which is the safest place to grab your re-download from now on.
 
 - 2026-07-15: old PAT deleted, Telegram secrets landed, Actions verified green (your items 1 to 3). Standing questions answered: corridor buffer vetoed to 1 km (all three corridors rebuilt same day) and the loop-vs-any question superseded by your trip-shape toggles request, now specced in ROADMAP. The accidental "Add files via upload" commit was force-push deleted.
 
