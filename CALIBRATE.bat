@@ -7,7 +7,7 @@ if errorlevel 1 (
   exit /b
 )
 echo Running three real searches. This takes 2 or 3 minutes. Leave it alone.
-python -m switchback calibrate rmnp --start 2026-07-20 --end 2026-07-23
+python -m switchback calibrate rmnp --start 2026-09-22 --end 2026-09-25
 python -m switchback calibrate maroonbells --start 2026-09-22 --end 2026-09-25
 python -m switchback calibrate glacier --start 2026-09-08 --end 2026-09-12
 echo.
