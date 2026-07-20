@@ -26,6 +26,12 @@
   .route .score { float:right; font-weight:700; color:var(--pine); }
   .route .shape { display:inline-block; font-size:11px; background:var(--sand); border-radius:6px; padding:1px 6px; margin-left:4px; }
   .route .days, .route .dates, .route .note { color:#5c564c; font-size:12px; margin-top:3px; }
+  .day-btn { cursor:pointer; text-decoration:underline dotted; }
+  .day-btn:hover { color:var(--pine); }
+  #profile { border:1px solid var(--line); border-radius:10px; padding:8px 10px; margin-bottom:10px; background:#fff; }
+  #profile .hd { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#5c564c; margin-bottom:4px; }
+  #profile .close { cursor:pointer; color:var(--pine); }
+  #profile svg { display:block; width:100%; height:90px; }
   .warn { background:#fff6e5; border:1px solid #eedaa8; border-radius:8px; padding:8px 10px; font-size:12px; margin-bottom:10px; }
   .muted { color:#7a746a; font-size:12px; }
   .opt { display:flex; justify-content:space-between; gap:8px; border:1px solid var(--line); border-radius:10px; padding:8px 10px; margin-bottom:8px; cursor:pointer; }
@@ -59,6 +65,7 @@
       <span class="dot" style="background:#e0a13d"></span>some
       <span class="dot" style="background:#b8433a"></span>full
       <span class="dot" style="background:#9aa"></span>unknown</div>
+    <div id="profile" style="display:none;margin-top:12px"></div>
     <div id="results" style="margin-top:12px"></div>
   </div>
   <div id="map"></div>
@@ -146,7 +153,7 @@ $('find').onclick = async () => {
       html += `<div class="warn">FILTER ACTIVE: only ${res.trip_type} trips shown. Other shapes were discarded before ranking.</div>`;
     html += `<div class="muted">${res.itineraries} bookable itineraries, ${res.routes_total} distinct routes, party ${res.party}.</div>`;
     res.routes.forEach((r,i) => {
-      const days = r.days.map(d=>d[0].toFixed(1)+'mi').join(' ');
+      const days = r.days.map((d,k)=>`<span class="day-btn" data-i="${i}" data-k="${k}" title="climb and mileage for this day">${d[0].toFixed(1)}mi/${Math.round(d[1])}ft</span>`).join(' ');
       const stops = r.stops.map(s=>s.name.split(' - ')[0] + (s.policy && s.policy !== 'reservation' ? '*' : '')).join(' > ');
       html += `<div class="route" data-i="${i}"><span class="score">${r.score.toFixed(3)}</span>
         <b>${r.entrance.name.split(' - ')[0]}</b> <span class="shape">${r.type}</span>
@@ -156,10 +163,37 @@ $('find').onclick = async () => {
     });
     $('results').innerHTML = html || '<div class="muted">No bookable routes in that window.</div>';
     window._routes = res.routes;
-    document.querySelectorAll('.route').forEach(el => el.onclick = () => drawRoute(+el.dataset.i, el));
+    document.querySelectorAll('.route').forEach(el => el.onclick = (e) => { if (!e.target.classList.contains('day-btn')) drawRoute(+el.dataset.i, el); });
+    document.querySelectorAll('.day-btn').forEach(el => el.onclick = (e) => { e.stopPropagation(); showProfile(+el.dataset.i, +el.dataset.k); });
     if (res.routes.length) drawRoute(0, document.querySelector('.route'));
   } catch(e){ $('results').innerHTML = `<div class="warn">${e.message}</div>`; }
 };
+
+async function showProfile(i, k){
+  const r = window._routes[i];
+  const hops = [r.entrance.id, ...r.stops.map(s=>s.id), r.entrance.id];
+  const a = hops[k], b = hops[k+1];
+  const p = $('profile');
+  p.style.display = 'block';
+  p.innerHTML = '<div class="muted">Loading elevation profile...</div>';
+  try {
+    const prof = await jpost('/api/profile', { slug: PARK.slug, a, b });
+    const w = 340, h = 90, pad = 4;
+    const mi = prof.mi, el = prof.elev_ft;
+    const eMin = Math.min(...el), eMax = Math.max(...el) || eMin + 1;
+    const miMax = mi[mi.length - 1] || 1;
+    const x = m => pad + (w - 2*pad) * (m / miMax);
+    const y = e => h - pad - (h - 2*pad) * ((e - eMin) / (eMax - eMin || 1));
+    const pts = mi.map((m,j) => `${x(m).toFixed(1)},${y(el[j]).toFixed(1)}`).join(' ');
+    const markX = x(prof.at_mi);
+    p.innerHTML = `<div class="hd"><span>Day ${k+1}: toughest mile ${prof.toughest_ft} ft at mile ${prof.at_mi}, ${prof.shape}</span><span class="close" onclick="$('profile').style.display='none'">close</span></div>
+      <svg viewBox="0 0 ${w} ${h}">
+        <polyline points="${pts}" fill="none" stroke="#2f6f4f" stroke-width="2"/>
+        <line x1="${markX}" y1="0" x2="${markX}" y2="${h}" stroke="#e0a13d" stroke-width="1" stroke-dasharray="3 2"/>
+      </svg>
+      <div class="muted">${eMin.toFixed(0)} to ${eMax.toFixed(0)} ft over ${miMax.toFixed(1)} mi</div>`;
+  } catch(e){ p.innerHTML = `<div class="warn">Profile unavailable: ${e.message}</div>`; }
+}
 
 function drawRoute(i, el){
   document.querySelectorAll('.route').forEach(x=>x.classList.remove('active'));

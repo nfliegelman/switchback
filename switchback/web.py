@@ -56,6 +56,12 @@ class TripsReq(BaseModel):
     limit: int = 12
 
 
+class ProfileReq(BaseModel):
+    slug: str
+    a: str
+    b: str
+
+
 class FrontierReq(BaseModel):
     slug: str
     entrance: str
@@ -113,7 +119,7 @@ def _coords(g, nid):
     return [n.get("lat"), n.get("lon")]
 
 
-def create_app(fetch_fn=None):
+def create_app(fetch_fn=None, elev_fn=None):
     app = FastAPI(title="Switchback", docs_url=None, redoc_url=None)
 
     @app.get("/", response_class=HTMLResponse)
@@ -240,6 +246,15 @@ def create_app(fetch_fn=None):
         return {"itineraries": len(ranked), "routes_total":
                 len(dedupe_routes(ranked)), "trip_type": req.trip_type,
                 "party": s.party, "routes": routes}
+
+    @app.post("/api/profile")
+    def profile(req: ProfileReq):
+        from .dem import day_toughness
+        g = _graph(req.slug)
+        prof = day_toughness(req.slug, g, req.a, req.b, elev_fn=elev_fn)
+        if not prof:
+            raise HTTPException(404, "no usable trail line between those two stops")
+        return prof
 
     @app.post("/api/frontier")
     def frontier(req: FrontierReq):
