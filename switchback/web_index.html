@@ -40,6 +40,29 @@
   .opt .endings { font-weight:700; color:var(--pine); white-space:nowrap; }
   .chips { margin:8px 0; } .chip { display:inline-block; background:var(--sand); border:1px solid var(--line); border-radius:14px; padding:2px 10px; margin:2px; font-size:12px; }
   h3 { margin:6px 0 10px; font-size:15px; }
+  .pform label { display:block; font-size:12px; color:#5c564c; margin:8px 0 2px; }
+  .pform .sec { border:1px solid var(--line); border-radius:10px; padding:8px 10px; margin-bottom:8px; background:#fff; }
+  .pform .sec b { font-size:12px; letter-spacing:.4px; color:var(--pine); }
+  .pform input.small { width:70px; }
+  .pform .preset { font-size:12px; padding:4px 8px; margin:2px 2px 2px 0; }
+  .pform .preset.on { background:var(--pine); color:#fff; border-color:var(--pine); }
+  .pform .summary { font-size:12px; color:#5c564c; background:var(--sand); border-radius:8px; padding:8px 10px; margin:8px 0; }
+  .card { border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin-bottom:10px; cursor:pointer; background:#fff; }
+  .card:hover, .card.active { border-color:var(--pine); box-shadow:0 0 0 2px #2f6f4f22; }
+  .badge { display:inline-block; font-size:10px; letter-spacing:.4px; text-transform:uppercase; border-radius:6px; padding:2px 6px; margin-right:4px; }
+  .badge.fit { background:#e4efe8; color:#2f6f4f; }
+  .badge.stretch { background:#fff0d6; color:#8a5a2b; }
+  .badge.avail { background:#e7ecf5; color:#33507a; }
+  .badge.top { background:var(--pine); color:#fff; }
+  .card .ttl { font-weight:700; margin:4px 0 2px; }
+  .card .meta, .nightrow .meta { color:#5c564c; font-size:12px; }
+  .card .why { font-size:12px; margin-top:4px; }
+  .card .trade { font-size:12px; color:#8a5a2b; margin-top:2px; }
+  .nightrow { border:1px solid var(--line); border-radius:10px; padding:8px 10px; margin-bottom:6px; background:#fff; }
+  .nightrow b { font-size:13px; }
+  .nightrow a { color:var(--pine); }
+  .fresh { font-size:11px; color:#7a746a; margin:6px 0; }
+  .relax { background:#eef4f0; border:1px solid #cfe0d5; border-radius:8px; padding:8px 10px; font-size:12px; margin-bottom:8px; }
   .legend { font-size:11px; color:#5c564c; margin-top:6px; }
   .dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin:0 3px 0 8px; vertical-align:middle; }
 </style>
@@ -55,7 +78,8 @@
   <select id="ttype"><option value="any">any shape</option><option value="loop">loop</option><option value="out and back">out and back</option><option value="basecamp">basecamp</option></select>
   <input class="codes" id="codes" placeholder="codes (optional)">
   <input class="codes" id="via" placeholder="via camp (optional)">
-  <button class="primary" id="find">Find trips</button>
+  <button class="primary" id="plan">Plan trips</button>
+  <button class="ghost" id="find">Classic list</button>
   <button class="ghost" id="adv">Adventure</button>
 </header>
 <div id="wrap">
@@ -75,7 +99,9 @@
 const $ = id => document.getElementById(id);
 const map = L.map('map', { zoomSnap: 0.5 }).setView([47.5, -113.7], 6);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors; trails: OSM (ODbL) + USGS/USFS &middot; <a href="#" onclick="fetch('/api/quit',{method:'POST'}).then(()=>document.body.innerHTML='<p style=padding:2em>Switchback is shut down. Close this tab. Double-click Switchback.bat to start again.</p>');return false">quit</a>' }).addTo(map);
+  { maxZoom: 17, attribution: '&copy; OpenStreetMap contributors; trails: OSM (ODbL) + USGS/USFS &middot; <a href="#" onclick="sbQuit();return false">quit</a>' }).addTo(map);
+function sbQuit(){ fetch('/api/quit',{method:'POST'}).then(() => {
+  document.body.innerHTML = '<p style="padding:2em">Switchback is shut down. Close this tab. Double-click Switchback.bat to start again.</p>'; }); }
 
 let PARK = null, NODES = {}, markers = {}, edgeLayer = null, routeLayer = null;
 let mode = 'trips', advSeq = [], advEntrance = null;
@@ -260,6 +286,199 @@ function drawAdv(){
 }
 
 loadParks();
+
+// ---------------- Plan trips: the consumer vertical slice ----------------
+let PLANS = [], PLANRES = null, PDEF = null;
+const PRESETS = {
+  relaxed:    {pref_mi:6,  pref_gain:1500, max_mi:9,  max_gain:2500},
+  moderate:   {pref_mi:9,  pref_gain:2200, max_mi:13, max_gain:4000},
+  challenging:{pref_mi:12, pref_gain:3000, max_mi:16, max_gain:5000},
+};
+
+$('plan').onclick = async () => {
+  mode = 'plan'; resetAdventure(false);
+  if (routeLayer) map.removeLayer(routeLayer);
+  if (!PDEF) { try { PDEF = await jget('/api/plan/defaults'); } catch(e){ PDEF = {pref_mi:9,pref_gain:2200,max_mi:13,max_gain:4000,shapes:[]}; } }
+  renderPlanForm();
+};
+
+function shapeChecked(s){ return (PDEF.shapes||[]).length === 0 || PDEF.shapes.includes(s); }
+
+function renderPlanForm(){
+  $('results').innerHTML = `
+  <div class="pform">
+    <h3>Plan a trip</h3>
+    <div class="sec"><b>WHERE AND WHEN</b>
+      <div class="meta">Destination, dates, nights and party come from the bar above.
+      The two dates are your earliest and latest possible start day; exact dates means setting both the same.</div>
+    </div>
+    <div class="sec"><b>WHAT CAN YOU HANDLE?</b>
+      <div>
+        <button class="preset" data-p="relaxed">Relaxed</button>
+        <button class="preset" data-p="moderate">Moderate</button>
+        <button class="preset" data-p="challenging">Challenging</button>
+      </div>
+      <label>Comfortable day</label>
+      <input class="small" id="p_pref_mi" type="number" step="0.5" value="${PDEF.pref_mi}"> miles,
+      <input class="small" id="p_pref_gain" type="number" step="100" value="${PDEF.pref_gain}"> ft of climb
+      <label>Absolute maximum day</label>
+      <input class="small" id="p_max_mi" type="number" step="0.5" value="${PDEF.max_mi}"> miles,
+      <input class="small" id="p_max_gain" type="number" step="100" value="${PDEF.max_gain}"> ft of climb
+    </div>
+    <div class="sec"><b>WHAT KIND OF TRIP?</b><br>
+      <label><input type="checkbox" id="s_loop" ${shapeChecked('loop')?'checked':''}> Loop</label>
+      <label><input type="checkbox" id="s_oab" ${shapeChecked('out and back')?'checked':''}> Out and back</label>
+      <label><input type="checkbox" id="s_base" ${shapeChecked('basecamp')?'checked':''}> Basecamp (stay put, day hike)</label>
+      <label><input type="checkbox" id="p_fcfs" checked> First-come nights are OK</label>
+      <label><input type="checkbox" id="p_arrive"> Add a campground near the trailhead the night before</label>
+      <label><input type="checkbox" id="p_recover"> Add a recovery campground the night after</label>
+    </div>
+    <div class="summary" id="p_summary"></div>
+    <button class="primary" id="p_go" style="width:100%">Find trips</button>
+  </div>`;
+  document.querySelectorAll('.preset').forEach(b => b.onclick = () => {
+    const p = PRESETS[b.dataset.p];
+    $('p_pref_mi').value = p.pref_mi; $('p_pref_gain').value = p.pref_gain;
+    $('p_max_mi').value = p.max_mi; $('p_max_gain').value = p.max_gain;
+    document.querySelectorAll('.preset').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); planSummary();
+  });
+  document.querySelectorAll('.pform input').forEach(el => el.oninput = planSummary);
+  planSummary();
+  $('p_go').onclick = runPlan;
+}
+
+function planShapes(){
+  const s = [];
+  if ($('s_loop').checked) s.push('loop');
+  if ($('s_oab').checked) s.push('out and back');
+  if ($('s_base').checked) s.push('basecamp');
+  return s;
+}
+
+function planSummary(){
+  const n = $('nights').value, pt = $('party').value;
+  const flex = $('start').value !== $('end').value;
+  const when = flex ? `starting between ${$('start').value} and ${$('end').value}` : `starting ${$('start').value}`;
+  const sh = planShapes(); const shTxt = sh.length && sh.length < 3 ? sh.join(' or ') : 'any shape';
+  $('p_summary').textContent =
+    `${n} backcountry night(s) at ${PARK ? PARK.name.split(' National')[0].split(' Wilderness')[0] : '...'}, ` +
+    `${when}, party of ${pt}, preferably under ${$('p_pref_mi').value} miles and ${$('p_pref_gain').value} ft per day ` +
+    `(never over ${$('p_max_mi').value} mi / ${$('p_max_gain').value} ft), ${shTxt}` +
+    ($('p_arrive').checked ? ', arrival campground requested' : '') +
+    ($('p_fcfs').checked ? ', first-come stays acceptable' : ', reservable stays only') + '.';
+}
+
+async function runPlan(){
+  $('results').innerHTML = '<div class="muted">Checking availability and building complete trips...</div>';
+  try {
+    const body = { slug: PARK.slug, start: $('start').value, latest_start: $('end').value,
+      nights: +$('nights').value, party: +$('party').value,
+      pref_mi: +$('p_pref_mi').value, max_mi: +$('p_max_mi').value,
+      pref_gain: +$('p_pref_gain').value, max_gain: +$('p_max_gain').value,
+      shapes: planShapes(), first_come_ok: $('p_fcfs').checked,
+      arrival_night: $('p_arrive').checked, recovery_night: $('p_recover').checked };
+    PLANRES = await jpost('/api/plan', body);
+    PLANS = PLANRES.plans;
+    renderPlanCards();
+  } catch(e){
+    let msg = e.message;
+    try { const d = JSON.parse(msg); if (d.detail && d.detail.errors) msg = d.detail.errors.join('; '); } catch(_){}
+    $('results').innerHTML = `<div class="warn">${msg}</div><button class="ghost" id="p_back0">Back to the form</button>`;
+    $('p_back0').onclick = renderPlanForm;
+  }
+}
+
+function fmtWhen(iso){ return iso ? iso.replace('T',' ').replace('+00:00',' UTC') : ''; }
+
+function renderPlanCards(){
+  const res = PLANRES;
+  let html = `<button class="ghost" id="p_back1">Change the search</button>
+    <div class="fresh">Availability checked ${fmtWhen(res.checked_at)}</div>`;
+  (res.notes||[]).forEach(n => html += `<div class="warn">${n}</div>`);
+  if (!PLANS.length){
+    html += `<div class="muted">No complete trip fits those limits in that window. The smallest changes that would open trips up:</div>`;
+    (res.relaxations||[]).forEach(r => html += `<div class="relax">${r.detail}</div>`);
+  }
+  PLANS.forEach((p,i) => {
+    const seq = [...new Set(p.nights.filter(n=>n.stay_type!=='frontcountry_campground'&&n.stay_type!=='unplanned').map(n=>n.name))].join(' > ');
+    const hd = p.totals.hardest_day;
+    html += `<div class="card" data-i="${i}">
+      ${p.badge ? `<span class="badge top">${p.badge}</span>` : ''}
+      <span class="badge ${p.fit.label==='Great fit'?'fit':'stretch'}">${p.fit.label}</span>
+      <span class="badge avail">${p.availability_summary}</span>
+      <div class="ttl">${p.title}</div>
+      <div class="meta">${p.start} to ${p.end} &middot; ${p.nights.length} night(s) &middot; ${p.shape} from ${p.trailhead.name}</div>
+      <div class="meta">${p.totals.miles} trail mi${hd ? ` &middot; hardest day ${hd.miles} mi / ${hd.gain_ft.toLocaleString()} ft` : ''}${p.alternate_starts.length ? ` &middot; ${p.alternate_starts.length} other start date(s)` : ''}</div>
+      <div class="meta">${seq}</div>
+      <div class="why">${p.fit.reasons[0]||''}</div>
+      ${p.fit.tradeoffs.length ? `<div class="trade">Tradeoff: ${p.fit.tradeoffs[0]}</div>` : ''}
+    </div>`;
+  });
+  $('results').innerHTML = html;
+  $('p_back1').onclick = renderPlanForm;
+  document.querySelectorAll('.card').forEach(el => el.onclick = () => showPlanDetail(+el.dataset.i));
+  if (PLANS.length) drawPlan(0);
+}
+
+function availLine(n){
+  if (n.availability === 'reservable') return `${n.remaining != null ? n.remaining + ' site(s) open' : 'reservable'}, book it`;
+  if (n.availability === 'first_come') return 'first-come: no reservation possible, arrive early';
+  if (n.availability === 'permit_free') return 'permit-free: follow dispersed rules';
+  if (n.availability === 'unknown') return 'availability unverified, check before relying on it';
+  return n.availability;
+}
+
+function showPlanDetail(i){
+  const p = PLANS[i];
+  drawPlan(i);
+  let html = `<button class="ghost" id="p_back2">All recommendations</button>
+    <h3>${p.title}</h3>
+    <div><span class="badge ${p.fit.label==='Great fit'?'fit':'stretch'}">${p.fit.label}</span>
+    <span class="badge avail">${p.availability_summary}</span></div>
+    <div class="meta">${p.start} to ${p.end} &middot; party of ${p.party} &middot; ${p.shape} from ${p.trailhead.name}
+    &middot; ${p.totals.miles} mi, ${p.totals.gain_ft.toLocaleString()} ft total</div>
+    <div class="fresh">Availability checked ${fmtWhen(p.checked_at)} &middot; confidence: ${p.confidence.replace(/_/g,' ')}</div>`;
+  (p.warnings||[]).forEach(w => html += `<div class="warn">${w}</div>`);
+  (p.data_quality||[]).forEach(w => html += `<div class="warn">${w}</div>`);
+  html += `<h3 style="margin-top:10px">Where you sleep</h3>`;
+  p.nights.forEach(n => {
+    const bk = n.booking && n.booking.url ? ` &middot; <a href="${n.booking.url}" target="_blank" rel="noopener">${n.booking.label||'Book'}</a>` : (n.booking && n.booking.label ? ` &middot; ${n.booking.label}` : '');
+    html += `<div class="nightrow"><b>${n.date}</b> &middot; ${n.name}
+      <div class="meta">${n.stay_type.replace(/_/g,' ')} &middot; ${availLine(n)}${bk}</div>
+      ${(n.notes||[]).map(x=>`<div class="meta">${x}</div>`).join('')}</div>`;
+  });
+  html += `<h3 style="margin-top:10px">Day by day</h3>`;
+  p.days.forEach(d => {
+    const what = d.kind === 'travel' ? `drive in, camp near ${d.to}` :
+      d.kind === 'layover' ? `layover at ${d.to}` :
+      `${d.from} to ${d.to}, ${d.miles} mi, +${d.gain_ft.toLocaleString()} ft`;
+    html += `<div class="nightrow"><b>Day ${d.day}</b> &middot; ${d.date}<div class="meta">${what}</div></div>`;
+  });
+  if (p.fit.reasons.length) html += `<div class="why"><b>Why it fits:</b> ${p.fit.reasons.join(' ')}</div>`;
+  if (p.fit.tradeoffs.length) html += `<div class="trade"><b>Tradeoffs:</b> ${p.fit.tradeoffs.join(' ')}</div>`;
+  html += `<div style="margin-top:10px"><button class="primary" id="p_gpx">Download GPX</button></div>`;
+  $('results').innerHTML = html;
+  $('p_back2').onclick = renderPlanCards;
+  $('p_gpx').onclick = async () => {
+    const r = await fetch('/api/plan/gpx', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({slug: PARK.slug, entrance: p.gpx.entrance, seq: p.gpx.seq, start: p.gpx.start, title: p.title})});
+    if (!r.ok){ alert('GPX export failed: ' + await r.text()); return; }
+    const blob = await r.blob(); const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = (p.id||'switchback_trip') + '.gpx'; a.click();
+    URL.revokeObjectURL(a.href);
+  };
+}
+
+function drawPlan(i){
+  document.querySelectorAll('.card').forEach((x,k)=>x.classList.toggle('active', k===i));
+  const p = PLANS[i];
+  if (routeLayer) map.removeLayer(routeLayer);
+  const lines = (p.day_paths||[]).filter(x=>x.length>1 && x[0][0]!=null);
+  if (!lines.length){ routeLayer = null; return; }
+  routeLayer = L.layerGroup(lines.map(x => L.polyline(x, {color:'#2f6f4f', weight:4, opacity:.9}))).addTo(map);
+  const all = lines.flat(); if (all.length) map.fitBounds(all, {padding:[40,40]});
+}
 </script>
 <script>
 const AREA_INDEX='/api/areas';const AREA_ONE='/api/area/';const AREA_SUFFIX='';const AREA_INFO=(s)=>{document.getElementById('results').innerHTML='<div style="font-size:13px;color:#555">'+s+'</div>';};
