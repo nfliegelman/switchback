@@ -8,6 +8,7 @@ Your side of the house. Everything Switchback needs from Noah, split by device, 
 2. (CLOSED 2026-07-15) AllTrails detail approval worked; crowd-volume stats confirmed flowing (Vestal Basin returned 89 reviews, 189 completed hikes). The solitude signal now has a live data source when a future session wires it into scoring.
 3. Map board check: open the board (your home screen icon, or nfliegelman.github.io/switchback/board/). Bottom-left should say v3.4.2; the app caches itself, so give it a close-and-reopen or two. Tap a trip and confirm trail lines draw.
 4. Releases check: repo page > Releases. You should see every version back to v1.0.0, each with a downloadable zip. That page is your download spot from now on.
+5. Two one-minute taps to finish the Releases backfill (GitHub refused to let the robot stamp these two specific versions, a permissions rule; everything else landed): repo page > Releases > Draft a new release > in the tag box type v3.4.1 and choose Create new tag > for Target open Recent Commits and pick the commit titled "v3.4.1: the owner test drive plan in OWNER.md, releases robot hardened (PR 2)" > tap Generate release notes > Publish. Then repeat with tag v3.4.2 on the commit titled "v3.4.2: releases robot repair, version bump and paper trail".
 
 ## Product brief: RECEIVED and processed (2026-07-17)
 
