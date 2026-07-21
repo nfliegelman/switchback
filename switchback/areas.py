@@ -18,8 +18,7 @@ import time
 import urllib.parse
 import urllib.request
 
-from .geometry import (ATTRIBUTION, CACHE_DIR, TrailNet, _geojson_to_elements,
-                       _haversine_m, _overpass_once, fetch_gov, simplify)
+from .geometry import (ATTRIBUTION, CACHE_DIR, TrailNet, _haversine_m, _overpass_once, fetch_gov, simplify)
 
 BOUNDARY_URL = ("https://apps.fs.usda.gov/arcx/rest/services/EDW/"
                 "EDW_Wilderness_01/MapServer/0/query")

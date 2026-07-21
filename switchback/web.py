@@ -34,13 +34,13 @@ from . import planner
 from .config import load_profile
 from .extract import load_park
 from .coverage import survey
-from .geometry import ATTRIBUTION as GEOM_ATTRIBUTION, day_path, path_for
+from .geometry import day_path, path_for
 from .gpx import build_gpx
 from .graph import Graph
 from .plans import validate_request
 from .report import dedupe_routes
 from .scoring import Scorer
-from .solver import Solver, fetch_availability, fetch_for_graph
+from .solver import Solver, fetch_for_graph
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _AV_CACHE = {}

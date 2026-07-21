@@ -1,0 +1,19 @@
+# Ruff configuration for Switchback.
+#
+# The engine is standard-library only and uses a deliberately compact
+# house style (grouped imports, semicolons in a few CLI scripts) that
+# predates this linter. So we lint ONLY pyflakes (the F rules): real
+# defects like unused imports, unused variables, undefined names, and
+# redefinitions. We do not enforce cosmetic style, which would mean
+# reformatting untouched code against the house "surgical edits" rule.
+#
+# To widen coverage later, add rule groups to lint.select below and fix
+# what they surface in a dedicated pass.
+
+target-version = "py311"
+
+# Orphaned first-version demo scripts kept only for history; not linted.
+extend-exclude = ["belly_river_adventure.py", "caltopo_export.py"]
+
+[lint]
+select = ["F"]

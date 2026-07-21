@@ -279,7 +279,6 @@ def scenario_grade_aware_durations():
     """Owner ask 2026-07-20: a short day on a sustained steep edge must
     carry an honest duration and a grade tradeoff, and a slower pace
     must stretch every estimate."""
-    from switchback.pace import normalize_pace
     r = req(max_mi=3.0, pref_mi=2.0, pref_gain=800, limit=25)
     res = plan_trips(r, fetch_fn=open_fetch())
     box = [p for p in res["plans"]

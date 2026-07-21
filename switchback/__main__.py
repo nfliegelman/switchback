@@ -9,12 +9,12 @@ import argparse
 import sys
 from datetime import date, timedelta
 
-from .api import search_permits, get_divisions, fetch_availability_rows, HEADERS
+from .api import search_permits, get_divisions, fetch_availability_rows
 from .config import load_profile, PROFILE_PATH
 from .extract import extract_park, save_park, summary
 from .features import annotate, feature_summary
 from .graph import Graph
-from .solver import Solver, fetch_availability, fetch_for_graph
+from .solver import Solver, fetch_for_graph
 from .scoring import Scorer
 from .report import format_trips
 
@@ -52,7 +52,6 @@ def cmd_availability(args):
         only_available=args.only_available, progress=prog)
     print(" " * 30, end="\r", file=sys.stderr)
 
-    widths = [34, 20, 10, 5, 13]
     print(f"{'camp_or_zone':<34} {'type':<20} {'date':<10} "
           f"{'rem':>5} {'status':<13} walkup lake")
     for r in rows:
@@ -107,8 +106,6 @@ def cmd_trips(args):
                  if g.name(c).split(" - ")[0].strip().upper() in want]
     if not camps:
         sys.exit("no camps selected")
-    div_ids = [g.nodes[c]["division_id"] for c in camps]
-    permit_id = g.park["permit_id"]
     start, end = date.fromisoformat(args.start), date.fromisoformat(args.end)
     print(f"fetching availability for {len(camps)} camps...", file=sys.stderr)
     nights = args.nights or 3
@@ -226,7 +223,6 @@ def cmd_calibrate(args):
     docs/CALIBRATION_NOTES.md. Reactions fold into scoring.json in the
     session after Noah fills the sheet. --pdi-check audits whether the
     committed demand history is deep enough to re-norm percentiles."""
-    import json as _j
     import os as _o
     import sqlite3 as _s
     if args.pdi_check:

@@ -29,7 +29,16 @@ holds the one file the app writes; edit parks/atlas.json and rerun the
 command, never the file itself. Code is switchback/, park data parks/,
 the published map site docs/, tests tests/.
 
-Tests: `python -m pytest -q` runs the full invariant battery,
-offline. Non-coder path: START_HERE.txt and the .bat launchers. Every
-surface prints its version from switchback/__init__.py; CHANGELOG.md
-names the current release.
+Quality checks: `bash scripts/check.sh` runs the whole gate offline: no
+em or en dashes, ruff for dead code, then the full pytest suite. Set the
+tooling up once with `pip install -r requirements-web.txt -r requirements-dev.txt`.
+GitHub runs that same script automatically on every pull request and every
+push to main (.github/workflows/ci.yml, read-only, no secrets); a red mark
+on a pull request means a check failed, open it to see which. CI is kept
+separate from the board, watch, and release jobs, which are the only
+workflows that write to the repo or use secrets. Protecting main so a
+failing check blocks a merge is a one-time GitHub setting; see OWNER.md.
+
+Non-coder path: START_HERE.txt and the .bat launchers. Every surface
+prints its version from switchback/__init__.py; CHANGELOG.md names the
+current release.

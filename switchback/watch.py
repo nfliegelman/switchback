@@ -27,7 +27,6 @@ import random
 import time
 import urllib.parse
 import urllib.request
-from datetime import date, timedelta
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE_PATH = os.path.join(_ROOT, "parks", ".watch_state.json")

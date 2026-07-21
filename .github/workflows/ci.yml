@@ -1,0 +1,37 @@
+name: CI
+
+# Read-only validation. Runs the same checks as scripts/check.sh on every
+# pull request and every push to main. This is deliberately SEPARATE from
+# the board, watch, and release workflows, which need write access or
+# secrets; CI has neither.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install check tooling
+        run: pip install -r requirements-web.txt -r requirements-dev.txt
+
+      - name: Run the canonical quality checks
+        run: bash scripts/check.sh

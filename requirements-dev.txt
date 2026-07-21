@@ -1,0 +1,7 @@
+# Tooling to run the quality checks (scripts/check.sh) and the test
+# suite. NOT needed to run the app. Install alongside the web extras:
+#   pip install -r requirements-web.txt -r requirements-dev.txt
+pytest
+ruff
+# httpx backs starlette's TestClient, used by the offline web tests.
+httpx

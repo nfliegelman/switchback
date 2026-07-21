@@ -13,7 +13,7 @@ else is mixed. Backward feasibility guarantees every frontier option has
 at least one valid ending; endings() counts completions for M6 cards.
 """
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, timedelta
+from datetime import timedelta
 from functools import lru_cache
 
 from .api import fetch_division_month
