@@ -1,6 +1,6 @@
 # Switchback
 
-v3.4.3. A constraint-based backcountry trip planner: tell it when you
+v3.6.1. A constraint-based backcountry trip planner: tell it when you
 can go and what you can handle, it finds complete trips you can
 actually take, checked against live rec.gov availability.
 
@@ -29,7 +29,7 @@ holds the one file the app writes; edit parks/atlas.json and rerun the
 command, never the file itself. Code is switchback/, park data parks/,
 the published map site docs/, tests tests/.
 
-Tests: `python -m pytest -q` runs the full twelve-suite invariant
-battery, offline. Non-coder path: START_HERE.txt and the .bat
-launchers. Every surface prints its version; if it does not say
-v3.4.3, you are not on this release.
+Tests: `python -m pytest -q` runs the full invariant battery,
+offline. Non-coder path: START_HERE.txt and the .bat launchers. Every
+surface prints its version from switchback/__init__.py; CHANGELOG.md
+names the current release.

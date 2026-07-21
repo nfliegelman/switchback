@@ -1,0 +1,11 @@
+# Optional extras. The switchback engine package is stdlib only; these
+# are needed ONLY to run the local map web app or to build corridors.
+# Install with: pip install -r requirements-web.txt
+#
+# The map web app (switchback.web, served by Switchback.bat):
+fastapi
+uvicorn
+pydantic
+#
+# The long-trail corridor builder (switchback.corridor) only:
+shapely

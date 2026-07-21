@@ -1,3 +1,4 @@
-# GUI extras; the switchback engine package itself is stdlib-only
+# GUI extras; the switchback engine package itself is stdlib-only.
+# For the local map web app or the corridor builder, see requirements-web.txt.
 customtkinter
 openpyxl
