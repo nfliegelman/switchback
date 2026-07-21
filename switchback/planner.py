@@ -184,7 +184,7 @@ def _is_backcountry(n):
     return n.stay_type in ("backcountry_camp", "zone")
 
 
-def _fit(req, r, plan_nights):
+def _fit(req, r, plan_nights, shape):
     moving = [(mi, gain) for mi, gain in r["days"] if mi and mi > 0]
     within = all(mi <= req.pref_mi and gain <= req.pref_gain
                  for mi, gain in moving)
@@ -199,9 +199,12 @@ def _fit(req, r, plan_nights):
            and n.availability in ("available", "limited")
            for n in plan_nights if _is_backcountry(n)):
         reasons.append("Every backcountry night has open sites right now.")
-    shape = _SHAPE_LABEL.get(r["type"], r["type"])
-    reasons.append(f"{shape} returning to your starting trailhead, "
-                   "so one car works.")
+    if shape == "Basecamp":
+        reasons.append("Hike in once and stay put; day hikes come from "
+                       "camp, and one car works.")
+    else:
+        reasons.append(f"{shape} returning to your starting trailhead, "
+                       "so one car works.")
     for k, (mi, gain) in enumerate(r["days"], 1):
         if mi and (mi > req.pref_mi or gain > req.pref_gain):
             tradeoffs.append(
@@ -332,7 +335,13 @@ def _build_plan(req, g, av, solver, view, fetched_at, include_geometry):
                    "est_hours": hd.est_hours}
 
     shorts = list(dict.fromkeys(_short(g.name(c)) for c in seq))
-    shape = _SHAPE_LABEL.get(r["type"], r["type"])
+    # Presentation shape comes from the STAYING pattern first: sleeping
+    # every night at one camp IS a basecamp trip to a human, whatever
+    # shape the walk in and out traces (owner catch, 2026-07-20).
+    if len(seq) >= 2 and len(set(seq)) == 1:
+        shape = "Basecamp"
+    else:
+        shape = _SHAPE_LABEL.get(r["type"], r["type"])
     plan_id = "-".join([req.slug, start.isoformat(),
                         _short(g.name(ent)).lower().replace(" ", "_")]
                        + [s.lower().replace(" ", "_") for s in shorts[:3]])
@@ -354,7 +363,7 @@ def _build_plan(req, g, av, solver, view, fetched_at, include_geometry):
                 "hiking_hours": round(sum(x.est_hours for x in hikes
                                           if x.est_hours), 2) or None,
                 "hardest_day": hardest},
-        fit=_steep_tradeoffs(_fit(req, r, nights), days, pace),
+        fit=_steep_tradeoffs(_fit(req, r, nights, shape), days, pace),
         availability_summary=_availability_summary(nights),
         confidence=overall_confidence(nights),
         data_quality=_data_quality(g, ent, seq, solver),

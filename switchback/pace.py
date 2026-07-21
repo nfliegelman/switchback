@@ -192,6 +192,39 @@ def edge_hours(miles, up_ft, down_ft, pace):
     return hours, round(grade, 1)
 
 
+# plain-language difficulty buckets by grade magnitude, for the
+# calibration sheet and any surface that describes a day's terrain
+_BUCKETS = (("easy (under 10%)", 0, 10),
+            ("moderate (10-20%)", 10, 20),
+            ("steep (20-30%)", 20, 30),
+            ("very steep (30%+)", 30, None))
+
+
+def bucket_miles(sections):
+    """{bucket label: miles} by absolute grade, zero buckets omitted."""
+    out = {}
+    for s in sections:
+        g = abs(s["grade_pct"])
+        for label, lo, hi in _BUCKETS:
+            if g >= lo and (hi is None or g < hi):
+                out[label] = out.get(label, 0.0) + s["len_mi"]
+                break
+    return {k: round(v, 1) for k, v in out.items() if round(v, 1) > 0}
+
+
+def describe_trace(mi, elev_ft, pace=None, n_sections=40):
+    """One plain sentence for a day's profile: estimated time at the
+    given pace, then miles by grade bucket. Empty string if the trace
+    is unusable."""
+    sections = grade_sections(mi, elev_ft, n_sections=n_sections)
+    if not sections:
+        return ""
+    pace = pace or DEFAULT_PACE_MPH
+    hours = hours_for_sections(sections, pace)
+    parts = [f"{v} mi {k}" for k, v in bucket_miles(sections).items()]
+    return f"about {format_hours(hours)}; " + ", ".join(parts)
+
+
 def format_hours(h):
     """2.74 -> '2 h 45 min'; 0.4 -> '25 min'."""
     m = int(round(h * 60))

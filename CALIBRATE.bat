@@ -6,7 +6,8 @@ if errorlevel 1 (
   pause
   exit /b
 )
-echo Running three real searches. This takes 2 or 3 minutes. Leave it alone.
+echo Running four real searches. This takes 3 or 4 minutes. Leave it alone.
+python -m switchback calibrate rainier --start 2026-09-22 --end 2026-09-25
 python -m switchback calibrate rmnp --start 2026-09-22 --end 2026-09-25
 python -m switchback calibrate maroonbells --start 2026-09-22 --end 2026-09-25
 python -m switchback calibrate glacier --start 2026-09-08 --end 2026-09-12

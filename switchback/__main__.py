@@ -269,10 +269,17 @@ def cmd_calibrate(args):
             r["breakdown"] = {}
     lines = ["# CALIBRATION_NOTES", "",
              f"Search: {args.slug}, {start} to {end}, "
-             f"{args.nights} nights, party {args.party}.",
+             f"{args.nights} nights, party {args.party}. "
+             "Days easier than your comfortable 9.0 mi / 2,200 ft now "
+             "count as GOOD days; only harder-than-comfortable is "
+             "penalized, and any such day is flagged below.",
              "For each row write one reaction: too far / too flat / "
              "wrong camps / boring / crowded / good / love it. "
-             "Add anything else that felt off.", ""]
+             "Add anything else that felt off.",
+             "If a trip with flagged days still ranks high, that is its "
+             "camps scoring exceptionally well. If that tradeoff feels "
+             "wrong to you, say so; that balance is exactly what this "
+             "sheet tunes.", ""]
     if not rows:
         lines += ["(no bookable itineraries in this window: sold out or "
                   "not yet released; nothing to grade here, not a bug)", ""]
@@ -310,17 +317,38 @@ def cmd_calibrate(args):
                     prof_cache[key] = None
             t = prof_cache[key]
             if t:
-                out.append(f"   day {k}: toughest mile {t['toughest_ft']} "
-                           f"ft at mile {t['at_mi']}, {t['shape']}")
+                from .pace import describe_trace
+                desc = describe_trace(t["mi"], t["elev_ft"])
+                if desc:
+                    out.append(f"   day {k} terrain: {desc}")
         return out
+    def _nm(c):
+        return g.name(c).split(" (")[0].split(" - ")[0].strip()
     for i, r in enumerate(rows, 1):
         b = r.get("breakdown") or {}
-        names = " > ".join(g.name(c).split(" (")[0] for c in r["seq"])
-        days = ", ".join(f"{mi:g}mi/{gn:g}ft" for mi, gn in r["days"])
-        line = (f"{i}. {names}  [{r['type']}]  score {r['score']}\n"
-                f"   days: {days}\n"
-                f"   (day_fit {b.get('day_fit')}, camps {b.get('camp_pct')},"
-                f" lake nights {b.get('lake_nights')})")
+        seq = list(r["seq"])
+        uniq = list(dict.fromkeys(seq))
+        if len(seq) >= 2 and len(uniq) == 1:
+            stay = (f"BASECAMP: {len(seq)} nights at {_nm(seq[0])} "
+                    f"campsite (hike in, stay put, hike out)")
+        elif len(uniq) == 1:
+            stay = f"1 night at {_nm(seq[0])} campsite"
+        else:
+            stay = ("camps: " + ", then ".join(_nm(c) for c in seq)
+                    + f"  [{r['type'].replace('_', ' ')}]")
+        day_bits = []
+        for k, (mi, gn) in enumerate(r["days"], 1):
+            if not mi:
+                day_bits.append(f"day {k} layover at camp")
+            else:
+                flag = (" ABOVE YOUR COMFORTABLE DAY"
+                        if mi > 9.0 or gn > 2200 else "")
+                day_bits.append(f"day {k} {mi:g} mi / +{gn:g} ft{flag}")
+        line = (f"{i}. score {r['score']}  {stay}\n"
+                f"   from {g.name(r['entrance'])}\n"
+                f"   {'; '.join(day_bits)}\n"
+                f"   (effort fit {b.get('day_fit')}, camp quality "
+                f"{b.get('camp_pct')}, lake nights {b.get('lake_nights')})")
         line = "\n".join([line] + day_lines(r))
         print(line)
         lines += [line, "   REACTION: ", ""]
