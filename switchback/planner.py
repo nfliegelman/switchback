@@ -20,7 +20,8 @@ from datetime import datetime, timedelta, timezone
 
 from .frontcountry import options_for_entrance
 from .graph import Graph
-from .pace import (DEFAULT_PACE_MPH, format_hours, leg_hours, speed_for)
+from .pace import (DEFAULT_PACE_MPH, direction_word, format_hours,
+                   leg_hours, leg_updown, speed_for)
 from .plans import (BookingAction, NightStay, TripDay, TripPlan,
                     TripWarning, complete_night_problems,
                     overall_confidence)
@@ -317,10 +318,13 @@ def _build_plan(req, g, av, solver, view, fetched_at, include_geometry,
     for i, (mi, gain) in enumerate(r["days"]):
         a, b = stops[i], stops[i + 1]
         hours, steepest, note = None, None, None
+        loss, direction = None, None
         if a != b:
             path = solver._leg(a, b)[2]
             if path:
                 hours, steepest = leg_hours(g, path, pace)
+                up, loss = leg_updown(g, path)
+                direction = direction_word(up, loss)
         elif scorer is not None:
             # Packs-off day hikes are the whole point of a layover
             # (owner, Lena 2026-07-20); name the best options in the day
@@ -335,6 +339,7 @@ def _build_plan(req, g, av, solver, view, fetched_at, include_geometry,
                             from_name=_short(g.name(a)),
                             to_name=_short(g.name(b)),
                             miles=round(mi, 1), gain_ft=int(gain),
+                            loss_ft=loss, direction=direction,
                             est_hours=hours,
                             steepest_grade_pct=steepest, note=note))
     hikes = [x for x in days if x.kind == "hike" and x.miles]

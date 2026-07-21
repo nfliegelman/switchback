@@ -119,6 +119,10 @@ class TripDay:
     to_name: str
     miles: float
     gain_ft: int
+    loss_ft: int = None               # total descent; a mostly-downhill
+                                      # day must never read as a climb
+    direction: str = None             # mostly downhill / mostly climbing /
+                                      # rolling / gentle
     est_hours: float = None          # grade-aware duration estimate
     steepest_grade_pct: float = None  # characteristic grade of the
                                       # steepest edge on the day
@@ -128,7 +132,8 @@ class TripDay:
         return {"day": self.day, "date": self.date.isoformat(),
                 "kind": self.kind, "from": self.from_name,
                 "to": self.to_name, "miles": self.miles,
-                "gain_ft": self.gain_ft, "est_hours": self.est_hours,
+                "gain_ft": self.gain_ft, "loss_ft": self.loss_ft,
+                "direction": self.direction, "est_hours": self.est_hours,
                 "steepest_grade_pct": self.steepest_grade_pct,
                 "note": self.note}
 

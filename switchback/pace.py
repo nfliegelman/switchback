@@ -269,13 +269,18 @@ def ascent_descent(elev_ft):
     return int(round(up)), int(round(dn))
 
 
-def describe_trace(mi, elev_ft, pace=None, n_sections=40):
+def describe_trace(mi, elev_ft, pace=None, n_sections=40,
+                   include_time=True, include_updown=True):
     """One objective plain-language line for a day's profile: miles by
     grade bucket first, then the distinct climbs (so rolling
     up-down-up terrain is visible), then total up and down, and the
     time estimate LAST, deliberately (owner 2026-07-20: mileage,
     elevation, and grade are the focus; time is a nice end result).
-    Empty string if the trace is unusable."""
+    The calibration sheet passes include_time=False and
+    include_updown=False: no time there at all, and up/down lives on
+    the day line from graph figures, so one row never shows two
+    slightly different totals. Empty string if the trace is
+    unusable."""
     sections = grade_sections(mi, elev_ft, n_sections=n_sections)
     if not sections:
         return ""
@@ -291,11 +296,13 @@ def describe_trace(mi, elev_ft, pace=None, n_sections=40):
                            for c in climbs[:4])
         more = f" and {len(climbs) - 4} more" if len(climbs) > 4 else ""
         parts.append(f"{len(climbs)} separate climbs: {detail}{more}")
-    up, dn = ascent_descent(elev_ft)
-    parts.append(f"+{up:,} ft up, -{dn:,} ft down")
-    pace = pace or DEFAULT_PACE_MPH
-    hours = hours_for_sections(sections, pace)
-    parts.append(f"about {format_hours(hours)} at a typical pace")
+    if include_updown:
+        up, dn = ascent_descent(elev_ft)
+        parts.append(f"+{up:,} ft up, -{dn:,} ft down")
+    if include_time:
+        pace = pace or DEFAULT_PACE_MPH
+        hours = hours_for_sections(sections, pace)
+        parts.append(f"about {format_hours(hours)} at a typical pace")
     return "; ".join(parts)
 
 
@@ -305,6 +312,35 @@ def format_hours(h):
     if m < 60:
         return f"{m} min"
     return f"{m // 60} h {m % 60:02d} min" if m % 60 else f"{m // 60} h"
+
+
+def leg_updown(g, path):
+    """(total ft climbed, total ft descended) along a node path,
+    from the graph's directional edge gains; the reverse adjacency
+    entry carries each edge's descent. Offline and instant."""
+    up = down = 0.0
+    for a, b in zip(path, path[1:]):
+        fwd = next(((m, gn) for o, m, gn, _e, _k in g.adj.get(a, [])
+                    if o == b), None)
+        if not fwd:
+            continue
+        up += fwd[1] or 0
+        down += next((gn for o, _m, gn, _e, _k in g.adj.get(b, [])
+                      if o == a), 0) or 0
+    return int(round(up)), int(round(down))
+
+
+def direction_word(up_ft, down_ft):
+    """A day's character in two words: a mostly-downhill hike must
+    never read as a climb (owner catch, Sunrise to Mystic 2026-07-20).
+    Empty string when the day has no meaningful relief."""
+    if max(up_ft, down_ft) < 400:
+        return "gentle"
+    if down_ft > 1.5 * up_ft:
+        return "mostly downhill"
+    if up_ft > 1.5 * down_ft:
+        return "mostly climbing"
+    return "rolling, real climbing both directions"
 
 
 def leg_hours(g, path, pace):

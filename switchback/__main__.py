@@ -284,10 +284,9 @@ def cmd_calibrate(args):
         lines += ["(no bookable itineraries in this window: sold out or "
                   "not yet released; nothing to grade here, not a bug)", ""]
     prof_cache = {}
-    def day_lines(r):
-        if args.no_profile:
-            return []
-        from .dem import day_toughness
+    def hops_for(r):
+        """Ordered node hops for a route including the exit leg, per
+        the trip-shape trap in CLAUDE.md."""
         hops = [r["entrance"]] + list(r["seq"])
         if len(r["days"]) > len(hops) - 1:
             if r.get("type") in ("loop", "out_and_back", "lollipop",
@@ -305,8 +304,14 @@ def cmd_calibrate(args):
                 legs = [(l[0], e) for l, e in legs if l]
                 if legs:
                     hops.append(min(legs)[1])
+        return hops
+
+    def day_lines(r):
+        if args.no_profile:
+            return []
+        from .dem import day_toughness
         out = []
-        for k, (x, y) in enumerate(zip(hops, hops[1:]), 1):
+        for k, (x, y) in enumerate(zip(hops_for(r), hops_for(r)[1:]), 1):
             if x == y:
                 continue
             key = (x, y)
@@ -318,7 +323,9 @@ def cmd_calibrate(args):
             t = prof_cache[key]
             if t:
                 from .pace import describe_trace
-                desc = describe_trace(t["mi"], t["elev_ft"])
+                desc = describe_trace(t["mi"], t["elev_ft"],
+                                      include_time=False,
+                                      include_updown=False)
                 if desc:
                     out.append(f"   day {k} terrain: {desc}")
         return out
@@ -336,14 +343,24 @@ def cmd_calibrate(args):
         else:
             stay = ("camps: " + ", then ".join(_nm(c) for c in seq)
                     + f"  [{r['type'].replace('_', ' ')}]")
+        from .pace import direction_word, leg_updown
+        hops = hops_for(r)
         day_bits = []
         for k, (mi, gn) in enumerate(r["days"], 1):
             if not mi:
                 day_bits.append(f"day {k} layover at camp")
-            else:
-                flag = (" ABOVE YOUR COMFORTABLE DAY"
-                        if mi > 9.0 or gn > 2200 else "")
-                day_bits.append(f"day {k} {mi:g} mi / +{gn:g} ft{flag}")
+                continue
+            flag = (" ABOVE YOUR COMFORTABLE DAY"
+                    if mi > 9.0 or gn > 2200 else "")
+            updown, word = f"+{gn:g} ft", ""
+            if k < len(hops):
+                leg = g.leg(hops[k - 1], hops[k])
+                if leg:
+                    up, down = leg_updown(g, leg[2])
+                    word = direction_word(up, down)
+                    updown = f"+{up:,} ft up / -{down:,} ft down"
+            day_bits.append(f"day {k} {mi:g} mi, {updown}"
+                            + (f", {word}" if word else "") + flag)
         line = (f"{i}. score {r['score']}  {stay}\n"
                 f"   from {g.name(r['entrance'])}\n"
                 f"   {'; '.join(day_bits)}\n"
