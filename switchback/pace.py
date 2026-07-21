@@ -212,17 +212,91 @@ def bucket_miles(sections):
     return {k: round(v, 1) for k, v in out.items() if round(v, 1) > 0}
 
 
+def _turning_points(elev_ft, tol_ft):
+    """Indices of local peaks and valleys, ignoring wiggles smaller
+    than tol_ft. Always includes the first and last sample."""
+    n = len(elev_ft)
+    out = [0]
+    direction, ext = 0, 0
+    for i in range(1, n):
+        if direction == 0:
+            if elev_ft[i] - elev_ft[0] > tol_ft:
+                direction, ext = 1, i
+            elif elev_ft[0] - elev_ft[i] > tol_ft:
+                direction, ext = -1, i
+        elif direction == 1:
+            if elev_ft[i] >= elev_ft[ext]:
+                ext = i
+            elif elev_ft[ext] - elev_ft[i] > tol_ft:
+                out.append(ext)
+                direction, ext = -1, i
+        else:
+            if elev_ft[i] <= elev_ft[ext]:
+                ext = i
+            elif elev_ft[i] - elev_ft[ext] > tol_ft:
+                out.append(ext)
+                direction, ext = 1, i
+    if out[-1] != n - 1:
+        out.append(n - 1)
+    return out
+
+
+def climb_profile(mi, elev_ft, min_climb_ft=200, tol_ft=80):
+    """Distinct climbs in a day (owner ask 2026-07-20: repeated
+    up-down-up-down must be visible, not smeared into one gain
+    number). A climb runs until the trail drops more than tol_ft from
+    its high point; climbs smaller than min_climb_ft are ignored.
+    Returns [{gain_ft, len_mi, avg_grade_pct}] in trail order."""
+    if not mi or len(mi) < 2:
+        return []
+    tp = _turning_points(elev_ft, tol_ft)
+    climbs = []
+    for a, b in zip(tp, tp[1:]):
+        gain = elev_ft[b] - elev_ft[a]
+        length = mi[b] - mi[a]
+        if gain >= min_climb_ft and length > 0:
+            climbs.append({"gain_ft": int(round(gain)),
+                           "len_mi": round(length, 1),
+                           "avg_grade_pct": round(
+                               gain / (length * FT_PER_MI) * 100, 1)})
+    return climbs
+
+
+def ascent_descent(elev_ft):
+    """(total ft up, total ft down) across a profile."""
+    up = sum(max(0.0, b - a) for a, b in zip(elev_ft, elev_ft[1:]))
+    dn = sum(max(0.0, a - b) for a, b in zip(elev_ft, elev_ft[1:]))
+    return int(round(up)), int(round(dn))
+
+
 def describe_trace(mi, elev_ft, pace=None, n_sections=40):
-    """One plain sentence for a day's profile: estimated time at the
-    given pace, then miles by grade bucket. Empty string if the trace
-    is unusable."""
+    """One objective plain-language line for a day's profile: miles by
+    grade bucket first, then the distinct climbs (so rolling
+    up-down-up terrain is visible), then total up and down, and the
+    time estimate LAST, deliberately (owner 2026-07-20: mileage,
+    elevation, and grade are the focus; time is a nice end result).
+    Empty string if the trace is unusable."""
     sections = grade_sections(mi, elev_ft, n_sections=n_sections)
     if not sections:
         return ""
+    parts = [", ".join(f"{v} mi {k}"
+                       for k, v in bucket_miles(sections).items())]
+    climbs = climb_profile(mi, elev_ft)
+    if len(climbs) == 1:
+        c = climbs[0]
+        parts.append(f"one climb of {c['gain_ft']:,} ft at about "
+                     f"{c['avg_grade_pct']:g}%")
+    elif climbs:
+        detail = ", ".join(f"{c['gain_ft']:,} ft at {c['avg_grade_pct']:g}%"
+                           for c in climbs[:4])
+        more = f" and {len(climbs) - 4} more" if len(climbs) > 4 else ""
+        parts.append(f"{len(climbs)} separate climbs: {detail}{more}")
+    up, dn = ascent_descent(elev_ft)
+    parts.append(f"+{up:,} ft up, -{dn:,} ft down")
     pace = pace or DEFAULT_PACE_MPH
     hours = hours_for_sections(sections, pace)
-    parts = [f"{v} mi {k}" for k, v in bucket_miles(sections).items()]
-    return f"about {format_hours(hours)}; " + ", ".join(parts)
+    parts.append(f"about {format_hours(hours)} at a typical pace")
+    return "; ".join(parts)
 
 
 def format_hours(h):

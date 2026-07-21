@@ -122,13 +122,15 @@ class TripDay:
     est_hours: float = None          # grade-aware duration estimate
     steepest_grade_pct: float = None  # characteristic grade of the
                                       # steepest edge on the day
+    note: str = None                  # e.g. packs-off day hikes on layovers
 
     def to_dict(self):
         return {"day": self.day, "date": self.date.isoformat(),
                 "kind": self.kind, "from": self.from_name,
                 "to": self.to_name, "miles": self.miles,
                 "gain_ft": self.gain_ft, "est_hours": self.est_hours,
-                "steepest_grade_pct": self.steepest_grade_pct}
+                "steepest_grade_pct": self.steepest_grade_pct,
+                "note": self.note}
 
 
 @dataclass

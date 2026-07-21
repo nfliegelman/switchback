@@ -349,6 +349,8 @@ def cmd_calibrate(args):
                 f"   {'; '.join(day_bits)}\n"
                 f"   (effort fit {b.get('day_fit')}, camp quality "
                 f"{b.get('camp_pct')}, lake nights {b.get('lake_nights')})")
+        for note in sc.layover_notes(r, 9.0, 2200):
+            line += f"\n   {note}"
         line = "\n".join([line] + day_lines(r))
         print(line)
         lines += [line, "   REACTION: ", ""]

@@ -225,8 +225,10 @@ def _fit(req, r, plan_nights, shape):
             "reasons": reasons[:3], "tradeoffs": tradeoffs[:3]}
 
 
-# characteristic edge grade at or above this reads as sustained steep
-_STEEP_TRADEOFF_PCT = 25
+# characteristic edge grade at or above this reads as sustained steep.
+# 20, not 25, by owner ground truth (Lena 2026-07-20): sustained grades
+# around 20 percent for a mile felt really challenging even packs-off.
+_STEEP_TRADEOFF_PCT = 20
 
 
 def _steep_tradeoffs(fit, days, pace):
@@ -281,7 +283,8 @@ def _data_quality(g, ent, seq, solver):
 
 
 # ------------------------------ plan build ---------------------------------
-def _build_plan(req, g, av, solver, view, fetched_at, include_geometry):
+def _build_plan(req, g, av, solver, view, fetched_at, include_geometry,
+                scorer=None):
     r = view["best"]
     ent, seq, start = r["entrance"], list(r["seq"]), r["start"]
     warnings = []
@@ -313,18 +316,27 @@ def _build_plan(req, g, av, solver, view, fetched_at, include_geometry):
     pace = req.pace or DEFAULT_PACE_MPH
     for i, (mi, gain) in enumerate(r["days"]):
         a, b = stops[i], stops[i + 1]
-        hours, steepest = (None, None)
+        hours, steepest, note = None, None, None
         if a != b:
             path = solver._leg(a, b)[2]
             if path:
                 hours, steepest = leg_hours(g, path, pace)
+        elif scorer is not None:
+            # Packs-off day hikes are the whole point of a layover
+            # (owner, Lena 2026-07-20); name the best options in the day
+            top = scorer.day_hikes(a, req.pref_mi, req.pref_gain, limit=2)
+            if top:
+                note = "Packs-off day hikes: " + "; or ".join(
+                    f"{_short(o['name'])} {o['rt_mi']} mi round trip, "
+                    f"+{o['rt_gain']} ft, ~{format_hours(o['rt_hours'])}"
+                    + (" (lake)" if o["lake"] else "") for o in top)
         days.append(TripDay(day=i + 1, date=start + timedelta(days=i),
                             kind="layover" if a == b else "hike",
                             from_name=_short(g.name(a)),
                             to_name=_short(g.name(b)),
                             miles=round(mi, 1), gain_ft=int(gain),
                             est_hours=hours,
-                            steepest_grade_pct=steepest))
+                            steepest_grade_pct=steepest, note=note))
     hikes = [x for x in days if x.kind == "hike" and x.miles]
     hardest = None
     if hikes:
@@ -507,9 +519,11 @@ def plan_trips(req, fetch_fn=None, availability=None, graph=None,
     if not rows:
         result["relaxations"] = _relaxations(req, g, av)
         return result
-    ranked = Scorer(g).rank(rows, req.pref_mi, req.pref_gain)
+    scorer = Scorer(g)
+    ranked = scorer.rank(rows, req.pref_mi, req.pref_gain)
     for view in dedupe_routes(ranked)[:req.limit]:
         result["plans"].append(
-            _build_plan(req, g, av, solver, view, when, include_geometry))
+            _build_plan(req, g, av, solver, view, when, include_geometry,
+                        scorer=scorer))
     _badges(result["plans"])
     return result
