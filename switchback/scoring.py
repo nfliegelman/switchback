@@ -33,7 +33,9 @@ DEFAULT_SCORING = {
         "per_3_trail_miles_from_trailhead": 0.12,
         "trail_depth_cap": 0.5,
     },
-    "note": "Hand-set guesses. Recalibrate after 20+ personal ratings.",
+    "note": "Hand-set guesses. Recalibrate after 20+ personal ratings. "
+            "day_fit is asymmetric since 2026-07-20: easier than the "
+            "preferred day is good, only harder is penalized.",
 }
 
 
@@ -136,9 +138,21 @@ class Scorer:
     # ------------------------------------------------------------------
     @staticmethod
     def day_fit(mi, gain, pref_mi, pref_gain):
-        f_mi = max(0.0, 1 - abs(mi - pref_mi) / pref_mi)
-        f_g = max(0.0, 1 - abs(gain - pref_gain) / pref_gain)
-        return (f_mi + f_g) / 2
+        """Asymmetric by owner directive 2026-07-20 (supersedes the old
+        symmetric effort-fit): a day at or easier than the preference
+        is a GOOD day, never penalized just for being easier. Perfect
+        fit from 40 percent of preference up to preference; below that
+        cushion the credit tapers (a near-zero day is not a great use
+        of a day); above preference the old linear penalty applies, so
+        limit-matching trips no longer beat comfortable ones."""
+        def f(e, pref):
+            cushion = 0.4 * pref
+            if e > pref:
+                return max(0.0, 1 - (e - pref) / pref)
+            if e >= cushion:
+                return 1.0
+            return e / cushion if cushion else 1.0
+        return (f(mi, pref_mi) + f(gain, pref_gain)) / 2
 
     def demand_pct(self, cid):
         d = self.demand.get(cid)

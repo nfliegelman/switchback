@@ -93,6 +93,19 @@ def check_leg_hours_real_graph():
     assert steepest >= 25, "Box Canyon to Nickel Creek reads sustained steep"
 
 
+def check_buckets_and_description():
+    from switchback.pace import bucket_miles, describe_trace
+    mi = [0, 1, 2, 3, 4, 5]
+    wall = [0, 2376, 2376, 2376, 2376, 2376]
+    s = grade_sections(mi, wall, n_sections=20)
+    b = bucket_miles(s)
+    assert b.get("very steep (30%+)") == 1.0
+    assert b.get("easy (under 10%)") == 4.0
+    d = describe_trace(mi, wall)
+    assert d.startswith("about ") and "very steep" in d and "easy" in d
+    assert describe_trace([], []) == ""
+
+
 def check_format_hours():
     assert format_hours(0.4) == "24 min"
     assert format_hours(2.0) == "2 h"
@@ -106,6 +119,7 @@ def main():
     check_sections_fine_resolution()
     check_edge_fallback()
     check_leg_hours_real_graph()
+    check_buckets_and_description()
     check_format_hours()
     print("PACE OK: bands, 45 percent wall detection, edge fallback, "
           "user pace controls")

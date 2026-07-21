@@ -12,6 +12,10 @@ def main():
     assert s.day_fit(9, 2200, 9, 2200) == 1.0
     assert s.day_fit(0, 0, 9, 2200) == 0.0
     assert s.day_fit(13, 2200, 9, 2200) < 1.0
+    assert s.day_fit(7, 1700, 9, 2200) == 1.0, \
+        "easier than preferred is a good day, never penalized (2026-07-20)"
+    assert s.day_fit(11, 2600, 9, 2200) < s.day_fit(7, 1700, 9, 2200), \
+        "harder than preferred must rank below comfortable"
 
     def cid(code):
         for nid, n in g.nodes.items():
