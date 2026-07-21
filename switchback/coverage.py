@@ -104,7 +104,6 @@ def write_coverage():
     table plus both state atlases; COLORADO.md, WASHINGTON.md, and
     PARKS.md are retired (v3.3.1 consolidation). Both the atlas and
     coverage CLI commands regenerate the whole file."""
-    import json as _json
     rows, queue = survey()
     parts = [render(rows, queue).replace(
         "# Switchback coverage",
@@ -112,7 +111,7 @@ def write_coverage():
         "first, then the full state atlases. Mapped does not mean "
         "plannable; the tier column is the truth.\n\n## Trip-ready "
         "datasets", 1)]
-    data = _json.load(open("parks/atlas.json"))
+    data = json.load(open("parks/atlas.json"))
     total = 0
     for state, title in (("CO", "Colorado"), ("WA", "Washington")):
         srows = [r for r in data["rows"] if r.get("state") == state]
@@ -130,8 +129,6 @@ def render_atlas():
 
 def _render_state(rows, title):
 
-    import json as _json
-    import json as _json
     legend = {"live": "live (bookable itineraries)", "map": "trails on the map",
               "planned": "planned", "not-suitable": "not suitable"}
     counts = {}
