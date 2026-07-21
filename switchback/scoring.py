@@ -17,6 +17,8 @@ zero demand history, ranking works on computed priors alone.
 import json
 import os
 
+from .pace import format_hours, leg_hours, normalize_pace
+
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCORING_PATH = os.path.join(_ROOT, "scoring.json")
 RATINGS_PATH = os.path.join(_ROOT, "parks", "ratings.json")
@@ -90,6 +92,9 @@ class Scorer:
                                  else self.computed_prior(feats))
         self._pct = self._percentiles(self._rating)
         self._dh_raw = {}
+        # day hikes happen without overnight packs (owner ground truth,
+        # Lena 2026-07-20), so their time estimates run a bit faster
+        self._dh_pace = normalize_pace(1.15)[0]
 
     # ------------------------------------------------------------------
     def _trail_depths(self):
@@ -173,9 +178,12 @@ class Scorer:
                 back = self.g.leg(dest, camp)
                 if not out or not back or not out[0]:
                     continue
+                h_out, _ = leg_hours(self.g, out[2], self._dh_pace)
+                h_back, _ = leg_hours(self.g, back[2], self._dh_pace)
                 opts.append({"dest": dest, "name": self.g.name(dest),
                              "rt_mi": round(out[0] + back[0], 1),
                              "rt_gain": out[1] + back[1],
+                             "rt_hours": round(h_out + h_back, 2),
                              "pct": self._pct.get(dest, 0.5),
                              "lake": bool(self._camp_feats.get(dest, {})
                                           .get("lake_within_400m"))})
@@ -218,7 +226,9 @@ class Scorer:
             top = self.day_hikes(camp, pref_mi, pref_gain, limit=limit)
             if top:
                 alts = "; or ".join(
-                    f"{o['name'].split(' - ')[0]} {o['rt_mi']} mi RT, +{o['rt_gain']} ft"
+                    f"{o['name'].split(' - ')[0]} {o['rt_mi']} mi RT, "
+                    f"+{o['rt_gain']} ft, ~{format_hours(o['rt_hours'])} "
+                    "packs off"
                     + (" (lake)" if o["lake"] else "") for o in top)
                 notes.append(f"day {i + 1} layover at {short}, day hike: {alts}")
             else:

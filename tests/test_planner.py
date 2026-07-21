@@ -55,6 +55,12 @@ def scenario_within_preferred():
     great = [p for p in res["plans"] if p["fit"]["within_preferred"]]
     assert great, "a comfortable itinerary must exist and be labeled"
     assert great[0]["fit"]["label"] == "Great fit"
+    layovers = [d for p in res["plans"] for d in p["days"]
+                if d["kind"] == "layover"]
+    assert layovers, "basecamp-style plans must appear when allowed"
+    assert any(d["note"] and "Packs-off day hikes" in d["note"]
+               for d in layovers), \
+        "layover days must name packs-off day hikes (owner, Lena)"
     for p in res["plans"]:
         assert_complete(p)
         assert p["availability_summary"] == "Bookable now"

@@ -482,7 +482,7 @@ function showPlanDetail(i){
       `${d.from} to ${d.to}, ${d.miles} mi, +${d.gain_ft.toLocaleString()} ft` +
       (d.est_hours ? `, about ${fmtH(d.est_hours)}` : '') +
       (d.steepest_grade_pct >= 25 ? ` &middot; sustained grades around ${d.steepest_grade_pct}%` : '');
-    html += `<div class="nightrow"><b>Day ${d.day}</b> &middot; ${d.date}<div class="meta">${what}</div></div>`;
+    html += `<div class="nightrow"><b>Day ${d.day}</b> &middot; ${d.date}<div class="meta">${what}</div>${d.note ? `<div class="meta">${d.note}</div>` : ''}</div>`;
   });
   if (p.fit.reasons.length) html += `<div class="why"><b>Why it fits:</b> ${p.fit.reasons.join(' ')}</div>`;
   if (p.fit.tradeoffs.length) html += `<div class="trade"><b>Tradeoffs:</b> ${p.fit.tradeoffs.join(' ')}</div>`;
