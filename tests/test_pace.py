@@ -102,8 +102,37 @@ def check_buckets_and_description():
     assert b.get("very steep (30%+)") == 1.0
     assert b.get("easy (under 10%)") == 4.0
     d = describe_trace(mi, wall)
-    assert d.startswith("about ") and "very steep" in d and "easy" in d
+    assert "very steep" in d and "easy" in d
+    assert "one climb of 2,376 ft" in d, d
+    assert d.endswith("at a typical pace"), \
+        "time is listed LAST; objective terrain leads (owner 2026-07-20)"
     assert describe_trace([], []) == ""
+
+
+def check_rolling_terrain_visible():
+    """Owner ask: up-down-up-down must not smear into one number.
+    A sawtooth of five 400 ft climbs reads as five separate climbs."""
+    from switchback.pace import ascent_descent, climb_profile, describe_trace
+    mi, elev = [], []
+    x = 0.0
+    e = 0.0
+    mi.append(x); elev.append(e)
+    for _ in range(5):
+        for _ in range(10):          # up 400 ft over 0.5 mi
+            x += 0.05; e += 40
+            mi.append(round(x, 3)); elev.append(e)
+        for _ in range(10):          # back down 400 ft over 0.5 mi
+            x += 0.05; e -= 40
+            mi.append(round(x, 3)); elev.append(e)
+    climbs = climb_profile(mi, elev)
+    assert len(climbs) == 5, f"five sawtooth climbs, got {len(climbs)}"
+    assert all(c["gain_ft"] == 400 for c in climbs)
+    up, dn = ascent_descent(elev)
+    assert up == 2000 and dn == 2000
+    d = describe_trace(mi, elev)
+    assert "5 separate climbs" in d and "+2,000 ft up, -2,000 ft down" in d
+    flat = climb_profile([0, 1, 2], [100, 110, 105])
+    assert flat == [], "wiggles under the thresholds are not climbs"
 
 
 def check_format_hours():
@@ -120,6 +149,7 @@ def main():
     check_edge_fallback()
     check_leg_hours_real_graph()
     check_buckets_and_description()
+    check_rolling_terrain_visible()
     check_format_hours()
     print("PACE OK: bands, 45 percent wall detection, edge fallback, "
           "user pace controls")
