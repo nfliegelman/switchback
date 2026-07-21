@@ -479,9 +479,10 @@ function showPlanDetail(i){
   p.days.forEach(d => {
     const what = d.kind === 'travel' ? `drive in, camp near ${d.to}` :
       d.kind === 'layover' ? `layover at ${d.to}` :
-      `${d.from} to ${d.to}, ${d.miles} mi, +${d.gain_ft.toLocaleString()} ft` +
-      (d.est_hours ? `, about ${fmtH(d.est_hours)}` : '') +
-      (d.steepest_grade_pct >= 25 ? ` &middot; sustained grades around ${d.steepest_grade_pct}%` : '');
+      `${d.from} to ${d.to}, ${d.miles} mi, +${d.gain_ft.toLocaleString()} ft up${d.loss_ft != null ? ` / -${d.loss_ft.toLocaleString()} ft down` : ''}` +
+      (d.direction && d.direction !== 'gentle' ? `, ${d.direction}` : '') +
+      (d.steepest_grade_pct >= 20 ? ` &middot; sustained grades around ${d.steepest_grade_pct}%` : '') +
+      (d.est_hours ? `, about ${fmtH(d.est_hours)}` : '');
     html += `<div class="nightrow"><b>Day ${d.day}</b> &middot; ${d.date}<div class="meta">${what}</div>${d.note ? `<div class="meta">${d.note}</div>` : ''}</div>`;
   });
   if (p.fit.reasons.length) html += `<div class="why"><b>Why it fits:</b> ${p.fit.reasons.join(' ')}</div>`;

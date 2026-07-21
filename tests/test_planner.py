@@ -290,6 +290,8 @@ def scenario_grade_aware_durations():
     hikes = [d for d in p["days"] if d["kind"] == "hike"]
     assert all(d["est_hours"] and d["est_hours"] > 0 for d in hikes)
     assert all(d["steepest_grade_pct"] is not None for d in hikes)
+    assert all(d["loss_ft"] is not None and d["direction"] for d in hikes), \
+        "every hiking day shows its descent and direction character"
     assert max(d["steepest_grade_pct"] for d in hikes) >= 25
     assert any("sustained grades" in t for t in p["fit"]["tradeoffs"]), \
         "steep terrain must surface as a tradeoff even on short days"

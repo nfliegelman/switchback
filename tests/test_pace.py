@@ -84,6 +84,7 @@ def check_edge_fallback():
 
 def check_leg_hours_real_graph():
     from switchback.graph import Graph
+    from switchback.pace import direction_word, leg_updown
     g = Graph("rainier")
     box = [e for e in g.entrances() if "Box Canyon" in g.name(e)][0]
     nickel = [c for c in g.camps() if "Nickel" in g.name(c)][0]
@@ -91,6 +92,14 @@ def check_leg_hours_real_graph():
     hours, steepest = leg_hours(g, path, DEFAULT_PACE_MPH)
     assert hours > 0.5, "0.8 steep miles cannot be a 20 minute stroll"
     assert steepest >= 25, "Box Canyon to Nickel Creek reads sustained steep"
+    up, down = leg_updown(g, path)
+    assert (up, down) == (791, 502), "descent comes from the reverse edges"
+    assert direction_word(600, 2500) == "mostly downhill", \
+        "a big-descent day must never read as a climb (owner catch)"
+    assert direction_word(2500, 600) == "mostly climbing"
+    assert direction_word(100, 200) == "gentle"
+    assert "rolling" in direction_word(1983, 2854), \
+        "Sunrise to Mystic: net downhill but 2,000 ft of real climbing"
 
 
 def check_buckets_and_description():
