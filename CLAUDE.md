@@ -45,11 +45,17 @@ in the same PR. Never ask him to run commands beyond double-clicking a
    When a milestone does bump: switchback/__init__.py, a CHANGELOG.md
    entry (prose, no bullets), and the vX.Y.Z: commit-subject
    convention so the release robot can tag it.
-5. Full test suite green before any push. The standard command is
-   `python3 -m pytest -q` (discovers everything);
+5. Full quality gate green before any push. The canonical gate is
+   `bash scripts/check.sh` (dash sweep, ruff pyflakes, pytest); CI runs
+   that same script read-only on every pull request and push to main
+   (.github/workflows/ci.yml). Install the tooling once with
+   `pip install -r requirements-web.txt -r requirements-dev.txt`. The
+   bare test command is still `python3 -m pytest -q` (discovers
+   everything);
    `for t in tests/test_*.py; do python3 $t >/dev/null || echo FAIL $t; done`
    is the no-pytest fallback. Tests run offline by design; keep them
-   that way.
+   that way. Ruff lints pyflakes only (real defects, not house style);
+   config in ruff.toml.
 6. Never commit state: telegram.json, parks/history.sqlite*,
    parks/.watch_state.json, parks/pdi.json, parks/.osm_cache/,
    permit_exports/, docs/CALIBRATION_NOTES.md. The .gitignore covers
