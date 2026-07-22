@@ -90,11 +90,14 @@ in the same PR. Never ask him to run commands beyond double-clicking a
 - Miles policy tiers: official published figures beat geometry
   measurements beat estimates; geometry may replace curated miles only
   for recall-grade networks. Cite src on every edge.
-- KNOWN OPEN BUG: the Maroon Zone anchor node 4675333025 sits at about
-  13,450 ft on the West Maroon ridge instead of the camping valley.
-  Elks distances and profiles near that node are suspect; the fix plan
-  is in BACKLOG.md. The v2.23 mileage correction on that corridor is
-  under re-audit for the same reason.
+- FIXED 2026-07-22 (was a known open bug): the Maroon Zone anchor node
+  4675333025 formerly sat at about 13,450 ft on the Maroon Peak massif
+  instead of the camping valley, faking steep grades and inflating Elks
+  distances. Relocated to the West Maroon Creek valley trail at about
+  11,135 ft; the two display polylines were truncated to drop the bogus
+  1.23 mi ridge spur, and the Crater and North Fork mileages were
+  re-measured (3.4 to 1.9 mi, 11.53 to 10.3 mi). See the 2026-07-22
+  HANDOFF entry.
 - Corridor buffer_km is 1.0 BY OWNER DECISION. Do not change it.
 
 ## Commands you will actually use

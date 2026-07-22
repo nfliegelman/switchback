@@ -757,8 +757,8 @@
    "name": "Maroon Zone Large Group",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.06788,
-   "lon": -106.98906,
+   "lat": 39.06556,
+   "lon": -106.976,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -767,8 +767,8 @@
    "exclude_reason": null,
    "water_lake_flag": "",
    "on_trail": "",
-   "elevation_ft": 11000,
-   "coords_note": "snapped to the West Maroon valley trail northeast of the pass 2026-07-13; the prior point sat close enough to the divide to snap to the Schofield side"
+   "elevation_ft": 11135,
+   "coords_note": "relocated 2026-07-22 into the West Maroon Creek valley beside the Small Group anchor at about 11,135 ft; the prior point sat on the Maroon Peak massif near 13,450 ft, the root of the Elks profile bug"
   },
   {
    "id": "4675333025",
@@ -776,8 +776,8 @@
    "name": "Maroon Zone Small Group Dispersed",
    "type": "Camp Area",
    "district": "Four Pass Loop/Snowmass Lake/Crater Lake/Geneva Lake",
-   "lat": 39.06748,
-   "lon": -106.98906,
+   "lat": 39.06513,
+   "lon": -106.97557,
    "size": "",
    "is_group": false,
    "is_active": true,
@@ -786,8 +786,8 @@
    "exclude_reason": null,
    "water_lake_flag": "",
    "on_trail": "",
-   "elevation_ft": 11000,
-   "coords_note": "snapped to the West Maroon valley trail northeast of the pass 2026-07-13; the prior point sat close enough to the divide to snap to the Schofield side"
+   "elevation_ft": 11135,
+   "coords_note": "relocated 2026-07-22 to the West Maroon Creek valley trail at about 11,135 ft; the prior point sat on the Maroon Peak massif near 13,450 ft, which faked 30 percent grades and inflated the Crater and North Fork mileages; anchored to the valley-trail vertex where both display polylines leave the ridge"
   },
   {
    "id": "4675333028",

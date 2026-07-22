@@ -7,7 +7,7 @@ below the triage table retain their original detail.
 
 | Item | Label | Note |
 |---|---|---|
-| Maroon Zone anchor relocation and edge re-audit | P0 | data integrity; one session; blocks Elks quality bar |
+| Maroon Zone anchor relocation and edge re-audit | SHIPPED v3.6.4 2026-07-22 | anchor was ON the Maroon Peak massif (13,421 ft); relocated into the West Maroon valley, both polylines truncated to drop the 1.23 mi ridge spur, Crater and North Fork mileages re-measured (3.4 to 1.9, 11.53 to 10.3), fake 31% grades gone. See HANDOFF 2026-07-22 |
 | TripRequest, TripPlan, Stay, planner.py contract | P0 | Phase 1 core, spec in PRODUCT.md 6 and SPEC.md |
 | Per-search effort in request API and form | P0 | ends silent profile.json dependence |
 | Frontcountry curation for Rainier, RMNP, Lena | P0 | narrow, honest policy labels first |
@@ -202,4 +202,4 @@ OWNER.md is now the single list of everything on Noah, phone vs desktop; keeping
 
 - Trip-shape toggles (owner, 2026-07-15): trip_types list replaces trip_type string; toggles in every settings surface; default all-on. Spec in ROADMAP v3.x. NOT STARTED.
 
-- ELK RANGE ROOT CAUSE (found 2026-07-16 by the owner's profile request): the Maroon Zone anchor node 4675333025 sits at about 13,450 ft ON the West Maroon ridge; the curated zone centroid landed on the ridge, not in the camping valley. This is the true root of the v2.8 display mystery, and it taints the v2.23 mileage correction (7.19 to 11.53 was measured along geometry TO the misplaced node, so it inherits the error). NEXT SESSION: relocate the anchor to a representative valley point (Crater Lake basin, about 10,100 ft), re-derive the affected edges and geometry, re-audit the corrected mileage, and rerun the Elks calibration ballot. Until then, Elks distances and profiles above about 12,000 ft near Maroon Zone are suspect.
+- ELK RANGE ROOT CAUSE (found 2026-07-16, FIXED v3.6.4 2026-07-22, see HANDOFF; historical detail kept): the Maroon Zone anchor node 4675333025 sat at about 13,450 ft ON the West Maroon ridge; the curated zone centroid landed on the ridge, not in the camping valley. This is the true root of the v2.8 display mystery, and it taints the v2.23 mileage correction (7.19 to 11.53 was measured along geometry TO the misplaced node, so it inherits the error). NEXT SESSION: relocate the anchor to a representative valley point (Crater Lake basin, about 10,100 ft), re-derive the affected edges and geometry, re-audit the corrected mileage, and rerun the Elks calibration ballot. Until then, Elks distances and profiles above about 12,000 ft near Maroon Zone are suspect.
