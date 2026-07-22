@@ -108,14 +108,35 @@ def check_buckets_and_description():
     wall = [0, 2376, 2376, 2376, 2376, 2376]
     s = grade_sections(mi, wall, n_sections=20)
     b = bucket_miles(s)
-    assert b.get("very steep (30%+)") == 1.0
+    assert b.get("very steep uphill (30%+)") == 1.0, \
+        "a +45% climb is very steep UPHILL"
     assert b.get("easy (under 10%)") == 4.0
     d = describe_trace(mi, wall)
-    assert "very steep" in d and "easy" in d
+    assert "very steep uphill" in d and "easy" in d
     assert "one climb of 2,376 ft" in d, d
     assert d.endswith("at a typical pace"), \
         "time is listed LAST; objective terrain leads (owner 2026-07-20)"
     assert describe_trace([], []) == ""
+
+
+def check_downhill_not_conflated_with_climb():
+    """Owner catch 2026-07-22: a steep DESCENT must read as downhill,
+    never counted in the same bucket as an equally steep climb, and a
+    mixed day keeps the two directions separate and ordered."""
+    from switchback.pace import bucket_miles
+    mi = [0, 1, 2, 3, 4, 5]
+    drop = [2376, 0, 0, 0, 0, 0]              # -45% for a mile, then flat
+    b = bucket_miles(grade_sections(mi, drop, n_sections=20))
+    assert b.get("very steep downhill (30%+)") == 1.0
+    assert "very steep uphill (30%+)" not in b, \
+        "a descent must never land in the uphill bucket"
+    assert b.get("easy (under 10%)") == 4.0
+    climb_then_drop = [0, 1320, 0, 0, 0, 0]   # +25% up then -25% down
+    order = list(bucket_miles(grade_sections(mi, climb_then_drop, 20)))
+    assert "steep uphill (20-30%)" in order and \
+        "steep downhill (20-30%)" in order
+    assert order.index("steep uphill (20-30%)") < order.index(
+        "steep downhill (20-30%)"), "uphill is listed before downhill"
 
 
 def check_rolling_terrain_visible():
@@ -158,6 +179,7 @@ def main():
     check_edge_fallback()
     check_leg_hours_real_graph()
     check_buckets_and_description()
+    check_downhill_not_conflated_with_climb()
     check_rolling_terrain_visible()
     check_format_hours()
     print("PACE OK: bands, 45 percent wall detection, edge fallback, "

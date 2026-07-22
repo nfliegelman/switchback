@@ -193,23 +193,51 @@ def edge_hours(miles, up_ft, down_ft, pace):
 
 
 # plain-language difficulty buckets by grade magnitude, for the
-# calibration sheet and any surface that describes a day's terrain
-_BUCKETS = (("easy (under 10%)", 0, 10),
-            ("moderate (10-20%)", 10, 20),
-            ("steep (20-30%)", 20, 30),
-            ("very steep (30%+)", 30, None))
+# calibration sheet and any surface that describes a day's terrain.
+# Gentle grades (under 10%) feel the same up or down, so they share one
+# bucket; steeper grades split by direction, because a steep descent is
+# its own kind of hard and must never be counted as a climb (owner catch
+# 2026-07-22: a -20% descent was landing in the same "steep (20-30%)"
+# bucket as a +20% climb, so steep downhill was invisible on the sheet).
+_MAG_BUCKETS = (("easy (under 10%)", 0, 10),
+                ("moderate (10-20%)", 10, 20),
+                ("steep (20-30%)", 20, 30),
+                ("very steep (30%+)", 30, None))
+
+# canonical output order: gentle to steep, uphill before downhill, so a
+# terrain line always reads as one consistent progression.
+_BUCKET_ORDER = (
+    "easy (under 10%)",
+    "moderate uphill (10-20%)", "moderate downhill (10-20%)",
+    "steep uphill (20-30%)", "steep downhill (20-30%)",
+    "very steep uphill (30%+)", "very steep downhill (30%+)",
+)
+
+
+def _bucket_label(grade_pct):
+    """Direction-aware difficulty label for one signed grade. Gentle
+    grades stay direction-neutral; 10%+ grades carry uphill/downhill."""
+    g = abs(grade_pct)
+    for label, lo, hi in _MAG_BUCKETS:
+        if g >= lo and (hi is None or g < hi):
+            if lo == 0:
+                return label
+            base, paren = label.split(" (")
+            side = "uphill" if grade_pct >= 0 else "downhill"
+            return f"{base} {side} ({paren}"
+    return _MAG_BUCKETS[0][0]
 
 
 def bucket_miles(sections):
-    """{bucket label: miles} by absolute grade, zero buckets omitted."""
+    """{direction-aware difficulty label: miles}, zero buckets omitted,
+    ordered gentle to steep so a steep descent is never lumped with a
+    steep climb (owner catch 2026-07-22)."""
     out = {}
     for s in sections:
-        g = abs(s["grade_pct"])
-        for label, lo, hi in _BUCKETS:
-            if g >= lo and (hi is None or g < hi):
-                out[label] = out.get(label, 0.0) + s["len_mi"]
-                break
-    return {k: round(v, 1) for k, v in out.items() if round(v, 1) > 0}
+        label = _bucket_label(s["grade_pct"])
+        out[label] = out.get(label, 0.0) + s["len_mi"]
+    rounded = {k: round(v, 1) for k, v in out.items() if round(v, 1) > 0}
+    return {k: rounded[k] for k in _BUCKET_ORDER if k in rounded}
 
 
 def _turning_points(elev_ft, tol_ft):
