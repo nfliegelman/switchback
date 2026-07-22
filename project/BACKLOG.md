@@ -15,7 +15,7 @@ below the triage table retain their original detail.
 | Zero-result repair ladder with quantified relaxations | P0 | solver relaxation analysis |
 | Golden scenario suite (PRODUCT.md 18.2) | P0 | 10 scenarios, offline fixtures |
 | Complete-trip alerts on watch substrate | P1 | after TripPlan exists |
-| Calibration reactions fold-in | P1 | owner-gated; scaffold ready; ballots issued |
+| Calibration reactions fold-in | P1 | PARTIAL 2026-07-22 (v3.6.3): Rainier and RMNP effort reactions folded into scoring weights (0.4/0.6/0.15 to 0.5/0.45/0.1); comfortable day 9 mi / 2200 ft validated by the reactions and kept. REMAINING: re-fold Maroon Bells after the Maroon Zone anchor fix (its day totals are corrupted today); the steep-descent term has its own row; optional further dials if Noah wants brutal-but-great-camp trips pushed below comfortable ones, a steeper above-comfortable day_fit penalty or a hardest-day weighting instead of the day mean |
 | Route repair and permit-free fallbacks | P1 | corridors and dispersed are the inventory |
 | Campflare handoff | P1 | outbound links first |
 | Pilot inline-geometry carry-through | P1 | dispersed regrade quality |
