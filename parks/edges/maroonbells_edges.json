@@ -44,24 +44,23 @@
   {
    "a": "CRATER_JCT",
    "b": "Maroon Zone Small Group Dispersed",
-   "miles": 3.4,
-   "gain_ab": 950,
-   "loss_ab": 50,
+   "miles": 1.94,
+   "gain_ab": 1141,
+   "loss_ab": 89,
    "est_gain": true,
-   "gain_method": "pass_arithmetic_v1",
-   "dem_exempt": true,
-   "src": "published: Crater up West Maroon valley to the zone"
+   "gain_method": "dem_trail_v1",
+   "src": "trail geometry up West Maroon valley from Crater, re-measured 2026-07-22 after the Maroon Zone anchor was relocated off the Maroon Peak massif into the valley, which removed a bogus 1.23 mi ridge spur (was 3.4 mi to the 13,450 ft anchor)"
   },
   {
    "a": "Maroon Zone Small Group Dispersed",
    "b": "North Fork Zone Small Group Dispersed",
-   "miles": 11.53,
+   "miles": 10.3,
    "gain_ab": 2015,
    "loss_ab": 2415,
    "est_gain": true,
    "gain_method": "pass_arithmetic_v1",
    "dem_exempt": true,
-   "src": "loop guides: West Maroon Pass 12,500 and Frigid Air Pass 12,415 into Fravert Basin; miles corrected to OSM-measured 7.19 (loop arithmetic said 4.9); miles replaced by trail geometry (MB trunk pass leg per v2.7 policy), curated kept",
+   "src": "loop guides: West Maroon Pass 12,500 and Frigid Air Pass 12,415 into Fravert Basin; gains from named passes (DEM invalid across passes). Miles from trail geometry (MB trunk pass leg per v2.7 policy), re-measured 2026-07-22 to 10.3 after the Maroon Zone anchor was relocated into the valley (was 11.53, inflated by a bogus 1.23 mi ridge spur)",
    "miles_curated": 7.19
   },
   {

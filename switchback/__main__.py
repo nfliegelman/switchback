@@ -224,6 +224,7 @@ def cmd_calibrate(args):
     session after Noah fills the sheet. --pdi-check audits whether the
     committed demand history is deep enough to re-norm percentiles."""
     import os as _o
+    import re as _re
     import sqlite3 as _s
     if args.pdi_check:
         path = _o.path.join("data", "history.sqlite")
@@ -302,11 +303,16 @@ def cmd_calibrate(args):
                     hops.append(min(legs)[1])
         return hops
 
-    def day_lines(r):
+    def day_terrain(r):
+        """{day number: terrain line} for the hiking days (layover days
+        carry no trace). Keyed by day so the row prints its detail in
+        day order, interleaved with the layover notes (owner catch
+        2026-07-22: day 2's layover note printed before day 1's terrain,
+        so a basecamp row read out of sequence)."""
         if args.no_profile:
-            return []
+            return {}
         from .dem import day_toughness
-        out = []
+        out = {}
         for k, (x, y) in enumerate(zip(hops_for(r), hops_for(r)[1:]), 1):
             if x == y:
                 continue
@@ -323,7 +329,7 @@ def cmd_calibrate(args):
                                       include_time=False,
                                       include_updown=False)
                 if desc:
-                    out.append(f"   day {k} terrain: {desc}")
+                    out[k] = f"day {k} terrain: {desc}"
         return out
     def _nm(c):
         return g.name(c).split(" (")[0].split(" - ")[0].strip()
@@ -362,9 +368,17 @@ def cmd_calibrate(args):
                 f"   {'; '.join(day_bits)}\n"
                 f"   (effort fit {b.get('day_fit')}, camp quality "
                 f"{b.get('camp_pct')}, lake nights {b.get('lake_nights')})")
+        # per-day detail (layover day hikes and terrain) interleaved in
+        # day order so a row never reads out of sequence.
+        detail = {}
         for note in sc.layover_notes(r, 9.0, 2200):
-            line += f"\n   {note}"
-        line = "\n".join([line] + day_lines(r))
+            m = _re.match(r"day (\d+)", note)
+            detail.setdefault(int(m.group(1)) if m else 0, []).append(note)
+        for k, text in day_terrain(r).items():
+            detail.setdefault(k, []).append(text)
+        for k in sorted(detail):
+            for d in detail[k]:
+                line += f"\n   {d}"
         print(line)
         lines += [line, "   REACTION: ", ""]
     _o.makedirs("docs", exist_ok=True)
