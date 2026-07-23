@@ -235,6 +235,18 @@ class Scorer:
                 notes.append(f"day {i + 1} layover at {short}, no day-hike routes in graph")
         return notes
 
+    def _effective_gain(self, gain, stops, i):
+        """Real climb for day i plus its tread surcharge (rough ground
+        counts as extra effort, owner 2026-07-22). Fast path with no graph
+        work when the park carries no curated tread."""
+        if not self.g.tread or stops is None or i + 1 >= len(stops):
+            return gain
+        leg = self.g.leg(stops[i], stops[i + 1])
+        if not leg:
+            return gain
+        from .tread import path_tread
+        return gain + path_tread(self.g, leg[2])[1]
+
     def score(self, row, pref_mi, pref_gain):
         w = self.cfg["weights"]
         ent = row.get("entrance")
@@ -242,7 +254,8 @@ class Scorer:
         fits = []
         for i, (mi, gain) in enumerate(row["days"]):
             if mi and mi > 0:
-                fits.append(self.day_fit(mi, gain, pref_mi, pref_gain))
+                eff = self._effective_gain(gain, stops, i)
+                fits.append(self.day_fit(mi, eff, pref_mi, pref_gain))
             elif stops is not None:
                 fits.append(self.best_layover_fit(stops[i], pref_mi, pref_gain))
         day_term = sum(fits) / len(fits) if fits else 0.0

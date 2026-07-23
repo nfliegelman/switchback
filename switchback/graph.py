@@ -32,6 +32,7 @@ class Graph:
 
         self.nodes = {}          # node_id -> dict(kind, name, lat, lon, elevation_ft, division_id)
         self.adj = {}            # node_id -> [(other, miles, gain, est, edge_key)]
+        self.tread = {}          # edge_key -> curated tread class (see tread.py)
         self.unresolved = []
         self.est_edges = 0
         self.sourced_edges = 0
@@ -132,6 +133,8 @@ class Graph:
         else:
             self.sourced_edges += 1
         key = frozenset((a, b))
+        if e.get("tread"):
+            self.tread[key] = e["tread"]
         self.adj.setdefault(a, []).append((b, miles, gain_ab, est, key))
         self.adj.setdefault(b, []).append((a, miles, loss_ab if loss_ab is not None else 0, est, key))
 

@@ -351,21 +351,30 @@ def cmd_calibrate(args):
             stay = ("camps: " + ", then ".join(_nm(c) for c in seq)
                     + f"  [{r['type'].replace('_', ' ')}]")
         from .pace import direction_word, leg_updown
+        from .tread import path_tread, describe_tread
         hops = hops_for(r)
         day_bits = []
+        tread_notes = {}
         for k, (mi, gn) in enumerate(r["days"], 1):
             if not mi:
                 day_bits.append(f"day {k} layover at camp")
                 continue
-            flag = (" ABOVE YOUR COMFORTABLE DAY"
-                    if mi > pref_mi or gn > pref_gain else "")
-            updown, word = f"+{gn:g} ft", ""
+            updown, word, eff_gn = f"+{gn:g} ft", "", gn
             if k < len(hops):
                 leg = g.leg(hops[k - 1], hops[k])
                 if leg:
                     up, down = leg_updown(g, leg[2])
                     word = direction_word(up, down)
                     updown = f"+{up:,} ft up / -{down:,} ft down"
+                    miles_by, surcharge, _worst = path_tread(g, leg[2])
+                    eff_gn = gn + surcharge
+                    tn = describe_tread(miles_by)
+                    if tn:
+                        extra = (f", counts as about +{surcharge:,} ft of "
+                                 "extra effort") if surcharge else ""
+                        tread_notes[k] = f"day {k} footing: {tn}{extra}"
+            flag = (" ABOVE YOUR COMFORTABLE DAY"
+                    if mi > pref_mi or eff_gn > pref_gain else "")
             day_bits.append(f"day {k} {mi:g} mi, {updown}"
                             + (f", {word}" if word else "") + flag)
         line = (f"{i}. score {r['score']}  {stay}\n"
@@ -380,6 +389,8 @@ def cmd_calibrate(args):
             m = _re.match(r"day (\d+)", note)
             detail.setdefault(int(m.group(1)) if m else 0, []).append(note)
         for k, text in day_terrain(r).items():
+            detail.setdefault(k, []).append(text)
+        for k, text in tread_notes.items():
             detail.setdefault(k, []).append(text)
         for k in sorted(detail):
             for d in detail[k]:
