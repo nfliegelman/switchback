@@ -256,18 +256,23 @@ def cmd_calibrate(args):
                max_mi=13.0, max_gain=4000)
     rows = s.batch(g.entrances(), start, end)
     sc = Scorer(g)
-    ranked = sc.rank(rows, 9.0, 2200)
+    from .config import load_profile
+    _pref = load_profile().get("daily_pref", {})
+    pref_mi = float(_pref.get("miles", 6.0))
+    pref_gain = int(_pref.get("gain_ft", 1500))
+    ranked = sc.rank(rows, pref_mi, pref_gain)
     from .report import dedupe_routes
     rows = [v["best"] for v in dedupe_routes(ranked, "score")][:10]
     for r in rows:
         try:
-            r["breakdown"] = sc.score(r, 9.0, 2200)
+            r["breakdown"] = sc.score(r, pref_mi, pref_gain)
         except Exception:
             r["breakdown"] = {}
     lines = ["# CALIBRATION_NOTES", "",
              f"Search: {args.slug}, {start} to {end}, "
              f"{args.nights} nights, party {args.party}. "
-             "Days easier than your comfortable 9.0 mi / 2,200 ft now "
+             f"Days easier than your comfortable {pref_mi:g} mi / "
+             f"{pref_gain:,} ft now "
              "count as GOOD days; only harder-than-comfortable is "
              "penalized, and any such day is flagged below.",
              "For each row write one reaction: too far / too flat / "
@@ -353,7 +358,7 @@ def cmd_calibrate(args):
                 day_bits.append(f"day {k} layover at camp")
                 continue
             flag = (" ABOVE YOUR COMFORTABLE DAY"
-                    if mi > 9.0 or gn > 2200 else "")
+                    if mi > pref_mi or gn > pref_gain else "")
             updown, word = f"+{gn:g} ft", ""
             if k < len(hops):
                 leg = g.leg(hops[k - 1], hops[k])
@@ -371,7 +376,7 @@ def cmd_calibrate(args):
         # per-day detail (layover day hikes and terrain) interleaved in
         # day order so a row never reads out of sequence.
         detail = {}
-        for note in sc.layover_notes(r, 9.0, 2200):
+        for note in sc.layover_notes(r, pref_mi, pref_gain):
             m = _re.match(r"day (\d+)", note)
             detail.setdefault(int(m.group(1)) if m else 0, []).append(note)
         for k, text in day_terrain(r).items():

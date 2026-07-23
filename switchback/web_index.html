@@ -297,9 +297,10 @@ loadParks();
 // ---------------- Plan trips: the consumer vertical slice ----------------
 let PLANS = [], PLANRES = null, PDEF = null;
 const PRESETS = {
-  relaxed:    {pref_mi:6,  pref_gain:1500, max_mi:9,  max_gain:2500},
-  moderate:   {pref_mi:9,  pref_gain:2200, max_mi:13, max_gain:4000},
-  challenging:{pref_mi:12, pref_gain:3000, max_mi:16, max_gain:5000},
+  relaxed:    {pref_mi:4,  pref_gain:900,  max_mi:6,  max_gain:1600},
+  moderate:   {pref_mi:6,  pref_gain:1500, max_mi:9,  max_gain:2500},
+  challenging:{pref_mi:9,  pref_gain:2200, max_mi:13, max_gain:3500},
+  extreme:    {pref_mi:12, pref_gain:3000, max_mi:16, max_gain:5000},
 };
 
 $('plan').onclick = async () => {
@@ -330,6 +331,7 @@ function renderPlanForm(){
         <button class="preset" data-p="relaxed">Relaxed</button>
         <button class="preset" data-p="moderate">Moderate</button>
         <button class="preset" data-p="challenging">Challenging</button>
+        <button class="preset" data-p="extreme">Extreme</button>
       </div>
       <label>Comfortable day</label>
       <input class="small" id="p_pref_mi" type="number" step="0.5" value="${PDEF.pref_mi}"> miles,
