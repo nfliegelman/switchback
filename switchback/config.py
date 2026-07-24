@@ -8,7 +8,7 @@ import os
 
 DEFAULT_PROFILE = {
     "party_size": 2,
-    "daily_pref": {"miles": 9.0, "gain_ft": 2200},
+    "daily_pref": {"miles": 6.0, "gain_ft": 1500},
     "daily_max": {"miles": 13.0, "gain_ft": 4000},
     "trip_type": "loop",
     "include_walkup": False,

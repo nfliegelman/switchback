@@ -1,8 +1,8 @@
 {
   "party_size": 2,
   "daily_pref": {
-    "miles": 9.0,
-    "gain_ft": 2200
+    "miles": 6.0,
+    "gain_ft": 1500
   },
   "daily_max": {
     "miles": 13.0,

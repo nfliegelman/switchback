@@ -13,7 +13,9 @@
    "est_gain": true,
    "src": "AllTrails official MCP 2026-07-13: 6.4 RT +1548, split est",
    "gain_method": "alltrails_derived",
-   "dem_exempt": true
+   "dem_exempt": true,
+   "tread": "smooth",
+   "tread_src": "AllTrails 2026-07-22: the lower 3 mi is wide, well maintained, easy to moderate; owner ground truth agrees (smooth tread, early gentle grade praised)"
   },
   {
    "a": "LLL",
@@ -24,7 +26,9 @@
    "est_gain": true,
    "src": "AllTrails official MCP 2026-07-13: 13.4 RT +4655 minus lower leg; steep section",
    "gain_method": "alltrails_derived",
-   "dem_exempt": true
+   "dem_exempt": true,
+   "tread": "rough",
+   "tread_src": "AllTrails 2026-07-22 (difficulty Hard; review names steep sections, rocky terrain, a tough final mile) plus owner ground truth: rocky and rooty, brutal even without a pack"
   }
  ]
 }

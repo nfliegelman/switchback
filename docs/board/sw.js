@@ -1,4 +1,4 @@
-const SHELL = 'sb-shell-v3640';
+const SHELL = 'sb-shell-v370';
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(SHELL).then(c => c.addAll(
     ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'])));
