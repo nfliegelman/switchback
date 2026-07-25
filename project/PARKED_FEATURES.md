@@ -1,6 +1,10 @@
 # PARKED_FEATURES.md
 
-Updated 2026-07-20 per project/MASTER_COURSE_CORRECTION.md section on
+Updated 2026-07-25: camp substitution and direction reversal left the
+later-phase list when the controlled edit subset shipped in v3.8.0
+(switchback/edit.py); route repair stays, narrowed to the thing that
+is still unbuilt, automatically proposing a fix when a trip breaks.
+Otherwise per project/MASTER_COURSE_CORRECTION.md section on
 work to stop or park. Nothing here is deleted; classification decides
 what sessions may spend time on. Four classes:
 
@@ -47,8 +51,9 @@ Documentation reorganizations that do not enable implementation.
 
 Three to five trip-ready regions, cross-destination and flexible-date
 search, drive-radius search, saved preference profiles, trip-level
-availability monitoring, route repair, camp substitution, direction
-reversal, basecamp conversion, better frontcountry options with live
-inventory, Campflare handoff links, formal partner integrations,
+availability monitoring, route repair (automatically proposing a fix
+when a booked trip breaks), basecamp conversion, better frontcountry
+options with live inventory, Campflare handoff links, formal partner
+integrations,
 road-corridor backpacking discovery ("what viable trip lies along
 this driving route", never a generic Roadtrippers competitor).

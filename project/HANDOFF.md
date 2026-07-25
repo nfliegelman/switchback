@@ -163,11 +163,21 @@ Switchback: a permit-aware backpacking trip finder built on recreation.gov data.
 
 ## Known issues
 
-- Negative remaining renders as "-1 sites open" in belly_river_adventure.py card output; clamp in M6.
-- GPX export not built yet; CalTopo GeoJSON lacks rating and availability properties until M5 and M8 data exists.
-- est-flagged gains in belly_river_graph.json pending a DEM pass; ELF to ELH and ELH to HEL distances are estimates pending the park table.
+Written 2026-07-07 and re-verified 2026-07-25 against the code, since
+this section is current status rather than history and had drifted.
+Two of the three are still real; one was fixed long ago and the line
+was left standing, which is exactly what a status section must not do.
+
+- STILL REAL (verified 2026-07-25): negative remaining renders as "-1 sites open" in belly_river_adventure.py, which sums `cell.get("remaining") or 0` and prints it unclamped. The engine is not affected, only that root demo script; CLAUDE.md's "clamp to 0" rule is the fix whenever it is touched.
+- RESOLVED: GPX export shipped as M7 (switchback/gpx.py plus tests/test_gpx.py) and follows real trail geometry as of 2026-07-25. CalTopo GeoJSON still lacks rating and availability properties; that half stays open, and it is a BACKLOG item, not a blocker.
+- STILL REAL (verified 2026-07-25): ELF to ELH (1.6 mi) and ELH to HEL (2.6 mi) in parks/edges/glacier_edges.json both carry `est` in their src and say "verify against park table". The wider est-gain sweep was largely closed by dem_trail (32 of 33 Rainier edges, 9 Glacier edges regraded, see the 2026-07-14 entry), but these two distances were never confirmed.
 
 ## Next actions
+
+SUPERSEDED 2026-07-25. This list is the 2026-07-12 snapshot and is
+kept for the record only; items 1 and 2 are long done. The live next
+actions are project/CURRENT_PHASE.md (what the phase still needs) and
+OWNER.md (what Noah owes), in that order. Do not plan from this list.
 
 1. Ask the owner for a real date window, party size, and trip type; rerun belly_river_adventure.py live if a trip is imminent.
 2. The M0-M10 ladder is COMPLETE at v2.0.0 (2026-07-12). The gate before the v2.1 web UI build is the owner's test drive, agreed 2026-07-12: (a) TripFinder.bat on Rainier, late September, 3 nights, gut-check the top route; (b) same run with --via steering; (c) export a route to GPX and import it into CalTopo or AllTrails; (d) paste the Telegram token into telegram.json and fire one --inject alert; (e) click Find Trips in the GUI once. Reactions, including messy ones, calibrate scoring.json before the UI calcifies on top of the engine. If resuming fresh, ask how the test drive went before building anything.
