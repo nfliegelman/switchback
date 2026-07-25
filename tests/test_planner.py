@@ -145,6 +145,70 @@ def scenario_closed_campground_never_recommended():
         assert_complete(p)
 
 
+def scenario_out_of_season_campground_never_recommended():
+    """Found by the 2026-07-25 live verification: every Rainier
+    campground shuts for the winter, but only Ohanapecosh carried a
+    dated closure, so a December trip was handed White River as its
+    arrival night. Out of season is closed."""
+    from switchback.frontcountry import closure_reason, load_frontcountry
+    data = load_frontcountry("rainier")
+    for cg in data["campgrounds"]:
+        assert cg.get("season_window"), \
+            f"{cg['id']} has no season_window, so winter is not enforced"
+        assert closure_reason(cg, date(2026, 12, 25)), \
+            f"{cg['name']} must be closed on Christmas"
+        assert closure_reason(cg, date(2026, 2, 10)), \
+            f"{cg['name']} must be closed in February"
+
+    winter = plan_trips(req(start=date(2026, 12, 20),
+                            latest_start=date(2026, 12, 20),
+                            arrival_night=True, limit=25, max_mi=3.0,
+                            pref_mi=2.0, pref_gain=800),
+                        fetch_fn=open_fetch())
+    for p in winter["plans"]:
+        first = p["nights"][0]
+        assert first["stay_type"] == "unplanned", \
+            f"{first['name']} offered for a December night"
+        assert any(w["code"] == "campground_closed" for w in p["warnings"]), \
+            "the seasonal closure must be explained, not silently absorbed"
+        assert_complete(p)
+
+    summer = plan_trips(req(start=date(2026, 8, 14),
+                            latest_start=date(2026, 8, 14),
+                            arrival_night=True, limit=25, max_mi=3.0,
+                            pref_mi=2.0, pref_gain=800),
+                        fetch_fn=open_fetch())
+    assert any(p["nights"][0]["stay_type"] == "frontcountry_campground"
+               for p in summer["plans"]), \
+        "August is peak season; the window must not close the campgrounds"
+
+
+def scenario_easiest_badge_means_easiest_day():
+    """Found by the 2026-07-25 live verification: two plans can share
+    totals while one packs them into a much harder single day, and the
+    badge was picked on totals alone, so the card labeled Easiest
+    option had a 9.8 mi hardest day against the top pick's 5.3 mi."""
+    from switchback.planner import _badges
+
+    def plan(gain, miles, hard_gain, hard_miles):
+        return {"totals": {"gain_ft": gain, "miles": miles,
+                           "hardest_day": {"gain_ft": hard_gain,
+                                           "miles": hard_miles}},
+                "fit": {"reasons": []}, "alternate_starts": []}
+
+    plans = [plan(4837, 19.6, 1637, 5.3), plan(4837, 19.6, 1983, 9.8),
+             plan(7387, 26.8, 2854, 9.8)]
+    _badges(plans)
+    assert plans[0]["badge"] == "Best overall fit"
+    assert plans[1].get("badge") != "Easiest option", \
+        "a harder hardest day must never be badged the easiest option"
+
+    gentler = [plan(4837, 19.6, 1637, 5.3), plan(5200, 21.0, 900, 3.1)]
+    _badges(gentler)
+    assert gentler[1]["badge"] == "Easiest option", \
+        "a genuinely gentler day must still earn the badge"
+
+
 def scenario_frontcountry_respects_first_come_tolerance():
     """White River campground is first-come; a search that excludes
     first-come stays must not receive it as an arrival night."""
@@ -333,6 +397,8 @@ def main():
     scenario_reject_over_max_gain()
     scenario_arrival_frontcountry_and_unknown()
     scenario_closed_campground_never_recommended()
+    scenario_out_of_season_campground_never_recommended()
+    scenario_easiest_badge_means_easiest_day()
     scenario_frontcountry_respects_first_come_tolerance()
     scenario_backcountry_only()
     scenario_first_come_honesty()
@@ -343,9 +409,10 @@ def main():
     scenario_declared_window_invariant()
     scenario_grade_aware_durations()
     scenario_validation()
-    print("PLANNER OK: 16 golden scenarios green (declared-window "
-          "invariant, policy vs availability, closures, grade-aware "
-          "durations, honesty, relaxations, geometry)")
+    print("PLANNER OK: 18 golden scenarios green (declared-window "
+          "invariant, policy vs availability, closures and seasons, "
+          "honest badges, grade-aware durations, honesty, relaxations, "
+          "geometry)")
 
 
 if __name__ == "__main__":

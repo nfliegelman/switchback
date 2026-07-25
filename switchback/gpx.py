@@ -6,8 +6,10 @@ Explore all accept: <wpt> per stop (entrance and each camp, with
 elevation in meters where known) and one <trk> per moving day whose
 points follow the route graph's node path, so pass-through camps and
 junctions shape the line. Segments are straight lines between graph
-nodes by design; real trail geometry is a backlog item. Layover days
-produce no track, just a note in the metadata description.
+nodes. Segments follow real trail geometry wherever a harvested
+polyline exists for the hop, and fall back to a straight line where
+one does not; the metadata description says which the file actually
+got. Layover days produce no track, just a note in that description.
 """
 import os
 import re
@@ -16,6 +18,11 @@ from xml.sax.saxutils import escape
 
 DISCLAIMER = ("Straight lines between route-graph nodes, not trail "
               "geometry. Snap to trails in CalTopo or AllTrails.")
+TRAIL_DISCLAIMER = ("Track follows harvested trail geometry. Check it "
+                    "against your own map before relying on it.")
+MIXED_DISCLAIMER = ("Track follows harvested trail geometry except for "
+                    "{n} hop(s) drawn as straight lines between route "
+                    "nodes. Snap those in CalTopo or AllTrails.")
 
 
 def _ele(n):
@@ -44,7 +51,7 @@ def build_gpx(g, entrance, seq, start_date, title=None):
         wpts.append(_wpt(n, n["name"].split(" - ")[0]
                          if " - " in n["name"] else n["name"]))
 
-    trks, layovers = [], []
+    trks, layovers, fallbacks = [], [], []
     for day, (a, b) in enumerate(zip(stops, stops[1:]), 1):
         d = (start_date + timedelta(days=day - 1)).isoformat()
         if a == b:
@@ -53,7 +60,7 @@ def build_gpx(g, entrance, seq, start_date, title=None):
             continue
         leg = g.leg(a, b)
         from .geometry import day_path as _geom_day
-        coords = _geom_day(g.park["slug"], g, [a, b])
+        coords = _geom_day(g.park["slug"], g, [a, b], fallbacks=fallbacks)
         if len(coords) < 2:
             skipped.append(f"day {day} leg ({g.name(a)} to {g.name(b)})")
             continue
@@ -66,8 +73,14 @@ def build_gpx(g, entrance, seq, start_date, title=None):
         trks.append(f"  <trk>\n    <name>{escape(name)}</name>\n"
                     f"    <trkseg>\n{body}\n    </trkseg>\n  </trk>")
 
-    desc = DISCLAIMER + (" Layovers: " + "; ".join(layovers) + "."
-                         if layovers else "")
+    if not trks:
+        base = DISCLAIMER
+    elif not fallbacks:
+        base = TRAIL_DISCLAIMER
+    else:
+        base = MIXED_DISCLAIMER.format(n=len(fallbacks))
+    desc = base + (" Layovers: " + "; ".join(layovers) + "."
+                   if layovers else "")
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<gpx version="1.1" creator="Switchback" '
            'xmlns="http://www.topografix.com/GPX/1/1">\n'

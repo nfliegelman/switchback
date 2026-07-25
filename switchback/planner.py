@@ -407,9 +407,18 @@ def _badges(plans):
         return
     plans[0]["badge"] = "Best overall fit"
     if len(plans) > 1:
-        easiest = min(plans[1:], key=lambda p: (p["totals"]["gain_ft"],
-                                                p["totals"]["miles"]))
-        easiest.setdefault("badge", "Easiest option")
+        # A hiker reads "easiest" as the gentlest hardest day, not the
+        # smallest total: two trips can share totals while one packs
+        # them into one brutal day. Only badge it when it really is
+        # easier than the top pick, or the label lies.
+        def hardest(p):
+            h = p["totals"].get("hardest_day") or {}
+            return (h.get("gain_ft") or 0, h.get("miles") or 0,
+                    p["totals"]["gain_ft"], p["totals"]["miles"])
+
+        easiest = min(plans[1:], key=hardest)
+        if hardest(easiest) < hardest(plans[0]):
+            easiest.setdefault("badge", "Easiest option")
         lakes = max(plans, key=lambda p: sum(
             1 for n in p["fit"]["reasons"] if "lakeside" in n))
         if any("lakeside" in x for x in lakes["fit"]["reasons"]):
