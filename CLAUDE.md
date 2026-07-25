@@ -131,5 +131,5 @@ loader); tests/ offline suite; root markdown is README,
 OWNER, CLAUDE, CHANGELOG only; project/ the working docs
 (MASTER_COURSE_CORRECTION, CURRENT_PHASE, PARKED_FEATURES,
 COVERAGE_STATUS, PRODUCT, ROADMAP, SPEC, HANDOFF, BACKLOG,
-EXPERIMENTS, archive/FUTURE.md);
+EXPERIMENTS, audits/ the external review reports, archive/FUTURE.md);
 coverage/COVERAGE.md the generated coverage truth, written by the app.

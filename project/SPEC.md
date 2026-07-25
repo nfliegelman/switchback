@@ -13,12 +13,21 @@ wins.
 
 Build boundaries: feature triage for the full loop: recommend camp sequences within effort limits, display on a map, edit or build routes, export GPX to AllTrails / Garmin / CalTopo. Companion to SPEC.md and FUTURE.md. Part of Switchback.
 
-## Status (v3.3.0)
+## Status (v3.3.0, editor outcome recorded 2026-07-25)
 
 Still governing. PRODUCT.md's Edit-this-trip surface is cheap precisely
 because of the principle below; the Phase 3 editor must not violate it.
 The build/borrow/avoid buckets align with PRODUCT.md section 5 and the
 Parked list; where they disagree, PRODUCT.md wins.
+
+VALIDATED: the editor shipped in v3.8.0 (switchback/edit.py) and the
+prediction held. Every operation is literal list surgery on the camp
+sequence, geometry and mileage and gain are re-derived from the edited
+list through the existing graph, and the whole module is about 250
+lines because it reuses planner._build_plan rather than reimplementing
+plan construction. Anything that would make a route freehand geometry
+still forfeits this, so the principle stays load-bearing, not
+historical.
 
 ## The principle that keeps this buildable
 

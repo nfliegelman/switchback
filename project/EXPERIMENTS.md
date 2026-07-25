@@ -30,7 +30,7 @@ Trails: tile the corridor bbox chain into segments of about 0.3 degrees and run 
 
 File size: cap area files near 1 MB by splitting a corridor into segment files if needed; the board loader is already lazy per area.
 
-Owner question before building: buffer width. 1 km keeps files small and misses some side trails; 2 km roughly doubles capture and size. Default proposal is 1.5 km.
+Owner question before building: buffer width. 1 km keeps files small and misses some side trails; 2 km roughly doubles capture and size. Default proposal is 1.5 km. ANSWERED 2026-07-15 and now binding: the owner vetoed 1.5 and set buffer_km to 1.0, and all three corridors were rebuilt that day. The 1.5 km figures in this entry and in the Colorado Trail entry below are the as-designed and as-first-built numbers, kept as the record; 1.0 is the current value and CLAUDE.md carries it as a hard rule.
 
 ## Item 3 completion (2026-07-14): IPW dual-permit merge live
 
