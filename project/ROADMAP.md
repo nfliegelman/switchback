@@ -35,11 +35,15 @@ Required and status as of v3.5.0:
 - Date-aware frontcountry closures and corrected Rainier campground
   policies: DONE (Ohanapecosh closed for 2026, White River
   first-come).
-- Owner browser test drive and one live-network verification:
-  REMAINING; Rainier stays classified VERIFICATION BLOCKED until
-  they pass (project/COVERAGE_STATUS.md).
+- Live-network verification against real rec.gov inventory, booking
+  links included: DONE 2026-07-25 (three defects found and fixed in
+  the run; see the HANDOFF entry).
 - Controlled edit-trip subset from a selected recommendation (camp
-  swap, layover add or remove, reverse): REMAINING.
+  swap, layover add or remove, reverse): DONE v3.8.0, switchback/
+  edit.py plus the "Adjust this trip" panel, browser-tested.
+- Owner browser test drive: REMAINING, and now the only thing keeping
+  Rainier classified VERIFICATION BLOCKED
+  (project/COVERAGE_STATUS.md).
 
 ## MEDIUM-TERM: make the recommendation engine differentiated
 

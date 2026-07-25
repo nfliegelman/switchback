@@ -82,14 +82,28 @@ picked on totals rather than the hardest day, and the GPX disclaimer
 claimed straight lines while emitting real trail geometry. See the
 2026-07-25 HANDOFF entry for the full record.
 
+## Landed 2026-07-25: the controlled edit subset (v3.8.0)
+
+switchback/edit.py, four operations on a selected recommendation:
+swap the camp on one night, add a layover, remove a layover, reverse
+direction. Every edit is re-validated from scratch against the
+request's own limits and freshly fetched availability, then rebuilt
+through the same planner code path as a searched plan, so the
+complete-night invariant and the honesty labels hold identically. A
+broken edit is refused with the specific reason and the trip is left
+alone. edit_options computes what is offerable by actually attempting
+each edit, so the interface cannot offer a change the engine will then
+reject. Wired as POST /api/plan/edit and /api/plan/edit/options, and
+into the trip detail as an "Adjust this trip" panel that keeps the
+original recommendation recoverable. Covered by tests/test_edit.py (9
+scenarios), the plan API suite, and the real-browser test.
+
 ## Remaining before the phase is complete
 
-1. Owner browser test drive of the Plan trips flow (OWNER.md item 9a).
-   This is now the ONLY gate left before Rainier can be promoted out
-   of VERIFICATION BLOCKED (project/COVERAGE_STATUS.md).
-2. Then the controlled edit-trip subset (camp swap, layover, reverse)
-   from a selected recommendation, per the directive's editor scope.
-3. Frontcountry policy data must be revalidated against nps.gov each
+1. Owner browser test drive of the Plan trips flow (OWNER.md items 9a
+   and 9c). This is now the ONLY gate left before Rainier can be
+   promoted out of VERIFICATION BLOCKED (project/COVERAGE_STATUS.md).
+2. Frontcountry policy data must be revalidated against nps.gov each
    season (revalidate_after fields in parks/frontcountry/rainier.json).
    The season_window bounds added 2026-07-25 are a plain reading of
    the published season prose, not park-confirmed exact dates, so
