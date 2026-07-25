@@ -33,7 +33,22 @@ def main():
     root2 = ET.fromstring(xml2)
     assert len(root2.findall(NS + "trk")) == 2, "layover days must not produce tracks"
     assert "layover" in root2.find(f"{NS}metadata/{NS}desc").text
-    print("GPX OK: 3 waypoints, 4 day-tracks, layovers noted, all points located")
+
+    # Found by the 2026-07-25 live verification: the description was a
+    # fixed "straight lines between route-graph nodes" string even when
+    # every hop rode real harvested geometry (a 19.6 mi Rainier export
+    # carried 284 trackpoints). It must describe what the file got.
+    rg = Graph("rainier")
+    rent, gcc = rg.find("ENT:4675317042"), rg.find("46753170009")
+    xml3, _ = build_gpx(rg, rent, (gcc,), date(2026, 9, 21))
+    root3 = ET.fromstring(xml3)
+    desc3 = root3.find(f"{NS}metadata/{NS}desc").text
+    pts3 = root3.findall(f".//{NS}trkpt")
+    if len(pts3) > 2 * len(root3.findall(NS + "trk")):
+        assert "follows harvested trail geometry" in desc3, \
+            f"trail-following export must not claim straight lines: {desc3}"
+    print("GPX OK: 3 waypoints, 4 day-tracks, layovers noted, all points "
+          "located, description matches the geometry actually used")
 
 
 if __name__ == "__main__":

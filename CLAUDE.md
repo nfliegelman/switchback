@@ -125,8 +125,9 @@ arrival and recovery campgrounds; parks/atlas.json the landscape
 registry; docs/areas/ built landscape maps plus index.json manifest;
 docs/board/ the PWA (bump the sw.js SHELL string when changing it);
 switchback/ the engine (plans.py the request and TripPlan contract,
-planner.py the orchestration above the solver, frontcountry.py the
-curated-stay loader); tests/ offline suite; root markdown is README,
+planner.py the orchestration above the solver, edit.py the controlled
+edit subset on a selected plan, frontcountry.py the curated-stay
+loader); tests/ offline suite; root markdown is README,
 OWNER, CLAUDE, CHANGELOG only; project/ the working docs
 (MASTER_COURSE_CORRECTION, CURRENT_PHASE, PARKED_FEATURES,
 COVERAGE_STATUS, PRODUCT, ROADMAP, SPEC, HANDOFF, BACKLOG,

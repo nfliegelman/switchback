@@ -404,6 +404,7 @@ async function runPlan(){
   try {
     PLANRES = await jpost('/api/plan', body);
     PLANS = PLANRES.plans;
+    EDIT = null;   // a new search retires any edited working copy
     renderPlanCards();
   } catch(e){
     let msg = e.message;
@@ -457,11 +458,94 @@ function availLine(n){
   return `${pol}, availability unverified, check before relying on it`;
 }
 
+// The edited working copy of the open trip. The original recommendation
+// is never overwritten, so "start over" is always one tap away.
+let EDIT = null;
+function currentPlan(i){ return (EDIT && EDIT.i === i) ? EDIT.plan : PLANS[i]; }
+
+// An edit belongs to the plan's own destination, not to whatever the
+// park selector happens to show now. Writes are null-safe because the
+// user can leave the screen while a request is still in flight.
+function editBody(p, extra){
+  return Object.assign({slug: (p.destination && p.destination.slug) || PARK.slug,
+    entrance: p.gpx.entrance, seq: p.gpx.seq, start: p.gpx.start,
+    request: PLANRES.request}, extra||{});
+}
+function setBox(id, html){ const el = $(id); if (el) el.innerHTML = html; }
+
+async function runEdit(i, extra){
+  const p = currentPlan(i);
+  setBox('editmsg', '<div class="muted">Re-checking availability for that change...</div>');
+  let out;
+  try {
+    const r = await fetch('/api/plan/edit', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(editBody(p, extra))});
+    if (!r.ok){ setBox('editmsg', `<div class="warn">That change could not be checked: ${await r.text()}</div>`); return; }
+    out = await r.json();
+  } catch(e){ setBox('editmsg', `<div class="warn">That change could not be checked: ${e}</div>`); return; }
+  if (!out.ok){
+    // A refusal is an answer. Show exactly what broke, and leave the
+    // trip as it was so there is no dead end.
+    setBox('editmsg', `<div class="warn">${out.reason}</div>` +
+      (out.problems||[]).slice(1).map(x=>`<div class="warn">${x}</div>`).join(''));
+    return;
+  }
+  EDIT = {i: i, plan: out.plan, change: out.change,
+          history: ((EDIT && EDIT.i === i) ? EDIT.history : []).concat([out.change])};
+  showPlanDetail(i);
+  loadEditOptions(i);   // the changed trip has its own options; keep the panel open
+}
+
+async function loadEditOptions(i){
+  const p = currentPlan(i);
+  setBox('editbox', '<div class="muted">Working out what can change...</div>');
+  let opts;
+  try {
+    const r = await fetch('/api/plan/edit/options', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(editBody(p))});
+    if (!r.ok){ setBox('editbox', `<div class="warn">Could not work out the options: ${await r.text()}</div>`); return; }
+    opts = await r.json();
+  } catch(e){ setBox('editbox', `<div class="warn">Could not work out the options: ${e}</div>`); return; }
+  let html = '';
+  (opts.nights||[]).forEach(n => {
+    html += `<div class="nightrow"><b>Night ${n.night+1}</b> &middot; ${n.date} &middot; ${n.name}<div class="meta">`;
+    if (n.swap_to.length){
+      html += `Sleep somewhere else: <select id="sw_${n.night}">` +
+        n.swap_to.map(s => `<option value="${s.id}">${s.name} (${s.miles_in} mi in, ${s.miles_out} mi out${s.remaining != null ? `, ${s.remaining} site(s) open` : ''}${s.lake ? ', lake' : ''})</option>`).join('') +
+        `</select> <button class="ghost" data-op="swap_camp" data-night="${n.night}">Move this night</button>`;
+      if (n.swap_count > n.swap_to.length) html += ` <span class="muted">showing the ${n.swap_to.length} closest of ${n.swap_count}</span>`;
+    } else {
+      html += `No other camp works for this night inside your limits.`;
+    }
+    html += `</div><div class="meta">`;
+    html += n.can_add_layover
+      ? `<button class="ghost" data-op="add_layover" data-night="${n.night}">Add a second night here</button>`
+      : `<span class="muted">A second night here does not fit.</span>`;
+    if (n.can_remove_layover) html += ` <button class="ghost" data-op="remove_layover" data-night="${n.night}">Drop this extra night</button>`;
+    html += `</div></div>`;
+  });
+  html += `<div class="nightrow"><b>Whole trip</b><div class="meta">` +
+    (opts.can_reverse
+      ? `<button class="ghost" data-op="reverse">Walk it the other way round</button>`
+      : `<span class="muted">${opts.reverse_reason || 'This trip cannot be reversed.'}</span>`) +
+    `</div></div>`;
+  setBox('editbox', html);
+  if (!$('editbox')) return;
+  $('editbox').querySelectorAll('button[data-op]').forEach(b => b.onclick = () => {
+    const op = b.dataset.op, night = b.dataset.night;
+    const extra = {op: op};
+    if (night != null) extra.night = +night;
+    if (op === 'swap_camp') extra.camp = $('sw_' + night).value;
+    runEdit(i, extra);
+  });
+}
+
 function showPlanDetail(i){
-  const p = PLANS[i];
-  drawPlan(i);
+  const p = currentPlan(i);
+  drawPlanObj(p);
   $('planform').style.display = 'none';   // detail is its own screen; back restores the form
   let html = `<button class="ghost" id="p_back2">All recommendations</button>
+    ${(EDIT && EDIT.i === i) ? `<div class="relax"><b>You changed this trip.</b> ${EDIT.history.join(' ')} Everything below, including availability, was re-checked for the changed trip. <button class="ghost" id="p_undo">Back to the original</button></div>` : ''}
     <h3>${p.title}</h3>
     <div><span class="badge ${p.fit.label==='Great fit'?'fit':'stretch'}">${p.fit.label}</span>
     <span class="badge avail">${p.availability_summary}</span></div>
@@ -489,9 +573,15 @@ function showPlanDetail(i){
   });
   if (p.fit.reasons.length) html += `<div class="why"><b>Why it fits:</b> ${p.fit.reasons.join(' ')}</div>`;
   if (p.fit.tradeoffs.length) html += `<div class="trade"><b>Tradeoffs:</b> ${p.fit.tradeoffs.join(' ')}</div>`;
+  html += `<h3 style="margin-top:10px">Adjust this trip</h3>
+    <div class="muted">Change a night and Switchback re-checks the walking and the availability before it accepts it. If a change does not work it says why.</div>
+    <div id="editmsg"></div>
+    <div id="editbox"><button class="ghost" id="p_editload">Show what I can change</button></div>`;
   html += `<div style="margin-top:10px"><button class="primary" id="p_gpx">Download GPX</button></div>`;
   $('results').innerHTML = html;
-  $('p_back2').onclick = renderPlanCards;
+  $('p_back2').onclick = () => { EDIT = null; renderPlanCards(); };
+  if ($('p_undo')) $('p_undo').onclick = () => { EDIT = null; showPlanDetail(i); };
+  $('p_editload').onclick = () => loadEditOptions(i);
   $('p_gpx').onclick = async () => {
     const r = await fetch('/api/plan/gpx', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({slug: PARK.slug, entrance: p.gpx.entrance, seq: p.gpx.seq, start: p.gpx.start, title: p.title})});
@@ -504,7 +594,10 @@ function showPlanDetail(i){
 
 function drawPlan(i){
   document.querySelectorAll('.card').forEach((x,k)=>x.classList.toggle('active', k===i));
-  const p = PLANS[i];
+  drawPlanObj(currentPlan(i));
+}
+
+function drawPlanObj(p){
   if (routeLayer) map.removeLayer(routeLayer);
   const lines = (p.day_paths||[]).filter(x=>x.length>1 && x[0][0]!=null);
   if (!lines.length){ routeLayer = null; return; }

@@ -30,10 +30,12 @@ recommendations.
   post-alignment audit; the earlier complete-trip-supported label was
   premature). The automated golden scenarios and a real-browser
   workflow test now pass, the form-crash and frontcountry data
-  defects the audit found are fixed, but promotion to COMPLETE-TRIP
-  SUPPORTED still requires: an owner browser walkthrough, one
-  live-network run against real rec.gov inventory, and a live check
-  that the booking links resolve. The gates live in
+  defects the audit found are fixed, and on 2026-07-25 the
+  live-network gate PASSED: real rec.gov inventory through both
+  plan_trips and the browser API path, with both booking links
+  resolving HTTP 200 (three defects found and fixed in that run, see
+  the 2026-07-25 HANDOFF entry). Promotion to COMPLETE-TRIP SUPPORTED
+  now requires only the owner browser walkthrough. The gates live in
   project/CURRENT_PHASE.md.
 - Glacier (glacier), Rocky Mountain NP (rmnp), Teton Crest
   (tetoncrest), Indian Peaks (indianpeaks), Maroon Bells

@@ -494,9 +494,11 @@ def path_for(slug, a, b):
     return pts if str(a) <= str(b) else list(reversed(pts))
 
 
-def day_path(slug, g, stops):
+def day_path(slug, g, stops, fallbacks=None):
     """Concatenated trail polyline for one day's walk along node stops;
-    straight-line fallback per hop keeps the line unbroken."""
+    straight-line fallback per hop keeps the line unbroken. Pass a list
+    as fallbacks to collect the (a, b) hops that had no real trail line,
+    so callers can say which parts of the line are drawn, not surveyed."""
     out = []
     for x, y in zip(stops, stops[1:]):
         leg = g.leg(x, y)
@@ -508,6 +510,8 @@ def day_path(slug, g, stops):
         for p, q in zip(hop_nodes, hop_nodes[1:]):
             seg = path_for(slug, p, q)
             if seg is None:
+                if fallbacks is not None:
+                    fallbacks.append((p, q))
                 pa, pb = g.nodes[p], g.nodes[q]
                 seg = [[pa.get("lat"), pa.get("lon")],
                        [pb.get("lat"), pb.get("lon")]]

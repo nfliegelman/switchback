@@ -1,7 +1,7 @@
 {
   "slug": "rainier",
   "curated_at": "2026-07-20",
-  "note": "Hand-curated arrival and recovery campgrounds for the Mount Rainier vertical slice. Policies transcribed from nps.gov/mora/planyourvisit/campgrounds.htm and corrected per the 2026-07-20 post-alignment audit: White River is first-come first-served, and Ohanapecosh is closed for the 2026 season for construction. Live campground inventory is NOT fetched; a reservable campground's availability must be reported unknown, and first-come stays carry no guarantee. Drive minutes are road-time approximations keyed by graph entrance node id. Closures use inclusive ISO date ranges; a campground closed for a requested night must never be offered for it.",
+  "note": "Hand-curated arrival and recovery campgrounds for the Mount Rainier vertical slice. Policies transcribed from nps.gov/mora/planyourvisit/campgrounds.htm and corrected per the 2026-07-20 post-alignment audit: White River is first-come first-served, and Ohanapecosh is closed for the 2026 season for construction. Live campground inventory is NOT fetched; a reservable campground's availability must be reported unknown, and first-come stays carry no guarantee. Drive minutes are road-time approximations keyed by graph entrance node id. Closures use inclusive ISO date ranges; a campground closed for a requested night must never be offered for it. season_window is the recurring open season as MM-DD bounds, read plainly off the published season prose (late month is the 20th, early month is the 10th); it is what the code enforces, while the prose season field stays the honest statement that the park sets exact dates each year.",
   "campgrounds": [
     {
       "id": "cougar_rock",
@@ -13,6 +13,7 @@
       "source": "nps.gov Mount Rainier campgrounds page; recreation.gov campground 232466",
       "confidence": "curated",
       "season": "late May to late September, check current dates",
+      "season_window": {"opens": "05-20", "closes": "09-30"},
       "policy_checked_at": "2026-07-20",
       "revalidate_after": "2027-04-01",
       "closures": [],
@@ -29,6 +30,7 @@
       "source": "nps.gov Mount Rainier campgrounds page (first-come, first-served per current NPS information; corrected 2026-07-20)",
       "confidence": "curated",
       "season": "late June to late September, check current dates",
+      "season_window": {"opens": "06-20", "closes": "09-30"},
       "policy_checked_at": "2026-07-20",
       "revalidate_after": "2027-04-01",
       "closures": [],
@@ -45,6 +47,7 @@
       "source": "nps.gov Mount Rainier campgrounds page; closure recorded 2026-07-20 from current NPS information",
       "confidence": "curated",
       "season": "closed for 2026; normally late May to late September",
+      "season_window": {"opens": "05-20", "closes": "09-30"},
       "policy_checked_at": "2026-07-20",
       "revalidate_after": "2027-04-01",
       "closures": [
@@ -67,6 +70,7 @@
       "source": "nps.gov Mount Rainier campgrounds page",
       "confidence": "curated",
       "season": "July to early October, gravel road, check current status",
+      "season_window": {"opens": "07-01", "closes": "10-10"},
       "policy_checked_at": "2026-07-20",
       "revalidate_after": "2027-04-01",
       "closures": [],

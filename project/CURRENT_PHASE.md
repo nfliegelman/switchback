@@ -1,6 +1,6 @@
 # CURRENT_PHASE.md
 
-Updated 2026-07-20. The active implementation phase under
+Updated 2026-07-25. The active implementation phase under
 project/MASTER_COURSE_CORRECTION.md.
 
 ## Phase: the Mount Rainier end-to-end vertical slice
@@ -58,17 +58,56 @@ internal codes/via/shape controls moved behind Classic mode, and a
 real-browser test drives the whole flow (and provably fails against
 the pre-fix page).
 
+## Landed since (v3.6.x and v3.7.0)
+
+- v3.6.1 to v3.6.3: direction honesty, calibration display fixes, and
+  the first calibration fold-in to scoring weights.
+- v3.6.4: the Maroon Zone anchor bug fixed, the long-standing P0.
+- v3.7.0: curated trail conditions (tread) as a difficulty axis
+  orthogonal to grade, and the difficulty ladder recalibrated down to
+  a 6 mi / 1500 ft comfortable day with an Extreme tier added.
+
+## Gate 2 PASSED 2026-07-25: live-network verification
+
+Run against real rec.gov inventory for permit 4675317, through both
+plan_trips and the actual browser path (POST /api/plan, POST
+/api/plan/gpx). Five plans returned with real per-night remaining
+counts, the complete-night invariant held on every plan, both booking
+links resolved HTTP 200, a same-day window honestly returned zero
+plans plus a quantified relaxation, and the GPX parsed as valid GPX
+1.1 inside the Rainier bbox. Three defects were found and fixed the
+same session: seasonal frontcountry closures were not enforced (White
+River was offered for December 25), the "Easiest option" badge was
+picked on totals rather than the hardest day, and the GPX disclaimer
+claimed straight lines while emitting real trail geometry. See the
+2026-07-25 HANDOFF entry for the full record.
+
+## Landed 2026-07-25: the controlled edit subset (v3.8.0)
+
+switchback/edit.py, four operations on a selected recommendation:
+swap the camp on one night, add a layover, remove a layover, reverse
+direction. Every edit is re-validated from scratch against the
+request's own limits and freshly fetched availability, then rebuilt
+through the same planner code path as a searched plan, so the
+complete-night invariant and the honesty labels hold identically. A
+broken edit is refused with the specific reason and the trip is left
+alone. edit_options computes what is offerable by actually attempting
+each edit, so the interface cannot offer a change the engine will then
+reject. Wired as POST /api/plan/edit and /api/plan/edit/options, and
+into the trip detail as an "Adjust this trip" panel that keeps the
+original recommendation recoverable. Covered by tests/test_edit.py (9
+scenarios), the plan API suite, and the real-browser test.
+
 ## Remaining before the phase is complete
 
-1. Owner browser test drive of the Plan trips flow (OWNER.md item 9a).
-2. Live-network verification against real rec.gov inventory,
-   including that the booking links resolve.
-3. Rainier's classification stays VERIFICATION BLOCKED
-   (project/COVERAGE_STATUS.md) until 1 and 2 pass.
-4. Then the controlled edit-trip subset (camp swap, layover, reverse)
-   from a selected recommendation, per the directive's editor scope.
-5. Frontcountry policy data must be revalidated against nps.gov each
+1. Owner browser test drive of the Plan trips flow (OWNER.md items 9a
+   and 9c). This is now the ONLY gate left before Rainier can be
+   promoted out of VERIFICATION BLOCKED (project/COVERAGE_STATUS.md).
+2. Frontcountry policy data must be revalidated against nps.gov each
    season (revalidate_after fields in parks/frontcountry/rainier.json).
+   The season_window bounds added 2026-07-25 are a plain reading of
+   the published season prose, not park-confirmed exact dates, so
+   shoulder-season nights near the bounds deserve a second look.
 
 ## Not in this phase
 

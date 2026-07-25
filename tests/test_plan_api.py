@@ -68,8 +68,44 @@ def main():
     assert gx.status_code == 200 and gx.text.startswith("<?xml")
     assert "<trk>" in gx.text and "Switchback" in gx.text
 
+    # The controlled edit subset, over the same wire the app uses.
+    base = {"slug": "rainier", "entrance": p["gpx"]["entrance"],
+            "seq": p["gpx"]["seq"], "start": p["gpx"]["start"],
+            "request": {"slug": "rainier", "start": D0.isoformat(),
+                        "nights": len(p["gpx"]["seq"]), "party": 2,
+                        "pref_mi": 9, "max_mi": 13, "pref_gain": 2500,
+                        "max_gain": 4500, "arrival_night": True}}
+    eo = client.post("/api/plan/edit/options", json=base)
+    assert eo.status_code == 200, eo.text
+    opts = eo.json()
+    assert opts["nights"], "every trip must expose its nights as editable"
+    night = next(n for n in opts["nights"] if n["swap_to"])
+
+    ed = client.post("/api/plan/edit", json=dict(
+        base, op="swap_camp", night=night["night"],
+        camp=night["swap_to"][0]["id"]))
+    assert ed.status_code == 200, ed.text
+    got = ed.json()
+    assert got["ok"], got.get("reason")
+    edited = got["plan"]
+    assert not complete_night_problems(edited), \
+        "an edited plan must satisfy the same invariant as a searched one"
+    assert edited["nights"][night["night"] + 1]["name"] == \
+        night["swap_to"][0]["name"], \
+        "arrival night offsets the backcountry nights by one"
+    assert edited["day_paths"], "an edited plan must redraw on the map"
+
+    bad = client.post("/api/plan/edit", json=dict(base, op="swap_camp",
+                                                  night=99, camp="x"))
+    assert bad.status_code == 200 and not bad.json()["ok"], \
+        "a refused edit is an answer, not an error"
+    assert "no night" in bad.json()["reason"]
+    unknown = client.post("/api/plan/edit", json=dict(base, op="fly"))
+    assert unknown.status_code == 400, "an unknown op is a client error"
+
     print(f"PLAN API OK: {len(res['plans'])} plans, first has "
-          f"{len(p['nights'])} night records and GPX export works")
+          f"{len(p['nights'])} night records, GPX export works, and the "
+          f"edit subset swaps camps over HTTP")
 
 
 if __name__ == "__main__":

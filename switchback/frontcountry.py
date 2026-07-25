@@ -14,7 +14,8 @@ Honesty rules: live frontcountry inventory is not fetched here, so a
 reservable campground's availability is reported unknown, never
 available; first-come campgrounds are first-come with no guarantee;
 and a campground closed for a requested date is NEVER offered as a
-stay for that date.
+stay for that date. Closed covers both a dated closure and a date
+outside the campground's recurring open season.
 """
 import json
 import os
@@ -34,10 +35,31 @@ def load_frontcountry(slug):
         return None
 
 
+def out_of_season_reason(cg, iso):
+    """The reason string if the date falls outside the campground's
+    recurring open season, else None. season_window is
+    {opens, closes} as MM-DD bounds, inclusive, and may wrap the new
+    year. The prose 'season' field stays the honest source for the
+    exact dates, which the park publishes each year."""
+    w = cg.get("season_window") or {}
+    opens, closes = w.get("opens"), w.get("closes")
+    if not opens or not closes:
+        return None
+    md = iso[5:]
+    inside = (opens <= md <= closes if opens <= closes
+              else md >= opens or md <= closes)
+    if inside:
+        return None
+    return (f"{cg['name']} is normally closed on {iso}; its season is "
+            f"{cg.get('season', 'seasonal')}. Confirm the current dates "
+            f"with the park before counting on it.")
+
+
 def closure_reason(cg, on_date):
     """The reason string if the campground is closed on that date,
     else None. Closures are [{from, through, reason}] with inclusive
-    ISO date bounds; an open-ended closure may omit 'through'."""
+    ISO date bounds; an open-ended closure may omit 'through'. A date
+    outside the recurring season_window closes the campground too."""
     if on_date is None:
         return None
     iso = on_date.isoformat() if isinstance(on_date, date) else str(on_date)
@@ -46,7 +68,7 @@ def closure_reason(cg, on_date):
         hi = c.get("through", "9999-12-31")
         if lo <= iso <= hi:
             return c.get("reason", "closed")
-    return None
+    return out_of_season_reason(cg, iso)
 
 
 def options_for_entrance(slug, entrance_node_id, on_date=None,

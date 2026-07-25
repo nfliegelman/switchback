@@ -151,6 +151,29 @@ def main():
             nightrows = page.locator(".nightrow").count()
             assert nightrows >= 3, f"expected night+day rows, {nightrows}"
 
+            # 6. the controlled edit subset, driven the way a person
+            # does it: open the options, take the offered swap, and
+            # confirm the trip really changed on the page and the map.
+            before = page.inner_text("#results")
+            page.click("#p_editload")
+            page.wait_for_selector("#editbox .nightrow")
+            assert page.locator("select[id^=sw_]").count() >= 1, \
+                "at least one night must offer somewhere else to sleep"
+            moved_to = page.locator("select[id^=sw_]").first.input_value()
+            page.locator("button[data-op=swap_camp]").first.click()
+            page.wait_for_selector("text=You changed this trip")
+            after = page.inner_text("#results")
+            assert after != before, "an accepted edit must change the page"
+            assert "Moved night" in after, after[:300]
+            assert "Where you sleep" in after, \
+                "the edited trip must still account for every night"
+            assert moved_to, "the swap target must be a real node id"
+
+            # and back out: the original recommendation is never lost
+            page.click("#p_undo")
+            page.wait_for_selector("text=Where you sleep")
+            assert "You changed this trip" not in page.inner_text("#results")
+
             # back to the cards, form restored
             page.click("#p_back2")
             page.wait_for_selector(".card")
@@ -159,7 +182,8 @@ def main():
             browser.close()
         assert not errors, f"page JavaScript errors: {errors}"
         print(f"BROWSER OK: form submitted without destroying itself, "
-              f"{cards} cards, detail verified, zero page errors")
+              f"{cards} cards, detail verified, camp swap applied and "
+              f"undone in a real browser, zero page errors")
     finally:
         server.should_exit = True
 

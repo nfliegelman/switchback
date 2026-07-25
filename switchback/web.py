@@ -30,7 +30,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, Response
 from pydantic import BaseModel
 
-from . import planner
+from . import edit, planner
 from .config import load_profile
 from .extract import load_park
 from .coverage import survey
@@ -93,6 +93,20 @@ class PlanGpxReq(BaseModel):
     seq: list[str]
     start: date
     title: str | None = None
+
+
+class PlanEditReq(BaseModel):
+    """One controlled edit on a selected recommendation. The route is
+    the plan's own {entrance, seq, start} identity; op is omitted when
+    only the available options are being asked for."""
+    slug: str
+    entrance: str
+    seq: list[str]
+    start: date
+    op: str | None = None
+    night: int | None = None
+    camp: str | None = None
+    request: PlanReq | None = None
 
 
 class FrontierReq(BaseModel):
@@ -305,6 +319,47 @@ def create_app(fetch_fn=None, elev_fn=None):
                                       include_geometry=True)
         except planner.PlannerError as ex:
             raise HTTPException(404, str(ex))
+
+    def _edit_context(req):
+        """(parsed request, graph, availability, route) for an edit.
+
+        The edit reuses the request the search ran with, so the limits
+        a trip is re-checked against are the ones the user set, never
+        a fresh set of defaults. A layover can add a night, so the
+        fetch window is widened by one before it is asked for."""
+        raw = dict(req.request.model_dump() if req.request is not None
+                   else {"slug": req.slug, "start": req.start})
+        raw["slug"] = req.slug
+        raw["start"] = raw["latest_start"] = req.start
+        raw["nights"] = min(10, max(int(raw.get("nights") or len(req.seq)),
+                                    len(req.seq) + 1))
+        parsed, errors = validate_request(raw, load_profile())
+        if errors:
+            raise HTTPException(400, {"errors": errors})
+        g = _graph(parsed.slug)
+        if req.entrance not in g.nodes or any(c not in g.nodes
+                                              for c in req.seq):
+            raise HTTPException(400, "unknown route nodes for this edit")
+        fs, fe = planner.availability_window(parsed)
+        av = _availability_by_node(g, g.camps(), fs, fe, fetch_fn)
+        route = {"entrance": req.entrance, "seq": list(req.seq),
+                 "start": req.start}
+        return planner._copy_req(parsed, nights=len(req.seq)), g, av, route
+
+    @app.post("/api/plan/edit/options")
+    def plan_edit_options(req: PlanEditReq):
+        parsed, g, av, route = _edit_context(req)
+        return edit.edit_options(parsed, route, availability=av, graph=g)
+
+    @app.post("/api/plan/edit")
+    def plan_edit(req: PlanEditReq):
+        if req.op not in edit.OPS:
+            raise HTTPException(
+                400, f"unknown edit; choose from {', '.join(edit.OPS)}")
+        parsed, g, av, route = _edit_context(req)
+        return edit.apply_edit(parsed, route, req.op, night=req.night,
+                               camp=req.camp, availability=av, graph=g,
+                               include_geometry=True)
 
     @app.post("/api/plan/gpx")
     def plan_gpx(req: PlanGpxReq):
