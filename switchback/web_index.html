@@ -463,26 +463,31 @@ function availLine(n){
 let EDIT = null;
 function currentPlan(i){ return (EDIT && EDIT.i === i) ? EDIT.plan : PLANS[i]; }
 
+// An edit belongs to the plan's own destination, not to whatever the
+// park selector happens to show now. Writes are null-safe because the
+// user can leave the screen while a request is still in flight.
 function editBody(p, extra){
-  return Object.assign({slug: PARK.slug, entrance: p.gpx.entrance,
-    seq: p.gpx.seq, start: p.gpx.start, request: PLANRES.request}, extra||{});
+  return Object.assign({slug: (p.destination && p.destination.slug) || PARK.slug,
+    entrance: p.gpx.entrance, seq: p.gpx.seq, start: p.gpx.start,
+    request: PLANRES.request}, extra||{});
 }
+function setBox(id, html){ const el = $(id); if (el) el.innerHTML = html; }
 
 async function runEdit(i, extra){
   const p = currentPlan(i);
-  $('editmsg').innerHTML = '<div class="muted">Re-checking availability for that change...</div>';
+  setBox('editmsg', '<div class="muted">Re-checking availability for that change...</div>');
   let out;
   try {
     const r = await fetch('/api/plan/edit', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify(editBody(p, extra))});
-    if (!r.ok){ $('editmsg').innerHTML = `<div class="warn">That change could not be checked: ${await r.text()}</div>`; return; }
+    if (!r.ok){ setBox('editmsg', `<div class="warn">That change could not be checked: ${await r.text()}</div>`); return; }
     out = await r.json();
-  } catch(e){ $('editmsg').innerHTML = `<div class="warn">That change could not be checked: ${e}</div>`; return; }
+  } catch(e){ setBox('editmsg', `<div class="warn">That change could not be checked: ${e}</div>`); return; }
   if (!out.ok){
     // A refusal is an answer. Show exactly what broke, and leave the
     // trip as it was so there is no dead end.
-    $('editmsg').innerHTML = `<div class="warn">${out.reason}</div>` +
-      (out.problems||[]).slice(1).map(x=>`<div class="warn">${x}</div>`).join('');
+    setBox('editmsg', `<div class="warn">${out.reason}</div>` +
+      (out.problems||[]).slice(1).map(x=>`<div class="warn">${x}</div>`).join(''));
     return;
   }
   EDIT = {i: i, plan: out.plan, change: out.change,
@@ -493,14 +498,14 @@ async function runEdit(i, extra){
 
 async function loadEditOptions(i){
   const p = currentPlan(i);
-  $('editbox').innerHTML = '<div class="muted">Working out what can change...</div>';
+  setBox('editbox', '<div class="muted">Working out what can change...</div>');
   let opts;
   try {
     const r = await fetch('/api/plan/edit/options', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify(editBody(p))});
-    if (!r.ok){ $('editbox').innerHTML = `<div class="warn">Could not work out the options: ${await r.text()}</div>`; return; }
+    if (!r.ok){ setBox('editbox', `<div class="warn">Could not work out the options: ${await r.text()}</div>`); return; }
     opts = await r.json();
-  } catch(e){ $('editbox').innerHTML = `<div class="warn">Could not work out the options: ${e}</div>`; return; }
+  } catch(e){ setBox('editbox', `<div class="warn">Could not work out the options: ${e}</div>`); return; }
   let html = '';
   (opts.nights||[]).forEach(n => {
     html += `<div class="nightrow"><b>Night ${n.night+1}</b> &middot; ${n.date} &middot; ${n.name}<div class="meta">`;
@@ -524,7 +529,8 @@ async function loadEditOptions(i){
       ? `<button class="ghost" data-op="reverse">Walk it the other way round</button>`
       : `<span class="muted">${opts.reverse_reason || 'This trip cannot be reversed.'}</span>`) +
     `</div></div>`;
-  $('editbox').innerHTML = html;
+  setBox('editbox', html);
+  if (!$('editbox')) return;
   $('editbox').querySelectorAll('button[data-op]').forEach(b => b.onclick = () => {
     const op = b.dataset.op, night = b.dataset.night;
     const extra = {op: op};
