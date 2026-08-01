@@ -64,12 +64,19 @@ def band_for(grade_pct):
     return "flat"
 
 
-def normalize_pace(spec=None):
+def normalize_pace(spec=None, base=None):
     """User pace spec -> full band table. Accepts None (defaults), a
     bare number (factor scaling every band, 0.5 to 1.5), or a dict of
     band overrides in mph plus an optional speed_factor. Returns
-    (table, errors)."""
-    table = dict(DEFAULT_PACE_MPH)
+    (table, errors).
+
+    base is the table a bare factor scales. It MUST be the caller's own
+    measured pace when they have one: scaling the shipped defaults
+    instead silently discards a personal table, and "a bit slower" then
+    reads FASTER than the real pace on any band where that person is
+    slower than average (found 2026-07-28 on the owner's own numbers,
+    where it doubled his steep-descent speed)."""
+    table = dict(base or DEFAULT_PACE_MPH)
     errors = []
     if spec is None:
         return table, errors

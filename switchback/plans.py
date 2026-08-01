@@ -260,9 +260,13 @@ def validate_request(raw, profile=None):
 
     from .pace import normalize_pace
     pace_spec = raw.get("pace")
+    own = profile.get("pace")
     if pace_spec is None:
-        pace_spec = profile.get("pace")
-    pace, pace_errors = normalize_pace(pace_spec)
+        pace_spec, own = own, None
+    # A bare factor scales the user's OWN table when they have one, so
+    # "a bit slower" always means slower than them, not slower than an
+    # average stranger.
+    pace, pace_errors = normalize_pace(pace_spec, base=own)
     errors.extend(pace_errors)
 
     if errors:

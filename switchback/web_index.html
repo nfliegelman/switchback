@@ -340,8 +340,12 @@ function renderPlanForm(){
       <input class="small" id="p_max_mi" type="number" step="0.5" value="${PDEF.max_mi}"> miles,
       <input class="small" id="p_max_gain" type="number" step="100" value="${PDEF.max_gain}"> ft of climb
       <label>Hiking pace (for time estimates)</label>
-      <select id="p_pace"><option value="1">Typical backpacking pace</option><option value="0.85">A bit slower, heavy packs</option><option value="1.2">Faster, light and fit</option></select>
-      <div class="meta">Times use grade-banded speeds (steep miles count for more). Exact per-grade speeds can go in profile.json as a "pace" table.</div>
+      <select id="p_pace">${(PDEF.pace_options||[]).length
+        ? (PDEF.pace_options||[]).map((o,i)=>`<option value="named:${i}">${o.label}</option>`).join('')
+        : `<option value="1">Typical backpacking pace</option><option value="0.85">A bit slower, heavy packs</option><option value="1.2">Faster, light and fit</option>`}</select>
+      <div class="meta" id="p_pace_note">${(PDEF.pace_options||[]).length
+        ? ((PDEF.pace_options[0].note||'') + ' Times use your own measured speeds per steepness band.')
+        : 'Times use grade-banded speeds (steep miles count for more). Exact per-grade speeds can go in profile.json as a "pace" table.'}</div>
     </div>
     <div class="sec"><b>WHAT KIND OF TRIP?</b><br>
       <label><input type="checkbox" id="s_loop" ${shapeChecked('loop')?'checked':''}> Loop</label>
@@ -362,9 +366,24 @@ function renderPlanForm(){
     b.classList.add('on'); planSummary();
   });
   document.querySelectorAll('.pform input').forEach(el => el.oninput = planSummary);
+  if ($('p_pace')) $('p_pace').onchange = () => {
+    const o = (PDEF.pace_options||[])[+String($('p_pace').value).slice(6)];
+    if (o && $('p_pace_note')) $('p_pace_note').textContent =
+      (o.note || '') + ' Times use your own measured speeds per steepness band.';
+    planSummary();
+  };
   planSummary();
   $('p_go').onclick = runPlan;
   if (PLANRES) renderPlanCards();   // coming back from a detail view
+}
+
+// A named option sends its whole speed table. A bare multiplier is only
+// ever used when no measured tables exist, and the server scales the
+// user's own table with it rather than a stranger's.
+function paceValue(){
+  const v = $('p_pace').value;
+  if (v.startsWith('named:')) return (PDEF.pace_options||[])[+v.slice(6)].pace || null;
+  return +v === 1 ? null : +v;
 }
 
 function planShapes(){
@@ -399,7 +418,7 @@ async function runPlan(){
     pref_gain: +$('p_pref_gain').value, max_gain: +$('p_max_gain').value,
     shapes: planShapes(), first_come_ok: $('p_fcfs').checked,
     arrival_night: $('p_arrive').checked, recovery_night: $('p_recover').checked,
-    pace: +$('p_pace').value === 1 ? null : +$('p_pace').value };
+    pace: paceValue() };
   $('results').innerHTML = '<div class="muted">Checking availability and building complete trips...</div>';
   try {
     PLANRES = await jpost('/api/plan', body);

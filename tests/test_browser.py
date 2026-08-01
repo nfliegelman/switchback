@@ -126,7 +126,22 @@ def main():
             page.fill("#p_max_mi", "13")
             page.fill("#p_pref_gain", "2500")
             page.fill("#p_max_gain", "4500")
-            page.select_option("#p_pace", "0.85")
+            # The pace picker offers the profile's named speed tables
+            # when it has them, and generic multipliers otherwise. Drive
+            # whichever this profile actually produced, and prove the
+            # choice reaches the request: a named option sends a whole
+            # table, never a multiplier against a stranger's pace.
+            pace_values = page.eval_on_selector_all(
+                "#p_pace option", "els => els.map(e => e.value)")
+            assert pace_values, "the pace picker must offer something"
+            page.select_option("#p_pace", pace_values[-1])
+            if pace_values[-1].startswith("named:"):
+                sent = page.evaluate("paceValue()")
+                assert isinstance(sent, dict) and "down_30_plus" in sent, \
+                    f"a named pace option must send its table, got {sent}"
+                note = page.text_content("#p_pace_note")
+                assert note and note.strip(), \
+                    "a named pace option must explain whose speeds these are"
             page.check("#p_arrive")
             summary = page.text_content("#p_summary")
             assert "2 backcountry night" in summary, summary

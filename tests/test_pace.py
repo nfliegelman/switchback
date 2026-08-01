@@ -171,9 +171,57 @@ def check_format_hours():
     assert format_hours(2.74) == "2 h 44 min"
 
 
+def check_factor_scales_the_users_own_table():
+    """Found 2026-07-28 on the owner's real numbers: a bare factor
+    scaled the SHIPPED defaults, silently discarding a personal pace
+    table, so the option labelled "a bit slower" came back FASTER than
+    the person's own pace on every band where they are slower than
+    average. His steep-descent speed doubled, 0.5 to 1.02 mph."""
+    from switchback.pace import normalize_pace
+    mine = {"up_30_plus": 0.8, "up_20_30": 1.2, "up_10_20": 1.65,
+            "up_3_10": 2.1, "flat": 2.3, "down_3_10": 2.5,
+            "down_10_20": 1.6, "down_20_30": 0.9, "down_30_plus": 0.5}
+    slower, errors = normalize_pace(0.85, base=mine)
+    assert not errors, errors
+    for band, mph in mine.items():
+        assert slower[band] < mph, \
+            (f"asking to go slower made {band} faster: {mph} to "
+             f"{slower[band]}")
+    faster, _ = normalize_pace(1.2, base=mine)
+    for band, mph in mine.items():
+        assert faster[band] > mph, f"{band} did not speed up"
+    # No personal table: unchanged behaviour, scale the shipped defaults.
+    plain, _ = normalize_pace(0.85)
+    assert plain["flat"] == round(DEFAULT_PACE_MPH["flat"] * 0.85, 2)
+
+
+def check_request_uses_the_profile_table():
+    """The whole point of measuring a pace: a request that names no
+    pace must use the saved table, and one that names a factor must
+    bend that same table rather than a stranger's."""
+    from switchback.plans import validate_request
+    mine = {"up_20_30": 1.2, "flat": 2.3, "down_30_plus": 0.5}
+    profile = {"pace": dict(DEFAULT_PACE_MPH, **mine)}
+    base = {"slug": "rainier", "start": "2026-08-14", "nights": 2}
+    req, errors = validate_request(dict(base), profile)
+    assert not errors, errors
+    assert req.pace["down_30_plus"] == 0.5, \
+        "the saved table must be used when the form names no pace"
+    req2, errors2 = validate_request(dict(base, pace=0.85), profile)
+    assert not errors2, errors2
+    assert req2.pace["down_30_plus"] < 0.5, \
+        "slower must be slower than the owner's own pace"
+    # An explicit table wins outright, that is the named-option path.
+    req3, _ = validate_request(
+        dict(base, pace=dict(DEFAULT_PACE_MPH, down_30_plus=1.0)), profile)
+    assert req3.pace["down_30_plus"] == 1.0
+
+
 def main():
     check_bands()
     check_normalize()
+    check_factor_scales_the_users_own_table()
+    check_request_uses_the_profile_table()
     check_wall_dominates_flat_day()
     check_sections_fine_resolution()
     check_edge_fallback()
