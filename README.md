@@ -1,6 +1,6 @@
 # Switchback
 
-v3.8.0. A constraint-based backcountry trip planner: tell it when you
+v3.9.0. A constraint-based backcountry trip planner: tell it when you
 can go and what you can handle, it finds complete trips you can
 actually take, checked against live rec.gov availability.
 

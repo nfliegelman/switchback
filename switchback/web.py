@@ -302,7 +302,17 @@ def create_app(fetch_fn=None, elev_fn=None):
                 "pref_gain": prof["daily_pref"]["gain_ft"],
                 "max_mi": prof["daily_max"]["miles"],
                 "max_gain": prof["daily_max"]["gain_ft"],
-                "shapes": prof.get("trip_types") or []}
+                "shapes": prof.get("trip_types") or [],
+                # Named pace tables beat a multiplier: this owner is the
+                # same as his partner uphill and half a mile an hour
+                # slower on steep descents, which no single factor can
+                # express. Empty list means the form keeps its generic
+                # faster/slower options.
+                "pace_options": [
+                    {"label": o.get("label") or "Pace",
+                     "pace": o.get("pace"), "note": o.get("note")}
+                    for o in (prof.get("pace_options") or [])
+                    if o.get("pace")]}
 
     @app.post("/api/plan")
     def plan(req: PlanReq):

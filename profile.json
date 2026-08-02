@@ -13,5 +13,49 @@
     "loop",
     "out and back",
     "basecamp"
-  ]
+  ],
+  "pace": {
+    "up_30_plus": 0.8,
+    "up_20_30": 1.2,
+    "up_10_20": 1.65,
+    "up_3_10": 2.1,
+    "flat": 2.3,
+    "down_3_10": 2.5,
+    "down_10_20": 1.6,
+    "down_20_30": 0.9,
+    "down_30_plus": 0.5
+  },
+  "pace_options": [
+    {
+      "label": "The two of us",
+      "pace": {
+        "up_30_plus": 0.8,
+        "up_20_30": 1.2,
+        "up_10_20": 1.65,
+        "up_3_10": 2.1,
+        "flat": 2.3,
+        "down_3_10": 2.5,
+        "down_10_20": 1.6,
+        "down_20_30": 0.9,
+        "down_30_plus": 0.5
+      },
+      "note": "Same as Noah on climbs, half a mile an hour slower on the steeper descents."
+    },
+    {
+      "label": "Just me",
+      "pace": {
+        "up_30_plus": 0.8,
+        "up_20_30": 1.2,
+        "up_10_20": 1.65,
+        "up_3_10": 2.1,
+        "flat": 2.3,
+        "down_3_10": 2.5,
+        "down_10_20": 2.1,
+        "down_20_30": 1.4,
+        "down_30_plus": 1.0
+      },
+      "note": "Noah solo, measured 2026-07-28 against his own Lena trip."
+    }
+  ],
+  "pace_src": "Owner-reported 2026-07-28. Anchor: hard up (20 to 30 percent) is 1.2 mph, and he is fine on mellow ground, so the penalty rides on steepness rather than scaling every band. Lands on Naismith for the Lena round trip, about three quarters of AllTrails typical-hiker time."
 }
