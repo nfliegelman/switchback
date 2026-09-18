@@ -2,321 +2,325 @@
  "olympic": {
   "4098362011": {
    "demand_pct": 0.006,
-   "samples": 471
+   "samples": 462
   }
  },
  "rainier": {
   "46753170001": {
    "demand_pct": 0.0,
-   "samples": 106
+   "samples": 101
   },
   "46753170003": {
    "demand_pct": 0.0,
-   "samples": 130
+   "samples": 125
   },
   "46753170005": {
-   "demand_pct": 0.165,
-   "samples": 115
+   "demand_pct": 0.176,
+   "samples": 108
   },
   "46753170006": {
    "demand_pct": 0.0,
-   "samples": 200
+   "samples": 190
   },
   "46753170007": {
-   "demand_pct": 0.036,
-   "samples": 168
+   "demand_pct": 0.037,
+   "samples": 162
   },
   "46753170009": {
    "demand_pct": 0.0,
-   "samples": 107
+   "samples": 103
   },
   "46753170011": {
    "demand_pct": 0.0,
-   "samples": 240
+   "samples": 228
   },
   "46753170013": {
    "demand_pct": 0.0,
-   "samples": 114
+   "samples": 111
   },
   "46753170015": {
    "demand_pct": 0.0,
-   "samples": 194
+   "samples": 181
   },
   "46753170017": {
    "demand_pct": 0.0,
-   "samples": 137
+   "samples": 134
   },
   "46753170019": {
    "demand_pct": 0.0,
-   "samples": 132
+   "samples": 126
   },
   "46753170021": {
-   "demand_pct": 0.127,
-   "samples": 118
+   "demand_pct": 0.133,
+   "samples": 113
   },
   "46753170022": {
    "demand_pct": 0.005,
-   "samples": 213
+   "samples": 203
   },
   "46753170024": {
    "demand_pct": 0.0,
-   "samples": 186
+   "samples": 177
   },
   "46753170027": {
    "demand_pct": 0.0,
-   "samples": 158
+   "samples": 163
   },
   "46753170029": {
-   "demand_pct": 0.053,
-   "samples": 94
+   "demand_pct": 0.056,
+   "samples": 89
   },
   "46753170031": {
-   "demand_pct": 0.032,
-   "samples": 158
+   "demand_pct": 0.033,
+   "samples": 151
   },
   "46753170033": {
    "demand_pct": 0.0,
-   "samples": 178
+   "samples": 167
+  },
+  "46753170035": {
+   "demand_pct": 0.0,
+   "samples": 37
   },
   "46753170037": {
-   "demand_pct": 0.076,
-   "samples": 184
+   "demand_pct": 0.08,
+   "samples": 176
   },
   "46753170040": {
    "demand_pct": 0.0,
-   "samples": 284
+   "samples": 268
   },
   "46753170046": {
-   "demand_pct": 0.008,
-   "samples": 120
+   "demand_pct": 0.009,
+   "samples": 114
   },
   "46753170051": {
-   "demand_pct": 0.052,
-   "samples": 134
+   "demand_pct": 0.055,
+   "samples": 127
   },
   "46753170056": {
    "demand_pct": 0.0,
-   "samples": 228
+   "samples": 216
   },
   "46753170058": {
    "demand_pct": 0.0,
-   "samples": 109
+   "samples": 105
   }
  },
  "glacier": {
   "4675321021": {
-   "demand_pct": 0.732,
-   "samples": 112
+   "demand_pct": 0.721,
+   "samples": 104
   },
   "4675321022": {
-   "demand_pct": 0.415,
-   "samples": 335
+   "demand_pct": 0.381,
+   "samples": 312
   },
   "4675321023": {
-   "demand_pct": 0.449,
-   "samples": 98
+   "demand_pct": 0.451,
+   "samples": 91
   },
   "4675321024": {
-   "demand_pct": 0.732,
-   "samples": 112
+   "demand_pct": 0.712,
+   "samples": 104
   },
   "4675321025": {
-   "demand_pct": 0.903,
-   "samples": 154
+   "demand_pct": 0.895,
+   "samples": 143
   },
   "4675321027": {
-   "demand_pct": 0.41,
-   "samples": 83
+   "demand_pct": 0.397,
+   "samples": 78
   },
   "4675321028": {
-   "demand_pct": 0.929,
-   "samples": 84
+   "demand_pct": 0.923,
+   "samples": 78
   },
   "4675321029": {
-   "demand_pct": 0.378,
-   "samples": 98
+   "demand_pct": 0.374,
+   "samples": 91
   }
  },
  "maroonbells": {
   "4675333001": {
-   "demand_pct": 0.871,
-   "samples": 101
+   "demand_pct": 0.865,
+   "samples": 96
   },
   "4675333002": {
-   "demand_pct": 0.87,
-   "samples": 115
+   "demand_pct": 0.862,
+   "samples": 109
   },
   "4675333003": {
    "demand_pct": 1.0,
-   "samples": 56
+   "samples": 52
   },
   "4675333004": {
-   "demand_pct": 0.513,
-   "samples": 76
+   "demand_pct": 0.507,
+   "samples": 75
   },
   "4675333005": {
-   "demand_pct": 0.726,
-   "samples": 73
+   "demand_pct": 0.714,
+   "samples": 70
   },
   "4675333007": {
-   "demand_pct": 0.828,
-   "samples": 87
+   "demand_pct": 0.819,
+   "samples": 83
   },
   "4675333008": {
-   "demand_pct": 0.886,
-   "samples": 70
+   "demand_pct": 0.908,
+   "samples": 65
   },
   "4675333009": {
-   "demand_pct": 0.802,
-   "samples": 101
+   "demand_pct": 0.792,
+   "samples": 96
   },
   "4675333010": {
-   "demand_pct": 0.567,
-   "samples": 104
+   "demand_pct": 0.554,
+   "samples": 101
   },
   "4675333011": {
-   "demand_pct": 0.857,
-   "samples": 70
+   "demand_pct": 0.846,
+   "samples": 65
   },
   "4675333012": {
-   "demand_pct": 0.539,
-   "samples": 76
+   "demand_pct": 0.533,
+   "samples": 75
   },
   "4675333013": {
-   "demand_pct": 0.712,
-   "samples": 73
+   "demand_pct": 0.7,
+   "samples": 70
   },
   "4675333014": {
-   "demand_pct": 0.667,
-   "samples": 87
+   "demand_pct": 0.651,
+   "samples": 83
   },
   "4675333015": {
-   "demand_pct": 0.69,
-   "samples": 87
+   "demand_pct": 0.675,
+   "samples": 83
   },
   "4675333016": {
-   "demand_pct": 0.759,
-   "samples": 87
+   "demand_pct": 0.747,
+   "samples": 83
   },
   "4675333017": {
-   "demand_pct": 0.655,
-   "samples": 87
+   "demand_pct": 0.639,
+   "samples": 83
   },
   "4675333018": {
-   "demand_pct": 0.576,
-   "samples": 59
+   "demand_pct": 0.561,
+   "samples": 57
   },
   "4675333019": {
-   "demand_pct": 0.881,
-   "samples": 42
+   "demand_pct": 0.872,
+   "samples": 39
   },
   "4675333020": {
-   "demand_pct": 0.508,
-   "samples": 118
+   "demand_pct": 0.5,
+   "samples": 114
   },
   "4675333022": {
-   "demand_pct": 0.486,
-   "samples": 70
+   "demand_pct": 0.523,
+   "samples": 65
   },
   "4675333023": {
-   "demand_pct": 0.24,
-   "samples": 104
+   "demand_pct": 0.238,
+   "samples": 101
   },
   "4675333024": {
-   "demand_pct": 0.111,
-   "samples": 135
-  },
-  "4675333025": {
-   "demand_pct": 0.345,
-   "samples": 264
-  },
-  "4675333026": {
-   "demand_pct": 0.441,
-   "samples": 118
-  },
-  "4675333027": {
-   "demand_pct": 0.111,
-   "samples": 45
-  },
-  "4675333028": {
-   "demand_pct": 0.257,
-   "samples": 70
-  },
-  "4675333029": {
-   "demand_pct": 0.521,
-   "samples": 73
-  },
-  "4675333030": {
-   "demand_pct": 0.81,
-   "samples": 42
-  },
-  "4675333031": {
-   "demand_pct": 0.43,
-   "samples": 149
-  },
-  "4675333032": {
-   "demand_pct": 0.455,
+   "demand_pct": 0.114,
    "samples": 132
   },
+  "4675333025": {
+   "demand_pct": 0.327,
+   "samples": 254
+  },
+  "4675333026": {
+   "demand_pct": 0.456,
+   "samples": 114
+  },
+  "4675333027": {
+   "demand_pct": 0.114,
+   "samples": 44
+  },
+  "4675333028": {
+   "demand_pct": 0.277,
+   "samples": 65
+  },
+  "4675333029": {
+   "demand_pct": 0.514,
+   "samples": 70
+  },
+  "4675333030": {
+   "demand_pct": 0.795,
+   "samples": 39
+  },
+  "4675333031": {
+   "demand_pct": 0.414,
+   "samples": 145
+  },
+  "4675333032": {
+   "demand_pct": 0.433,
+   "samples": 127
+  },
   "4675333033": {
-   "demand_pct": 0.762,
-   "samples": 42
+   "demand_pct": 0.744,
+   "samples": 39
   },
   "4675333034": {
-   "demand_pct": 0.563,
-   "samples": 87
+   "demand_pct": 0.542,
+   "samples": 83
   },
   "4675333035": {
-   "demand_pct": 0.459,
-   "samples": 146
+   "demand_pct": 0.436,
+   "samples": 140
   },
   "4675333036": {
    "demand_pct": 0.097,
    "samples": 31
   },
   "4675333037": {
-   "demand_pct": 0.893,
-   "samples": 56
+   "demand_pct": 0.885,
+   "samples": 52
   },
   "4675333038": {
-   "demand_pct": 0.196,
-   "samples": 138
+   "demand_pct": 0.19,
+   "samples": 137
   },
   "4675333039": {
-   "demand_pct": 0.98,
-   "samples": 98
+   "demand_pct": 0.978,
+   "samples": 91
   },
   "4675333040": {
-   "demand_pct": 0.616,
-   "samples": 73
+   "demand_pct": 0.6,
+   "samples": 70
   },
   "4675333041": {
-   "demand_pct": 0.655,
-   "samples": 87
+   "demand_pct": 0.639,
+   "samples": 83
   },
   "4675333042": {
-   "demand_pct": 0.634,
-   "samples": 101
+   "demand_pct": 0.615,
+   "samples": 96
   },
   "4675333044": {
-   "demand_pct": 0.61,
-   "samples": 59
+   "demand_pct": 0.596,
+   "samples": 57
   },
   "4675333045": {
-   "demand_pct": 0.31,
-   "samples": 87
+   "demand_pct": 0.313,
+   "samples": 83
   },
   "4675333047": {
    "demand_pct": 1.0,
-   "samples": 84
+   "samples": 78
   },
   "4675333048": {
-   "demand_pct": 0.311,
-   "samples": 90
+   "demand_pct": 0.295,
+   "samples": 88
   },
   "4675333049": {
-   "demand_pct": 0.563,
-   "samples": 87
+   "demand_pct": 0.566,
+   "samples": 83
   }
  }
 }
