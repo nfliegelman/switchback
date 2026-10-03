@@ -2,291 +2,283 @@
  "olympic": {
   "4098362011": {
    "demand_pct": 0.0,
-   "samples": 266
+   "samples": 260
   }
  },
  "rainier": {
   "46753170001": {
    "demand_pct": 0.0,
-   "samples": 66
+   "samples": 60
   },
   "46753170003": {
    "demand_pct": 0.0,
-   "samples": 66
+   "samples": 60
   },
   "46753170006": {
    "demand_pct": 0.0,
-   "samples": 88
+   "samples": 80
   },
   "46753170007": {
    "demand_pct": 0.0,
-   "samples": 77
+   "samples": 70
   },
   "46753170009": {
    "demand_pct": 0.0,
-   "samples": 33
+   "samples": 30
   },
   "46753170011": {
    "demand_pct": 0.0,
-   "samples": 97
+   "samples": 89
   },
   "46753170013": {
    "demand_pct": 0.0,
-   "samples": 66
+   "samples": 60
   },
   "46753170015": {
    "demand_pct": 0.0,
-   "samples": 43
+   "samples": 40
   },
   "46753170017": {
    "demand_pct": 0.0,
-   "samples": 55
+   "samples": 50
   },
   "46753170019": {
    "demand_pct": 0.0,
-   "samples": 55
+   "samples": 58
   },
   "46753170021": {
    "demand_pct": 0.0,
-   "samples": 44
+   "samples": 40
   },
   "46753170022": {
    "demand_pct": 0.0,
-   "samples": 86
+   "samples": 79
   },
   "46753170024": {
    "demand_pct": 0.0,
-   "samples": 66
+   "samples": 68
   },
   "46753170027": {
    "demand_pct": 0.0,
-   "samples": 97
+   "samples": 89
   },
   "46753170031": {
-   "demand_pct": 0.065,
-   "samples": 77
+   "demand_pct": 0.064,
+   "samples": 78
   },
   "46753170033": {
    "demand_pct": 0.0,
-   "samples": 44
+   "samples": 40
   },
   "46753170035": {
    "demand_pct": 0.0,
-   "samples": 55
+   "samples": 50
   },
   "46753170037": {
-   "demand_pct": 0.091,
-   "samples": 66
+   "demand_pct": 0.1,
+   "samples": 60
   },
   "46753170040": {
    "demand_pct": 0.0,
-   "samples": 140
+   "samples": 137
   },
   "46753170046": {
-   "demand_pct": 0.023,
-   "samples": 44
+   "demand_pct": 0.021,
+   "samples": 48
   },
   "46753170051": {
-   "demand_pct": 0.076,
-   "samples": 66
+   "demand_pct": 0.083,
+   "samples": 60
   },
   "46753170056": {
    "demand_pct": 0.0,
-   "samples": 88
+   "samples": 80
   },
   "46753170058": {
    "demand_pct": 0.0,
-   "samples": 66
+   "samples": 60
   }
  },
  "maroonbells": {
   "4675333001": {
-   "demand_pct": 0.456,
-   "samples": 90
+   "demand_pct": 0.487,
+   "samples": 117
   },
   "4675333002": {
-   "demand_pct": 0.486,
-   "samples": 210
+   "demand_pct": 0.471,
+   "samples": 204
   },
   "4675333003": {
    "demand_pct": 0.067,
    "samples": 120
   },
   "4675333004": {
-   "demand_pct": 0.2,
-   "samples": 180
+   "demand_pct": 0.186,
+   "samples": 177
   },
   "4675333005": {
-   "demand_pct": 0.417,
-   "samples": 60
+   "demand_pct": 0.391,
+   "samples": 87
   },
   "4675333006": {
-   "demand_pct": 0.217,
-   "samples": 60
+   "demand_pct": 0.203,
+   "samples": 59
   },
   "4675333007": {
-   "demand_pct": 0.463,
-   "samples": 240
+   "demand_pct": 0.449,
+   "samples": 234
   },
   "4675333008": {
-   "demand_pct": 0.333,
-   "samples": 30
+   "demand_pct": 0.345,
+   "samples": 58
   },
   "4675333009": {
-   "demand_pct": 0.083,
-   "samples": 120
+   "demand_pct": 0.076,
+   "samples": 119
   },
   "4675333010": {
-   "demand_pct": 0.207,
-   "samples": 150
+   "demand_pct": 0.185,
+   "samples": 146
   },
   "4675333011": {
-   "demand_pct": 0.283,
-   "samples": 60
+   "demand_pct": 0.17,
+   "samples": 88
   },
   "4675333012": {
-   "demand_pct": 0.283,
-   "samples": 180
+   "demand_pct": 0.267,
+   "samples": 176
   },
   "4675333013": {
-   "demand_pct": 0.333,
-   "samples": 120
+   "demand_pct": 0.31,
+   "samples": 116
   },
   "4675333014": {
-   "demand_pct": 0.133,
-   "samples": 180
+   "demand_pct": 0.119,
+   "samples": 177
   },
   "4675333015": {
-   "demand_pct": 0.3,
-   "samples": 30
+   "demand_pct": 0.241,
+   "samples": 58
   },
   "4675333016": {
-   "demand_pct": 0.333,
-   "samples": 150
+   "demand_pct": 0.322,
+   "samples": 146
   },
   "4675333017": {
-   "demand_pct": 0.167,
-   "samples": 150
+   "demand_pct": 0.155,
+   "samples": 148
   },
   "4675333018": {
-   "demand_pct": 0.4,
-   "samples": 60
+   "demand_pct": 0.379,
+   "samples": 87
   },
   "4675333019": {
    "demand_pct": 0.0,
    "samples": 60
   },
   "4675333020": {
-   "demand_pct": 0.267,
-   "samples": 60
-  },
-  "4675333021": {
-   "demand_pct": 0.033,
-   "samples": 30
+   "demand_pct": 0.241,
+   "samples": 87
   },
   "4675333022": {
-   "demand_pct": 0.033,
-   "samples": 60
+   "demand_pct": 0.017,
+   "samples": 59
   },
   "4675333023": {
-   "demand_pct": 0.033,
-   "samples": 180
+   "demand_pct": 0.029,
+   "samples": 174
   },
   "4675333024": {
-   "demand_pct": 0.039,
-   "samples": 180
+   "demand_pct": 0.029,
+   "samples": 204
   },
   "4675333025": {
-   "demand_pct": 0.029,
-   "samples": 210
+   "demand_pct": 0.017,
+   "samples": 236
   },
   "4675333026": {
-   "demand_pct": 0.283,
-   "samples": 120
+   "demand_pct": 0.259,
+   "samples": 116
   },
   "4675333027": {
-   "demand_pct": 0.029,
-   "samples": 240
+   "demand_pct": 0.03,
+   "samples": 233
   },
   "4675333028": {
    "demand_pct": 0.017,
-   "samples": 120
+   "samples": 118
   },
   "4675333029": {
-   "demand_pct": 0.033,
-   "samples": 90
+   "demand_pct": 0.025,
+   "samples": 118
   },
   "4675333030": {
-   "demand_pct": 0.2,
-   "samples": 120
+   "demand_pct": 0.179,
+   "samples": 117
   },
   "4675333031": {
-   "demand_pct": 0.189,
-   "samples": 90
+   "demand_pct": 0.181,
+   "samples": 116
   },
   "4675333032": {
-   "demand_pct": 0.05,
-   "samples": 180
+   "demand_pct": 0.034,
+   "samples": 177
   },
   "4675333033": {
-   "demand_pct": 0.1,
-   "samples": 120
+   "demand_pct": 0.068,
+   "samples": 148
   },
   "4675333034": {
-   "demand_pct": 0.092,
-   "samples": 120
+   "demand_pct": 0.068,
+   "samples": 117
   },
   "4675333035": {
-   "demand_pct": 0.078,
-   "samples": 180
+   "demand_pct": 0.057,
+   "samples": 176
   },
   "4675333036": {
-   "demand_pct": 0.04,
-   "samples": 150
-  },
-  "4675333037": {
-   "demand_pct": 0.067,
-   "samples": 30
+   "demand_pct": 0.022,
+   "samples": 178
   },
   "4675333038": {
-   "demand_pct": 0.089,
-   "samples": 180
+   "demand_pct": 0.068,
+   "samples": 176
   },
   "4675333039": {
-   "demand_pct": 0.244,
-   "samples": 180
+   "demand_pct": 0.227,
+   "samples": 176
   },
   "4675333040": {
-   "demand_pct": 0.144,
-   "samples": 180
+   "demand_pct": 0.12,
+   "samples": 175
   },
   "4675333041": {
-   "demand_pct": 0.1,
-   "samples": 120
+   "demand_pct": 0.096,
+   "samples": 146
   },
   "4675333042": {
-   "demand_pct": 0.139,
-   "samples": 180
+   "demand_pct": 0.119,
+   "samples": 176
   },
   "4675333044": {
-   "demand_pct": 0.225,
-   "samples": 120
+   "demand_pct": 0.205,
+   "samples": 117
   },
   "4675333045": {
-   "demand_pct": 0.1,
-   "samples": 60
+   "demand_pct": 0.069,
+   "samples": 58
   },
   "4675333047": {
-   "demand_pct": 0.167,
-   "samples": 120
+   "demand_pct": 0.153,
+   "samples": 118
   },
   "4675333048": {
-   "demand_pct": 0.067,
-   "samples": 90
+   "demand_pct": 0.051,
+   "samples": 117
   },
   "4675333049": {
-   "demand_pct": 0.15,
-   "samples": 60
+   "demand_pct": 0.121,
+   "samples": 58
   }
  }
 }
